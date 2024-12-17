@@ -10,7 +10,7 @@ public class Dog : BaseEntity
     public int Status { get; set; }
     public DateTime RegistrationTime { get; set; }
     
-    public int CustomerProfileId { get; set; }
+    public string CustomerProfileId { get; set; }
     public CustomerProfile CustomerProfile { get; set; }
     
     public ICollection<DogDocument> DogDocuments { get; set; }

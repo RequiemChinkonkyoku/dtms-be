@@ -12,10 +12,10 @@ public class CustomerProfile : BaseEntity
     public int MembershipPoints { get; set; }
     
     // Foreign Keys
-    public int MembershipId { get; set; }
+    public string MembershipId { get; set; }
     public Membership Membership { get; set; } // Navigation property
 
-    public int AccountId { get; set; }
+    public string AccountId { get; set; }
     public Account Account { get; set; } // Navigation property
     
     public ICollection<Dog> Dogs { get; set; }

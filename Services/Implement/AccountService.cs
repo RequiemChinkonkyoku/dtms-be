@@ -1,3 +1,4 @@
+using Models.DTOs;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -17,5 +18,21 @@ public class AccountService : IAccountService
     {
         var result = await _unitOfWork.Accounts.GetAll();
         return result;
+    }
+
+    public async Task<Account> CreateNewAccount(CreateAccountRequest request)
+    {
+        var account = new Account()
+        {
+            Email = request.Email,
+            Password = request.Password,
+            Username = request.Username,
+            ImageUrl = request.ImageUrl,
+            Status = request.Status,
+            RegistrationTime = DateTime.UtcNow,
+        };
+        await _unitOfWork.Accounts.Add(account);
+        await _unitOfWork.SaveChanges();
+        return account;
     }
 }

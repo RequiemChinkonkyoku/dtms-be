@@ -10,9 +10,9 @@ public class DogDocument : BaseEntity
     public DateOnly IssueDate { get; set; }
     public DateTime UploadTime { get; set; }
     
-    public int DogId { get; set; }
+    public string DogId { get; set; }
     public Dog Dog { get; set; }
     
-    public int DogDocumentTypeId { get; set; }
+    public string DogDocumentTypeId { get; set; }
     public DogDocumentType DogDocumentType { get; set; }
 }

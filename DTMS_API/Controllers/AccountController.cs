@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Models.DTOs;
+using Models.Entities;
 using Services.Implement;
 using Services.Interface;
 
@@ -19,6 +21,13 @@ public class AccountController : ControllerBase
     public async Task<IActionResult> GetAllAccounts()
     {
         var response = await _accountService.GetAllAccounts();
+        return Ok(response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateNewAccount(CreateAccountRequest request)
+    {
+        var response = await _accountService.CreateNewAccount(request);
         return Ok(response);
     }
 }

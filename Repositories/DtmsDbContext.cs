@@ -43,6 +43,7 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<DogDocumentType> DogDocumentTypes { get; set; }
     public virtual DbSet<LegalDocument> LegalDocuments { get; set; }
     public virtual DbSet<StaffRole> StaffRoles { get; set; }
+    public virtual DbSet<TrainerRole> TrainerRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,14 +65,6 @@ public class DtmsDbContext : DbContext
                 .WithOne(sp => sp.Account)
                 .HasForeignKey<StaffProfile>(sp => sp.AccountId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // Ensure only one profile type can exist at a time
-            entity.HasCheckConstraint(
-                "CK_Account_ProfileType",
-                "(CustomerProfileId IS NOT NULL AND ProfileType = 'Customer') OR " +
-                "(TrainerProfileId IS NOT NULL AND ProfileType = 'Trainer') OR " +
-                "(StaffProfileId IS NOT NULL AND ProfileType = 'Staff')"
-            );
         });
         
         modelBuilder.Entity<CustomerProfile>()
@@ -126,6 +119,12 @@ public class DtmsDbContext : DbContext
             .HasOne(dd => dd.StaffProfile)
             .WithMany(d => d.Blogs)
             .HasForeignKey(dd => dd.StaffProfileId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<TrainerProfile>()
+            .HasOne(dd => dd.TrainerRole)
+            .WithMany(d => d.TrainerProfiles)
+            .HasForeignKey(dd => dd.TrainerRoleId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

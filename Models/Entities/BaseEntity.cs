@@ -5,7 +5,22 @@ namespace Models.Entities;
 
 public class BaseEntity
 {
+    protected BaseEntity()
+    {
+        Id = Guid.NewGuid().ToString("N");
+        CreatedTime = LastUpdatedTime = GetCurrentTime();
+    }
+    
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public string Id { get; set; }
+    public DateTimeOffset CreatedTime { get; set; }
+    public DateTimeOffset LastUpdatedTime { get; set; }
+    
+    protected DateTimeOffset GetCurrentTime()
+    {
+        DateTime serverTime = DateTime.UtcNow;
+        TimeZoneInfo vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Ho_Chi_Minh");
+        DateTime _localTime = TimeZoneInfo.ConvertTimeFromUtc(serverTime, vietnamTimeZone);
+        return _localTime;
+    }
 }
