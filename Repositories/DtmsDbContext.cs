@@ -44,6 +44,12 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<LegalDocument> LegalDocuments { get; set; }
     public virtual DbSet<StaffRole> StaffRoles { get; set; }
     public virtual DbSet<TrainerRole> TrainerRoles { get; set; }
+    public virtual DbSet<Skill> Skills { get; set; }
+    public virtual DbSet<TrainerSkill> TrainerSkills { get; set; }
+    public virtual DbSet<Lesson> Lessons { get; set; }
+    public virtual DbSet<Course> Courses { get; set; }
+    public virtual DbSet<CourseLesson> CourseLessons { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -126,5 +132,65 @@ public class DtmsDbContext : DbContext
             .WithMany(d => d.TrainerProfiles)
             .HasForeignKey(dd => dd.TrainerRoleId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Certifications>()
+            .HasOne(dd => dd.TrainerProfile)
+            .WithMany(d => d.Certifications)
+            .HasForeignKey(dd => dd.TrainerProfileId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<TrainerSkill>()
+            .HasOne(dd => dd.TrainerProfile)
+            .WithMany(d => d.TrainerSkills)
+            .HasForeignKey(dd => dd.TrainerProfileId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<TrainerSkill>()
+            .HasOne(dd => dd.Skill)
+            .WithMany(d => d.TrainerSkills)
+            .HasForeignKey(dd => dd.SkillId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Lesson>()
+            .HasOne(dd => dd.Skill)
+            .WithMany(d => d.Lessons)
+            .HasForeignKey(dd => dd.SkillId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Course>()
+            .HasOne(dd => dd.Category)
+            .WithMany(d => d.Courses)
+            .HasForeignKey(dd => dd.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Course>()
+            .HasOne(dd => dd.TrainerProfile)
+            .WithMany(d => d.Courses)
+            .HasForeignKey(dd => dd.TrainerProfileId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<CourseLesson>()
+            .HasOne(dd => dd.Course)
+            .WithMany(d => d.CourseLessons)
+            .HasForeignKey(dd => dd.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<CourseLesson>()
+            .HasOne(dd => dd.Lesson)
+            .WithMany(d => d.CourseLessons)
+            .HasForeignKey(dd => dd.LessonId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Prerequisite>()
+            .HasOne(p => p.Course) // The course requiring prerequisites
+            .WithMany(c => c.Prerequisites)
+            .HasForeignKey(p => p.CourseId)
+            .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
+
+        modelBuilder.Entity<Prerequisite>()
+            .HasOne(p => p.PrerequisiteCourse) // The prerequisite course
+            .WithOne() // 1-to-1 constraint
+            .HasForeignKey<Prerequisite>(p => p.PrerequisiteCourseId)
+            .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
     }
 }

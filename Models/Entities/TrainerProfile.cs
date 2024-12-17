@@ -1,3 +1,5 @@
+using System.Reflection.Metadata;
+
 namespace Models.Entities;
 
 public class TrainerProfile : BaseEntity
@@ -18,4 +20,10 @@ public class TrainerProfile : BaseEntity
     
     public string TrainerRoleId { get; set; }
     public TrainerRole TrainerRole { get; set; }
+    
+    public ICollection<Certifications> Certifications { get; set; }
+    
+    public ICollection<TrainerSkill> TrainerSkills { get; set; }
+    
+    public ICollection<Course> Courses { get; set; }
 }
