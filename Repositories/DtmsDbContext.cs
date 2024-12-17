@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models.Entities;
@@ -30,9 +31,43 @@ public class DtmsDbContext : DbContext
     }
     
     public virtual DbSet<Account> Accounts { get; set; }
+    public virtual DbSet<Membership> Memberships { get; set; }
+    public virtual DbSet<CustomerProfile> CustomerProfiles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Entity<Account>(entity =>
+        {
+            entity.HasOne(a => a.CustomerProfile)
+                .WithOne(cp => cp.Account)
+                .HasForeignKey<CustomerProfile>(cp => cp.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(a => a.TrainerProfile)
+                .WithOne(tp => tp.Account)
+                .HasForeignKey<TrainerProfile>(tp => tp.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(a => a.StaffProfile)
+                .WithOne(sp => sp.Account)
+                .HasForeignKey<StaffProfile>(sp => sp.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Ensure only one profile type can exist at a time
+            entity.HasCheckConstraint(
+                "CK_Account_ProfileType",
+                "(CustomerProfileId IS NOT NULL AND ProfileType = 'Customer') OR " +
+                "(TrainerProfileId IS NOT NULL AND ProfileType = 'Trainer') OR " +
+                "(StaffProfileId IS NOT NULL AND ProfileType = 'Staff')"
+            );
+        });
+        
+        modelBuilder.Entity<CustomerProfile>()
+            .HasOne(cp => cp.Membership) // One CustomerProfile has one Membership
+            .WithMany(m => m.CustomerProfiles) // One Membership can have many CustomerProfiles
+            .HasForeignKey(cp => cp.MembershipId) // Foreign key in CustomerProfile
+            .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
     }
 }

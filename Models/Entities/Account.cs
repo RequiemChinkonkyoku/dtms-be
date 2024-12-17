@@ -8,4 +8,17 @@ public class Account : BaseEntity
     public string ImageUrl { get; set; }
     public int Status { get; set; }
     public DateTime RegistrationTime { get; set; }
+    
+    // Discriminator for profile type
+    public string ProfileType { get; set; } // E.g., "Customer", "Trainer", "Staff"
+
+    // Nullable foreign keys
+    public int? CustomerProfileId { get; set; }
+    public CustomerProfile CustomerProfile { get; set; }
+
+    public int? TrainerProfileId { get; set; }
+    public TrainerProfile TrainerProfile { get; set; }
+
+    public int? StaffProfileId { get; set; }
+    public StaffProfile StaffProfile { get; set; }
 }
