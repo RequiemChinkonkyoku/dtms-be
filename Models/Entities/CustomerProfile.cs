@@ -1,3 +1,5 @@
+using System.Reflection.Metadata;
+
 namespace Models.Entities;
 
 public class CustomerProfile : BaseEntity
@@ -15,4 +17,8 @@ public class CustomerProfile : BaseEntity
 
     public int AccountId { get; set; }
     public Account Account { get; set; } // Navigation property
+    
+    public ICollection<Dog> Dogs { get; set; }
+    
+    public ICollection<LegalDocument> LegalDocuments { get; set; }
 }

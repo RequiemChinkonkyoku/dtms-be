@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories;
 
@@ -11,9 +12,11 @@ using Repositories;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DtmsDbContext))]
-    partial class DtmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241217075830_V1_AddPaymentAndMethod")]
+    partial class V1_AddPaymentAndMethod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,118 +122,6 @@ namespace Repositories.Migrations
                     b.ToTable("CustomerProfiles");
                 });
 
-            modelBuilder.Entity("Models.Entities.Dog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Breed")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CustomerProfileId")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("DateOfBirth")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RegistrationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerProfileId");
-
-                    b.ToTable("Dogs");
-                });
-
-            modelBuilder.Entity("Models.Entities.DogDocument", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DogDocumentTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DogId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateOnly>("IssueDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("IssuingAuthority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UploadTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DogDocumentTypeId");
-
-                    b.HasIndex("DogId");
-
-                    b.ToTable("DogDocuments");
-                });
-
-            modelBuilder.Entity("Models.Entities.DogDocumentType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DogDocumentTypes");
-                });
-
             modelBuilder.Entity("Models.Entities.Enrollment", b =>
                 {
                     b.Property<int>("Id")
@@ -239,51 +130,9 @@ namespace Repositories.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PaymentId")
-                        .IsUnique();
 
                     b.ToTable("Enrollments");
-                });
-
-            modelBuilder.Entity("Models.Entities.LegalDocument", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CustomerProfileId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UploadTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerProfileId");
-
-                    b.ToTable("LegalDocuments");
                 });
 
             modelBuilder.Entity("Models.Entities.Membership", b =>
@@ -347,6 +196,8 @@ namespace Repositories.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EnrollmentId");
 
                     b.HasIndex("MembershipId");
 
@@ -436,60 +287,14 @@ namespace Repositories.Migrations
                     b.Navigation("Membership");
                 });
 
-            modelBuilder.Entity("Models.Entities.Dog", b =>
+            modelBuilder.Entity("Models.Entities.Payment", b =>
                 {
-                    b.HasOne("Models.Entities.CustomerProfile", "CustomerProfile")
-                        .WithMany("Dogs")
-                        .HasForeignKey("CustomerProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CustomerProfile");
-                });
-
-            modelBuilder.Entity("Models.Entities.DogDocument", b =>
-                {
-                    b.HasOne("Models.Entities.DogDocumentType", "DogDocumentType")
-                        .WithMany("DogDocuments")
-                        .HasForeignKey("DogDocumentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.Dog", "Dog")
-                        .WithMany("DogDocuments")
-                        .HasForeignKey("DogId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Dog");
-
-                    b.Navigation("DogDocumentType");
-                });
-
-            modelBuilder.Entity("Models.Entities.Enrollment", b =>
-                {
-                    b.HasOne("Models.Entities.Payment", "Payment")
-                        .WithOne("Enrollment")
-                        .HasForeignKey("Models.Entities.Enrollment", "PaymentId")
+                    b.HasOne("Models.Entities.Enrollment", "Enrollment")
+                        .WithMany()
+                        .HasForeignKey("EnrollmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Payment");
-                });
-
-            modelBuilder.Entity("Models.Entities.LegalDocument", b =>
-                {
-                    b.HasOne("Models.Entities.CustomerProfile", "CustomerProfile")
-                        .WithMany("LegalDocuments")
-                        .HasForeignKey("CustomerProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CustomerProfile");
-                });
-
-            modelBuilder.Entity("Models.Entities.Payment", b =>
-                {
                     b.HasOne("Models.Entities.Membership", "Membership")
                         .WithMany()
                         .HasForeignKey("MembershipId");
@@ -499,6 +304,8 @@ namespace Repositories.Migrations
                         .HasForeignKey("PaymentMethodId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Enrollment");
 
                     b.Navigation("Membership");
 
@@ -539,32 +346,9 @@ namespace Repositories.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.Entities.CustomerProfile", b =>
-                {
-                    b.Navigation("Dogs");
-
-                    b.Navigation("LegalDocuments");
-                });
-
-            modelBuilder.Entity("Models.Entities.Dog", b =>
-                {
-                    b.Navigation("DogDocuments");
-                });
-
-            modelBuilder.Entity("Models.Entities.DogDocumentType", b =>
-                {
-                    b.Navigation("DogDocuments");
-                });
-
             modelBuilder.Entity("Models.Entities.Membership", b =>
                 {
                     b.Navigation("CustomerProfiles");
-                });
-
-            modelBuilder.Entity("Models.Entities.Payment", b =>
-                {
-                    b.Navigation("Enrollment")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.Entities.PaymentMethod", b =>
