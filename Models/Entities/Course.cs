@@ -16,14 +16,23 @@ public class Course : BaseEntity
     public int MinTrainers { get; set; }
     public int MaxTrainers { get; set; }
     public int Complexity { get; set; }
-    
+
     public string TrainerProfileId { get; set; }
     public TrainerProfile TrainerProfile { get; set; }
-    
+
     public string CategoryId { get; set; }
     public Category Category { get; set; }
-    
+
+    public string CertificateId { get; set; }
+    public Certificate Certificate { get; set; }
+
     public ICollection<CourseLesson> CourseLessons { get; set; }
-    
+
     public ICollection<Prerequisite> Prerequisites { get; set; } // Prerequisites for this course
+
+    public ICollection<Class> Classes { get; set; }
+
+    public ICollection<CourseEquipment> CourseEquipment { get; set; }
+
+    public ICollection<WishList> WishLists { get; set; }
 }

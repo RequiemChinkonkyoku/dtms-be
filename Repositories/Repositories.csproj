@@ -17,4 +17,10 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="connectionstrings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories;
 
@@ -11,9 +12,11 @@ using Repositories;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DtmsDbContext))]
-    partial class DtmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241218080451_V1_AddEnrollmentAndCertificateTbl")]
+    partial class V1_AddEnrollmentAndCertificateTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,34 +72,6 @@ namespace Repositories.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("Models.Entities.Attendance", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ClassId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("DogId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("DogId");
-
-                    b.ToTable("Attendances");
-                });
-
             modelBuilder.Entity("Models.Entities.Availability", b =>
                 {
                     b.Property<string>("Id")
@@ -125,7 +100,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("TrainerProfileId");
 
-                    b.ToTable("Availabilities");
+                    b.ToTable("Availability");
                 });
 
             modelBuilder.Entity("Models.Entities.Blog", b =>
@@ -165,7 +140,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("StaffProfileId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blog");
                 });
 
             modelBuilder.Entity("Models.Entities.Cage", b =>
@@ -191,7 +166,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cages");
+                    b.ToTable("Cage");
                 });
 
             modelBuilder.Entity("Models.Entities.Category", b =>
@@ -249,7 +224,7 @@ namespace Repositories.Migrations
                     b.HasIndex("CourseId")
                         .IsUnique();
 
-                    b.ToTable("Certificates");
+                    b.ToTable("Certificate");
                 });
 
             modelBuilder.Entity("Models.Entities.Certifications", b =>
@@ -290,41 +265,6 @@ namespace Repositories.Migrations
                     b.HasIndex("TrainerProfileId");
 
                     b.ToTable("Certifications");
-                });
-
-            modelBuilder.Entity("Models.Entities.Chat", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SenderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("Models.Entities.Class", b =>
@@ -460,7 +400,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("EquipmentId");
 
-                    b.ToTable("CourseEquipments");
+                    b.ToTable("CourseEquipment");
                 });
 
             modelBuilder.Entity("Models.Entities.CourseLesson", b =>
@@ -618,7 +558,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("DogId");
 
-                    b.ToTable("DogCertificates");
+                    b.ToTable("DogCertificate");
                 });
 
             modelBuilder.Entity("Models.Entities.DogDocument", b =>
@@ -769,7 +709,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Equipments");
+                    b.ToTable("Equipment");
                 });
 
             modelBuilder.Entity("Models.Entities.LegalDocument", b =>
@@ -876,39 +816,6 @@ namespace Repositories.Migrations
                     b.ToTable("Memberships");
                 });
 
-            modelBuilder.Entity("Models.Entities.Notification", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.ToTable("Notifications");
-                });
-
             modelBuilder.Entity("Models.Entities.Payment", b =>
                 {
                     b.Property<string>("Id")
@@ -1009,54 +916,7 @@ namespace Repositories.Migrations
                     b.HasIndex("PrerequisiteCourseId")
                         .IsUnique();
 
-                    b.ToTable("Prerequisites");
-                });
-
-            modelBuilder.Entity("Models.Entities.ProgressReport", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AttendanceId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("BehaviorObservation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Feedback")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HealthObservation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("PerformanceObservation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TrainerProfileId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AttendanceId");
-
-                    b.HasIndex("TrainerProfileId");
-
-                    b.ToTable("ProgressReports");
+                    b.ToTable("Prerequisite");
                 });
 
             modelBuilder.Entity("Models.Entities.Schedule", b =>
@@ -1078,7 +938,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Schedule");
                 });
 
             modelBuilder.Entity("Models.Entities.Skill", b =>
@@ -1133,7 +993,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("ScheduleId");
 
-                    b.ToTable("Slots");
+                    b.ToTable("Slot");
                 });
 
             modelBuilder.Entity("Models.Entities.SlotEquipment", b =>
@@ -1164,7 +1024,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("SlotId");
 
-                    b.ToTable("SlotEquipments");
+                    b.ToTable("SlotEquipment");
                 });
 
             modelBuilder.Entity("Models.Entities.Specialization", b =>
@@ -1296,7 +1156,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("TrainerProfileId");
 
-                    b.ToTable("TrainerAssignments");
+                    b.ToTable("TrainerAssignment");
                 });
 
             modelBuilder.Entity("Models.Entities.TrainerProfile", b =>
@@ -1359,41 +1219,6 @@ namespace Repositories.Migrations
                     b.HasIndex("TrainerRoleId");
 
                     b.ToTable("TrainerProfiles");
-                });
-
-            modelBuilder.Entity("Models.Entities.TrainerReport", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CustomerProfileId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TrainerProfileId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerProfileId");
-
-                    b.HasIndex("TrainerProfileId");
-
-                    b.ToTable("TrainerReports");
                 });
 
             modelBuilder.Entity("Models.Entities.TrainerRole", b =>
@@ -1476,101 +1301,6 @@ namespace Repositories.Migrations
                     b.ToTable("TrainerSpecializations");
                 });
 
-            modelBuilder.Entity("Models.Entities.TrainingReport", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("BehaviorType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("DogId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Intensity")
-                        .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReactionToCommands")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Socialization")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StressLevel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TrainerProfileId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DogId");
-
-                    b.HasIndex("TrainerProfileId");
-
-                    b.ToTable("TrainingReports");
-                });
-
-            modelBuilder.Entity("Models.Entities.WishList", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CourseId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CustomerProfileId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("CustomerProfileId");
-
-                    b.ToTable("WishLists");
-                });
-
-            modelBuilder.Entity("Models.Entities.Attendance", b =>
-                {
-                    b.HasOne("Models.Entities.Class", "Class")
-                        .WithMany("Attendances")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.Dog", "Dog")
-                        .WithMany("Attendances")
-                        .HasForeignKey("DogId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Dog");
-                });
-
             modelBuilder.Entity("Models.Entities.Availability", b =>
                 {
                     b.HasOne("Models.Entities.Schedule", "Schedule")
@@ -1621,25 +1351,6 @@ namespace Repositories.Migrations
                         .IsRequired();
 
                     b.Navigation("TrainerProfile");
-                });
-
-            modelBuilder.Entity("Models.Entities.Chat", b =>
-                {
-                    b.HasOne("Models.Entities.Account", "ReceiverAccount")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.Account", "SenderAccount")
-                        .WithMany("Chats")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ReceiverAccount");
-
-                    b.Navigation("SenderAccount");
                 });
 
             modelBuilder.Entity("Models.Entities.Class", b =>
@@ -1835,17 +1546,6 @@ namespace Repositories.Migrations
                     b.Navigation("Skill");
                 });
 
-            modelBuilder.Entity("Models.Entities.Notification", b =>
-                {
-                    b.HasOne("Models.Entities.Account", "ReceiverAccount")
-                        .WithMany("Notifications")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ReceiverAccount");
-                });
-
             modelBuilder.Entity("Models.Entities.Payment", b =>
                 {
                     b.HasOne("Models.Entities.Membership", "Membership")
@@ -1880,25 +1580,6 @@ namespace Repositories.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("PrerequisiteCourse");
-                });
-
-            modelBuilder.Entity("Models.Entities.ProgressReport", b =>
-                {
-                    b.HasOne("Models.Entities.Attendance", "Attendance")
-                        .WithMany("ProgressReports")
-                        .HasForeignKey("AttendanceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.TrainerProfile", "TrainerProfile")
-                        .WithMany("ProgressReports")
-                        .HasForeignKey("TrainerProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Attendance");
-
-                    b.Navigation("TrainerProfile");
                 });
 
             modelBuilder.Entity("Models.Entities.Slot", b =>
@@ -1996,25 +1677,6 @@ namespace Repositories.Migrations
                     b.Navigation("TrainerRole");
                 });
 
-            modelBuilder.Entity("Models.Entities.TrainerReport", b =>
-                {
-                    b.HasOne("Models.Entities.CustomerProfile", "CustomerProfile")
-                        .WithMany("TrainerReports")
-                        .HasForeignKey("CustomerProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.TrainerProfile", "TrainerProfile")
-                        .WithMany("TrainerReports")
-                        .HasForeignKey("TrainerProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CustomerProfile");
-
-                    b.Navigation("TrainerProfile");
-                });
-
             modelBuilder.Entity("Models.Entities.TrainerSkill", b =>
                 {
                     b.HasOne("Models.Entities.Skill", "Skill")
@@ -2053,63 +1715,16 @@ namespace Repositories.Migrations
                     b.Navigation("TrainerProfile");
                 });
 
-            modelBuilder.Entity("Models.Entities.TrainingReport", b =>
-                {
-                    b.HasOne("Models.Entities.Dog", "Dog")
-                        .WithMany("TrainingReports")
-                        .HasForeignKey("DogId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.TrainerProfile", "TrainerProfile")
-                        .WithMany("TrainingReports")
-                        .HasForeignKey("TrainerProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Dog");
-
-                    b.Navigation("TrainerProfile");
-                });
-
-            modelBuilder.Entity("Models.Entities.WishList", b =>
-                {
-                    b.HasOne("Models.Entities.Course", "Course")
-                        .WithMany("WishLists")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.Entities.CustomerProfile", "CustomerProfile")
-                        .WithMany("WishLists")
-                        .HasForeignKey("CustomerProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("CustomerProfile");
-                });
-
             modelBuilder.Entity("Models.Entities.Account", b =>
                 {
-                    b.Navigation("Chats");
-
                     b.Navigation("CustomerProfile")
                         .IsRequired();
-
-                    b.Navigation("Notifications");
 
                     b.Navigation("StaffProfile")
                         .IsRequired();
 
                     b.Navigation("TrainerProfile")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.Entities.Attendance", b =>
-                {
-                    b.Navigation("ProgressReports");
                 });
 
             modelBuilder.Entity("Models.Entities.Cage", b =>
@@ -2129,8 +1744,6 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Models.Entities.Class", b =>
                 {
-                    b.Navigation("Attendances");
-
                     b.Navigation("Enrollments");
 
                     b.Navigation("Slots");
@@ -2150,8 +1763,6 @@ namespace Repositories.Migrations
                     b.Navigation("CourseLessons");
 
                     b.Navigation("Prerequisites");
-
-                    b.Navigation("WishLists");
                 });
 
             modelBuilder.Entity("Models.Entities.CourseEquipment", b =>
@@ -2164,23 +1775,15 @@ namespace Repositories.Migrations
                     b.Navigation("Dogs");
 
                     b.Navigation("LegalDocuments");
-
-                    b.Navigation("TrainerReports");
-
-                    b.Navigation("WishLists");
                 });
 
             modelBuilder.Entity("Models.Entities.Dog", b =>
                 {
-                    b.Navigation("Attendances");
-
                     b.Navigation("DogCertificates");
 
                     b.Navigation("DogDocuments");
 
                     b.Navigation("Enrollments");
-
-                    b.Navigation("TrainingReports");
                 });
 
             modelBuilder.Entity("Models.Entities.DogDocumentType", b =>
@@ -2256,17 +1859,11 @@ namespace Repositories.Migrations
 
                     b.Navigation("Courses");
 
-                    b.Navigation("ProgressReports");
-
                     b.Navigation("TrainerAssignments");
-
-                    b.Navigation("TrainerReports");
 
                     b.Navigation("TrainerSkills");
 
                     b.Navigation("TrainerSpecializations");
-
-                    b.Navigation("TrainingReports");
                 });
 
             modelBuilder.Entity("Models.Entities.TrainerRole", b =>

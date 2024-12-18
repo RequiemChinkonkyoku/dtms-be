@@ -14,16 +14,28 @@ public class TrainerProfile : BaseEntity
     public int EmploymentStatus { get; set; }
     public int Status { get; set; }
     public DateTime RegistrationTime { get; set; }
-    
+
     public string AccountId { get; set; }
     public Account Account { get; set; } // Navigation property
-    
+
     public string TrainerRoleId { get; set; }
     public TrainerRole TrainerRole { get; set; }
-    
+
     public ICollection<Certifications> Certifications { get; set; }
-    
+
     public ICollection<TrainerSkill> TrainerSkills { get; set; }
-    
+
     public ICollection<Course> Courses { get; set; }
+
+    public ICollection<TrainerSpecialization> TrainerSpecializations { get; set; }
+
+    public ICollection<TrainerAssignment> TrainerAssignments { get; set; }
+
+    public ICollection<Availability> Availabilities { get; set; }
+
+    public ICollection<ProgressReport> ProgressReports { get; set; }
+
+    public ICollection<TrainingReport> TrainingReports { get; set; }
+
+    public ICollection<TrainerReport> TrainerReports { get; set; }
 }
