@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Implement
 {
-    public class PaymentMethodRepositry : RepositoryBase<PaymentMethod>, IPaymentMethodRepository
+    public class StaffProfileRepository : RepositoryBase<StaffProfile>, IStaffProfileRepository
     {
     }
 }

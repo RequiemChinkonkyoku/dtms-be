@@ -1,4 +1,5 @@
 ﻿using Models.Entities;
+using Repositories.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Implement
 {
-    public class ProgressReportRepository : RepositoryBase<ProgressReport>
+    public class ProgressReportRepository : RepositoryBase<ProgressReport>, IProgressReportRepository
     {
     }
 }

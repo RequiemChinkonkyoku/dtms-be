@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Implement
 {
-    public class AttendanceRepository : RepositoryBase<Account>, IAccountRepository
+    public class AttendanceRepository : RepositoryBase<Attendance>, IAttendanceRepository
     {
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Implement
 {
-    public class DogRepostiry : RepositoryBase<Dog>, IDogRepository
+    public class PaymentMethodRepository : RepositoryBase<PaymentMethod>, IPaymentMethodRepository
     {
     }
 }

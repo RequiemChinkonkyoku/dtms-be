@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Implement
 {
-    public class DogDocumentTypeRepositoty : RepositoryBase<DogDocumentType>, IDogDocumentTypeRepository
+    public class DogDocumentTypeRepository : RepositoryBase<DogDocumentType>, IDogDocumentTypeRepository
     {
     }
 }
