@@ -1,13 +1,13 @@
-﻿using Services.Interface;
+﻿using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Implement
+namespace Repositories.Interface
 {
-    public class CourseEquipmentService : ICourseEquipmentService
+    public interface IDogBreedRepository : IRepositoryBase<DogBreed>
     {
     }
 }

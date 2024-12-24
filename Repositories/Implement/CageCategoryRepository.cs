@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Implement
 {
-    public class SlotEquipmentRepository : RepositoryBase<SlotEquipment>, ISlotEquipmentRepository
+    public class CageCategoryRepository : RepositoryBase<CageCategory>, ICageCategoryRepository
     {
     }
 }

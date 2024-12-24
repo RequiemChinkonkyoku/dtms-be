@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services.Implement
 {
-    public class SlotEquipmentService : ISlotEquipmentService
+    public class LessonEquipmentService : ILessonEquipmentService
     {
     }
 }

@@ -12,6 +12,9 @@ namespace Models.Entities
         public int Status { get; set; }
         public string Location { get; set; }
 
+        public string CageCategoryId { get; set; }
+        public CageCategory CageCategory { get; set; }
+
         public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

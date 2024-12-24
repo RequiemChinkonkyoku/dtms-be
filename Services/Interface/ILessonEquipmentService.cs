@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.Interface
 {
-    public interface ICourseEquipmentService
+    public interface ILessonEquipmentService
     {
     }
 }

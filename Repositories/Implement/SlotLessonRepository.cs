@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Implement
 {
-    public class CourseEquipmentRepository : RepositoryBase<CourseEquipment>, ICourseEquipmentRepository
+    public class SlotLessonRepository : RepositoryBase<SlotLesson>, ISlotLessonRepository
     {
     }
 }

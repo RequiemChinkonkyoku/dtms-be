@@ -1,13 +1,14 @@
 ﻿using Models.Entities;
+using Repositories.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories.Interface
+namespace Repositories.Implement
 {
-    public interface ICourseEquipmentRepository : IRepositoryBase<CourseEquipment>
+    public class DogBreedRepository : RepositoryBase<DogBreed>, IDogBreedRepository
     {
     }
 }

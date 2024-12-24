@@ -51,7 +51,6 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<Lesson> Lessons { get; set; }
     public virtual DbSet<Course> Courses { get; set; }
     public virtual DbSet<Prerequisite> Prerequisites { get; set; }
-    public virtual DbSet<CourseLesson> CourseLessons { get; set; }
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Specialization> Specializations { get; set; }
     public virtual DbSet<TrainerSpecialization> TrainerSpecializations { get; set; }
@@ -61,8 +60,6 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<Availability> Availabilities { get; set; }
     public virtual DbSet<Equipment> Equipments { get; set; }
     public virtual DbSet<Schedule> Schedules { get; set; }
-    public virtual DbSet<CourseEquipment> CourseEquipments { get; set; }
-    public virtual DbSet<SlotEquipment> SlotEquipments { get; set; }
     public virtual DbSet<Cage> Cages { get; set; }
     public virtual DbSet<Certificate> Certificates { get; set; }
     public virtual DbSet<DogCertificate> DogCertificates { get; set; }
@@ -73,6 +70,12 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<WishList> WishLists { get; set; }
     public virtual DbSet<Chat> Chats { get; set; }
     public virtual DbSet<Notification> Notifications { get; set; }
+    public virtual DbSet<CageCategory> CageCategories { get; set; }
+    public virtual DbSet<SlotLesson> SlotLessons { get; set; }
+    public virtual DbSet<LessonEquipment> LessonEquipments { get; set; }
+    public virtual DbSet<EquipmentCategory> EquipmentCategories { get; set; }
+    public virtual DbSet<DogBreed> DogBreeds { get; set; }
+    public virtual DbSet<CustomerRole> CustomerRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -187,20 +190,20 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Course>()
-            .HasOne(dd => dd.TrainerProfile)
+            .HasOne(dd => dd.CreatedTrainerProfile)
             .WithMany(d => d.Courses)
-            .HasForeignKey(dd => dd.TrainerProfileId)
+            .HasForeignKey(dd => dd.CreatedTrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<CourseLesson>()
-            .HasOne(dd => dd.Course)
-            .WithMany(d => d.CourseLessons)
-            .HasForeignKey(dd => dd.CourseId)
+        modelBuilder.Entity<SlotLesson>()
+            .HasOne(dd => dd.Slot)
+            .WithMany(d => d.SlotLessons)
+            .HasForeignKey(dd => dd.SlotId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<CourseLesson>()
+        modelBuilder.Entity<SlotLesson>()
             .HasOne(dd => dd.Lesson)
-            .WithMany(d => d.CourseLessons)
+            .WithMany(d => d.SlotLessons)
             .HasForeignKey(dd => dd.LessonId)
             .OnDelete(DeleteBehavior.Restrict);
 
@@ -270,28 +273,16 @@ public class DtmsDbContext : DbContext
             .HasForeignKey(av => av.ScheduleId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<CourseEquipment>()
-            .HasOne(ce => ce.Course)
-            .WithMany(c => c.CourseEquipment)
-            .HasForeignKey(ce => ce.CourseId)
+        modelBuilder.Entity<LessonEquipment>()
+            .HasOne(ce => ce.Lesson)
+            .WithMany(c => c.LessonEquipments)
+            .HasForeignKey(ce => ce.LessonId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<CourseEquipment>()
+        modelBuilder.Entity<LessonEquipment>()
             .HasOne(ce => ce.Equipment)
-            .WithMany(e => e.CourseEquipment)
+            .WithMany(e => e.LessonEquipments)
             .HasForeignKey(ce => ce.EquipmentId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<SlotEquipment>()
-            .HasOne(se => se.CourseEquipment)
-            .WithMany(ce => ce.SlotEquipments)
-            .HasForeignKey(se => se.CourseEquipmentId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<SlotEquipment>()
-            .HasOne(se => se.Slot)
-            .WithMany(s => s.SlotEquipments)
-            .HasForeignKey(se => se.SlotId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Certificate>()
@@ -409,6 +400,30 @@ public class DtmsDbContext : DbContext
             .HasOne(n => n.ReceiverAccount)
             .WithMany(a => a.Notifications)
             .HasForeignKey(n => n.ReceiverId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Cage>()
+            .HasOne(c => c.CageCategory)
+            .WithMany(cc => cc.Cages)
+            .HasForeignKey(c => c.CageCategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Equipment>()
+            .HasOne(e => e.EquipmentCategory)
+            .WithMany(ec => ec.Equipments)
+            .HasForeignKey(e => e.EquipmentCategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Dog>()
+            .HasOne(d => d.DogBreed)
+            .WithMany(db => db.Dogs)
+            .HasForeignKey(d => d.DogBreedId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CustomerProfile>()
+            .HasOne(cp => cp.CustomerRole)
+            .WithMany(cr => cr.CustomerProfiles)
+            .HasForeignKey(cp => cp.CustomerRoleId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

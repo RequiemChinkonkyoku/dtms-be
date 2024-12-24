@@ -7,19 +7,22 @@ public interface IUnitOfWork : IDisposable
     IAvailabilityRepository Availabilities { get; }
     IBlogRepository Blogs { get; }
     ICageRepository Cages { get; }
+    ICageCategoryRepository CageCategories { get; }
     ICategoryRepository Categories { get; }
     ICertificateRepository Certificates { get; }
     ICertificationRepository Certifications { get; }
     IChatRepository Chats { get; }
     IClassRepository Classes { get; }
-    ICourseEquipmentRepository CourseEquipments { get; }
-    ICourseLessonRepository CourseLessons { get; }
+    ILessonEquipmentRepository LessonEquipments { get; }
+    ISlotLessonRepository SlotLessons { get; }
     ICourseRepository Courses { get; }
     ICustomerProfileRepository CustomerProfiles { get; }
+    ICustomerRoleRepository CustomerRoles { get; }
     IDogCertificateRepository DogCertificates { get; }
     IDogDocumentRepository DogDocuments { get; }
     IDogDocumentTypeRepository DogDocumentTypes { get; }
     IDogRepository Dogs { get; }
+    IDogBreedRepository DogBreeds { get; }
     IEnrollmentRepository Enrollments { get; }
     IEquipmentRepository Equipments { get; }
     ILegalDocumentRepository LegalDocuments { get; }
@@ -32,7 +35,6 @@ public interface IUnitOfWork : IDisposable
     IProgressReportRepository ProgressReports { get; }
     IScheduleRepository Schedules { get; }
     ISkillRepository Skills { get; }
-    ISlotEquipmentRepository SlotEquipments { get; }
     ISlotRepository Slots { get; }
     ISpecializationRepository Specializations { get; }
     IStaffProfileRepository StaffProfiles { get; }

@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace Models.Entities
 {
-    public class CourseEquipment : BaseEntity
+    public class LessonEquipment : BaseEntity
     {
-        public string CourseId { get; set; }
-        public Course Course { get; set; }
+        public string LessonId { get; set; }
+        public Lesson Lesson { get; set; }
 
         public string EquipmentId { get; set; }
         public Equipment Equipment { get; set; }
-
-        public ICollection<SlotEquipment> SlotEquipments { get; set; }
     }
 }

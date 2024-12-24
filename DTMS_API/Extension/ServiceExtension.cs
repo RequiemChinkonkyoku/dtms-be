@@ -11,29 +11,33 @@ public static class ServiceExtension
     public static IServiceCollection AddServiceExtension(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-        
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAttendanceRepository, AttendanceRepository>();
         services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
         services.AddScoped<IBlogRepository, BlogRepository>();
         services.AddScoped<ICageRepository, CageRepository>();
+        services.AddScoped<ICageCategoryRepository, CageCategoryRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICertificateRepository, CertificateRepository>();
         services.AddScoped<ICertificationRepository, CertificationRepository>();
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IClassRepository, ClassRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
-        services.AddScoped<ICourseEquipmentRepository, CourseEquipmentRepository>();
-        services.AddScoped<ICourseLessonRepository, CourseLessonRepository>();
+        services.AddScoped<ILessonEquipmentRepository, LessonEquipmentRepository>();
+        services.AddScoped<ISlotLessonRepository, SlotLessonRepository>();
         services.AddScoped<ICustomerProfileRepository, CustomerProfileRepository>();
+        services.AddScoped<ICustomerRoleRepository, CustomerRoleRepository>();
         services.AddScoped<IDogRepository, DogRepository>();
+        services.AddScoped<IDogBreedRepository, DogBreedRepository>();
         services.AddScoped<IDogCertificateRepository, DogCertificateRepository>();
         services.AddScoped<IDogDocumentRepository, DogDocumentRepository>();
         services.AddScoped<IDogDocumentTypeRepository, DogDocumentTypeRepository>();
         services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
         services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+        services.AddScoped<IEquipmentCategoryRepository, EquipmentCategoryRepository>();
         services.AddScoped<ILegalDocumentRepository, LegalDocumentRepository>();
         services.AddScoped<ILessonRepository, LessonRepository>();
         services.AddScoped<IMembershipRepository, MembershipRepository>();
@@ -45,7 +49,6 @@ public static class ServiceExtension
         services.AddScoped<IScheduleRepository, ScheduleRepository>();
         services.AddScoped<ISkillRepository, SkillRepository>();
         services.AddScoped<ISlotRepository, SlotRepository>();
-        services.AddScoped<ISlotEquipmentRepository, SlotEquipmentRepository>();
         services.AddScoped<ISpecializationRepository, SpecializationRepository>();
         services.AddScoped<IStaffProfileRepository, StaffProfileRepository>();
         services.AddScoped<IStaffRoleRepository, StaffRoleRepository>();
@@ -63,21 +66,25 @@ public static class ServiceExtension
         services.AddScoped<IAvailabilityService, AvailabilityService>();
         services.AddScoped<IBlogService, BlogService>();
         services.AddScoped<ICageService, CageService>();
+        services.AddScoped<ICageCategoryService, CageCategoryService>();
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<ICertificateService, CertificateService>();
         services.AddScoped<ICertificationService, CertificationService>();
         services.AddScoped<IChatService, ChatService>();
         services.AddScoped<IClassService, ClassService>();
         services.AddScoped<ICourseService, CourseService>();
-        services.AddScoped<ICourseEquipmentService, CourseEquipmentService>();
-        services.AddScoped<ICourseLessonService, CourseLessonService>();
+        services.AddScoped<ILessonEquipmentService, LessonEquipmentService>();
+        services.AddScoped<ISlotLessonService, SlotLessonService>();
         services.AddScoped<ICustomerProfileService, CustomerProfileService>();
+        services.AddScoped<ICustomerRoleService, CustomerRoleService>();
         services.AddScoped<IDogService, DogService>();
+        services.AddScoped<IDogBreedService, DogBreedService>();
         services.AddScoped<IDogCertificateService, DogCertificateService>();
         services.AddScoped<IDogDocumentService, DogDocumentService>();
         services.AddScoped<IDogDocumentTypeService, DogDocumentTypeService>();
         services.AddScoped<IEnrollmentService, EnrollmentService>();
         services.AddScoped<IEquipmentService, EquipmentService>();
+        services.AddScoped<IEquipmentCategoryService, EquipmentCategoryService>();
         services.AddScoped<ILegalDocumentService, LegalDocumentService>();
         services.AddScoped<ILessonService, LessonService>();
         services.AddScoped<IMembershipService, MembershipService>();
@@ -89,7 +96,6 @@ public static class ServiceExtension
         services.AddScoped<IScheduleService, ScheduleService>();
         services.AddScoped<ISkillService, SkillService>();
         services.AddScoped<ISlotService, SlotService>();
-        services.AddScoped<ISlotEquipmentService, SlotEquipmentService>();
         services.AddScoped<ISpecializationService, SpecializationService>();
         services.AddScoped<IStaffProfileService, StaffProfileService>();
         services.AddScoped<IStaffRoleService, StaffRoleService>();

@@ -13,6 +13,9 @@ public class Dog : BaseEntity
     public string CustomerProfileId { get; set; }
     public CustomerProfile CustomerProfile { get; set; }
 
+    public string DogBreedId { get; set; }
+    public DogBreed DogBreed { get; set; }
+
     public ICollection<DogDocument> DogDocuments { get; set; }
 
     public ICollection<DogCertificate> DogCertificates { get; set; }

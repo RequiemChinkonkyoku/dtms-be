@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Interface
 {
-    public interface ISlotEquipmentRepository : IRepositoryBase<SlotEquipment>
+    public interface ILessonEquipmentRepository : IRepositoryBase<LessonEquipment>
     {
     }
 }

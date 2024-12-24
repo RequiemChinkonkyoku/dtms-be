@@ -12,19 +12,22 @@ public class UnitOfWork : IUnitOfWork
     public IAvailabilityRepository Availabilities { get; }
     public IBlogRepository Blogs { get; }
     public ICageRepository Cages { get; }
+    public ICageCategoryRepository CageCategories { get; }
     public ICategoryRepository Categories { get; }
     public ICertificateRepository Certificates { get; }
     public ICertificationRepository Certifications { get; }
     public IChatRepository Chats { get; }
     public IClassRepository Classes { get; }
-    public ICourseEquipmentRepository CourseEquipments { get; }
-    public ICourseLessonRepository CourseLessons { get; }
+    public ILessonEquipmentRepository LessonEquipments { get; }
+    public ISlotLessonRepository SlotLessons { get; }
     public ICourseRepository Courses { get; }
     public ICustomerProfileRepository CustomerProfiles { get; }
+    public ICustomerRoleRepository CustomerRoles { get; }
     public IDogCertificateRepository DogCertificates { get; }
     public IDogDocumentRepository DogDocuments { get; }
     public IDogDocumentTypeRepository DogDocumentTypes { get; }
     public IDogRepository Dogs { get; }
+    public IDogBreedRepository DogBreeds { get; }
     public IEnrollmentRepository Enrollments { get; }
     public IEquipmentRepository Equipments { get; }
     public ILegalDocumentRepository LegalDocuments { get; }
@@ -37,7 +40,6 @@ public class UnitOfWork : IUnitOfWork
     public IProgressReportRepository ProgressReports { get; }
     public IScheduleRepository Schedules { get; }
     public ISkillRepository Skills { get; }
-    public ISlotEquipmentRepository SlotEquipments { get; }
     public ISlotRepository Slots { get; }
     public ISpecializationRepository Specializations { get; }
     public IStaffProfileRepository StaffProfiles { get; }
@@ -55,19 +57,22 @@ public class UnitOfWork : IUnitOfWork
                       IAvailabilityRepository availabilityRepository,
                       IBlogRepository blogRepository,
                       ICageRepository cageRepository,
+                      ICageCategoryRepository cageCategoryRepository,
                       ICategoryRepository categoryRepository,
                       ICertificateRepository certificateRepository,
                       ICertificationRepository certificationRepository,
                       IChatRepository chatRepository,
                       IClassRepository classRepository,
                       ICourseRepository courseRepository,
-                      ICourseEquipmentRepository courseEquipmentRepository,
-                      ICourseLessonRepository courseLessonRepository,
+                      ILessonEquipmentRepository lessonEquipmentRepository,
+                      ISlotLessonRepository slotLessonRepository,
                       ICustomerProfileRepository customerProfileRepository,
+                      ICustomerRoleRepository customerRoleRepository,
                       IDogCertificateRepository dogCertificateRepository,
                       IDogDocumentRepository dogDocumentRepository,
                       IDogDocumentTypeRepository dogDocumentTypeRepository,
                       IDogRepository dogRepository,
+                      IDogBreedRepository dogBreedRepository,
                       IEnrollmentRepository enrollmentRepository,
                       IEquipmentRepository equipmentRepository,
                       ILegalDocumentRepository legalDocumentRepository,
@@ -80,7 +85,7 @@ public class UnitOfWork : IUnitOfWork
                       IProgressReportRepository progressReportRepository,
                       IScheduleRepository scheduleRepository,
                       ISkillRepository skillRepository,
-                      ISlotEquipmentRepository slotEquipmentRepository,
+                      ILessonEquipmentRepository lessonEquipmentRepository1,
                       ISlotRepository slotRepository,
                       ISpecializationRepository specializationRepository,
                       IStaffProfileRepository staffProfileRepostitory,
@@ -99,19 +104,22 @@ public class UnitOfWork : IUnitOfWork
         Availabilities = availabilityRepository;
         Blogs = blogRepository;
         Cages = cageRepository;
+        CageCategories = cageCategoryRepository;
         Categories = categoryRepository;
         Certificates = certificateRepository;
         Certifications = certificationRepository;
         Chats = chatRepository;
         Classes = classRepository;
         Courses = courseRepository;
-        CourseEquipments = courseEquipmentRepository;
-        CourseLessons = courseLessonRepository;
+        LessonEquipments = lessonEquipmentRepository;
+        SlotLessons = slotLessonRepository;
         CustomerProfiles = customerProfileRepository;
+        CustomerRoles = customerRoleRepository;
         DogCertificates = dogCertificateRepository;
         DogDocuments = dogDocumentRepository;
         DogDocumentTypes = dogDocumentTypeRepository;
         Dogs = dogRepository;
+        DogBreeds = dogBreedRepository;
         Enrollments = enrollmentRepository;
         Equipments = equipmentRepository;
         LegalDocuments = legalDocumentRepository;
@@ -124,7 +132,7 @@ public class UnitOfWork : IUnitOfWork
         ProgressReports = progressReportRepository;
         Schedules = scheduleRepository;
         Skills = skillRepository;
-        SlotEquipments = slotEquipmentRepository;
+        LessonEquipments = lessonEquipmentRepository;
         Slots = slotRepository;
         Specializations = specializationRepository;
         StaffProfiles = staffProfileRepostitory;
