@@ -8,7 +8,7 @@ public class Account : BaseEntity
     public string ImageUrl { get; set; }
     public int Status { get; set; }
     public DateTime RegistrationTime { get; set; }
-    
+
     // // Discriminator for profile type
     // public string? ProfileType { get; set; } // E.g., "Customer", "Trainer", "Staff"
 
@@ -21,4 +21,8 @@ public class Account : BaseEntity
 
     public string? StaffProfileId { get; set; }
     public StaffProfile StaffProfile { get; set; }
+
+    public ICollection<Chat> Chats { get; set; }
+
+    public ICollection<Notification> Notifications { get; set; }
 }
