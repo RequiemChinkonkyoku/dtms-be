@@ -108,6 +108,8 @@ public static class ServiceExtension
         services.AddScoped<ITrainingReportService, TrainingReportService>();
         services.AddScoped<IWishListService, WishListService>();
 
+        services.AddSignalR();
+
         return services;
     }
 }

@@ -1,4 +1,5 @@
 using DTMS_API.Extension;
+using DTMS_API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +22,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(x => x
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowed(origin => true)
+        .AllowCredentials());
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
