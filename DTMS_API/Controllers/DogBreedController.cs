@@ -28,5 +28,12 @@ namespace DTMS_API.Controllers
             var response = await _dogBreedService.CreateDogBreedAsync(request);
             return Ok(response);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateNewBreed([FromBody] UpdateDogBreedRequest request, string id)
+        {
+            var response = await _dogBreedService.UpdateDogBreedAsync(id, request);
+            return Ok(response);
+        }
     }
 }

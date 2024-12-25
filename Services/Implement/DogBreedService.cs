@@ -44,5 +44,21 @@ namespace Services.Implement
             return dogBreed;
         }
 
+        public async Task<DogBreed> UpdateDogBreedAsync(string id, UpdateDogBreedRequest request)
+        {
+            var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
+            
+            dogBreed.Name = request.Name;
+            dogBreed.Description = request.Description;
+            dogBreed.Status = request.Status;
+            dogBreed.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.DogBreeds.Update(dogBreed);
+            await _unitOfWork.SaveChanges();
+
+            return dogBreed;
+        }
+
+
     }
 }
