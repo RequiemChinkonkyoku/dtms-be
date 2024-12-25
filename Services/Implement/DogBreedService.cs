@@ -59,6 +59,18 @@ namespace Services.Implement
             return dogBreed;
         }
 
+        public async Task<DogBreed> DeleteDogBreedAsync(string id)
+        {
+            var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
+
+            dogBreed.Status = 0;
+            dogBreed.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.DogBreeds.Update(dogBreed);
+            await _unitOfWork.SaveChanges();
+
+            return dogBreed;
+        }
 
     }
 }

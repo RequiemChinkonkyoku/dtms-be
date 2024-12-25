@@ -35,5 +35,23 @@ namespace DTMS_API.Controllers
             var response = await _dogBreedService.UpdateDogBreedAsync(id, request);
             return Ok(response);
         }
+
+        [HttpPut("delete/{id}")]
+        public async Task<IActionResult> DeleteDogBreed(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return BadRequest("Id is required.");
+
+            try
+            {
+                var deletedDogBreed = await _dogBreedService.DeleteDogBreedAsync(id);
+                return Ok(deletedDogBreed);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+           
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Services.Interface
         Task<List<DogBreed>> GetAllBreed();
         Task<DogBreed> CreateDogBreedAsync(CreateDogBreedRequest request);
         Task<DogBreed> UpdateDogBreedAsync(string id, UpdateDogBreedRequest request);
+        Task<DogBreed> DeleteDogBreedAsync(string id);
     }
 }
