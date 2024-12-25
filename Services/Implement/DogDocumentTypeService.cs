@@ -45,5 +45,22 @@ namespace Services.Implement
 
             return dogDocumentType;
         }
+
+        public async Task<DogDocumentType> UpdateDogDocumentTypeAsync(string id, UpdateDogDocumentTypeRequest request)
+        {
+            var dogDocumentType = await _unitOfWork.DogDocumentTypes.GetById(id);
+            if (dogDocumentType == null)
+                throw new KeyNotFoundException($"DogDocumentType with Id {id} not found.");
+
+            dogDocumentType.Name = request.Name;
+            dogDocumentType.Description = request.Description;
+            dogDocumentType.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.DogDocumentTypes.Update(dogDocumentType);
+            await _unitOfWork.SaveChanges();
+
+            return dogDocumentType;
+        }
+
     }
 }

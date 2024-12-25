@@ -48,5 +48,12 @@ namespace DTMS_API.Controllers
             var response = await _documentTypeService.CreateDogDocumentTypeAsync(request);
             return Ok(response);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateNewBreed([FromBody] UpdateDogDocumentTypeRequest request, string id)
+        {
+            var response = await _documentTypeService.UpdateDogDocumentTypeAsync(id, request);
+            return Ok(response);
+        }
     }
 }
