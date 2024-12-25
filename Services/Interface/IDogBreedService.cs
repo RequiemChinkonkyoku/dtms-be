@@ -1,4 +1,5 @@
-﻿using Models.Entities;
+﻿using Models.DTOs;
+using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Services.Interface
     public interface IDogBreedService
     {
         Task<List<DogBreed>> GetAllBreed();
-
+        Task<DogBreed> CreateDogBreedAsync(CreateDogBreedRequest request);
     }
 }
