@@ -22,6 +22,26 @@ namespace DTMS_API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDogBreedById(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return BadRequest("Id is required.");
+            try
+            {
+                var dogBreed = await _dogBreedService.GetDogBreedByIdAsync(id);
+                return Ok(dogBreed);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateNewBreed(CreateDogBreedRequest request)
         {
@@ -36,7 +56,7 @@ namespace DTMS_API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("delete/{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteDogBreed(string id)
         {
             if (string.IsNullOrWhiteSpace(id))

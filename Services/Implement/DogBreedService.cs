@@ -26,6 +26,13 @@ namespace Services.Implement
             return result;
         }
 
+        public async Task<DogBreed> GetDogBreedByIdAsync(string id)
+        {
+            var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
+            return dogBreed;
+        }
+
+
         public async Task<DogBreed> CreateDogBreedAsync(CreateDogBreedRequest request)
         {
             var dogBreed = new DogBreed
