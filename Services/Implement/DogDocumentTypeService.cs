@@ -22,5 +22,11 @@ namespace Services.Implement
             var result = await _unitOfWork.DogDocumentTypes.GetAll();
             return result;
         }
+
+        public async Task<DogDocumentType> GetDogDocumentTypeByIdAsync(string id)
+        {
+            var documentType = await _unitOfWork.DogDocumentTypes.GetById(id);
+            return documentType;
+        }
     }
 }

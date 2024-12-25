@@ -10,5 +10,6 @@ namespace Services.Interface
     public interface IDogDocumentTypeService
     {
         Task<List<DogDocumentType>> GetAllDocumentType();
+        Task<DogDocumentType> GetDogDocumentTypeByIdAsync(string id);
     }
 }
