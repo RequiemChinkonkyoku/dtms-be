@@ -14,5 +14,7 @@ namespace Services.Interface
         Task<DogDocumentType> GetDogDocumentTypeByIdAsync(string id);
         Task<DogDocumentType> CreateDogDocumentTypeAsync(CreateDogDocumentTypeRequest request);
         Task<DogDocumentType> UpdateDogDocumentTypeAsync(string id, UpdateDogDocumentTypeRequest request);
+        Task<string> DeleteDogDocumentTypeAsync(string id);
+
     }
 }

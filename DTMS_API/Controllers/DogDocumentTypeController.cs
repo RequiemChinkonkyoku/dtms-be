@@ -55,5 +55,26 @@ namespace DTMS_API.Controllers
             var response = await _documentTypeService.UpdateDogDocumentTypeAsync(id, request);
             return Ok(response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDogDocumentType(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return BadRequest("Invalid id.");
+
+            try
+            {
+                var message = await _documentTypeService.DeleteDogDocumentTypeAsync(id);
+                return Ok(new { message });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

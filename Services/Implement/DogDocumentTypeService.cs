@@ -62,5 +62,21 @@ namespace Services.Implement
             return dogDocumentType;
         }
 
+        public async Task<string> DeleteDogDocumentTypeAsync(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new ArgumentException("Id is required.", nameof(id));
+
+            var dogDocumentType = await _unitOfWork.DogDocumentTypes.GetById(id);
+            if (dogDocumentType == null)
+                throw new KeyNotFoundException($"DogDocumentType with Id {id} not found.");
+
+            _unitOfWork.DogDocumentTypes.Delete(dogDocumentType);
+            await _unitOfWork.SaveChanges();
+
+            return "DogDocumentType deleted successfully.";
+        }
+
+
     }
 }
