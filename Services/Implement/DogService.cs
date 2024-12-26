@@ -55,5 +55,33 @@ namespace Services.Implement
             return newDog;
         }
 
+        public async Task<Dog> UpdateDogAsync(string id, UpdateDogRequest request)
+        {
+            var existingDog = await _unitOfWork.Dogs.GetById(id);
+
+            if (existingDog == null)
+            {
+                throw new KeyNotFoundException($"Dog not found.");
+            }
+
+            existingDog.Name = request.Name ?? existingDog.Name; 
+            existingDog.ImageUrl = request.ImageUrl ?? existingDog.ImageUrl;
+            existingDog.Breed = request.Breed ?? existingDog.Breed;
+            existingDog.DateOfBirth = request.DateOfBirth != default ? request.DateOfBirth : existingDog.DateOfBirth;
+            existingDog.Gender = request.Gender ?? existingDog.Gender;
+            existingDog.Status = request.Status;
+            existingDog.DogBreedId = request.DogBreedId ?? existingDog.DogBreedId;
+            existingDog.CustomerProfileId = request.CustomerProfileId ?? existingDog.CustomerProfileId;
+
+            
+            existingDog.LastUpdatedTime = DateTime.UtcNow;
+
+            
+            _unitOfWork.Dogs.Update(existingDog);
+            await _unitOfWork.SaveChanges();
+
+            return existingDog;
+        }
+
     }
 }
