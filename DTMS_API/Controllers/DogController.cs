@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models.DTOs;
 using Services.Implement;
 using Services.Interface;
 
@@ -40,6 +41,13 @@ namespace DTMS_API.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNewBreed(CreateDogRequest request)
+        {
+            var response = await _dogService.CreateDogAsync(request);
+            return Ok(response);
         }
     }
 }
