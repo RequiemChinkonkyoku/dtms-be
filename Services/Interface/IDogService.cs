@@ -9,6 +9,7 @@ namespace Services.Interface
 {
     public interface IDogService
     {
-         Task<List<Dog>> GetAllDogs();
+       Task<List<Dog>> GetAllDogs();
+       Task<Dog> GetDogById(string id);
     }
 }
