@@ -53,8 +53,8 @@ namespace Services.Implement
                 EquipmentCategoryId = request.EquipmentCategoryId
             };
 
-            _unitOfWork.Equipments.Add(equipment);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.Equipments.Add(equipment);
+            await _unitOfWork.SaveChanges();
 
             return new BaseResponseDTO<Equipment> { Success = true, Object = equipment };
         }

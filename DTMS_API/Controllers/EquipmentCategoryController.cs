@@ -7,7 +7,7 @@ using Services.Interface;
 namespace DTMS_API.Controllers
 {
     [ApiController]
-    [Route("api/equipment-controller")]
+    [Route("api/equipment-categories")]
     public class EquipmentCategoryController : ControllerBase
     {
         private readonly IEquipmentCategoryService _equipmentCategoryService;
