@@ -30,8 +30,8 @@ namespace DTMS_API.Controllers
                 return BadRequest("Id is required.");
             try
             {
-                var dogBreed = await _dogService.GetDogById(id);
-                return Ok(dogBreed);
+                var dog = await _dogService.GetDogById(id);
+                return Ok(dog);
             }
             catch (KeyNotFoundException ex)
             {
@@ -55,6 +55,23 @@ namespace DTMS_API.Controllers
         {
             var response = await _dogService.UpdateDogAsync(id, request);
             return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDog(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest("Dog ID is required.");
+
+            try
+            {
+                var deletedDog = await _dogService.DeleteDogAsync(id);
+                return Ok(deletedDog);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

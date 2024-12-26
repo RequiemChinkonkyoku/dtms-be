@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Services.Interface
 {
     public interface IDogDocumentService
     {
+        Task<List<DogDocument>> GetAllDogDocuments();
+        Task<DogDocument> GetDogDocumentById(string id);
     }
 }

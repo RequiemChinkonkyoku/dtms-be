@@ -14,5 +14,6 @@ namespace Services.Interface
         Task<Dog> GetDogById(string id);
         Task<Dog> CreateDogAsync(CreateDogRequest createDogRequest);
         Task<Dog> UpdateDogAsync(string id, UpdateDogRequest request);
+        Task<Dog> DeleteDogAsync(string id);
     }
 }

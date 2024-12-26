@@ -83,5 +83,23 @@ namespace Services.Implement
             return existingDog;
         }
 
+        public async Task<Dog> DeleteDogAsync(string id)
+        {
+            var existingDog = await _unitOfWork.Dogs.GetById(id);
+
+            if (existingDog == null)
+            {
+                throw new KeyNotFoundException($"Dog not found.");
+            }
+
+            existingDog.Status = 0;
+            existingDog.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.Dogs.Update(existingDog);
+            await _unitOfWork.SaveChanges();
+
+            return existingDog;
+        }
+
     }
 }
