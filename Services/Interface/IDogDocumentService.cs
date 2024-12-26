@@ -13,5 +13,7 @@ namespace Services.Interface
         Task<List<DogDocument>> GetAllDogDocuments();
         Task<DogDocument> GetDogDocumentById(string id);
         Task<DogDocument> CreateDogDocumentAsync(CreateDogDocumentRequest request);
+        Task<DogDocument> UpdateDogDocumentAsync(string id, UpdateDogDocumentRequest request);
+        Task<DogDocument> DeleteDogDocumentAsync(string id);
     }
 }

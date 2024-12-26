@@ -50,7 +50,7 @@ namespace DTMS_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateNewBreed([FromBody] UpdateDogDocumentTypeRequest request, string id)
+        public async Task<IActionResult> UpdateDocumentType([FromBody] UpdateDogDocumentTypeRequest request, string id)
         {
             var response = await _documentTypeService.UpdateDogDocumentTypeAsync(id, request);
             return Ok(response);
@@ -65,7 +65,7 @@ namespace DTMS_API.Controllers
             try
             {
                 var message = await _documentTypeService.DeleteDogDocumentTypeAsync(id);
-                return Ok(new { message });
+                return Ok(message);
             }
             catch (KeyNotFoundException ex)
             {
@@ -76,5 +76,6 @@ namespace DTMS_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
     }
 }

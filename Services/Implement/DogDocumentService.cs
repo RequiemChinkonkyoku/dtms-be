@@ -54,5 +54,50 @@ namespace Services.Implement
 
             return newDogDocument; 
         }
+
+        public async Task<DogDocument> UpdateDogDocumentAsync(string id, UpdateDogDocumentRequest request)
+        {
+            var existingDogDocument = await _unitOfWork.DogDocuments.GetById(id);
+
+            if (existingDogDocument == null)
+            {
+                throw new Exception($"Dog document not found.");
+            }
+
+            existingDogDocument.Name = request.Name ?? existingDogDocument.Name;
+            existingDogDocument.ImageUrl = request.ImageUrl ?? existingDogDocument.ImageUrl;
+            existingDogDocument.Description = request.Description ?? existingDogDocument.Description;
+            existingDogDocument.Status = request.Status != 0 ? request.Status : existingDogDocument.Status;
+            existingDogDocument.IssuingAuthority = request.IssuingAuthority ?? existingDogDocument.IssuingAuthority;
+            existingDogDocument.IssueDate = request.IssueDate != default ? request.IssueDate : existingDogDocument.IssueDate;
+            existingDogDocument.DogId = request.DogId ?? existingDogDocument.DogId;
+            existingDogDocument.DogDocumentTypeId = request.DogDocumentTypeId ?? existingDogDocument.DogDocumentTypeId;
+            existingDogDocument.LastUpdatedTime = DateTime.UtcNow; 
+
+            await _unitOfWork.DogDocuments.Update(existingDogDocument);
+            await _unitOfWork.SaveChanges();
+
+            return existingDogDocument;
+        }
+
+        public async Task<DogDocument> DeleteDogDocumentAsync(string id)
+        {
+            var existingDogDocument = await _unitOfWork.DogDocuments.GetById(id);
+
+            if (existingDogDocument == null)
+            {
+                throw new Exception($"Dog document not found.");
+            }
+
+            existingDogDocument.Status = 0;
+            existingDogDocument.LastUpdatedTime = DateTime.UtcNow;
+
+            await _unitOfWork.DogDocuments.Update(existingDogDocument);
+            await _unitOfWork.SaveChanges();
+
+            return existingDogDocument;
+        }
+
+
     }
 }
