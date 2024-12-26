@@ -25,6 +25,7 @@ public interface IUnitOfWork : IDisposable
     IDogBreedRepository DogBreeds { get; }
     IEnrollmentRepository Enrollments { get; }
     IEquipmentRepository Equipments { get; }
+    IEquipmentCategoryRepository EquipmentCategories { get; }
     ILegalDocumentRepository LegalDocuments { get; }
     ILessonRepository Lessons { get; }
     IMembershipRepository Memberships { get; }
