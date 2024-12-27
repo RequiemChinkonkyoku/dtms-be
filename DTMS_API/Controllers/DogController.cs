@@ -7,7 +7,7 @@ namespace DTMS_API.Controllers
 {
     [ApiController]
     [Route("api/dogs")]
-    public class DogController : Controller
+    public class DogController : ControllerBase
     {
         private readonly IDogService _dogService;
 

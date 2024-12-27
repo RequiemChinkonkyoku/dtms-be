@@ -7,7 +7,7 @@ namespace DTMS_API.Controllers
 {
     [ApiController]
     [Route("api/dogDocumentTypes")]
-    public class DogDocumentTypeController : Controller
+    public class DogDocumentTypeController : ControllerBase
     {
         private readonly IDogDocumentTypeService _documentTypeService;
         public DogDocumentTypeController(IDogDocumentTypeService documentTypeService)
