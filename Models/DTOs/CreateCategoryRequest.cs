@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models.DTOs
 {
-    public class UpdateSkillRequest
+    public class CreateCategoryRequest
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Status { get; set; }
     }
 }

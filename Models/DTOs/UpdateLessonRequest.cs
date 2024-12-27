@@ -16,6 +16,7 @@ namespace Models.DTOs
         public int Duration { get; set; }
         public string Objective { get; set; }
         public string SkillId { get; set; }
+        public int Status { get; set; }
         public List<string> EquipmentIds { get; set; }
     }
 }

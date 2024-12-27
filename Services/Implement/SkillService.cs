@@ -59,6 +59,7 @@ namespace Services.Implement
 
             skill.Name = request.Name;
             skill.Description = request.Description;
+            skill.Status = request.Status;
             skill.LastUpdatedTime = DateTime.Now;
 
             await _unitOfWork.Skills.Update(skill);

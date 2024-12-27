@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.Entities
+namespace Models.DTOs
 {
-    public class Certificate : BaseEntity
+    public class CreateCertificateRequest
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Status { get; set; }
-
         public string CourseId { get; set; }
-        public Course Course { get; set; }
-
-        public ICollection<DogCertificate> DogCertificates { get; set; }
     }
 }

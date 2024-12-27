@@ -23,7 +23,6 @@ public class Course : BaseEntity
     public string CategoryId { get; set; }
     public Category Category { get; set; }
 
-    public string CertificateId { get; set; }
     public Certificate Certificate { get; set; }
 
     public ICollection<Prerequisite> Prerequisites { get; set; } // Prerequisites for this course

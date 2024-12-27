@@ -137,6 +137,7 @@ namespace Services.Implement
             lesson.Duration = request.Duration;
             lesson.Objective = request.Objective;
             lesson.SkillId = request.SkillId;
+            lesson.Status = request.Status;
             lesson.LastUpdatedTime = DateTime.Now;
 
             await _unitOfWork.Lessons.Update(lesson);
