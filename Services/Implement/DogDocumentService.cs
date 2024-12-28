@@ -1,4 +1,6 @@
-﻿using Models.DTOs;
+﻿using AutoMapper;
+using Models.DTOs;
+using Models.DTOs.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -12,11 +14,14 @@ namespace Services.Implement
 {
     public class DogDocumentService : IDogDocumentService
     {
+        
         private readonly IUnitOfWork _unitOfWork;
-
-        public DogDocumentService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        
+        public DogDocumentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<List<DogDocument>> GetAllDogDocuments()
@@ -25,10 +30,12 @@ namespace Services.Implement
             return result;
         }
 
-        public async Task<DogDocument> GetDogDocumentById(string id)
+        public async Task<DogDocumentResponse> GetDogDocumentById(string id)
         {
-            var result = await _unitOfWork.DogDocuments.GetById(id);
-            return result;
+            //var result = await _unitOfWork.DogDocuments.GetById(id);
+
+            var  result = await _unitOfWork.DogDocuments.GetDocumentById(id);
+            return _mapper.Map<DogDocumentResponse>(result);
         }
 
         public async Task<DogDocument> CreateDogDocumentAsync(CreateDogDocumentRequest request)

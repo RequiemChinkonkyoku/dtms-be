@@ -1,4 +1,5 @@
 ﻿using Models.DTOs;
+using Models.DTOs.Response;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Services.Interface
     public interface IDogDocumentService
     {
         Task<List<DogDocument>> GetAllDogDocuments();
-        Task<DogDocument> GetDogDocumentById(string id);
+        Task<DogDocumentResponse> GetDogDocumentById(string id);
         Task<DogDocument> CreateDogDocumentAsync(CreateDogDocumentRequest request);
         Task<DogDocument> UpdateDogDocumentAsync(string id, UpdateDogDocumentRequest request);
         Task<DogDocument> DeleteDogDocumentAsync(string id);
