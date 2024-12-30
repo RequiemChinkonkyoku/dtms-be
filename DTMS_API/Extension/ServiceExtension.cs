@@ -1,8 +1,10 @@
+
 using Models.Entities;
 using Repositories.Implement;
 using Repositories.Interface;
 using Services.Implement;
 using Services.Interface;
+using Services.Setting;
 
 namespace DTMS_API.Extension;
 
@@ -107,6 +109,11 @@ public static class ServiceExtension
         services.AddScoped<ITrainerSpecializationService, TrainerSpecializationService>();
         services.AddScoped<ITrainingReportService, TrainingReportService>();
         services.AddScoped<IWishListService, WishListService>();
+
+        //External Services
+        services.Configure<CloudinarySetting>(configuration.GetSection("CloudinarySetting"));
+        services.AddScoped<ICloudinaryService, CloudinaryService>();
+
 
         return services;
     }
