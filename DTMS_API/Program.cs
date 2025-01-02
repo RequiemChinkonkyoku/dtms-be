@@ -1,11 +1,23 @@
+using AutoMapper;
 using DTMS_API.Extension;
 using DTMS_API.Hubs;
+using Microsoft.Extensions.Options;
+using Models.Automapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<IMapper>(option =>
+{
+    var config = new MapperConfiguration(cfg =>
+    {
+        cfg.AddProfile<MappingProfile>();
+    });
+    return config.CreateMapper();
+});
 
 builder.Services.AddServiceExtension(builder.Configuration);
 

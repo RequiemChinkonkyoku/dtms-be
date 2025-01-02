@@ -9,5 +9,6 @@ namespace Repositories.Interface
 {
     public interface IDogDocumentRepository : IRepositoryBase<DogDocument>
     {
+        Task<DogDocument> GetDocumentById(string id);
     }
 }
