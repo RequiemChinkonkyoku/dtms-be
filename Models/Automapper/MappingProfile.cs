@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Models.DTOs.Response;
 using Models.DTOs.TrainerReport;
+using Models.DTOs.TrainingReport;
 using Models.Entities;
 
 namespace Models.Automapper
@@ -16,6 +17,10 @@ namespace Models.Automapper
             CreateMap<TrainerReport, TrainerReportResponse>()
                 .ReverseMap();
             CreateMap<TrainerReport, CreateTrainerReportRequest>()
+                .ReverseMap();
+            CreateMap<TrainingReport, TrainingReportResponse>()
+                .ReverseMap();
+            CreateMap<TrainingReport, CreateTrainingReportRequest>()
                 .ReverseMap();
         }
     }
