@@ -43,6 +43,25 @@ namespace Services.Implement
 
         public async Task<TrainingReportResponse> CreateTrainingReportAsync(CreateTrainingReportRequest createTrainingReportRequest)
         {
+            if (string.IsNullOrWhiteSpace(createTrainingReportRequest.DogId) ||
+            string.IsNullOrWhiteSpace(createTrainingReportRequest.TrainerProfileId))
+            {
+                throw new ArgumentException("DogId and TrainerProfileId are required.");
+            }
+
+            var dogId = await _unitOfWork.TrainerProfiles.GetById(createTrainingReportRequest.DogId);
+            var trainerProfileId = await _unitOfWork.CustomerProfiles.GetById(createTrainingReportRequest.TrainerProfileId);
+
+            if (dogId == null)
+            {
+                throw new KeyNotFoundException("DogId is not valid.");
+            }
+
+            if (trainerProfileId == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+
             var report = _mapper.Map<TrainingReport>(createTrainingReportRequest);
             await _unitOfWork.TrainingReports.Add(report);
             await _unitOfWork.SaveChanges();
@@ -56,7 +75,26 @@ namespace Services.Implement
 
             if (existingReport == null)
             {
-                throw new Exception($"Training Report not found.");
+                throw new KeyNotFoundException($"Training Report not found.");
+            }
+
+            if (string.IsNullOrWhiteSpace(request.DogId) ||
+            string.IsNullOrWhiteSpace(request.TrainerProfileId))
+            {
+                throw new ArgumentException("DogId and TrainerProfileId are required.");
+            }
+
+            var dogId = await _unitOfWork.TrainerProfiles.GetById(request.DogId);
+            var trainerProfileId = await _unitOfWork.CustomerProfiles.GetById(request.TrainerProfileId);
+
+            if (dogId == null)
+            {
+                throw new KeyNotFoundException("DogId is not valid.");
+            }
+
+            if (trainerProfileId == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
             }
 
             _mapper.Map(request, existingReport);
@@ -75,7 +113,7 @@ namespace Services.Implement
 
             if (existingReport == null)
             {
-                throw new Exception($"Training Report not found.");
+                throw new KeyNotFoundException($"Training Report not found.");
             }
 
             _unitOfWork.TrainingReports.Delete(existingReport);

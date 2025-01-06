@@ -65,8 +65,24 @@ namespace DTMS_API.Controllers
         [HttpPost("create-training-report")]
         public async Task<IActionResult> CreateTrainingReport(CreateTrainingReportRequest request)
         {
-            var response = await _trainingReportService.CreateTrainingReportAsync(request);
-            return CreatedAtAction(nameof(GetTrainingReportById), new { id = response.Id }, response);
+            try
+            {
+                var response = await _trainingReportService.CreateTrainingReportAsync(request);
+                return CreatedAtAction(nameof(GetTrainingReportById), new { id = response.Id }, response);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+
         }
 
         [HttpPut("update-training-report/{id}")]
@@ -79,6 +95,10 @@ namespace DTMS_API.Controllers
             {
                 var response = await _trainingReportService.UpdateTrainingReportAsync(id, request);
                 return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (KeyNotFoundException ex)
             {
@@ -102,6 +122,10 @@ namespace DTMS_API.Controllers
                 if (!success)
                     return NotFound();
                 return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (KeyNotFoundException ex)
             {
