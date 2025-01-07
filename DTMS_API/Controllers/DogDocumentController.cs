@@ -44,15 +44,37 @@ namespace DTMS_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDogDocument(CreateDogDocumentRequest request)
         {
-            var response = await _documentService.CreateDogDocumentAsync(request);
-            return Ok(response);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _documentService.CreateDogDocumentAsync(request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDogDocument([FromBody] UpdateDogDocumentRequest request, string id)
         {
-            var response = await _documentService.UpdateDogDocumentAsync(id, request);
-            return Ok(response);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _documentService.UpdateDogDocumentAsync(id, request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpDelete("{id}")]

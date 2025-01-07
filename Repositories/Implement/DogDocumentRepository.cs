@@ -16,7 +16,18 @@ namespace Repositories.Implement
             var result = await _context.DogDocuments
                 .AsSplitQuery()
                 .Include(x => x.DogDocumentType)
+                .Include(x => x.Dog)
                 .FirstOrDefaultAsync(x => x.Id == id);
+            return result;
+        }
+
+        public async Task<List<DogDocument>> GetAllDocument()
+        {
+            var result = await _context.DogDocuments
+                .AsSplitQuery()
+                .Include (x => x.DogDocumentType)
+                .Include(x => x.Dog)
+                .ToListAsync();
             return result;
         }
     }
