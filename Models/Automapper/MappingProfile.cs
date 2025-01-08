@@ -12,6 +12,8 @@ namespace Models.Automapper
                 .ReverseMap();
             CreateMap<DogDocumentType, DogDocumentTypeResponse>()
                 .ReverseMap();
+            CreateMap<Dog, DogResponse>()
+               .ReverseMap();
         }
     }
 }

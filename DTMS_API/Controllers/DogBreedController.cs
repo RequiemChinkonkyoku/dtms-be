@@ -45,6 +45,11 @@ namespace DTMS_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNewBreed(CreateDogBreedRequest request)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var response = await _dogBreedService.CreateDogBreedAsync(request);
             return Ok(response);
         }
@@ -52,8 +57,19 @@ namespace DTMS_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateNewBreed([FromBody] UpdateDogBreedRequest request, string id)
         {
-            var response = await _dogBreedService.UpdateDogBreedAsync(id, request);
-            return Ok(response);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _dogBreedService.UpdateDogBreedAsync(id, request);
+                return Ok(response);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"{ex.Message}");
+            }
         }
 
         [HttpDelete("delete/{id}")]

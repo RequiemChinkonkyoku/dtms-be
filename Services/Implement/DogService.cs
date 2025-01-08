@@ -33,6 +33,16 @@ namespace Services.Implement
 
         public async Task<Dog> CreateDogAsync(CreateDogRequest request)
         {
+            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
+            if (customerProfile == null)
+            {
+                throw new ArgumentException($"CustomerProfile with ID {request.CustomerProfileId} not found.");
+            }
+            var dogBreed = await _unitOfWork.DogBreeds.GetById(request.DogBreedId);
+            if (dogBreed == null)
+            {
+                throw new ArgumentException($"DogBreed with ID {request.DogBreedId} not found.");
+            }
             var newDog = new Dog
             {
                 Id = Guid.NewGuid().ToString(),
@@ -41,7 +51,7 @@ namespace Services.Implement
                 Breed = request.Breed,
                 DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
-                Status = request.Status,
+                Status = 1,
                 RegistrationTime = DateTime.UtcNow,
                 CustomerProfileId = request.CustomerProfileId,
                 CreatedTime = DateTime.UtcNow,
@@ -63,7 +73,16 @@ namespace Services.Implement
             {
                 throw new KeyNotFoundException($"Dog not found.");
             }
-
+            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
+            if (customerProfile == null)
+            {
+                throw new ArgumentException($"CustomerProfile with ID {request.CustomerProfileId} not found.");
+            }
+            var dogBreed = await _unitOfWork.DogBreeds.GetById(request.DogBreedId);
+            if (dogBreed == null)
+            {
+                throw new ArgumentException($"DogBreed with ID {request.DogBreedId} not found.");
+            }
             existingDog.Name = request.Name ?? existingDog.Name; 
             existingDog.ImageUrl = request.ImageUrl ?? existingDog.ImageUrl;
             existingDog.Breed = request.Breed ?? existingDog.Breed;

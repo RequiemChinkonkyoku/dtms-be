@@ -11,9 +11,9 @@ namespace Services.Interface
 {
     public interface IDogDocumentService
     {
-        Task<List<DogDocument>> GetAllDogDocuments();
+        Task<List<DogDocumentResponse>> GetAllDogDocuments();
         Task<DogDocumentResponse> GetDogDocumentById(string id);
-        Task<DogDocument> CreateDogDocumentAsync(CreateDogDocumentRequest request);
+        Task<DogDocumentResponse> CreateDogDocumentAsync(CreateDogDocumentRequest request);
         Task<DogDocument> UpdateDogDocumentAsync(string id, UpdateDogDocumentRequest request);
         Task<DogDocument> DeleteDogDocumentAsync(string id);
     }
