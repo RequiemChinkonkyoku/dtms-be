@@ -1,4 +1,6 @@
-﻿namespace Models.DTOs.Response
+﻿using Models.Entities;
+
+namespace Models.DTOs.Response
 {
     public class DogDocumentResponse
     {
@@ -10,7 +12,7 @@
         public DateOnly IssueDate { get; set; }
         public DateTime UploadTime { get; set; }
 
-        public string DogId { get; set; }
+        public DogResponse Dog { get; set; }
 
         public DogDocumentTypeResponse DogDocumentType { get; set; }
     }

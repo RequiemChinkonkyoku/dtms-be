@@ -45,6 +45,10 @@ namespace DTMS_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDogDocumentType(CreateDogDocumentTypeRequest request)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var response = await _documentTypeService.CreateDogDocumentTypeAsync(request);
             return Ok(response);
         }

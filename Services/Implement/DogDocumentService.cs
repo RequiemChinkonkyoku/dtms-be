@@ -24,10 +24,10 @@ namespace Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<List<DogDocument>> GetAllDogDocuments()
+        public async Task<List<DogDocumentResponse>> GetAllDogDocuments()
         {
-            var result = await _unitOfWork.DogDocuments.GetAll();
-            return result;
+            var result = await _unitOfWork.DogDocuments.GetAllDocument();
+            return _mapper.Map<List<DogDocumentResponse>>(result);
         }
 
         public async Task<DogDocumentResponse> GetDogDocumentById(string id)
@@ -38,28 +38,38 @@ namespace Services.Implement
             return _mapper.Map<DogDocumentResponse>(result);
         }
 
-        public async Task<DogDocument> CreateDogDocumentAsync(CreateDogDocumentRequest request)
+        public async Task<DogDocumentResponse> CreateDogDocumentAsync(CreateDogDocumentRequest request)
         {
+            var dog = await _unitOfWork.Dogs.GetById(request.DogId);
+            if (dog == null)
+            {
+                throw new KeyNotFoundException("Dog with the specified ID was not found.");
+            }
+            var documentType = await _unitOfWork.DogDocumentTypes.GetById(request.DogDocumentTypeId);
+            if (documentType == null)
+            {
+                throw new KeyNotFoundException("Document Type with the specified ID was not found.");
+            }
             var newDogDocument = new DogDocument
             {
-                Id = Guid.NewGuid().ToString(), 
+                Id = Guid.NewGuid().ToString(),
                 Name = request.Name,
                 ImageUrl = request.ImageUrl,
                 Description = request.Description,
                 Status = 1,
                 IssuingAuthority = request.IssuingAuthority,
                 IssueDate = request.IssueDate,
-                UploadTime = DateTime.UtcNow, 
-                DogId = request.DogId, 
-                DogDocumentTypeId = request.DogDocumentTypeId, 
-                CreatedTime = DateTime.UtcNow, 
-                LastUpdatedTime = DateTime.UtcNow 
+                UploadTime = DateTime.UtcNow,
+                DogId = request.DogId,
+                DogDocumentTypeId = request.DogDocumentTypeId,
+                CreatedTime = DateTime.UtcNow,
+                LastUpdatedTime = DateTime.UtcNow
             };
 
             await _unitOfWork.DogDocuments.Add(newDogDocument);
             await _unitOfWork.SaveChanges();
 
-            return newDogDocument; 
+            return _mapper.Map<DogDocumentResponse>(newDogDocument);
         }
 
         public async Task<DogDocument> UpdateDogDocumentAsync(string id, UpdateDogDocumentRequest request)
@@ -70,7 +80,16 @@ namespace Services.Implement
             {
                 throw new Exception($"Dog document not found.");
             }
-
+            var dog = await _unitOfWork.Dogs.GetById(request.DogId);
+            if (dog == null)
+            {
+                throw new KeyNotFoundException("Dog with the specified ID was not found.");
+            }
+            var documentType = await _unitOfWork.DogDocumentTypes.GetById(request.DogDocumentTypeId);
+            if (documentType == null)
+            {
+                throw new KeyNotFoundException("Document Type with the specified ID was not found.");
+            }
             existingDogDocument.Name = request.Name ?? existingDogDocument.Name;
             existingDogDocument.ImageUrl = request.ImageUrl ?? existingDogDocument.ImageUrl;
             existingDogDocument.Description = request.Description ?? existingDogDocument.Description;

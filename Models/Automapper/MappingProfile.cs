@@ -22,6 +22,8 @@ namespace Models.Automapper
                 .ReverseMap();
             CreateMap<TrainingReport, CreateTrainingReportRequest>()
                 .ReverseMap();
+            CreateMap<Dog, DogResponse>()
+               .ReverseMap();
         }
     }
 }

@@ -46,15 +46,35 @@ namespace DTMS_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNewBreed(CreateDogRequest request)
         {
-            var response = await _dogService.CreateDogAsync(request);
-            return Ok(response);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _dogService.CreateDogAsync(request);
+                return Ok(response);
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateNewBreed([FromBody] UpdateDogRequest request, string id)
         {
-            var response = await _dogService.UpdateDogAsync(id, request);
-            return Ok(response);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _dogService.UpdateDogAsync(id, request);
+                return Ok(response);
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]

@@ -54,7 +54,10 @@ namespace Services.Implement
         public async Task<DogBreed> UpdateDogBreedAsync(string id, UpdateDogBreedRequest request)
         {
             var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
-            
+            if (dogBreed == null)
+            {
+                throw new KeyNotFoundException($"DogBreed with ID '{id}' not found.");
+            }
             dogBreed.Name = request.Name;
             dogBreed.Description = request.Description;
             dogBreed.Status = request.Status;
@@ -69,7 +72,10 @@ namespace Services.Implement
         public async Task<DogBreed> DeleteDogBreedAsync(string id)
         {
             var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
-
+            if (dogBreed == null)
+            {
+                throw new KeyNotFoundException($"DogBreed with ID '{id}' not found.");
+            }
             dogBreed.Status = 0;
             dogBreed.LastUpdatedTime = DateTime.UtcNow;
 
