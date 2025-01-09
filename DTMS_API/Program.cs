@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using DTMS_API.Extension;
+using DTMS_API.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -117,6 +118,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(x => x
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowed(origin => true)
+        .AllowCredentials());
 app.UseCors("DTMS_Policy");
 
 app.UseHttpsRedirection();
@@ -126,5 +132,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

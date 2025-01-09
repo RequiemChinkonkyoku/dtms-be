@@ -46,6 +46,7 @@ public interface IUnitOfWork : IDisposable
     ITrainerSkillRepository TrainerSkills { get; }
     ITrainerSpecializationRepository TrainerSpecializations { get; }
     IWishListRepository WishLists { get; }
+    ITrainingReportRepository TrainingReports { get; }
 
     Task SaveChanges();
 }
