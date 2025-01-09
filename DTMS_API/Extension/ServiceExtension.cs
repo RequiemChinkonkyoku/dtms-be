@@ -110,10 +110,11 @@ public static class ServiceExtension
         services.AddScoped<ITrainingReportService, TrainingReportService>();
         services.AddScoped<IWishListService, WishListService>();
 
+        services.AddSignalR();
+
         //External Services
         services.Configure<CloudinarySetting>(configuration.GetSection("CloudinarySetting"));
         services.AddScoped<ICloudinaryService, CloudinaryService>();
-
 
         return services;
     }
