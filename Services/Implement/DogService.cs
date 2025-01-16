@@ -87,7 +87,7 @@ namespace Services.Implement
             existingDog.ImageUrl = request.ImageUrl ?? existingDog.ImageUrl;
             existingDog.Breed = request.Breed ?? existingDog.Breed;
             existingDog.DateOfBirth = request.DateOfBirth != default ? request.DateOfBirth : existingDog.DateOfBirth;
-            existingDog.Gender = request.Gender ?? existingDog.Gender;
+            existingDog.Gender = request.Gender;
             existingDog.Status = request.Status;
             existingDog.DogBreedId = request.DogBreedId ?? existingDog.DogBreedId;
             existingDog.CustomerProfileId = request.CustomerProfileId ?? existingDog.CustomerProfileId;
