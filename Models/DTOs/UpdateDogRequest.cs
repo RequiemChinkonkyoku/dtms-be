@@ -24,7 +24,7 @@ namespace Models.DTOs
 
         [Required(ErrorMessage = "Gender is required.")]
         [RegularExpression("^(?i)Male|Female$", ErrorMessage = "Gender must be either 'Male' or 'Female'.")]
-        public string Gender { get; set; }
+        public int Gender { get; set; }
 
         [Required(ErrorMessage = "Status is required.")]
         [Range(0, 1, ErrorMessage = "Status must be either 0 (Inactive) or 1 (Active).")]
