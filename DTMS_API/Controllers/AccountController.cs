@@ -27,7 +27,17 @@ public class AccountController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateNewAccount(CreateAccountRequest request)
     {
-        var response = await _accountService.CreateNewAccount(request);
-        return Ok(response);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        try
+        {
+            var response = await _accountService.CreateNewAccount(request);
+            return Ok(response);
+        }catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }
