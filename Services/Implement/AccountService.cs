@@ -45,54 +45,13 @@ public class AccountService : IAccountService
             await _unitOfWork.Accounts.Add(account);
             await _unitOfWork.SaveChanges();
 
-            switch (request.ProfileType)
-            {
-                case 1:
-                    var cusProfile = new CustomerProfile()
-                    {
-                        FullName = request.FullName,
-                        PhoneNumber = request.PhoneNumber,
-                        Address = request.Address,
-                        DateOfBirth = request.DateOfBirth,
-                        Gender = request.Gender,
-                        AccountId = account.Id,
-                    };
-                    await _unitOfWork.CustomerProfiles.Add(cusProfile);
-                    break;
-                case 2:
-                    var traProfile = new TrainerProfile()
-                    {
-                        FullName = request.FullName,
-                        PhoneNumber = request.PhoneNumber,
-                        Address = request.Address,
-                        DateOfBirth = request.DateOfBirth,
-                        Gender = request.Gender,
-                        AccountId = account.Id,
-                    };
-                    await _unitOfWork.TrainerProfiles.Add(traProfile);
-                    break;
-                case 3:
-                    var staProfile = new StaffProfile()
-                    {
-                        FullName = request.FullName,
-                        PhoneNumber = request.PhoneNumber,
-                        Address = request.Address,
-                        DateOfBirth = request.DateOfBirth,
-                        Gender = request.Gender,
-                        AccountId = account.Id,
-                    };
-                    await _unitOfWork.StaffProfiles.Add(staProfile);
-                    break;
-            }
-
-            await _unitOfWork.SaveChanges();
-
             return account;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
-            throw;
+            Console.WriteLine($"StackTrace: {ex.StackTrace}");
+            throw new HttpRequestException("Failed to create an account", ex);
         }
     }
 }
