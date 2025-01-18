@@ -9,11 +9,11 @@ public class Account : BaseEntity
     public int Status { get; set; }
     public DateTime RegistrationTime { get; set; }
 
-    // // Discriminator for profile type
-    // public string? ProfileType { get; set; } // E.g., "Customer", "Trainer", "Staff"
+    // Discriminator for profile type
+    public int? ProfileType { get; set; } // E.g., "Customer", "Trainer", "Staff"
 
     // Nullable foreign keys
-    public string? CustomerProfileId { get; set; }
+    public string? CustomerProfileId { get; set; }  
     public CustomerProfile CustomerProfile { get; set; }
 
     public string? TrainerProfileId { get; set; }

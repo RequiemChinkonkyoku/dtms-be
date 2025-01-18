@@ -114,4 +114,48 @@ public class AccountService : IAccountService
         }
         return null;
     }
+
+    public async Task<Account> Register(AccountRegisterRequest request)
+    {
+        try
+        {
+            if (request.ProfileType is null || request.ProfileType < 1 || request.ProfileType > 3)
+            {
+                throw new ArgumentException("Invalid ProfileType. Must be 1 (Customer), 2 (Trainer), or 3 (Staff).");
+            }
+            
+            var accounts = await _unitOfWork.Accounts.GetAll();
+            // Check if the email or username already exists
+            var existingAccount = accounts.FirstOrDefault(a =>
+                    a.Email == request.Email || a.Username == request.Username);
+            if (existingAccount != null)
+            {
+                throw new InvalidOperationException("An account with this email or username already exists.");
+            }
+
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            
+            // Create a new account entity
+            var account = new Account
+            {
+                Email = request.Email,
+                Password = passwordHash,
+                Username = request.Username,
+                Status = 0, 
+                ImageUrl = "empty",
+                RegistrationTime = DateTime.UtcNow,
+                CreatedTime = DateTime.UtcNow,
+                LastUpdatedTime = DateTime.UtcNow
+            };
+
+            await _unitOfWork.Accounts.Add(account);
+            await _unitOfWork.SaveChanges();
+            return account;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
+    }
 }
