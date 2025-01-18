@@ -48,7 +48,6 @@ namespace Services.Implement
                 Id = Guid.NewGuid().ToString(),
                 Name = request.Name,
                 ImageUrl = request.ImageUrl,
-                Breed = request.Breed,
                 DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
                 Status = 1,
@@ -85,7 +84,6 @@ namespace Services.Implement
             }
             existingDog.Name = request.Name ?? existingDog.Name; 
             existingDog.ImageUrl = request.ImageUrl ?? existingDog.ImageUrl;
-            existingDog.Breed = request.Breed ?? existingDog.Breed;
             existingDog.DateOfBirth = request.DateOfBirth != default ? request.DateOfBirth : existingDog.DateOfBirth;
             existingDog.Gender = request.Gender;
             existingDog.Status = request.Status;

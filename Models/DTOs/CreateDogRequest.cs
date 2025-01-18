@@ -14,8 +14,6 @@ namespace Models.DTOs
         [Url(ErrorMessage = "Invalid URL format.")]
         public string ImageUrl { get; set; }
         [Required(ErrorMessage = "Breed is required.")]
-        public string Breed { get; set; }
-        [Required(ErrorMessage = "Date of Birth is required.")]
         public DateOnly DateOfBirth { get; set; }
         [Required(ErrorMessage = "Gender is required.")]
         public int Gender { get; set; }

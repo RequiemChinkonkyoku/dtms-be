@@ -38,6 +38,8 @@ public class AccountService : IAccountService
                 ImageUrl = request.ImageUrl,
                 Status = 0,
                 RegistrationTime = DateTime.UtcNow,
+                CreatedTime = DateTime.UtcNow,
+                LastUpdatedTime = DateTime.UtcNow,
             };
 
             await _unitOfWork.Accounts.Add(account);
