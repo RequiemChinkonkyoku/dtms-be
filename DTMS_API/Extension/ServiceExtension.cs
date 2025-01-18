@@ -62,6 +62,7 @@ public static class ServiceExtension
         services.AddScoped<ITrainerSpecializationRepository, TrainerSpecializationRepository>();
         services.AddScoped<ITrainingReportRepository, TrainingReportRepository>();
         services.AddScoped<IWishListRepository, WishListRepository>();
+        services.AddScoped<IAccountOtpRepository, AccountOtpRepository>();
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IAttendanceService, AttendanceService>();

@@ -25,4 +25,6 @@ public class Account : BaseEntity
     public ICollection<Chat> Chats { get; set; }
 
     public ICollection<Notification> Notifications { get; set; }
+    
+    public ICollection<AccountOtp> AccountOtps { get; set; }
 }

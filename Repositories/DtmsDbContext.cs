@@ -76,6 +76,7 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<EquipmentCategory> EquipmentCategories { get; set; }
     public virtual DbSet<DogBreed> DogBreeds { get; set; }
     public virtual DbSet<CustomerRole> CustomerRoles { get; set; }
+    public virtual DbSet<AccountOtp> AccountOtps { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -424,6 +425,12 @@ public class DtmsDbContext : DbContext
             .HasOne(cp => cp.CustomerRole)
             .WithMany(cr => cr.CustomerProfiles)
             .HasForeignKey(cp => cp.CustomerRoleId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<AccountOtp>()
+            .HasOne(u => u.Account)
+            .WithMany(r => r.AccountOtps)
+            .HasForeignKey(u => u.AccountId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

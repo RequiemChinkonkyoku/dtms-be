@@ -10,4 +10,5 @@ public interface IAccountService
     Task<Account> CreateNewAccount(CreateAccountRequest request);
     Task<string> Login(AccountLoginRequest request);
     Task<Account> Register(AccountRegisterRequest request);
+    Task<bool> VerifyOtpAsync(string email, string otpCode);
 }
