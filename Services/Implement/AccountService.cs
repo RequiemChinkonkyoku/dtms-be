@@ -178,7 +178,7 @@ public class AccountService : IAccountService
         string emailBody = File.ReadAllText(templatePath);
 
         // Replace placeholders with actual values
-        emailBody = emailBody.Replace("{{Name}}", name)
+        emailBody = emailBody.Replace("{{Username}}", name)
             .Replace("{{OTPCode}}", otpCode);
 
         MailMessage message = new MailMessage(_email, _to, _subject, emailBody)
