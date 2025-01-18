@@ -18,7 +18,6 @@ namespace Models.DTOs
         [Required(ErrorMessage = "Date of Birth is required.")]
         public DateOnly DateOfBirth { get; set; }
         [Required(ErrorMessage = "Gender is required.")]
-        [RegularExpression("^(?i)Male|Female$", ErrorMessage = "Gender must be either 'Male' or 'Female'.")]
         public int Gender { get; set; }
         
         [Required(ErrorMessage = "Customer Profile Id is required.")]
