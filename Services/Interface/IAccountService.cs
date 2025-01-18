@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity.Data;
 using Models.DTOs;
 using Models.Entities;
 
@@ -7,4 +8,5 @@ public interface IAccountService
 {
     Task<List<Account>> GetAllAccounts();
     Task<Account> CreateNewAccount(CreateAccountRequest request);
+    Task<string> Login(AccountLoginRequest request);
 }

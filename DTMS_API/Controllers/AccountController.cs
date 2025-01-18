@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Models.Entities;
@@ -38,6 +39,26 @@ public class AccountController : ControllerBase
         }catch (Exception ex)
         {
             return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(AccountLoginRequest request)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var response = await _accountService.Login(request);
+            return Ok(new { Token = response });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            return StatusCode(500, new { Message = "An error occurred while processing your request." });
         }
     }
 }
