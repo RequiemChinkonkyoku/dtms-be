@@ -12,16 +12,6 @@ public class Account : BaseEntity
     // Discriminator for profile type
     public int? ProfileType { get; set; } // E.g., "Customer", "Trainer", "Staff"
 
-    // Nullable foreign keys
-    public string? CustomerProfileId { get; set; }  
-    public CustomerProfile CustomerProfile { get; set; }
-
-    public string? TrainerProfileId { get; set; }
-    public TrainerProfile TrainerProfile { get; set; }
-
-    public string? StaffProfileId { get; set; }
-    public StaffProfile StaffProfile { get; set; }
-
     public ICollection<Chat> Chats { get; set; }
 
     public ICollection<Notification> Notifications { get; set; }

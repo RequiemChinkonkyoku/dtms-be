@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
+using Models.DTOs.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -25,11 +26,69 @@ public class AccountService : IAccountService
         _mapper = mapper;
     }
 
-    public async Task<List<Account>> GetAllAccounts()
+    public async Task<List<AllAccountsResponse>> GetAllAccounts()
+{
+    var accounts = await _unitOfWork.Accounts.GetAll();
+
+    var responses = new List<AllAccountsResponse>();
+
+    foreach (var account in accounts)
     {
-        var result = await _unitOfWork.Accounts.GetAll();
-        return _mapper.Map<List<Account>>(result);
+        var response = new AllAccountsResponse
+        {
+            Id = account.Id.ToString(),
+            CreatedTime = account.CreatedTime,
+            LastUpdatedTime = account.LastUpdatedTime,
+            Username = account.Username,
+            Email = account.Email,
+            Status = account.Status,
+            ProfileType = account.ProfileType
+        };
+
+        // Fetch profile data based on ProfileType
+        switch (account.ProfileType)
+        {
+            case 1: // Customer Profile
+                var customerProfiles = await _unitOfWork.CustomerProfiles
+                    .GetAll();
+                var customerProfile = customerProfiles.FirstOrDefault(cp => cp.AccountId == account.Id);
+                if (customerProfile != null)
+                {
+                    response.FullName = customerProfile.FullName;
+                    response.PhoneNumber = customerProfile.PhoneNumber;
+                }
+                break;
+
+            case 2: // Trainer Profile
+                var trainerProfiles = await _unitOfWork.TrainerProfiles
+                    .GetAll();
+                    var trainerProfile = trainerProfiles.FirstOrDefault(tp => tp.AccountId == account.Id);
+                if (trainerProfile != null)
+                {
+                    response.FullName = trainerProfile.FullName;
+                    response.PhoneNumber = trainerProfile.PhoneNumber;
+                }
+                break;
+
+            case 3: // Staff Profile
+                var staffProfiles = await _unitOfWork.StaffProfiles
+                    .GetAll();
+                    var staffProfile = staffProfiles.FirstOrDefault(sp => sp.AccountId == account.Id);
+                if (staffProfile != null)
+                {
+                    response.FullName = staffProfile.FullName;
+                    response.PhoneNumber = staffProfile.PhoneNumber;
+                }
+                break;
+        }
+
+        responses.Add(response);
     }
+
+    return responses;
+}
+
+
 
     public async Task<Account> CreateNewAccount(CreateAccountRequest request)
     {
@@ -84,6 +143,7 @@ public class AccountService : IAccountService
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, account.Id.ToString()),
+                    new Claim(ClaimTypes.Role, account.ProfileType.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(90),
                 Issuer = config["Jwt:Issuer"],

@@ -82,24 +82,6 @@ public class DtmsDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Account>(entity =>
-        {
-            entity.HasOne(a => a.CustomerProfile)
-                .WithOne(cp => cp.Account)
-                .HasForeignKey<CustomerProfile>(cp => cp.AccountId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(a => a.TrainerProfile)
-                .WithOne(tp => tp.Account)
-                .HasForeignKey<TrainerProfile>(tp => tp.AccountId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(a => a.StaffProfile)
-                .WithOne(sp => sp.Account)
-                .HasForeignKey<StaffProfile>(sp => sp.AccountId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
-
         modelBuilder.Entity<CustomerProfile>()
             .HasOne(cp => cp.Membership) // One CustomerProfile has one Membership
             .WithMany(m => m.CustomerProfiles) // One Membership can have many CustomerProfiles
