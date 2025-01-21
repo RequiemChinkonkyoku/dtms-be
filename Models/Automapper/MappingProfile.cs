@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Models.DTOs.Membership;
 using Models.DTOs.Response;
 using Models.DTOs.TrainerReport;
 using Models.DTOs.TrainingReport;
@@ -24,6 +25,10 @@ namespace Models.Automapper
                 .ReverseMap();
             CreateMap<Dog, DogResponse>()
                .ReverseMap();
+            CreateMap<Membership, MembershipResponse>()
+                .ReverseMap();
+            CreateMap<Membership, CreateMembershipRequest>()
+                .ReverseMap();
         }
     }
 }
