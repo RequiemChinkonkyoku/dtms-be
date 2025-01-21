@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Models.DTOs.LegalDocument;
 using Models.DTOs.Membership;
 using Models.DTOs.Response;
 using Models.DTOs.TrainerReport;
@@ -28,6 +29,10 @@ namespace Models.Automapper
             CreateMap<Membership, MembershipResponse>()
                 .ReverseMap();
             CreateMap<Membership, CreateMembershipRequest>()
+                .ReverseMap();
+            CreateMap<LegalDocument, LegalDocumentResponse>()
+                .ReverseMap();
+            CreateMap<LegalDocument, CreateLegalDocumentRequest>()
                 .ReverseMap();
         }
     }
