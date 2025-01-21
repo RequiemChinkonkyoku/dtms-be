@@ -13,5 +13,7 @@ namespace Models.DTOs.Membership
         public int RequiredPoints { get; set; }
         public string Description { get; set; }
         public decimal DiscountAmount { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
+        public DateTimeOffset LastUpdatedTime { get; set; }
     }
 }
