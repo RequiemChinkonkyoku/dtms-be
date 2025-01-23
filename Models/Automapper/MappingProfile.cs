@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Models.DTOs.Certification;
 using Models.DTOs.LegalDocument;
 using Models.DTOs.Membership;
 using Models.DTOs.Response;
@@ -33,6 +34,10 @@ namespace Models.Automapper
             CreateMap<LegalDocument, LegalDocumentResponse>()
                 .ReverseMap();
             CreateMap<LegalDocument, CreateLegalDocumentRequest>()
+                .ReverseMap();
+            CreateMap<Certifications, CertificationResponse>()
+                .ReverseMap();
+            CreateMap<Certifications, CreateCertificationRequest>()
                 .ReverseMap();
         }
     }
