@@ -102,8 +102,8 @@ namespace DTMS_API.Controllers
             {
                 var success = await _trainerReportService.DeleteTrainerReportAsync(id);
                 if (!success)
-                    return NotFound();
-                return NoContent();
+                    return NotFound("Trainer Report not found!");
+                return Ok("Trainer Report deleted successfully.");
             }
             catch (KeyNotFoundException ex)
             {

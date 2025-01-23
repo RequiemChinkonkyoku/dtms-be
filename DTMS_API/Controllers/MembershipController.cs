@@ -103,8 +103,8 @@ namespace DTMS_API.Controllers
             {
                 var success = await _membershipService.DeleteMembershipAsync(id);
                 if (!success)
-                    return NotFound();
-                return NoContent();
+                    return NotFound("Membership not found!");
+                return Ok("Membership deleted successfully.");
             }
             catch (KeyNotFoundException ex)
             {

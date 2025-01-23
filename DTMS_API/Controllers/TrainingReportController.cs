@@ -120,8 +120,8 @@ namespace DTMS_API.Controllers
             {
                 var success = await _trainingReportService.DeleteTrainingReportAsync(id);
                 if (!success)
-                    return NotFound();
-                return NoContent();
+                    return NotFound("Training Report not found!");
+                return Ok("Training Report deleted successfully.");
             }
             catch (ArgumentException ex)
             {
