@@ -89,10 +89,8 @@ namespace Services.Implement
             existingDog.Status = request.Status;
             existingDog.DogBreedId = request.DogBreedId ?? existingDog.DogBreedId;
             existingDog.CustomerProfileId = request.CustomerProfileId ?? existingDog.CustomerProfileId;
-
             
             existingDog.LastUpdatedTime = DateTime.UtcNow;
-
             
             _unitOfWork.Dogs.Update(existingDog);
             await _unitOfWork.SaveChanges();

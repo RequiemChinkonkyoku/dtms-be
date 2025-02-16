@@ -52,6 +52,7 @@ public class UnitOfWork : IUnitOfWork
     public ITrainerSpecializationRepository TrainerSpecializations { get; }
     public ITrainingReportRepository TrainingReports { get; }
     public IWishListRepository WishLists { get; }
+    public IAccountOtpRepository AccountOtps { get; }
 
     public UnitOfWork(IAccountRepository accountRepository,
                       IAttendanceRepository attendanceRepository,
@@ -98,7 +99,8 @@ public class UnitOfWork : IUnitOfWork
                       ITrainerSkillRepository trainerSkillRepository,
                       ITrainerSpecializationRepository trainerSpecializationRepository,
                       IWishListRepository wishListRepository,
-                      ITrainingReportRepository trainingReports)
+                      ITrainingReportRepository trainingReports,
+                      IAccountOtpRepository accountOtpRepository)
     {
         _dbContext = new DtmsDbContext();
         Accounts = accountRepository;
@@ -147,6 +149,7 @@ public class UnitOfWork : IUnitOfWork
         TrainerSpecializations = trainerSpecializationRepository;
         WishLists = wishListRepository;
         TrainingReports = trainingReports;
+        AccountOtps = accountOtpRepository;
     }
 
     public async Task SaveChanges()

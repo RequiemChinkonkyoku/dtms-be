@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories;
 
@@ -11,9 +12,11 @@ using Repositories;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DtmsDbContext))]
-    partial class DtmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250118090007_V1_AddAccountOtpTable")]
+    partial class V1_AddAccountOtpTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +32,9 @@ namespace Repositories.Migrations
 
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CustomerProfileId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -51,8 +57,14 @@ namespace Repositories.Migrations
                     b.Property<DateTime>("RegistrationTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("StaffProfileId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<string>("TrainerProfileId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -544,7 +556,8 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.HasIndex("CustomerRoleId");
 
@@ -1371,7 +1384,8 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.HasIndex("StaffRoleId");
 
@@ -1487,7 +1501,8 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.HasIndex("TrainerRoleId");
 
@@ -1830,8 +1845,8 @@ namespace Repositories.Migrations
             modelBuilder.Entity("Models.Entities.CustomerProfile", b =>
                 {
                     b.HasOne("Models.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
+                        .WithOne("CustomerProfile")
+                        .HasForeignKey("Models.Entities.CustomerProfile", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2105,8 +2120,8 @@ namespace Repositories.Migrations
             modelBuilder.Entity("Models.Entities.StaffProfile", b =>
                 {
                     b.HasOne("Models.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
+                        .WithOne("StaffProfile")
+                        .HasForeignKey("Models.Entities.StaffProfile", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2143,8 +2158,8 @@ namespace Repositories.Migrations
             modelBuilder.Entity("Models.Entities.TrainerProfile", b =>
                 {
                     b.HasOne("Models.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
+                        .WithOne("TrainerProfile")
+                        .HasForeignKey("Models.Entities.TrainerProfile", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2260,7 +2275,16 @@ namespace Repositories.Migrations
 
                     b.Navigation("Chats");
 
+                    b.Navigation("CustomerProfile")
+                        .IsRequired();
+
                     b.Navigation("Notifications");
+
+                    b.Navigation("StaffProfile")
+                        .IsRequired();
+
+                    b.Navigation("TrainerProfile")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.Entities.Attendance", b =>

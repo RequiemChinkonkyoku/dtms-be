@@ -76,28 +76,11 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<EquipmentCategory> EquipmentCategories { get; set; }
     public virtual DbSet<DogBreed> DogBreeds { get; set; }
     public virtual DbSet<CustomerRole> CustomerRoles { get; set; }
+    public virtual DbSet<AccountOtp> AccountOtps { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Account>(entity =>
-        {
-            entity.HasOne(a => a.CustomerProfile)
-                .WithOne(cp => cp.Account)
-                .HasForeignKey<CustomerProfile>(cp => cp.AccountId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(a => a.TrainerProfile)
-                .WithOne(tp => tp.Account)
-                .HasForeignKey<TrainerProfile>(tp => tp.AccountId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(a => a.StaffProfile)
-                .WithOne(sp => sp.Account)
-                .HasForeignKey<StaffProfile>(sp => sp.AccountId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
 
         modelBuilder.Entity<CustomerProfile>()
             .HasOne(cp => cp.Membership) // One CustomerProfile has one Membership
@@ -424,6 +407,12 @@ public class DtmsDbContext : DbContext
             .HasOne(cp => cp.CustomerRole)
             .WithMany(cr => cr.CustomerProfiles)
             .HasForeignKey(cp => cp.CustomerRoleId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<AccountOtp>()
+            .HasOne(u => u.Account)
+            .WithMany(r => r.AccountOtps)
+            .HasForeignKey(u => u.AccountId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
