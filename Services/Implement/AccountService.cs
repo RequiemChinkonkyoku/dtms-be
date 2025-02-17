@@ -27,68 +27,69 @@ public class AccountService : IAccountService
     }
 
     public async Task<List<AllAccountsResponse>> GetAllAccounts()
-{
-    var accounts = await _unitOfWork.Accounts.GetAll();
-
-    var responses = new List<AllAccountsResponse>();
-
-    foreach (var account in accounts)
     {
-        var response = new AllAccountsResponse
-        {
-            Id = account.Id.ToString(),
-            CreatedTime = account.CreatedTime,
-            LastUpdatedTime = account.LastUpdatedTime,
-            Username = account.Username,
-            Email = account.Email,
-            Status = account.Status,
-            ProfileType = account.ProfileType
-        };
+        var accounts = await _unitOfWork.Accounts.GetAll();
 
-        // Fetch profile data based on ProfileType
-        switch (account.ProfileType)
-        {
-            case 1: // Customer Profile
-                var customerProfiles = await _unitOfWork.CustomerProfiles
-                    .GetAll();
-                var customerProfile = customerProfiles.FirstOrDefault(cp => cp.AccountId == account.Id);
-                if (customerProfile != null)
-                {
-                    response.FullName = customerProfile.FullName;
-                    response.PhoneNumber = customerProfile.PhoneNumber;
-                }
-                break;
+        var responses = new List<AllAccountsResponse>();
 
-            case 2: // Trainer Profile
-                var trainerProfiles = await _unitOfWork.TrainerProfiles
-                    .GetAll();
+        foreach (var account in accounts)
+        {
+            var response = new AllAccountsResponse
+            {
+                Id = account.Id.ToString(),
+                CreatedTime = account.CreatedTime,
+                LastUpdatedTime = account.LastUpdatedTime,
+                Username = account.Username,
+                Email = account.Email,
+                Status = account.Status,
+                ProfileType = account.ProfileType
+            };
+
+            // Fetch profile data based on ProfileType
+            switch (account.ProfileType)
+            {
+                case 1: // Customer Profile
+                    var customerProfiles = await _unitOfWork.CustomerProfiles
+                        .GetAll();
+                    var customerProfile = customerProfiles.FirstOrDefault(cp => cp.AccountId == account.Id);
+                    if (customerProfile != null)
+                    {
+                        response.FullName = customerProfile.FullName;
+                        response.PhoneNumber = customerProfile.PhoneNumber;
+                    }
+
+                    break;
+
+                case 2: // Trainer Profile
+                    var trainerProfiles = await _unitOfWork.TrainerProfiles
+                        .GetAll();
                     var trainerProfile = trainerProfiles.FirstOrDefault(tp => tp.AccountId == account.Id);
-                if (trainerProfile != null)
-                {
-                    response.FullName = trainerProfile.FullName;
-                    response.PhoneNumber = trainerProfile.PhoneNumber;
-                }
-                break;
+                    if (trainerProfile != null)
+                    {
+                        response.FullName = trainerProfile.FullName;
+                        response.PhoneNumber = trainerProfile.PhoneNumber;
+                    }
 
-            case 3: // Staff Profile
-                var staffProfiles = await _unitOfWork.StaffProfiles
-                    .GetAll();
+                    break;
+
+                case 3: // Staff Profile
+                    var staffProfiles = await _unitOfWork.StaffProfiles
+                        .GetAll();
                     var staffProfile = staffProfiles.FirstOrDefault(sp => sp.AccountId == account.Id);
-                if (staffProfile != null)
-                {
-                    response.FullName = staffProfile.FullName;
-                    response.PhoneNumber = staffProfile.PhoneNumber;
-                }
-                break;
+                    if (staffProfile != null)
+                    {
+                        response.FullName = staffProfile.FullName;
+                        response.PhoneNumber = staffProfile.PhoneNumber;
+                    }
+
+                    break;
+            }
+
+            responses.Add(response);
         }
 
-        responses.Add(response);
+        return responses;
     }
-
-    return responses;
-}
-
-
 
     public async Task<Account> CreateNewAccount(CreateAccountRequest request)
     {
