@@ -72,7 +72,7 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDogBreed(string id)
         {
             if (string.IsNullOrWhiteSpace(id))

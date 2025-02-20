@@ -23,7 +23,10 @@ namespace Models.Automapper
             CreateMap<TrainingReport, CreateTrainingReportRequest>()
                 .ReverseMap();
             CreateMap<Dog, DogResponse>()
-               .ReverseMap();
+                .ForMember(dest => dest.DogBreedName, opt => opt.MapFrom(src => src.DogBreed.Name))
+                .ReverseMap();
+            CreateMap<DogBreed, DogBreedResponse>()
+                .ForMember(dest => dest.DogNames, opt => opt.MapFrom(src => src.Dogs.Select(d => d.Name).ToList()));
         }
     }
 }
