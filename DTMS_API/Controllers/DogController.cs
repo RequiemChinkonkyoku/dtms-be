@@ -44,7 +44,7 @@ namespace DTMS_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNewBreed(CreateDogRequest request)
+        public async Task<IActionResult> CreateNewDog(CreateDogRequest request)
         {
             if (!ModelState.IsValid)
             {
