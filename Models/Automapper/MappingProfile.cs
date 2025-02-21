@@ -26,8 +26,6 @@ namespace Models.Automapper
                 .ReverseMap();
             CreateMap<TrainingReport, CreateTrainingReportRequest>()
                 .ReverseMap();
-            CreateMap<Dog, DogResponse>()
-               .ReverseMap();
             CreateMap<Membership, MembershipResponse>()
                 .ReverseMap();
             CreateMap<Membership, CreateMembershipRequest>()
@@ -44,6 +42,13 @@ namespace Models.Automapper
                 .ReverseMap();
             CreateMap<Blog, CreateBlogRequest>()
                 .ReverseMap();
+            CreateMap<Dog, DogResponse>()
+                .ForMember(dest => dest.DogBreedName, opt => opt.MapFrom(src => src.DogBreed.Name))
+                .ReverseMap();
+            CreateMap<DogBreed, DogBreedResponse>()
+                .ForMember(dest => dest.DogNames, opt => opt.MapFrom(src => src.Dogs.Select(d => d.Name).ToList()))
+                .ReverseMap();
+                
         }
     }
 }

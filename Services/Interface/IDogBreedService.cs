@@ -1,4 +1,5 @@
 ﻿using Models.DTOs;
+using Models.DTOs.Response;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,10 @@ namespace Services.Interface
 {
     public interface IDogBreedService
     {
-        Task<List<DogBreed>> GetAllBreed();
+        Task<List<DogBreedResponse>> GetAllBreed();
+        Task<DogBreedResponse> GetDogBreedByIdAsync(string id);
         Task<DogBreed> CreateDogBreedAsync(CreateDogBreedRequest request);
         Task<DogBreed> UpdateDogBreedAsync(string id, UpdateDogBreedRequest request);
         Task<DogBreed> DeleteDogBreedAsync(string id);
-
-        Task<DogBreed> GetDogBreedByIdAsync(string id);
     }
 }
