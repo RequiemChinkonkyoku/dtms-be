@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Models.DTOs.Response;
 using Models.Entities;
 using Services.Interface;
 
@@ -17,7 +18,7 @@ public class CustomerProfileController : ControllerBase
     }
 
     [HttpGet("{accountId}")]
-    public async Task<ActionResult<CustomerProfile>> GetCustomerProfile(string accountId)
+    public async Task<ActionResult<CustomerProfileResponse>> GetCustomerProfile(string accountId)
     {
         if (!ModelState.IsValid)
         {

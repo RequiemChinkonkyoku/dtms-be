@@ -27,9 +27,9 @@ namespace Services.Implement
             var account = await _unitOfWork.Accounts
                 .GetById(accountId);
 
-            if (account == null || account.ProfileType != 1) // Ensure it's a customer
+            if (account == null || account.ProfileType != 1) 
             {
-                return null; // Or throw an exception if needed
+                return null; 
             }
             
             var customerProfiles = await _unitOfWork.CustomerProfiles.GetAll();
@@ -37,7 +37,7 @@ namespace Services.Implement
 
             if (customerProfile == null)
             {
-                return null; // Or handle missing profile case
+                return null; 
             }
 
             return new CustomerProfileResponse
@@ -54,5 +54,7 @@ namespace Services.Implement
                 MembershipPoints = customerProfile.MembershipPoints
             };
         }
+        
+        
     }
 }

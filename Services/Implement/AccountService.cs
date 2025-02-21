@@ -110,11 +110,66 @@ public class AccountService : IAccountService
                 RegistrationTime = DateTime.UtcNow,
                 CreatedTime = DateTime.UtcNow,
                 LastUpdatedTime = DateTime.UtcNow,
+                ProfileType = request.ProfileType
             };
 
             await _unitOfWork.Accounts.Add(account);
             await _unitOfWork.SaveChanges();
 
+            // Create the associated profile based on ProfileType
+            switch (request.ProfileType)
+            {
+                case 1: // Customer
+                    var customerProfile = new CustomerProfile()
+                    {
+                        AccountId = account.Id,
+                        FullName = request.FullName,
+                        PhoneNumber = request.PhoneNumber,
+                        Address = request.Address,
+                        DateOfBirth = request.DateOfBirth,
+                        Gender = request.Gender,
+                        MembershipPoints = 0,
+                        MembershipId = "08826fe6-0033-4776-987c-f37e8367f95a", //hardcoded for testing
+                        CustomerRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
+                    };
+                    await _unitOfWork.CustomerProfiles.Add(customerProfile);
+                    break;
+
+                case 2: // Trainer
+                    var trainerProfile = new TrainerProfile()
+                    {
+                        AccountId = account.Id,
+                        FullName = request.FullName,
+                        PhoneNumber = request.PhoneNumber,
+                        Address = request.Address,
+                        DateOfBirth = request.DateOfBirth,
+                        Gender = request.Gender,
+                        EmploymentType = 1,
+                        DateOfHire = DateTime.Today,
+                        EmploymentStatus = 1,
+                        TrainerRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
+                    };
+                    await _unitOfWork.TrainerProfiles.Add(trainerProfile);
+                    break;
+
+                case 3: // Staff
+                    var staffProfile = new StaffProfile()
+                    {
+                        AccountId = account.Id,
+                        FullName = request.FullName,
+                        PhoneNumber = request.PhoneNumber,
+                        Address = request.Address,
+                        DateOfBirth = request.DateOfBirth,
+                        Gender = request.Gender,
+                        EmploymentType = 0, // Default value
+                        DateOfHire = DateTime.UtcNow,
+                        StaffRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
+                    };
+                    await _unitOfWork.StaffProfiles.Add(staffProfile);
+                    break;
+            }
+
+            await _unitOfWork.SaveChanges();
             return account;
         }
         catch (Exception ex)
@@ -124,6 +179,7 @@ public class AccountService : IAccountService
             throw new HttpRequestException("Failed to create an account", ex);
         }
     }
+
 
     public async Task<string> Login(AccountLoginRequest request)
     {
