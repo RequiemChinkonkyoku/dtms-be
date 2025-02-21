@@ -19,7 +19,7 @@ namespace Models.DTOs
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Image URL is required.")]
-        [Url(ErrorMessage = "Invalid URL format.")]
+        // [Url(ErrorMessage = "Invalid URL format.")]
         public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Full name is required.")]
