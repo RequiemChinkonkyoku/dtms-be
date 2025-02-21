@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
+using Models.DTOs.Response;
 using Models.Entities;
+using Repositories.Implement;
 using Repositories.Interface;
 using Services.Interface;
 using System;
@@ -14,22 +17,24 @@ namespace Services.Implement
     public class DogBreedService : IDogBreedService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public DogBreedService(IUnitOfWork unitOfWork)
+        public DogBreedService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<List<DogBreed>> GetAllBreed()
+        public async Task<List<DogBreedResponse>> GetAllBreed()
         {
-            var result = await _unitOfWork.DogBreeds.GetAll();
-            return result;
+            var dogBreeds = await _unitOfWork.DogBreeds.GetAllDogBreeds();
+            return _mapper.Map<List<DogBreedResponse>>(dogBreeds);
         }
 
-        public async Task<DogBreed> GetDogBreedByIdAsync(string id)
+        public async Task<DogBreedResponse> GetDogBreedByIdAsync(string id)
         {
-            var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
-            return dogBreed;
+            var dogBreed = await _unitOfWork.DogBreeds.GetDogBreedById(id);
+            return _mapper.Map<DogBreedResponse>(dogBreed);
         }
 
 
