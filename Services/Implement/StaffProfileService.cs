@@ -26,7 +26,7 @@ namespace Services.Implement
             var account = await _unitOfWork.Accounts
                 .GetById(accountId);
 
-            if (account == null || account.ProfileType != 2) // Ensure it's a staff account
+            if (account == null || account.ProfileType != 3) // Ensure it's a staff account
             {
                 return null; // Or throw an exception if needed
             }

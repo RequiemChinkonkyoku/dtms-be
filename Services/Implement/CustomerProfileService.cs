@@ -54,7 +54,5 @@ namespace Services.Implement
                 MembershipPoints = customerProfile.MembershipPoints
             };
         }
-        
-        
     }
 }

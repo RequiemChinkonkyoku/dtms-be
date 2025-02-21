@@ -11,7 +11,7 @@ public class StaffProfileController : ControllerBase
 {
     private readonly IStaffProfileService _staffProfileService;
 
-    public StaffProfileController(StaffProfileService staffProfileService)
+    public StaffProfileController(IStaffProfileService staffProfileService)
     {
         _staffProfileService = staffProfileService;
     }
