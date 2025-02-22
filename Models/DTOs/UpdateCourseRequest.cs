@@ -23,5 +23,9 @@ namespace Models.DTOs
         public int Complexity { get; set; }
 
         public string CategoryId { get; set; }
+
+        public List<string> LessonIds { get; set; }
+
+        public List<string> DogBreedIds { get; set; }
     }
 }

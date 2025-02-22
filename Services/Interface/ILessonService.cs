@@ -11,7 +11,9 @@ namespace Services.Interface
     public interface ILessonService
     {
         Task<BaseResponseDTO<Lesson>> CreateLesson(CreateLessonRequest request);
+        Task<BaseResponseDTO<Lesson>> DeleteLesson(string id);
         Task<BaseResponseDTO<Lesson>> GetAllLessons();
+        Task<BaseResponseDTO<Lesson>> GetLessonById(string id);
         Task<BaseResponseDTO<Lesson>> UpdateLesson(UpdateLessonRequest request);
     }
 }

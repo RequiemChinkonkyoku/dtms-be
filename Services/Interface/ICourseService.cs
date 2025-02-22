@@ -11,7 +11,9 @@ namespace Services.Interface
     public interface ICourseService
     {
         Task<BaseResponseDTO<Course>> CreateCourse(CreateCourseRequest request);
+        Task<BaseResponseDTO<Course>> DeleteCourse(string id);
         Task<BaseResponseDTO<Course>> GetAllCourses();
+        Task<BaseResponseDTO<Course>> GetCourseById(string id);
         Task<BaseResponseDTO<Course>> UpdateCourse(UpdateCourseRequest request);
     }
 }

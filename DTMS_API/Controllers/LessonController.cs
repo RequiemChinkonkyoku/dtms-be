@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Services.Interface;
 using System.Runtime.CompilerServices;
@@ -24,6 +25,21 @@ namespace DTMS_API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLessonById(string id)
+        {
+            var response = await _lessonService.GetLessonById(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateLesson(CreateLessonRequest request)
         {
@@ -43,6 +59,21 @@ namespace DTMS_API.Controllers
         public async Task<IActionResult> UpdateLesson(UpdateLessonRequest request)
         {
             var response = await _lessonService.UpdateLesson(request);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLesson(string id)
+        {
+            var response = await _lessonService.DeleteLesson(id);
 
             if (response.Success)
             {

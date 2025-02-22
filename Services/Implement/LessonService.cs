@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging.EventSource;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging.EventSource;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using Models.DTOs;
@@ -17,10 +18,12 @@ namespace Services.Implement
     public class LessonService : ILessonService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public LessonService(IUnitOfWork unitOfWork)
+        public LessonService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<BaseResponseDTO<Lesson>> GetAllLessons()
@@ -28,6 +31,18 @@ namespace Services.Implement
             var response = await _unitOfWork.Lessons.GetAll();
 
             return new BaseResponseDTO<Lesson> { Success = true, ObjectList = response };
+        }
+
+        public async Task<BaseResponseDTO<Lesson>> GetLessonById(string id)
+        {
+            var lesson = await _unitOfWork.Lessons.GetById(id);
+
+            if (lesson == null)
+            {
+                return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find lesson with id " + id };
+            }
+
+            return new BaseResponseDTO<Lesson> { Success = true, Object = lesson };
         }
 
         public async Task<BaseResponseDTO<Lesson>> CreateLesson(CreateLessonRequest request)
@@ -178,6 +193,25 @@ namespace Services.Implement
 
                 await _unitOfWork.SaveChanges();
             }
+
+            return new BaseResponseDTO<Lesson> { Success = true, Object = lesson };
+        }
+
+        public async Task<BaseResponseDTO<Lesson>> DeleteLesson(string id)
+        {
+            var lesson = await _unitOfWork.Lessons.GetById(id);
+
+            if (lesson == null)
+            {
+                return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find lesson with id " + id };
+            }
+
+            lesson.Status = 0;
+            lesson.LastUpdatedTime = DateTime.UtcNow;
+            lesson.LastUpdatedTime = DateTime.UtcNow;
+
+            await _unitOfWork.Lessons.Update(lesson);
+            await _unitOfWork.SaveChanges();
 
             return new BaseResponseDTO<Lesson> { Success = true, Object = lesson };
         }

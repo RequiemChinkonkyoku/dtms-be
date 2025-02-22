@@ -29,9 +29,24 @@ namespace Services.Implement
             return new BaseResponseDTO<Course> { Success = true, ObjectList = response };
         }
 
+        public async Task<BaseResponseDTO<Course>> GetCourseById(string id)
+        {
+            var course = await _unitOfWork.Courses.GetById(id);
+
+            if (course == null)
+            {
+                return new BaseResponseDTO<Course> { Success = false, Message = "Unable to find course with id " + id };
+            }
+
+            return new BaseResponseDTO<Course> { Success = true, Object = course };
+        }
+
         public async Task<BaseResponseDTO<Course>> CreateCourse(CreateCourseRequest request)
         {
-            if (request.CategoryId.IsNullOrEmpty() | request.CreatedTrainerId.IsNullOrEmpty())
+            if (request.CategoryId.IsNullOrEmpty() ||
+                request.CreatedTrainerId.IsNullOrEmpty() ||
+                request.LessonIds.Count <= 0 ||
+                request.DogBreedIds.Count <= 0)
             {
                 return new BaseResponseDTO<Course>
                 {
@@ -62,38 +77,111 @@ namespace Services.Implement
                 };
             }
 
-            var course = new Course()
+            foreach (var id in request.LessonIds)
             {
-                Name = request.Name,
-                Description = request.Description,
-                Status = 1,
-                DurationInWeeks = request.DurationInWeeks,
-                DaysPerWeek = request.DaysPerWeek,
-                SlotsPerDay = request.SlotsPerDay,
-                Price = request.Price,
-                MinDogs = request.MinDogs,
-                MaxDogs = request.MaxDogs,
-                MinTrainers = request.MinTrainers,
-                MaxTrainers = request.MaxTrainers,
-                Complexity = request.Complexity,
-                CreatedTrainerId = request.CreatedTrainerId,
-                CategoryId = request.CategoryId,
-                CreatedTime = DateTime.Now,
-                LastUpdatedTime = DateTime.Now,
-            };
+                var lesson = await _unitOfWork.Lessons.GetById(id);
 
-            await _unitOfWork.Courses.Add(course);
-            await _unitOfWork.SaveChanges();
+                if (lesson == null)
+                {
+                    return new BaseResponseDTO<Course>
+                    {
+                        Success = false,
+                        Message = "Unable to find lesson with id " + id
+                    };
+                }
+            }
 
-            return new BaseResponseDTO<Course> { Success = true, Object = course };
+            foreach (var id in request.DogBreedIds)
+            {
+                var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
+
+                if (dogBreed == null)
+                {
+                    return new BaseResponseDTO<Course>
+                    {
+                        Success = false,
+                        Message = "Unable to find dogBreed with id " + id
+                    };
+                }
+            }
+
+            try
+            {
+                var course = new Course()
+                {
+                    Name = request.Name,
+                    Description = request.Description,
+                    Status = 1,
+                    DurationInWeeks = request.DurationInWeeks,
+                    DaysPerWeek = request.DaysPerWeek,
+                    SlotsPerDay = request.SlotsPerDay,
+                    Price = request.Price,
+                    MinDogs = request.MinDogs,
+                    MaxDogs = request.MaxDogs,
+                    MinTrainers = request.MinTrainers,
+                    MaxTrainers = request.MaxTrainers,
+                    Complexity = request.Complexity,
+                    CreatedTrainerId = request.CreatedTrainerId,
+                    CategoryId = request.CategoryId,
+                    CreatedTime = DateTime.Now,
+                    LastUpdatedTime = DateTime.Now,
+                };
+
+                await _unitOfWork.Courses.Add(course);
+                await _unitOfWork.SaveChanges();
+
+                foreach (var id in request.LessonIds)
+                {
+                    var courseLesson = new CourseLesson
+                    {
+                        Status = 1,
+                        CourseId = course.Id,
+                        LessonId = id,
+                        CreatedTime = DateTime.Now,
+                        LastUpdatedTime = DateTime.Now
+                    };
+
+                    await _unitOfWork.CourseLessons.Add(courseLesson);
+                }
+
+                await _unitOfWork.SaveChanges();
+
+                foreach (var id in request.DogBreedIds)
+                {
+                    var courseDog = new CourseDog
+                    {
+                        Status = 1,
+                        CourseId = course.Id,
+                        DogBreedId = id,
+                        CreatedTime = DateTime.Now,
+                        LastUpdatedTime = DateTime.Now,
+                    };
+
+                    await _unitOfWork.CourseDogs.Add(courseDog);
+                }
+
+                await _unitOfWork.SaveChanges();
+
+                return new BaseResponseDTO<Course> { Success = true, Object = course };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Course> { Success = false, Message = "There has been an error: " + ex.Message };
+            }
         }
 
         public async Task<BaseResponseDTO<Course>> UpdateCourse(UpdateCourseRequest request)
         {
             if (request.Id.IsNullOrEmpty() ||
-                request.CategoryId.IsNullOrEmpty())
+                request.CategoryId.IsNullOrEmpty() ||
+                request.LessonIds.Count <= 0 ||
+                request.DogBreedIds.Count <= 0)
             {
-                return new BaseResponseDTO<Course> { Success = false, Message = "Id must be given." };
+                return new BaseResponseDTO<Course>
+                {
+                    Success = false,
+                    Message = "Id must be given."
+                };
             }
 
             var category = await _unitOfWork.Categories.GetById(request.CategoryId);
@@ -107,6 +195,34 @@ namespace Services.Implement
                 };
             }
 
+            foreach (var id in request.LessonIds)
+            {
+                var lesson = await _unitOfWork.Lessons.GetById(id);
+
+                if (lesson == null)
+                {
+                    return new BaseResponseDTO<Course>
+                    {
+                        Success = false,
+                        Message = "Unable to find lesson with id " + id
+                    };
+                }
+            }
+
+            foreach (var id in request.DogBreedIds)
+            {
+                var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
+
+                if (dogBreed == null)
+                {
+                    return new BaseResponseDTO<Course>
+                    {
+                        Success = false,
+                        Message = "Unable to find dogBreed with id " + id
+                    };
+                }
+            }
+
             var course = await _unitOfWork.Courses.GetById(request.Id);
 
             if (course == null)
@@ -118,24 +234,167 @@ namespace Services.Implement
                 };
             }
 
-            course.Name = request.Name;
-            course.Description = request.Description;
-            course.Status = request.Status;
-            course.DurationInWeeks = request.DurationInWeeks;
-            course.DaysPerWeek = request.DaysPerWeek;
-            course.SlotsPerDay = request.SlotsPerDay;
-            course.MinDogs = request.MinDogs;
-            course.MaxDogs = request.MaxDogs;
-            course.MinTrainers = request.MinTrainers;
-            course.MaxTrainers = request.MaxTrainers;
-            course.Complexity = request.Complexity;
-            course.CategoryId = request.CategoryId;
-            course.LastUpdatedTime = DateTime.Now;
+            try
+            {
+                course.Name = request.Name;
+                course.Description = request.Description;
+                course.Status = request.Status;
+                course.DurationInWeeks = request.DurationInWeeks;
+                course.DaysPerWeek = request.DaysPerWeek;
+                course.SlotsPerDay = request.SlotsPerDay;
+                course.MinDogs = request.MinDogs;
+                course.MaxDogs = request.MaxDogs;
+                course.MinTrainers = request.MinTrainers;
+                course.MaxTrainers = request.MaxTrainers;
+                course.Complexity = request.Complexity;
+                course.CategoryId = request.CategoryId;
+                course.LastUpdatedTime = DateTime.Now;
 
-            await _unitOfWork.Courses.Update(course);
-            await _unitOfWork.SaveChanges();
+                await _unitOfWork.Courses.Update(course);
+                await _unitOfWork.SaveChanges();
 
-            return new BaseResponseDTO<Course> { Success = true, Object = course };
+                var currentLessonIds = (await _unitOfWork.CourseLessons.GetAll())
+                                                    .Where(cl => cl.CourseId == course.Id)
+                                                    .Select(cl => cl.LessonId)
+                                                    .ToList();
+
+                var lessonIdsToAdd = request.LessonIds.Except(currentLessonIds).ToList();
+                var lessonIdsToRemove = currentLessonIds.Except(request.LessonIds).ToList();
+
+                if (lessonIdsToAdd.Any())
+                {
+                    foreach (var id in lessonIdsToAdd)
+                    {
+                        var newCourseLesson = new CourseLesson
+                        {
+                            CourseId = course.Id,
+                            LessonId = id,
+                            Status = 1,
+                            CreatedTime = DateTime.UtcNow,
+                            LastUpdatedTime = DateTime.UtcNow,
+                        };
+
+                        await _unitOfWork.CourseLessons.Add(newCourseLesson);
+                    }
+
+                    await _unitOfWork.SaveChanges();
+                }
+
+                if (lessonIdsToRemove.Any())
+                {
+                    var courseLessonsToRemove = (await _unitOfWork.CourseLessons.GetAll())
+                                                        .Where(cl => lessonIdsToRemove.Contains(cl.LessonId))
+                                                        .ToList();
+
+                    foreach (var courseLesson in courseLessonsToRemove)
+                    {
+                        await _unitOfWork.CourseLessons.Delete(courseLesson);
+                    }
+
+                    await _unitOfWork.SaveChanges();
+                }
+
+                var currentDogBreedIds = (await _unitOfWork.CourseDogs.GetAll())
+                                                    .Where(cd => cd.CourseId == course.Id)
+                                                    .Select(cd => cd.DogBreedId)
+                                                    .ToList();
+
+                var dogBreedIdsToAdd = request.LessonIds.Except(currentDogBreedIds).ToList();
+                var dogBreedIdsToRemove = currentDogBreedIds.Except(request.DogBreedIds).ToList();
+
+                if (dogBreedIdsToAdd.Any())
+                {
+                    foreach (var id in dogBreedIdsToAdd)
+                    {
+                        var newCourseDog = new CourseDog
+                        {
+                            Status = 1,
+                            CourseId = course.Id,
+                            DogBreedId = id,
+                            CreatedTime = DateTime.UtcNow,
+                            LastUpdatedTime = DateTime.UtcNow,
+                        };
+
+                        await _unitOfWork.CourseDogs.Add(newCourseDog);
+                    }
+
+                    await _unitOfWork.SaveChanges();
+                }
+
+                if (dogBreedIdsToRemove.Any())
+                {
+                    var courseDogToRemove = (await _unitOfWork.CourseDogs.GetAll())
+                                                        .Where(cd => dogBreedIdsToRemove.Contains(cd.DogBreedId))
+                                                        .ToList();
+
+                    foreach (var courseDog in courseDogToRemove)
+                    {
+                        await _unitOfWork.CourseDogs.Delete(courseDog);
+                    }
+
+                    await _unitOfWork.SaveChanges();
+                }
+
+                return new BaseResponseDTO<Course> { Success = true, Object = course };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Course> { Success = false, Message = "There has been an error: " + ex.Message };
+            }
+        }
+
+        public async Task<BaseResponseDTO<Course>> DeleteCourse(string id)
+        {
+            var course = await _unitOfWork.Courses.GetById(id);
+
+            if (course == null)
+            {
+                return new BaseResponseDTO<Course>
+                {
+                    Success = false,
+                    Message = "Unable to find course with id " + id
+                };
+            }
+
+            try
+            {
+                course.Status = 0;
+
+                await _unitOfWork.Courses.Update(course);
+                await _unitOfWork.SaveChanges();
+
+                var courseLessons = (await _unitOfWork.CourseLessons.GetAll())
+                                                .Where(cl => cl.CourseId == course.Id)
+                                                .ToList();
+
+                foreach (var courseLesson in courseLessons)
+                {
+                    courseLesson.Status = 0;
+
+                    await _unitOfWork.CourseLessons.Update(courseLesson);
+                }
+
+                await _unitOfWork.SaveChanges();
+
+                var courseDogs = (await _unitOfWork.CourseDogs.GetAll())
+                                            .Where(cd => cd.CourseId == course.Id)
+                                            .ToList();
+
+                foreach (var courseDog in courseDogs)
+                {
+                    courseDog.Status = 0;
+
+                    await _unitOfWork.CourseDogs.Update(courseDog);
+                }
+
+                await _unitOfWork.SaveChanges();
+
+                return new BaseResponseDTO<Course> { Success = true, Object = course };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Course> { Success = false, Message = "There has been an error: " + ex.Message };
+            }
         }
     }
 }
