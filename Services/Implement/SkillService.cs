@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Azure.Core;
+using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
 using Models.Entities;
 using Repositories.Interface;
@@ -25,6 +26,18 @@ namespace Services.Implement
             var response = await _unitOfWork.Skills.GetAll();
 
             return new BaseResponseDTO<Skill> { Success = true, ObjectList = response };
+        }
+
+        public async Task<BaseResponseDTO<Skill>> GetSkillById(string id)
+        {
+            var skill = await _unitOfWork.Skills.GetById(id);
+
+            if (skill == null)
+            {
+                return new BaseResponseDTO<Skill> { Success = false, Message = "Unable to find skill with id " + id };
+            }
+
+            return new BaseResponseDTO<Skill> { Success = true, Object = skill };
         }
 
         public async Task<BaseResponseDTO<Skill>> CreateSkill(CreateSkillRequest request)
@@ -66,6 +79,23 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             return new BaseResponseDTO<Skill> { Success = true, Object = skill };
+        }
+
+        public async Task<BaseResponseDTO<Skill>> DeleteSkill(string id)
+        {
+            var skill = await _unitOfWork.Skills.GetById(id);
+
+            if (skill == null)
+            {
+                return new BaseResponseDTO<Skill> { Success = false, Message = "Unable to find skill with id " + id };
+            }
+
+            skill.Status = 0;
+
+            await _unitOfWork.Skills.Update(skill);
+            await _unitOfWork.SaveChanges();
+
+            return new BaseResponseDTO<Skill> { Success = false, Object = skill };
         }
     }
 }
