@@ -106,7 +106,11 @@ public class UnitOfWork : IUnitOfWork
                       ITrainerSpecializationRepository trainerSpecializationRepository,
                       IWishListRepository wishListRepository,
                       ITrainingReportRepository trainingReports,
-                      IAccountOtpRepository accountOtpRepository)
+                      IAccountOtpRepository accountOtpRepository,
+                      ICourseLessonRepository courseLessonRepository,
+                      ICourseDogRepository courseDogRepository,
+                      IDogOwnershipRepository dogOwnershipRepository,
+                      IPretestRepository pretestRepository)
     {
         _dbContext = new DtmsDbContext();
         Accounts = accountRepository;
@@ -157,6 +161,10 @@ public class UnitOfWork : IUnitOfWork
         WishLists = wishListRepository;
         TrainingReports = trainingReports;
         AccountOtps = accountOtpRepository;
+        CourseLessons = courseLessonRepository;
+        CourseDogs = courseDogRepository;
+        DogOwnerships = dogOwnershipRepository;
+        Pretests = pretestRepository;
     }
 
     public async Task SaveChanges()
