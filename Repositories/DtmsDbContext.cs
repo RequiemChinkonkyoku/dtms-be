@@ -422,7 +422,7 @@ public class DtmsDbContext : DbContext
         modelBuilder.Entity<CourseLesson>()
             .HasOne(dd => dd.Lesson)
             .WithMany(d => d.CourseLessons)
-            .HasForeignKey(dd => dd.CourseId)
+            .HasForeignKey(dd => dd.LessonId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<CourseDog>()
