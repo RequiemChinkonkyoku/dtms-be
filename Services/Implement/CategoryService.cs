@@ -27,6 +27,18 @@ namespace Services.Implement
             return new BaseResponseDTO<Category> { Success = true, ObjectList = response };
         }
 
+        public async Task<BaseResponseDTO<Category>> GetCategoryById(string id)
+        {
+            var category = await _unitOfWork.Categories.GetById(id);
+
+            if (category == null)
+            {
+                return new BaseResponseDTO<Category> { Success = false, Message = "Unable to find category with id " + id };
+            }
+
+            return new BaseResponseDTO<Category> { Success = true, Object = category };
+        }
+
         public async Task<BaseResponseDTO<Category>> CreateCategory(CreateCategoryRequest request)
         {
             var category = new Category()
@@ -62,6 +74,24 @@ namespace Services.Implement
             category.Description = request.Description;
             category.Status = request.Status;
             category.LastUpdatedTime = DateTime.Now;
+
+            await _unitOfWork.Categories.Update(category);
+            await _unitOfWork.SaveChanges();
+
+            return new BaseResponseDTO<Category> { Success = true, Object = category };
+        }
+
+        public async Task<BaseResponseDTO<Category>> DeleteCategory(string id)
+        {
+            var category = await _unitOfWork.Categories.GetById(id);
+
+            if (category == null)
+            {
+                return new BaseResponseDTO<Category> { Success = false, Message = "Unable to find category with id " + id };
+            }
+
+            category.Status = 0;
+            category.LastUpdatedTime = DateTime.UtcNow;
 
             await _unitOfWork.Categories.Update(category);
             await _unitOfWork.SaveChanges();

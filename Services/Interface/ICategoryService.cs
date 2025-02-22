@@ -11,7 +11,9 @@ namespace Services.Interface
     public interface ICategoryService
     {
         Task<BaseResponseDTO<Category>> CreateCategory(CreateCategoryRequest request);
+        Task<BaseResponseDTO<Category>> DeleteCategory(string id);
         Task<BaseResponseDTO<Category>> GetAllCategories();
+        Task<BaseResponseDTO<Category>> GetCategoryById(string id);
         Task<BaseResponseDTO<Category>> UpdateCategory(UpdateCategoryRequest request);
     }
 }

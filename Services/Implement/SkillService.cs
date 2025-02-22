@@ -91,11 +91,12 @@ namespace Services.Implement
             }
 
             skill.Status = 0;
+            skill.LastUpdatedTime = DateTime.UtcNow;
 
             await _unitOfWork.Skills.Update(skill);
             await _unitOfWork.SaveChanges();
 
-            return new BaseResponseDTO<Skill> { Success = false, Object = skill };
+            return new BaseResponseDTO<Skill> { Success = true, Object = skill };
         }
     }
 }
