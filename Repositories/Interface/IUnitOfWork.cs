@@ -49,6 +49,10 @@ public interface IUnitOfWork : IDisposable
     IWishListRepository WishLists { get; }
     ITrainingReportRepository TrainingReports { get; }
     IAccountOtpRepository AccountOtps { get; }
+    ICourseLessonRepository CourseLessons { get; }
+    ICourseDogRepository CourseDogs { get; }
+    IDogOwnershipRepository DogOwnerships { get; }
+    IPretestRepository Pretests { get; }
 
     Task SaveChanges();
 }

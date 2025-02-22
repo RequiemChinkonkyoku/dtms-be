@@ -77,6 +77,10 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<DogBreed> DogBreeds { get; set; }
     public virtual DbSet<CustomerRole> CustomerRoles { get; set; }
     public virtual DbSet<AccountOtp> AccountOtps { get; set; }
+    public virtual DbSet<CourseLesson> CourseLessons { get; set; }
+    public virtual DbSet<CourseDog> CourseDogs { get; set; }
+    public virtual DbSet<DogOwnership> DogOwnerships { get; set; }
+    public virtual DbSet<PreTest> PreTests { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -99,12 +103,6 @@ public class DtmsDbContext : DbContext
             .WithOne(e => e.Payment)
             .HasForeignKey<Enrollment>(e => e.PaymentId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Dog>()
-            .HasOne(d => d.CustomerProfile)
-            .WithMany(cp => cp.Dogs)
-            .HasForeignKey(d => d.CustomerProfileId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<DogDocument>()
             .HasOne(dd => dd.DogDocumentType)
@@ -408,11 +406,59 @@ public class DtmsDbContext : DbContext
             .WithMany(cr => cr.CustomerProfiles)
             .HasForeignKey(cp => cp.CustomerRoleId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         modelBuilder.Entity<AccountOtp>()
             .HasOne(u => u.Account)
             .WithMany(r => r.AccountOtps)
             .HasForeignKey(u => u.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CourseLesson>()
+            .HasOne(dd => dd.Course)
+            .WithMany(d => d.CourseLessons)
+            .HasForeignKey(dd => dd.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CourseLesson>()
+            .HasOne(dd => dd.Lesson)
+            .WithMany(d => d.CourseLessons)
+            .HasForeignKey(dd => dd.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CourseDog>()
+            .HasOne(dd => dd.Course)
+            .WithMany(d => d.CourseDogs)
+            .HasForeignKey(dd => dd.CourseId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CourseDog>()
+            .HasOne(dd => dd.DogBreed)
+            .WithMany(d => d.CourseDogs)
+            .HasForeignKey(dd => dd.DogBreedId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DogOwnership>()
+            .HasOne(dd => dd.CustomerProfile)
+            .WithMany(d => d.DogOwnerships)
+            .HasForeignKey(dd => dd.CustomerProfileId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DogOwnership>()
+            .HasOne(dd => dd.Dog)
+            .WithMany(d => d.DogOwnerships)
+            .HasForeignKey(dd => dd.DogId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PreTest>()
+            .HasOne(dd => dd.Dog)
+            .WithMany(d => d.PreTests)
+            .HasForeignKey(dd => dd.DogId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PreTest>()
+            .HasOne(dd => dd.Class)
+            .WithMany(d => d.PreTests)
+            .HasForeignKey(dd => dd.ClassId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

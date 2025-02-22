@@ -24,5 +24,7 @@ namespace Models.Entities
         public ICollection<Enrollment> Enrollments { get; set; }
 
         public ICollection<Attendance> Attendances { get; set; }
+
+        public ICollection<PreTest> PreTests { get; set; }
     }
 }

@@ -27,6 +27,10 @@ public class Course : BaseEntity
 
     public ICollection<Prerequisite> Prerequisites { get; set; } // Prerequisites for this course
 
+    public ICollection<CourseLesson> CourseLessons { get; set; }
+
+    public ICollection<CourseDog> CourseDogs { get; set; }
+
     public ICollection<Class> Classes { get; set; }
 
     public ICollection<WishList> WishLists { get; set; }

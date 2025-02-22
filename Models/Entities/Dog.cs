@@ -9,9 +9,6 @@ public class Dog : BaseEntity
     public int Status { get; set; }
     public DateTime RegistrationTime { get; set; }
 
-    public string CustomerProfileId { get; set; }
-    public CustomerProfile CustomerProfile { get; set; }
-
     public string DogBreedId { get; set; }
     public DogBreed DogBreed { get; set; }
 
@@ -24,4 +21,8 @@ public class Dog : BaseEntity
     public ICollection<Attendance> Attendances { get; set; }
 
     public ICollection<TrainingReport> TrainingReports { get; set; }
+
+    public ICollection<DogOwnership> DogOwnerships { get; set; }
+
+    public ICollection<PreTest> PreTests { get; set; }
 }

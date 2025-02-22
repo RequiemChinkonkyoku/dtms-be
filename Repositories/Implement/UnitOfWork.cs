@@ -54,6 +54,10 @@ public class UnitOfWork : IUnitOfWork
     public ITrainingReportRepository TrainingReports { get; }
     public IWishListRepository WishLists { get; }
     public IAccountOtpRepository AccountOtps { get; }
+    public ICourseLessonRepository CourseLessons { get; }
+    public ICourseDogRepository CourseDogs { get; }
+    public IDogOwnershipRepository DogOwnerships { get; }
+    public IPretestRepository Pretests { get; }
 
     public UnitOfWork(IAccountRepository accountRepository,
                       IAttendanceRepository attendanceRepository,

@@ -17,4 +17,5 @@ public class Lesson : BaseEntity
 
     public ICollection<SlotLesson> SlotLessons { get; set; }
     public ICollection<LessonEquipment> LessonEquipments { get; set; }
+    public ICollection<CourseLesson> CourseLessons { get; set; }
 }
