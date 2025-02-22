@@ -30,6 +30,7 @@ public class UnitOfWork : IUnitOfWork
     public IDogBreedRepository DogBreeds { get; }
     public IEnrollmentRepository Enrollments { get; }
     public IEquipmentRepository Equipments { get; }
+    public IEquipmentCategoryRepository EquipmentCategories { get; }
     public ILegalDocumentRepository LegalDocuments { get; }
     public ILessonRepository Lessons { get; }
     public IMembershipRepository Memberships { get; }
@@ -53,6 +54,10 @@ public class UnitOfWork : IUnitOfWork
     public ITrainingReportRepository TrainingReports { get; }
     public IWishListRepository WishLists { get; }
     public IAccountOtpRepository AccountOtps { get; }
+    public ICourseLessonRepository CourseLessons { get; }
+    public ICourseDogRepository CourseDogs { get; }
+    public IDogOwnershipRepository DogOwnerships { get; }
+    public IPretestRepository Pretests { get; }
 
     public UnitOfWork(IAccountRepository accountRepository,
                       IAttendanceRepository attendanceRepository,
@@ -77,6 +82,7 @@ public class UnitOfWork : IUnitOfWork
                       IDogBreedRepository dogBreedRepository,
                       IEnrollmentRepository enrollmentRepository,
                       IEquipmentRepository equipmentRepository,
+                      IEquipmentCategoryRepository equipmentCategoryRepository,
                       ILegalDocumentRepository legalDocumentRepository,
                       ILessonRepository lessonRepository,
                       IMembershipRepository membershipRepository,
@@ -126,6 +132,7 @@ public class UnitOfWork : IUnitOfWork
         DogBreeds = dogBreedRepository;
         Enrollments = enrollmentRepository;
         Equipments = equipmentRepository;
+        EquipmentCategories = equipmentCategoryRepository;
         LegalDocuments = legalDocumentRepository;
         Lessons = lessonRepository;
         Memberships = membershipRepository;

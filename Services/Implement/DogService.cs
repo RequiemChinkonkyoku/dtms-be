@@ -57,13 +57,23 @@ namespace Services.Implement
                 Gender = request.Gender,
                 Status = 1,
                 RegistrationTime = DateTime.UtcNow,
-                CustomerProfileId = request.CustomerProfileId,
                 CreatedTime = DateTime.UtcNow,
                 LastUpdatedTime = DateTime.UtcNow,
                 DogBreedId = request.DogBreedId
             };
 
             await _unitOfWork.Dogs.Add(newDog);
+            await _unitOfWork.SaveChanges();
+
+            var newDogOwnership = new DogOwnership
+            {
+                Id = Guid.NewGuid().ToString(),
+                FromDate = DateOnly.FromDateTime(DateTime.UtcNow),
+                CustomerProfileId = request.CustomerProfileId,
+                DogId = newDog.Id
+            };
+
+            await _unitOfWork.DogOwnerships.Add(newDogOwnership);
             await _unitOfWork.SaveChanges();
 
             return newDog;
@@ -87,16 +97,17 @@ namespace Services.Implement
             {
                 throw new ArgumentException($"DogBreed with ID {request.DogBreedId} not found.");
             }
-            existingDog.Name = request.Name ?? existingDog.Name; 
+            existingDog.Name = request.Name ?? existingDog.Name;
             existingDog.ImageUrl = request.ImageUrl ?? existingDog.ImageUrl;
             existingDog.DateOfBirth = request.DateOfBirth != default ? request.DateOfBirth : existingDog.DateOfBirth;
             existingDog.Gender = request.Gender;
             existingDog.Status = request.Status;
             existingDog.DogBreedId = request.DogBreedId ?? existingDog.DogBreedId;
-            existingDog.CustomerProfileId = request.CustomerProfileId ?? existingDog.CustomerProfileId;
-            
+
+
+
             existingDog.LastUpdatedTime = DateTime.UtcNow;
-            
+
             _unitOfWork.Dogs.Update(existingDog);
             await _unitOfWork.SaveChanges();
 
