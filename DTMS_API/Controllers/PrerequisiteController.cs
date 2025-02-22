@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Services.Interface;
 using System.Runtime.InteropServices;
@@ -6,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace DTMS_API.Controllers
 {
     [ApiController]
-    [Route("apit/prerequisites")]
+    [Route("api/prerequisites")]
     public class PrerequisiteController : ControllerBase
     {
         private readonly IPrerequisiteService _prerequisiteService;
@@ -20,6 +21,14 @@ namespace DTMS_API.Controllers
         public async Task<IActionResult> GetAllPrerequisites()
         {
             var response = await _prerequisiteService.GetAllPrerequisites();
+
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCoursePrerequisites(string id)
+        {
+            var response = await _prerequisiteService.GetCoursePrerequisites(id);
 
             return Ok(response);
         }
@@ -43,6 +52,21 @@ namespace DTMS_API.Controllers
         public async Task<IActionResult> UpdatePrerequisite(UpdatePrerequisiteRequest request)
         {
             var response = await _prerequisiteService.UpdatePrerequisite(request);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeletePrerequisite([FromBody] List<string> ids)
+        {
+            var response = await _prerequisiteService.DeletePrerequisite(ids);
 
             if (response.Success)
             {

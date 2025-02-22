@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using AutoMapper.Configuration.Annotations;
+using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
 using Models.Entities;
 using Repositories.Interface;
@@ -26,6 +27,22 @@ namespace Services.Implement
             var response = await _unitOfWork.Prerequisites.GetAll();
 
             return new BaseResponseDTO<Prerequisite> { Success = true, ObjectList = response };
+        }
+
+        public async Task<BaseResponseDTO<Prerequisite>> GetCoursePrerequisites(string id)
+        {
+            var course = await _unitOfWork.Courses.GetById(id);
+
+            if (course == null)
+            {
+                return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Unable to find course with id " + id };
+            }
+
+            var coursePrerequisites = (await _unitOfWork.Prerequisites.GetAll())
+                                                .Where(p => p.CourseId == id)
+                                                .ToList();
+
+            return new BaseResponseDTO<Prerequisite> { Success = true, ObjectList = coursePrerequisites };
         }
 
         public async Task<BaseResponseDTO<Prerequisite>> CreatePrerequisite(CreatePrerequisiteRequest request)
@@ -122,6 +139,24 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             return new BaseResponseDTO<Prerequisite> { Success = true, Object = prerequisite };
+        }
+
+        public async Task<BaseResponseDTO<Prerequisite>> DeletePrerequisite(List<string> ids)
+        {
+            foreach (var id in ids)
+            {
+                var prerequisite = await _unitOfWork.Prerequisites.GetById(id);
+
+                if (prerequisite == null)
+                {
+                    return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Unable to find prerequisite with id " + id };
+                }
+
+                await _unitOfWork.Prerequisites.Delete(prerequisite);
+            }
+            await _unitOfWork.SaveChanges();
+
+            return new BaseResponseDTO<Prerequisite> { Success = true };
         }
     }
 }
