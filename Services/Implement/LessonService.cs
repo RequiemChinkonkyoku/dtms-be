@@ -59,25 +59,6 @@ namespace Services.Implement
                 return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find skill with id " + request.SkillId };
             }
 
-            if (request.EquipmentIds.IsNullOrEmpty())
-            {
-                return new BaseResponseDTO<Lesson> { Success = false, Message = "EquipmentIds must be given." };
-            }
-
-            var equipmentList = new List<Equipment>();
-
-            foreach (var id in request.EquipmentIds)
-            {
-                var equip = await _unitOfWork.Equipments.GetById(id);
-
-                if (equip == null)
-                {
-                    return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find equipment with id " + id };
-                }
-
-                equipmentList.Add(equip);
-            }
-
             var lesson = new Lesson
             {
                 LessonTitle = request.LessonTitle,
@@ -94,15 +75,32 @@ namespace Services.Implement
             await _unitOfWork.Lessons.Add(lesson);
             await _unitOfWork.SaveChanges();
 
-            foreach (var equip in equipmentList)
+            if (request.EquipmentIds.Any())
             {
-                var lessonEquip = new LessonEquipment
-                {
-                    LessonId = lesson.Id,
-                    EquipmentId = equip.Id
-                };
+                var equipmentList = new List<Equipment>();
 
-                await _unitOfWork.LessonEquipments.Add(lessonEquip);
+                foreach (var id in request.EquipmentIds)
+                {
+                    var equip = await _unitOfWork.Equipments.GetById(id);
+
+                    if (equip == null)
+                    {
+                        return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find equipment with id " + id };
+                    }
+
+                    equipmentList.Add(equip);
+                }
+
+                foreach (var equip in equipmentList)
+                {
+                    var lessonEquip = new LessonEquipment
+                    {
+                        LessonId = lesson.Id,
+                        EquipmentId = equip.Id
+                    };
+
+                    await _unitOfWork.LessonEquipments.Add(lessonEquip);
+                }
             }
 
             await _unitOfWork.SaveChanges();
@@ -129,20 +127,6 @@ namespace Services.Implement
             if (skill == null)
             {
                 return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find skill with id " + request.SkillId };
-            }
-
-            var equipmentList = new List<Equipment>();
-
-            foreach (var id in request.EquipmentIds)
-            {
-                var equip = await _unitOfWork.Equipments.GetById(id);
-
-                if (equip == null)
-                {
-                    return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find equipment with id " + id };
-                }
-
-                equipmentList.Add(equip);
             }
 
             lesson.LessonTitle = request.LessonTitle;
