@@ -43,8 +43,12 @@ namespace Models.Automapper
             CreateMap<Blog, CreateBlogRequest>()
                 .ReverseMap();
             CreateMap<Dog, DogResponse>()
-                .ForMember(dest => dest.DogBreedName, opt => opt.MapFrom(src => src.DogBreed.Name))
-                .ReverseMap();
+                 .ForMember(dest => dest.DogBreedName, opt => opt.MapFrom(src => src.DogBreed.Name))
+                 .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src => src.DogOwnerships
+                     .Where(ownership => ownership.ToDate == null) 
+                     .Select(ownership => ownership.CustomerProfile.FullName)
+                     .FirstOrDefault()))
+                 .ReverseMap();
             CreateMap<DogBreed, DogBreedResponse>()
                 .ForMember(dest => dest.DogNames, opt => opt.MapFrom(src => src.Dogs.Select(d => d.Name).ToList()))
                 .ReverseMap();
