@@ -1,4 +1,5 @@
-﻿using Models.DTOs.Certification;
+﻿using Models.DTOs;
+using Models.DTOs.Certification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Services.Interface
 {
     public interface ICertificationService
     {
-        Task<List<CertificationResponse>> GetAllCertifications();
-        Task<CertificationResponse> GetCertificationsById(string id);
-        Task<List<CertificationResponse>> GetCertificationsByName(string name);
-        Task<CertificationResponse> CreateCertificationsAsync(CreateCertificationRequest createCertificationRequest);
-        Task<CertificationResponse> UpdateCertificationsAsync(string id, CreateCertificationRequest request);
+        Task<BaseResponseDTO<CertificationResponse>> GetAllCertifications();
+        Task<BaseResponseDTO<CertificationResponse>> GetCertificationsById(string id);
+        Task<BaseResponseDTO<CertificationResponse>> GetCertificationsByName(string name);
+        Task<BaseResponseDTO<CertificationResponse>> CreateCertificationsAsync(CreateCertificationRequest createCertificationRequest);
+        Task<BaseResponseDTO<CertificationResponse>> UpdateCertificationsAsync(string id, CreateCertificationRequest request);
         Task<bool> DeleteCertificationsAsync(string id);
     }
 }

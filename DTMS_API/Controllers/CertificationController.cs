@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Certification;
+using Models.Entities;
 using Services.Implement;
 using Services.Interface;
 
@@ -32,9 +33,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var certification = await _certificationService.GetCertificationsById(id);
-                if (certification == null)
-                    return NotFound("Certification not found.");
-                return Ok(certification);
+                if (certification.Success)
+                {
+                    return Ok(certification);
+                }
+                else
+                {
+                    return NotFound(certification);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -54,9 +60,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var certification = await _certificationService.GetCertificationsByName(name);
-                if (certification == null)
-                    return NotFound("Certification not found.");
-                return Ok(certification);
+                if (certification.Success)
+                {
+                    return Ok(certification);
+                }
+                else
+                {
+                    return NotFound(certification);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -74,7 +85,7 @@ namespace DTMS_API.Controllers
             try
             {
                 var response = await _certificationService.CreateCertificationsAsync(request);
-                return CreatedAtAction(nameof(GetCertificationsById), new { id = response.Id }, response);
+                return Ok(response);
             }
             catch (ArgumentException ex)
             {
