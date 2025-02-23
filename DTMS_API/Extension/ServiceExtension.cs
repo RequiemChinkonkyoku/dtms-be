@@ -114,6 +114,7 @@ public static class ServiceExtension
         services.AddScoped<ITrainerSpecializationService, TrainerSpecializationService>();
         services.AddScoped<ITrainingReportService, TrainingReportService>();
         services.AddScoped<IWishListService, WishListService>();
+        services.AddScoped<IDogOwnershipsService, DogOwnershipsService>();
 
         services.AddSignalR();
 
