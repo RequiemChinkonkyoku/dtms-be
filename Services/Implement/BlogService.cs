@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CloudinaryDotNet;
 using Models.DTOs;
 using Models.DTOs.Blog;
 using Models.DTOs.Certification;
@@ -24,25 +25,40 @@ namespace Services.Implement
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<BlogResponse>> GetAllBlogs()
+        public async Task<BaseResponseDTO<BlogResponse>> GetAllBlogs()
         {
             var result = await _unitOfWork.Blogs.GetAll();
-            return _mapper.Map<List<BlogResponse>>(result);
+            var response =  _mapper.Map<List<BlogResponse>>(result);
+            return new BaseResponseDTO<BlogResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<BlogResponse> GetBlogById(string id)
+        public async Task<BaseResponseDTO<BlogResponse>> GetBlogById(string id)
         {
             var result = await _unitOfWork.Blogs.GetById(id);
-            return _mapper.Map<BlogResponse>(result);
+
+            if (result == null)
+            {
+                return new BaseResponseDTO<BlogResponse> { Success = false, Message = "Unable to find blog with id " + id };
+            }
+
+            var response =  _mapper.Map<BlogResponse>(result);
+            return new BaseResponseDTO<BlogResponse> { Success = true, Object = response };
         }
 
-        public async Task<List<BlogResponse>> GetBlogByTitle(string title)
+        public async Task<BaseResponseDTO<BlogResponse>> GetBlogByTitle(string title)
         {
             var result = await _unitOfWork.Blogs.Get(c => c.Title.Contains(title));
-            return _mapper.Map<List<BlogResponse>>(result);
+
+            if (result == null)
+            {
+                return new BaseResponseDTO<BlogResponse> { Success = false, Message = "Unable to find blog with title " + title };
+            }
+
+            var response =  _mapper.Map<List<BlogResponse>>(result);
+            return new BaseResponseDTO<BlogResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<BlogResponse> CreateBlogsAsync(CreateBlogRequest createBlogRequest)
+        public async Task<BaseResponseDTO<BlogResponse>> CreateBlogsAsync(CreateBlogRequest createBlogRequest)
         {
             if (string.IsNullOrWhiteSpace(createBlogRequest.StaffProfileId))
             {
@@ -63,10 +79,11 @@ namespace Services.Implement
             await _unitOfWork.Blogs.Add(blog);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<BlogResponse>(blog);
+            var response =  _mapper.Map<BlogResponse>(blog);
+            return new BaseResponseDTO<BlogResponse> { Success = true, Object = response };
         }
 
-        public async Task<BlogResponse> UpdateBlogsAsync(string id, CreateBlogRequest request)
+        public async Task<BaseResponseDTO<BlogResponse>> UpdateBlogsAsync(string id, CreateBlogRequest request)
         {
             var existingBlog = await _unitOfWork.Blogs.GetById(id);
 
@@ -93,7 +110,8 @@ namespace Services.Implement
             _unitOfWork.Blogs.Update(existingBlog);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<BlogResponse>(existingBlog);
+            var response =  _mapper.Map<BlogResponse>(existingBlog);
+            return new BaseResponseDTO<BlogResponse> { Success = true, Object = response };
         }
 
         public async Task<bool> DeleteBlogsAsync(string id)
