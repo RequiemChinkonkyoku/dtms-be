@@ -94,7 +94,7 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpGet("by-customer/{Id}")]
+        [HttpGet("by-customer/{customerProfileId}")]
         public async Task<IActionResult> GetDogsByCustomerProfileId(string customerProfileId)
         {
             var dogs = await _dogService.GetDogsByCustomerProfileId(customerProfileId);
