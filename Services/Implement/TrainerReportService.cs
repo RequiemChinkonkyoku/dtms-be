@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Models.DTOs;
+using Models.DTOs.Certification;
 using Models.DTOs.TrainerReport;
 using Models.Entities;
 using Repositories.Interface;
@@ -22,19 +24,27 @@ namespace Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<List<TrainerReportResponse>> GetAllTrainerReports()
+        public async Task<BaseResponseDTO<TrainerReportResponse>> GetAllTrainerReports()
         {
             var result = await _unitOfWork.TrainerReports.GetAll();
-            return _mapper.Map<List<TrainerReportResponse>>(result);
+            var response = _mapper.Map<List<TrainerReportResponse>>(result);
+            return new BaseResponseDTO<TrainerReportResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<TrainerReportResponse> GetTrainerReportById(string id)
+        public async Task<BaseResponseDTO<TrainerReportResponse>> GetTrainerReportById(string id)
         {
             var result = await _unitOfWork.TrainerReports.GetById(id);
-            return _mapper.Map<TrainerReportResponse>(result);
+
+            if (result == null)
+            {
+                return new BaseResponseDTO<TrainerReportResponse> { Success = false, Message = "Unable to find trainer report with id " + id };
+            }
+
+            var response = _mapper.Map<TrainerReportResponse>(result);
+            return new BaseResponseDTO<TrainerReportResponse> { Success = true, Object = response };
         }
 
-        public async Task<TrainerReportResponse> CreateTrainerReportAsync(CreateTrainerReportRequest createTrainerReportRequest)
+        public async Task<BaseResponseDTO<TrainerReportResponse>> CreateTrainerReportAsync(CreateTrainerReportRequest createTrainerReportRequest)
         {
             if (string.IsNullOrWhiteSpace(createTrainerReportRequest.TrainerProfileId) ||
             string.IsNullOrWhiteSpace(createTrainerReportRequest.CustomerProfileId))
@@ -59,10 +69,11 @@ namespace Services.Implement
             await _unitOfWork.TrainerReports.Add(report);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<TrainerReportResponse>(report);
+            var response = _mapper.Map<TrainerReportResponse>(report);
+            return new BaseResponseDTO<TrainerReportResponse> { Success = true, Object = response };
         }
 
-        public async Task<TrainerReportResponse> UpdateTrainerReportAsync(string id, CreateTrainerReportRequest request)
+        public async Task<BaseResponseDTO<TrainerReportResponse>> UpdateTrainerReportAsync(string id, CreateTrainerReportRequest request)
         {
             var existingReport = await _unitOfWork.TrainerReports.GetById(id);
 
@@ -97,7 +108,8 @@ namespace Services.Implement
             _unitOfWork.TrainerReports.Update(existingReport);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<TrainerReportResponse>(existingReport);
+            var response = _mapper.Map<TrainerReportResponse>(existingReport);
+            return new BaseResponseDTO<TrainerReportResponse> { Success = true, Object = response };
         }
 
         public async Task<bool> DeleteTrainerReportAsync(string id)
