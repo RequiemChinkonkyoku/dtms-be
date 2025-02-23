@@ -61,7 +61,7 @@ namespace DTMS_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateNewBreed([FromBody] UpdateDogRequest request, string id)
+        public async Task<IActionResult> UpdateNewDog([FromBody] UpdateDogRequest request, string id)
         {
             if (!ModelState.IsValid)
             {
@@ -92,6 +92,13 @@ namespace DTMS_API.Controllers
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        [HttpGet("by-customer/{Id}")]
+        public async Task<IActionResult> GetDogsByCustomerProfileId(string customerProfileId)
+        {
+            var dogs = await _dogService.GetDogsByCustomerProfileId(customerProfileId);
+            return Ok(dogs);
         }
     }
 }

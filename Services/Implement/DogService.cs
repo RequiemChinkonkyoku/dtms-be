@@ -128,5 +128,12 @@ namespace Services.Implement
             return existingDog;
         }
 
+        public async Task<List<DogResponse>> GetDogsByCustomerProfileId(string customerProfileId)
+        {
+             var result =  await _unitOfWork.Dogs.GetCustomerDog(customerProfileId);
+
+             return _mapper.Map<List<DogResponse>>(result);
+        }
+
     }
 }
