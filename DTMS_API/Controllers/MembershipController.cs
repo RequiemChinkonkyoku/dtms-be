@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Membership;
+using Models.Entities;
 using Services.Implement;
 using Services.Interface;
 
@@ -32,9 +33,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var membership = await _membershipService.GetMembershipById(id);
-                if (membership == null)
-                    return NotFound("Membership not found.");
-                return Ok(membership);
+                if (membership.Success)
+                {
+                    return Ok(membership);
+                }
+                else
+                {
+                    return NotFound(membership);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -52,7 +58,7 @@ namespace DTMS_API.Controllers
             try
             {
                 var response = await _membershipService.CreateMembershipAsync(request);
-                return CreatedAtAction(nameof(GetMembershipById), new { id = response.Id }, response);
+                return Ok(response);
             }
             catch (ArgumentException ex)
             {
