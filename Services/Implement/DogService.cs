@@ -79,7 +79,7 @@ namespace Services.Implement
             return newDog;
         }
 
-        public async Task<Dog> UpdateDogAsync(string id, UpdateDogRequest request)
+        public async Task<DogResponse> UpdateDogAsync(string id, UpdateDogRequest request)
         {
             var existingDog = await _unitOfWork.Dogs.GetById(id);
 
@@ -87,11 +87,7 @@ namespace Services.Implement
             {
                 throw new KeyNotFoundException($"Dog not found.");
             }
-            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
-            if (customerProfile == null)
-            {
-                throw new ArgumentException($"CustomerProfile with ID {request.CustomerProfileId} not found.");
-            }
+           
             var dogBreed = await _unitOfWork.DogBreeds.GetById(request.DogBreedId);
             if (dogBreed == null)
             {
@@ -111,7 +107,7 @@ namespace Services.Implement
             _unitOfWork.Dogs.Update(existingDog);
             await _unitOfWork.SaveChanges();
 
-            return existingDog;
+            return _mapper.Map<DogResponse>(existingDog);
         }
 
         public async Task<Dog> DeleteDogAsync(string id)

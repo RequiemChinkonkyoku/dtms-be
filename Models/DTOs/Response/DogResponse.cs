@@ -14,12 +14,9 @@ namespace Models.DTOs.Response
         public int Gender { get; set; }
         public int Status { get; set; }
         public string RegistrationTime { get; set; }
-        public string DogOwnershipId { get; set; }
+        public string DogBreedName { get; set; }
         public string CustomerProfileId { get; set; }
-        public string DogBreedName { get; set; } 
-        public string Id { get; set; }
-        public string CreatedTime { get; set; }
-        public string LastUpdatedTime { get; set; }
+        public string OwnerName { get; set; } 
 
     }
 }
