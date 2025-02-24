@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Models.DTOs.Blog;
 using Models.DTOs.Certification;
+using Models.DTOs.Course;
 using Models.DTOs.LegalDocument;
 using Models.DTOs.Membership;
 using Models.DTOs.Response;
@@ -43,27 +44,35 @@ namespace Models.Automapper
             CreateMap<Blog, CreateBlogRequest>()
                 .ReverseMap();
             CreateMap<Dog, DogResponse>()
-                 .ForMember(dest => dest.DogBreedName, opt => opt.MapFrom(src => src.DogBreed.Name))
-    .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src =>
-        src.DogOwnerships != null && src.DogOwnerships.Any() ?
-        src.DogOwnerships
-            .Where(ownership => ownership.ToDate == null)
-            .Select(ownership => ownership.CustomerProfile.FullName)
-            .FirstOrDefault() : "No Owner")) 
-            .ForMember(dest => dest.CustomerProfileId, opt => opt.MapFrom(src =>
-        src.DogOwnerships != null && src.DogOwnerships.Any() ?
-        src.DogOwnerships
-            .Where(ownership => ownership.ToDate == null)
-            .Select(ownership => ownership.CustomerProfileId)
-            .FirstOrDefault() : null)) 
-            .ReverseMap();
+                .ForMember(dest => dest.DogBreedName, opt => opt.MapFrom(src => src.DogBreed.Name))
+                .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src =>
+                    src.DogOwnerships != null && src.DogOwnerships.Any() ?
+                    src.DogOwnerships
+                        .Where(ownership => ownership.ToDate == null)
+                        .Select(ownership => ownership.CustomerProfile.FullName)
+                        .FirstOrDefault() : "No Owner"))
+                .ForMember(dest => dest.CustomerProfileId, opt => opt.MapFrom(src =>
+                    src.DogOwnerships != null && src.DogOwnerships.Any() ?
+                    src.DogOwnerships
+                        .Where(ownership => ownership.ToDate == null)
+                        .Select(ownership => ownership.CustomerProfileId)
+                        .FirstOrDefault() : null))
+                .ReverseMap();
             CreateMap<DogBreed, DogBreedResponse>()
-                    .ForMember(dest => dest.DogNames, opt => opt.MapFrom(src => src.Dogs.Select(d => d.Name).ToList()))
-                    .ReverseMap();
+                .ForMember(dest => dest.DogNames, opt => opt.MapFrom(src => src.Dogs.Select(d => d.Name).ToList()))
+                .ReverseMap();
             CreateMap<DogOwnership, DogOwnershipResponse>()
-                    .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => src.CustomerProfile.FullName))
-                    .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
-                    .ReverseMap();
+                .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => src.CustomerProfile.FullName))
+                .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
+                .ReverseMap();
+            CreateMap<Course, CourseResponse>()
+                .ForMember(dest => dest.CreatedTrainerId, opt => opt.MapFrom(src => src.CreatedTrainerProfile.Id))
+                .ForMember(dest => dest.CertificateId, opt => opt.MapFrom(src => src.Certificate.Id))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id))
+                .ForMember(dest => dest.PrerequisiteIds, opt => opt.MapFrom(src => src.Prerequisites.Select(p => p.PrerequisiteCourse.Id).ToList()))
+                .ForMember(dest => dest.LessonIds, opt => opt.MapFrom(src => src.CourseLessons.Select(cl => cl.LessonId).ToList()))
+                .ForMember(dest => dest.DogBreedIds, opt => opt.MapFrom(src => src.CourseDogs.Select(cd => cd.DogBreedId).ToList()))
+                .ReverseMap();
         }
     }
 }

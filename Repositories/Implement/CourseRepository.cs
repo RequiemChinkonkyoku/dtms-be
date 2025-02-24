@@ -1,4 +1,5 @@
-﻿using Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Models.Entities;
 using Repositories.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,21 @@ namespace Repositories.Implement
 {
     public class CourseRepository : RepositoryBase<Course>, ICourseRepository
     {
+        public async Task<Course> GetCourseById(string id)
+        {
+            return await _context.Courses
+                .AsSplitQuery()
+                .Include(c => c.CreatedTrainerProfile)
+                .Include(c => c.Category)
+                .Include(c => c.Certificate)
+                .Include(c => c.Prerequisites)
+                    .ThenInclude(p => p.PrerequisiteCourse)
+                .Include(c => c.CourseLessons)
+                    .ThenInclude(cl => cl.Lesson)
+                .Include(c => c.CourseDogs)
+                    .ThenInclude(cd => cd.DogBreed)
+                .Include(c => c.Certificate)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }

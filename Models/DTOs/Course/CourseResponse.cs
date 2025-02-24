@@ -1,15 +1,15 @@
-﻿
-using Models.Entities;
+﻿using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.DTOs
+namespace Models.DTOs.Course
 {
-    public class CreateCourseRequest
+    public class CourseResponse
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
@@ -27,6 +27,10 @@ namespace Models.DTOs
         public string CreatedTrainerId { get; set; }
 
         public string CategoryId { get; set; }
+
+        public string CertificateId { get; set; }
+
+        public List<string> PrerequisiteIds { get; set; }
 
         public List<string> LessonIds { get; set; }
 
