@@ -87,7 +87,7 @@ namespace Services.Implement
             {
                 throw new KeyNotFoundException($"Dog not found.");
             }
-           
+
             var dogBreed = await _unitOfWork.DogBreeds.GetById(request.DogBreedId);
             if (dogBreed == null)
             {
@@ -130,9 +130,9 @@ namespace Services.Implement
 
         public async Task<List<DogResponse>> GetDogsByCustomerProfileId(string customerProfileId)
         {
-             var result =  await _unitOfWork.Dogs.GetCustomerDog(customerProfileId);
+            var result = await _unitOfWork.Dogs.GetCustomerDog(customerProfileId);
 
-             return _mapper.Map<List<DogResponse>>(result);
+            return _mapper.Map<List<DogResponse>>(result);
         }
 
     }

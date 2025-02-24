@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
+using Models.DTOs.Course;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -16,10 +18,12 @@ namespace Services.Implement
     public class CourseService : ICourseService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CourseService(IUnitOfWork unitOfWork)
+        public CourseService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<BaseResponseDTO<Course>> GetAllCourses()
@@ -29,16 +33,18 @@ namespace Services.Implement
             return new BaseResponseDTO<Course> { Success = true, ObjectList = response };
         }
 
-        public async Task<BaseResponseDTO<Course>> GetCourseById(string id)
+        public async Task<BaseResponseDTO<CourseResponse>> GetCourseById(string id)
         {
-            var course = await _unitOfWork.Courses.GetById(id);
+            var course = await _unitOfWork.Courses.GetCourseById(id);
 
             if (course == null)
             {
-                return new BaseResponseDTO<Course> { Success = false, Message = "Unable to find course with id " + id };
+                return new BaseResponseDTO<CourseResponse> { Success = false, Message = "Unable to find course with id " + id };
             }
 
-            return new BaseResponseDTO<Course> { Success = true, Object = course };
+            var mappedCourse = _mapper.Map<CourseResponse>(course);
+
+            return new BaseResponseDTO<CourseResponse> { Success = true, Object = mappedCourse };
         }
 
         public async Task<BaseResponseDTO<Course>> CreateCourse(CreateCourseRequest request)
@@ -112,6 +118,7 @@ namespace Services.Implement
                     Name = request.Name,
                     Description = request.Description,
                     Status = 1,
+                    ImageUrl = request.ImageUrl,
                     DurationInWeeks = request.DurationInWeeks,
                     DaysPerWeek = request.DaysPerWeek,
                     SlotsPerDay = request.SlotsPerDay,
