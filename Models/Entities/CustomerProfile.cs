@@ -21,7 +21,7 @@ public class CustomerProfile : BaseEntity
     public string CustomerRoleId { get; set; }
     public CustomerRole CustomerRole { get; set; }
 
-    public ICollection<Dog> Dogs { get; set; }
+    public ICollection<DogOwnership> DogOwnerships { get; set; }
 
     public ICollection<LegalDocument> LegalDocuments { get; set; }
 

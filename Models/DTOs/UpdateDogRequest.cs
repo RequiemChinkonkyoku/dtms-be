@@ -16,9 +16,6 @@ namespace Models.DTOs
         [Url(ErrorMessage = "The Image URL is not in a valid format.")]
         public string ImageUrl { get; set; }
 
-        [Required(ErrorMessage = "Breed is required.")]
-        public string Breed { get; set; }
-
         [Required(ErrorMessage = "Date of Birth is required.")]
         public DateOnly DateOfBirth { get; set; }
 
@@ -28,10 +25,6 @@ namespace Models.DTOs
         [Required(ErrorMessage = "Status is required.")]
         [Range(0, 1, ErrorMessage = "Status must be either 0 (Inactive) or 1 (Active).")]
         public int Status { get; set; }
-
-        [Required(ErrorMessage = "Customer Profile Id is required.")]
-        public string CustomerProfileId { get; set; }
-
         [Required(ErrorMessage = "Dog Breed Id is required.")]
         public string DogBreedId { get; set; }
     }

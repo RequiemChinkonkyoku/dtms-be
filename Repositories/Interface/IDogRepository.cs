@@ -12,5 +12,7 @@ namespace Repositories.Interface
         Task<List<Dog>> GetAllDogs();
 
         Task<Dog> GetDogById(string dogId);
+
+        Task<List<Dog>> GetCustomerDog(string customerProfileId);
     }
 }

@@ -57,7 +57,6 @@ namespace Services.Implement
                 Gender = request.Gender,
                 Status = 1,
                 RegistrationTime = DateTime.UtcNow,
-                CustomerProfileId = request.CustomerProfileId,
                 CreatedTime = DateTime.UtcNow,
                 LastUpdatedTime = DateTime.UtcNow,
                 DogBreedId = request.DogBreedId
@@ -66,10 +65,21 @@ namespace Services.Implement
             await _unitOfWork.Dogs.Add(newDog);
             await _unitOfWork.SaveChanges();
 
+            var newDogOwnership = new DogOwnership
+            {
+                Id = Guid.NewGuid().ToString(),
+                FromDate = DateOnly.FromDateTime(DateTime.UtcNow),
+                CustomerProfileId = request.CustomerProfileId,
+                DogId = newDog.Id
+            };
+
+            await _unitOfWork.DogOwnerships.Add(newDogOwnership);
+            await _unitOfWork.SaveChanges();
+
             return newDog;
         }
 
-        public async Task<Dog> UpdateDogAsync(string id, UpdateDogRequest request)
+        public async Task<DogResponse> UpdateDogAsync(string id, UpdateDogRequest request)
         {
             var existingDog = await _unitOfWork.Dogs.GetById(id);
 
@@ -77,30 +87,27 @@ namespace Services.Implement
             {
                 throw new KeyNotFoundException($"Dog not found.");
             }
-            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
-            if (customerProfile == null)
-            {
-                throw new ArgumentException($"CustomerProfile with ID {request.CustomerProfileId} not found.");
-            }
+           
             var dogBreed = await _unitOfWork.DogBreeds.GetById(request.DogBreedId);
             if (dogBreed == null)
             {
                 throw new ArgumentException($"DogBreed with ID {request.DogBreedId} not found.");
             }
-            existingDog.Name = request.Name ?? existingDog.Name; 
+            existingDog.Name = request.Name ?? existingDog.Name;
             existingDog.ImageUrl = request.ImageUrl ?? existingDog.ImageUrl;
             existingDog.DateOfBirth = request.DateOfBirth != default ? request.DateOfBirth : existingDog.DateOfBirth;
             existingDog.Gender = request.Gender;
             existingDog.Status = request.Status;
             existingDog.DogBreedId = request.DogBreedId ?? existingDog.DogBreedId;
-            existingDog.CustomerProfileId = request.CustomerProfileId ?? existingDog.CustomerProfileId;
-            
+
+
+
             existingDog.LastUpdatedTime = DateTime.UtcNow;
-            
+
             _unitOfWork.Dogs.Update(existingDog);
             await _unitOfWork.SaveChanges();
 
-            return existingDog;
+            return _mapper.Map<DogResponse>(existingDog);
         }
 
         public async Task<Dog> DeleteDogAsync(string id)
@@ -119,6 +126,13 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             return existingDog;
+        }
+
+        public async Task<List<DogResponse>> GetDogsByCustomerProfileId(string customerProfileId)
+        {
+             var result =  await _unitOfWork.Dogs.GetCustomerDog(customerProfileId);
+
+             return _mapper.Map<List<DogResponse>>(result);
         }
 
     }

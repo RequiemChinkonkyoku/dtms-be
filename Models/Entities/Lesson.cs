@@ -10,10 +10,12 @@ public class Lesson : BaseEntity
     public string Environment { get; set; }
     public int Duration { get; set; }
     public string Objective { get; set; }
+    public int Status { get; set; }
 
     public string SkillId { get; set; }
     public Skill Skill { get; set; }
 
     public ICollection<SlotLesson> SlotLessons { get; set; }
     public ICollection<LessonEquipment> LessonEquipments { get; set; }
+    public ICollection<CourseLesson> CourseLessons { get; set; }
 }

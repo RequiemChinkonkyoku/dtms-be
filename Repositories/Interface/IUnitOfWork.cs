@@ -25,6 +25,7 @@ public interface IUnitOfWork : IDisposable
     IDogBreedRepository DogBreeds { get; }
     IEnrollmentRepository Enrollments { get; }
     IEquipmentRepository Equipments { get; }
+    IEquipmentCategoryRepository EquipmentCategories { get; }
     ILegalDocumentRepository LegalDocuments { get; }
     ILessonRepository Lessons { get; }
     IMembershipRepository Memberships { get; }
@@ -48,6 +49,9 @@ public interface IUnitOfWork : IDisposable
     IWishListRepository WishLists { get; }
     ITrainingReportRepository TrainingReports { get; }
     IAccountOtpRepository AccountOtps { get; }
-
+    ICourseLessonRepository CourseLessons { get; }
+    ICourseDogRepository CourseDogs { get; }
+    IDogOwnershipRepository DogOwnerships { get; }
+    IPretestRepository Pretests { get; }
     Task SaveChanges();
 }

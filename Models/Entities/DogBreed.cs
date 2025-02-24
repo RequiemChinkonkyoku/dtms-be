@@ -13,5 +13,6 @@ namespace Models.Entities
         public int Status { get; set; }
 
         public ICollection<Dog> Dogs { get; set; }
+        public ICollection<CourseDog> CourseDogs { get; set; }
     }
 }
