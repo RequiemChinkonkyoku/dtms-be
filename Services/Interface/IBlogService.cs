@@ -1,4 +1,5 @@
-﻿using Models.DTOs.Blog;
+﻿using Models.DTOs;
+using Models.DTOs.Blog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Services.Interface
 {
     public interface IBlogService
     {
-        Task<List<BlogResponse>> GetAllBlogs();
-        Task<BlogResponse> GetBlogById(string id);
-        Task<List<BlogResponse>> GetBlogByTitle(string title);
-        Task<BlogResponse> CreateBlogsAsync(CreateBlogRequest createBlogRequest);
-        Task<BlogResponse> UpdateBlogsAsync(string id, CreateBlogRequest request);
+        Task<BaseResponseDTO<BlogResponse>> GetAllBlogs();
+        Task<BaseResponseDTO<BlogResponse>> GetBlogById(string id);
+        Task<BaseResponseDTO<BlogResponse>> GetBlogByTitle(string title);
+        Task<BaseResponseDTO<BlogResponse>> CreateBlogsAsync(CreateBlogRequest createBlogRequest);
+        Task<BaseResponseDTO<BlogResponse>> UpdateBlogsAsync(string id, CreateBlogRequest request);
         Task<bool> DeleteBlogsAsync(string id);
     }
 }

@@ -32,9 +32,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var blog = await _blogService.GetBlogById(id);
-                if (blog == null)
-                    return NotFound("Blog not found.");
-                return Ok(blog);
+                if (blog.Success)
+                {
+                    return Ok(blog);
+                }
+                else
+                {
+                    return NotFound(blog);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -54,9 +59,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var blog = await _blogService.GetBlogByTitle(title);
-                if (blog == null)
-                    return NotFound("Blog not found.");
-                return Ok(blog);
+                if (blog.Success)
+                {
+                    return Ok(blog);
+                }
+                else
+                {
+                    return NotFound(blog);
+                }
             }
             catch (KeyNotFoundException ex)
             {

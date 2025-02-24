@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.TrainingReport;
+using Models.Entities;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
@@ -30,9 +31,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var report = await _trainingReportService.GetTrainingReportById(id);
-                if (report == null)
-                    return NotFound("Training report not found.");
-                return Ok(report);
+                if (report.Success)
+                {
+                    return Ok(report);
+                }
+                else
+                {
+                    return NotFound(report);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -52,9 +58,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var reports = await _trainingReportService.GetTrainingReportsByDogId(dogId);
-                if (reports == null || !reports.Any())
-                    return NotFound("No training reports found for the specified dog.");
-                return Ok(reports);
+                if (reports.Success)
+                {
+                    return Ok(reports);
+                }
+                else
+                {
+                    return NotFound(reports);
+                }
             }
             catch (Exception ex)
             {
@@ -68,7 +79,7 @@ namespace DTMS_API.Controllers
             try
             {
                 var response = await _trainingReportService.CreateTrainingReportAsync(request);
-                return CreatedAtAction(nameof(GetTrainingReportById), new { id = response.Id }, response);
+                return Ok(response);
             }
             catch (ArgumentException ex)
             {

@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using Models.DTOs;
+using Models.DTOs.Certification;
 using Models.DTOs.TrainerReport;
 using Models.DTOs.TrainingReport;
 using Models.Entities;
@@ -23,25 +26,40 @@ namespace Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<List<TrainingReportResponse>> GetAllTrainingReports()
+        public async Task<BaseResponseDTO<TrainingReportResponse>> GetAllTrainingReports()
         {
             var result = await _unitOfWork.TrainingReports.GetAll();
-            return _mapper.Map<List<TrainingReportResponse>>(result);
+            var response = _mapper.Map<List<TrainingReportResponse>>(result);
+            return new BaseResponseDTO<TrainingReportResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<TrainingReportResponse> GetTrainingReportById(string id)
+        public async Task<BaseResponseDTO<TrainingReportResponse>> GetTrainingReportById(string id)
         {
             var result = await _unitOfWork.TrainingReports.GetById(id);
-            return _mapper.Map<TrainingReportResponse>(result);
+
+            if (result == null)
+            {
+                return new BaseResponseDTO<TrainingReportResponse> { Success = false, Message = "Unable to find training report with id " + id };
+            }
+
+            var response = _mapper.Map<TrainingReportResponse>(result);
+            return new BaseResponseDTO<TrainingReportResponse> { Success = true, Object = response };
         }
 
-        public async Task<List<TrainingReportResponse>> GetTrainingReportsByDogId(string dogId)
+        public async Task<BaseResponseDTO<TrainingReportResponse>> GetTrainingReportsByDogId(string dogId)
         {
             var result = await _unitOfWork.TrainingReports.Get(d => d.DogId == dogId);
-            return _mapper.Map<List<TrainingReportResponse>>(result);
+
+            if (result.IsNullOrEmpty())
+            {
+                return new BaseResponseDTO<TrainingReportResponse> { Success = false, Message = "Unable to find training report with dogId " + dogId };
+            }
+
+            var response = _mapper.Map<List<TrainingReportResponse>>(result);
+            return new BaseResponseDTO<TrainingReportResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<TrainingReportResponse> CreateTrainingReportAsync(CreateTrainingReportRequest createTrainingReportRequest)
+        public async Task<BaseResponseDTO<TrainingReportResponse>> CreateTrainingReportAsync(CreateTrainingReportRequest createTrainingReportRequest)
         {
             if (string.IsNullOrWhiteSpace(createTrainingReportRequest.DogId) ||
             string.IsNullOrWhiteSpace(createTrainingReportRequest.TrainerProfileId))
@@ -49,7 +67,7 @@ namespace Services.Implement
                 throw new ArgumentException("DogId and TrainerProfileId are required.");
             }
 
-            var dogId = await _unitOfWork.TrainerProfiles.GetById(createTrainingReportRequest.DogId);
+            var dogId = await _unitOfWork.Dogs.GetById(createTrainingReportRequest.DogId);
             var trainerProfileId = await _unitOfWork.CustomerProfiles.GetById(createTrainingReportRequest.TrainerProfileId);
 
             if (dogId == null)
@@ -66,10 +84,11 @@ namespace Services.Implement
             await _unitOfWork.TrainingReports.Add(report);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<TrainingReportResponse>(report);
+            var response = _mapper.Map<TrainingReportResponse>(report);
+            return new BaseResponseDTO<TrainingReportResponse> { Success = true, Object = response };
         }
 
-        public async Task<TrainingReportResponse> UpdateTrainingReportAsync(string id, CreateTrainingReportRequest request)
+        public async Task<BaseResponseDTO<TrainingReportResponse>> UpdateTrainingReportAsync(string id, CreateTrainingReportRequest request)
         {
             var existingReport = await _unitOfWork.TrainingReports.GetById(id);
 
@@ -84,7 +103,7 @@ namespace Services.Implement
                 throw new ArgumentException("DogId and TrainerProfileId are required.");
             }
 
-            var dogId = await _unitOfWork.TrainerProfiles.GetById(request.DogId);
+            var dogId = await _unitOfWork.Dogs.GetById(request.DogId);
             var trainerProfileId = await _unitOfWork.CustomerProfiles.GetById(request.TrainerProfileId);
 
             if (dogId == null)
@@ -104,7 +123,8 @@ namespace Services.Implement
             _unitOfWork.TrainingReports.Update(existingReport);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<TrainingReportResponse>(existingReport);
+            var response = _mapper.Map<TrainingReportResponse>(existingReport);
+            return new BaseResponseDTO<TrainingReportResponse> { Success = true, Object = response };
         }
 
         public async Task<bool> DeleteTrainingReportAsync(string id)

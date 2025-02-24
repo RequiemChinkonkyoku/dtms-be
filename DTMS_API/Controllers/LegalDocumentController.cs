@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.LegalDocument;
+using Models.Entities;
 using Services.Implement;
 using Services.Interface;
 
@@ -32,9 +33,14 @@ namespace DTMS_API.Controllers
             try
             {
                 var legalDocument = await _legalDocumentService.GetLegalDocumentById(id);
-                if (legalDocument == null)
-                    return NotFound("Legal Document not found.");
-                return Ok(legalDocument);
+                if (legalDocument.Success)
+                {
+                    return Ok(legalDocument);
+                }
+                else
+                {
+                    return NotFound(legalDocument);
+                }
             }
             catch (KeyNotFoundException ex)
             {
@@ -52,7 +58,7 @@ namespace DTMS_API.Controllers
             try
             {
                 var response = await _legalDocumentService.CreateLegalDocumentAsync(request);
-                return CreatedAtAction(nameof(GetLegalDocumentById), new { id = response.Id }, response);
+                return Ok(response);
             }
             catch (ArgumentException ex)
             {

@@ -1,4 +1,5 @@
-﻿using Models.DTOs.Membership;
+﻿using Models.DTOs;
+using Models.DTOs.Membership;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Services.Interface
 {
     public interface IMembershipService
     {
-        Task<List<MembershipResponse>> GetAllMemberships();
-        Task<MembershipResponse> GetMembershipById(string id);
-        Task<MembershipResponse> CreateMembershipAsync(CreateMembershipRequest createMembershipRequest);
-        Task<MembershipResponse> UpdateMembershipAsync(string id, CreateMembershipRequest request);
+        Task<BaseResponseDTO<MembershipResponse>> GetAllMemberships();
+        Task<BaseResponseDTO<MembershipResponse>> GetMembershipById(string id);
+        Task<BaseResponseDTO<MembershipResponse>> CreateMembershipAsync(CreateMembershipRequest createMembershipRequest);
+        Task<BaseResponseDTO<MembershipResponse>> UpdateMembershipAsync(string id, CreateMembershipRequest request);
         Task<bool> DeleteMembershipAsync(string id);
     }
 }

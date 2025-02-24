@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Models.DTOs;
+using Models.DTOs.Certification;
 using Models.DTOs.Membership;
 using Models.DTOs.TrainerReport;
 using Models.Entities;
@@ -23,28 +25,37 @@ namespace Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<List<MembershipResponse>> GetAllMemberships()
+        public async Task<BaseResponseDTO<MembershipResponse>> GetAllMemberships()
         {
             var result = await _unitOfWork.Memberships.GetAll();
-            return _mapper.Map<List<MembershipResponse>>(result);
+            var response = _mapper.Map<List<MembershipResponse>>(result);
+            return new BaseResponseDTO<MembershipResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<MembershipResponse> GetMembershipById(string id)
+        public async Task<BaseResponseDTO<MembershipResponse>> GetMembershipById(string id)
         {
             var result = await _unitOfWork.Memberships.GetById(id);
-            return _mapper.Map<MembershipResponse>(result);
+
+            if (result == null)
+            {
+                return new BaseResponseDTO<MembershipResponse> { Success = false, Message = "Unable to find membership with id " + id };
+            }
+
+            var response = _mapper.Map<MembershipResponse>(result);
+            return new BaseResponseDTO<MembershipResponse> { Success = true, Object = response };
         }
 
-        public async Task<MembershipResponse> CreateMembershipAsync(CreateMembershipRequest createMembershipRequest)
+        public async Task<BaseResponseDTO<MembershipResponse>> CreateMembershipAsync(CreateMembershipRequest createMembershipRequest)
         {
             var membership = _mapper.Map<Membership>(createMembershipRequest);
             await _unitOfWork.Memberships.Add(membership);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<MembershipResponse>(membership);
+            var response = _mapper.Map<MembershipResponse>(membership);
+            return new BaseResponseDTO<MembershipResponse> { Success = true, Object = response };
         }
 
-        public async Task<MembershipResponse> UpdateMembershipAsync(string id, CreateMembershipRequest request)
+        public async Task<BaseResponseDTO<MembershipResponse>> UpdateMembershipAsync(string id, CreateMembershipRequest request)
         {
             var existingMembership = await _unitOfWork.Memberships.GetById(id);
 
@@ -60,7 +71,8 @@ namespace Services.Implement
             _unitOfWork.Memberships.Update(existingMembership);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<MembershipResponse>(existingMembership);
+            var response = _mapper.Map<MembershipResponse>(existingMembership);
+            return new BaseResponseDTO<MembershipResponse> { Success = true, Object = response };
         }
 
         public async Task<bool> DeleteMembershipAsync(string id)

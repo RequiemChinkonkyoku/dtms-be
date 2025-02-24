@@ -1,4 +1,5 @@
-﻿using Models.DTOs.LegalDocument;
+﻿using Models.DTOs;
+using Models.DTOs.LegalDocument;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Services.Interface
 {
     public interface ILegalDocumentService
     {
-        Task<List<LegalDocumentResponse>> GetAllLegalDocuments();
-        Task<LegalDocumentResponse> GetLegalDocumentById(string id);
-        Task<LegalDocumentResponse> CreateLegalDocumentAsync(CreateLegalDocumentRequest createLegalDocumentRequest);
-        Task<LegalDocumentResponse> UpdateLegalDocumentAsync(string id, CreateLegalDocumentRequest request);
+        Task<BaseResponseDTO<LegalDocumentResponse>> GetAllLegalDocuments();
+        Task<BaseResponseDTO<LegalDocumentResponse>> GetLegalDocumentById(string id);
+        Task<BaseResponseDTO<LegalDocumentResponse>> CreateLegalDocumentAsync(CreateLegalDocumentRequest createLegalDocumentRequest);
+        Task<BaseResponseDTO<LegalDocumentResponse>> UpdateLegalDocumentAsync(string id, CreateLegalDocumentRequest request);
         Task<bool> DeleteLegalDocumentAsync(string id);
     }
 }

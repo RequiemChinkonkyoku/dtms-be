@@ -27,5 +27,13 @@ namespace Repositories.Implement
                 .Include(c => c.Certificate)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task<List<Course>> GetCoursesByCategoryId(string categoryId)
+        {
+            return await _context.Courses
+                .AsSplitQuery()
+                .Where(c => c.CategoryId == categoryId)
+                .ToListAsync();
+        }
     }
 }

@@ -33,6 +33,13 @@ namespace Services.Implement
             return new BaseResponseDTO<Course> { Success = true, ObjectList = response };
         }
 
+        public async Task<BaseResponseDTO<Course>> GetCoursesByCategoryId(string categoryId)
+        {
+            var response = await _unitOfWork.Courses.GetCoursesByCategoryId(categoryId);
+
+            return new BaseResponseDTO<Course> { Success = true, ObjectList = response };
+        }
+
         public async Task<BaseResponseDTO<CourseResponse>> GetCourseById(string id)
         {
             var course = await _unitOfWork.Courses.GetCourseById(id);

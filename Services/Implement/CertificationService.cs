@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using Models.DTOs;
+using Models.DTOs.Blog;
 using Models.DTOs.Certification;
 using Models.DTOs.TrainerReport;
 using Models.Entities;
@@ -23,25 +26,40 @@ namespace Services.Implement
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<CertificationResponse>> GetAllCertifications()
+        public async Task<BaseResponseDTO<CertificationResponse>> GetAllCertifications()
         {
             var result = await _unitOfWork.Certifications.GetAll();
-            return _mapper.Map<List<CertificationResponse>>(result);
+            var response = _mapper.Map<List<CertificationResponse>>(result);
+            return new BaseResponseDTO<CertificationResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<CertificationResponse> GetCertificationsById(string id)
+        public async Task<BaseResponseDTO<CertificationResponse>> GetCertificationsById(string id)
         {
             var result = await _unitOfWork.Certifications.GetById(id);
-            return _mapper.Map<CertificationResponse>(result);
+
+            if (result == null)
+            {
+                return new BaseResponseDTO<CertificationResponse> { Success = false, Message = "Unable to find certificate with id " + id };
+            }
+
+            var response = _mapper.Map<CertificationResponse>(result);
+            return new BaseResponseDTO<CertificationResponse> { Success = true, Object = response };
         }
 
-        public async Task<List<CertificationResponse>> GetCertificationsByName(string name)
+        public async Task<BaseResponseDTO<CertificationResponse>> GetCertificationsByName(string name)
         {
             var result = await _unitOfWork.Certifications.Get(c => c.Name.Contains(name));
-            return _mapper.Map<List<CertificationResponse>>(result);
+
+            if (result.IsNullOrEmpty())
+            {
+                return new BaseResponseDTO<CertificationResponse> { Success = false, Message = "Unable to find certificate with name " + name };
+            }
+
+            var response = _mapper.Map<List<CertificationResponse>>(result);
+            return new BaseResponseDTO<CertificationResponse> { Success = true, ObjectList = response };
         }
 
-        public async Task<CertificationResponse> CreateCertificationsAsync(CreateCertificationRequest createCertificationRequest)
+        public async Task<BaseResponseDTO<CertificationResponse>> CreateCertificationsAsync(CreateCertificationRequest createCertificationRequest)
         {
             if (string.IsNullOrWhiteSpace(createCertificationRequest.TrainerProfileId))
             {
@@ -62,10 +80,12 @@ namespace Services.Implement
             await _unitOfWork.Certifications.Add(certification);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<CertificationResponse>(certification);
+            var response = _mapper.Map<CertificationResponse>(certification);
+            return new BaseResponseDTO<CertificationResponse> { Success = true, Object = response };
+
         }
 
-        public async Task<CertificationResponse> UpdateCertificationsAsync(string id, CreateCertificationRequest request)
+        public async Task<BaseResponseDTO<CertificationResponse>> UpdateCertificationsAsync(string id, CreateCertificationRequest request)
         {
             var existingCertification = await _unitOfWork.Certifications.GetById(id);
 
@@ -92,7 +112,8 @@ namespace Services.Implement
             _unitOfWork.Certifications.Update(existingCertification);
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<CertificationResponse>(existingCertification);
+            var response = _mapper.Map<CertificationResponse>(existingCertification);
+            return new BaseResponseDTO<CertificationResponse> { Success = true, Object = response };
         }
 
         public async Task<bool> DeleteCertificationsAsync(string id)
