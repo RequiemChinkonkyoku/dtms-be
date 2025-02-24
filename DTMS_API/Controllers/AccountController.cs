@@ -32,11 +32,13 @@ public class AccountController : ControllerBase
         {
             return BadRequest(ModelState);
         }
+
         try
         {
             var response = await _accountService.CreateNewAccount(request);
             return Ok(response);
-        }catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
@@ -51,7 +53,7 @@ public class AccountController : ControllerBase
             {
                 return BadRequest(ModelState);
             }
-            
+
             var response = await _accountService.Login(request);
             return Ok(new { Token = response });
         }
@@ -61,7 +63,7 @@ public class AccountController : ControllerBase
             return StatusCode(500, new { Message = "An error occurred while processing your request." });
         }
     }
-    
+
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] AccountRegisterRequest request)
     {
@@ -71,7 +73,7 @@ public class AccountController : ControllerBase
             {
                 return BadRequest(ModelState);
             }
-            
+
             var response = await _accountService.Register(request);
             return Ok(response);
             //return CreatedAtAction(nameof(UserController.GetUserById), new { id = response.Id }, response);
@@ -85,7 +87,7 @@ public class AccountController : ControllerBase
             return StatusCode(500, "An unexpected error occurred. " + ex.Message);
         }
     }
-    
+
     [HttpPost("Verify/{otp}")]
     public async Task<IActionResult> VerifyOtp(string email, string otp)
     {
@@ -116,7 +118,8 @@ public class AccountController : ControllerBase
         catch (Exception ex)
         {
             // Return a generic 500 error response for unexpected issues
-            return StatusCode(500, new { message = "An unexpected error occurred. Please try again later.", error = ex.Message });
+            return StatusCode(500,
+                new { message = "An unexpected error occurred. Please try again later.", error = ex.Message });
         }
     }
 }
