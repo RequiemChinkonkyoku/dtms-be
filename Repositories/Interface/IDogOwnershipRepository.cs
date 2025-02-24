@@ -9,5 +9,6 @@ namespace Repositories.Interface
 {
     public interface IDogOwnershipRepository : IRepositoryBase<DogOwnership>
     {
+        Task<List<DogOwnership>> GetAllDogOwnerships();
     }
 }

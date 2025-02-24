@@ -13,13 +13,12 @@ namespace Repositories.Implement
     {
         public async Task<List<Dog>> GetAllDogs()
         {
-            var result = await _context.Dogs
+            return await _context.Dogs
                 .AsSplitQuery()
                 .Include(d => d.DogBreed)
                 .Include(d => d.DogOwnerships)
+                    .ThenInclude(o => o.CustomerProfile)
                 .ToListAsync();
-
-            return result;
         }
         public async Task<Dog> GetDogById(string dogId)
         {
@@ -27,8 +26,22 @@ namespace Repositories.Implement
                 .AsSplitQuery()
                 .Include(d => d.DogBreed)
                 .Include(d => d.DogOwnerships)
+                    .ThenInclude(o => o.CustomerProfile)
                 .FirstOrDefaultAsync(d => d.Id == dogId);
         }
 
+        public async Task<List<Dog>> GetCustomerDog(string customerProfileId)
+        {
+            var dogs = await _context.Dogs
+                .AsSplitQuery()
+                .Include(d => d.DogBreed)
+                .Include(d => d.DogOwnerships)
+                .ThenInclude(o => o.CustomerProfile)
+                .Where(d => d.DogOwnerships
+                    .Any(o => o.CustomerProfileId == customerProfileId && o.ToDate == null))
+                .ToListAsync();
+
+            return dogs;
+        }
     }
 }
