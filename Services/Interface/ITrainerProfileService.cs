@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Models.DTOs.Response;
 using System.Threading.Tasks;
 
 namespace Services.Interface
 {
     public interface ITrainerProfileService
     {
+        Task<TrainerProfileResponse> GetTrainerProfile(string accountId);
     }
 }
