@@ -10,5 +10,6 @@ namespace Repositories.Interface
     public interface ICourseRepository : IRepositoryBase<Course>
     {
         public Task<Course> GetCourseById(string id);
+        public Task<List<Course>> GetCoursesByCategoryId(string categoryId);
     }
 }

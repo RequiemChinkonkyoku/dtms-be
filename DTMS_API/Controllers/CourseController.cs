@@ -39,6 +39,14 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpGet("get-courses-by-category-id/{categoryId}")]
+        public async Task<IActionResult> GetCoursesByCategoryId(string categoryId)
+        {
+            var response = await _courseService.GetCoursesByCategoryId(categoryId);
+
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CreateCourseRequest request)
         {
