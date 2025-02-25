@@ -240,11 +240,6 @@ public class AccountService : IAccountService
     {
         try
         {
-            if (request.ProfileType is null || request.ProfileType < 1 || request.ProfileType > 3)
-            {
-                throw new ArgumentException("Invalid ProfileType. Must be 1 (Customer), 2 (Trainer), or 3 (Staff).");
-            }
-
             var accounts = await _unitOfWork.Accounts.GetAll();
             // Check if the email or username already exists
             var existingAccount = accounts.FirstOrDefault(a =>
@@ -256,21 +251,37 @@ public class AccountService : IAccountService
 
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
-            // Create a new account entity
-            var account = new Account
+            var account = new Account()
             {
                 Email = request.Email,
                 Password = passwordHash,
                 Username = request.Username,
-                Status = 0,
                 ImageUrl = "empty",
+                Status = 0,
                 RegistrationTime = DateTime.UtcNow,
                 CreatedTime = DateTime.UtcNow,
-                LastUpdatedTime = DateTime.UtcNow
+                LastUpdatedTime = DateTime.UtcNow,
+                ProfileType = 1
             };
 
             await _unitOfWork.Accounts.Add(account);
             await _unitOfWork.SaveChanges();
+            
+            var customerProfile = new CustomerProfile()
+            {
+                AccountId = account.Id,
+                FullName = request.FullName,
+                PhoneNumber = request.PhoneNumber,
+                Address = request.Address,
+                DateOfBirth = request.DateOfBirth,
+                Gender = request.Gender,
+                MembershipPoints = 0,
+                MembershipId = "08826fe6-0033-4776-987c-f37e8367f95a", //hardcoded for testing
+                CustomerRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
+            };
+            await _unitOfWork.CustomerProfiles.Add(customerProfile);
+            await _unitOfWork.SaveChanges();
+            
             await SendOtpAsync(account.Email);
             return account;
         }
