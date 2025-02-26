@@ -2,6 +2,7 @@ namespace Models.DTOs.Response
 {
     public class TrainerProfileResponse
     {
+        public string Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public int Status { get; set; }

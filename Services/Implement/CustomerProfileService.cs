@@ -42,6 +42,7 @@ namespace Services.Implement
 
             return new CustomerProfileResponse
             {
+                Id = customerProfile.Id,
                 Username = account.Username,
                 Email = account.Email,
                 Status = account.Status,
