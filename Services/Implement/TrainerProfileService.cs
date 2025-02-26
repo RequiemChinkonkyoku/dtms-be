@@ -38,6 +38,7 @@ namespace Services.Implement
 
             return new TrainerProfileResponse
             {
+                Id = trainerProfile.Id,
                 Username = account.Username,
                 Email = account.Email,
                 Status = account.Status,
