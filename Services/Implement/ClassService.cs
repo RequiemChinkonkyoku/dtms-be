@@ -153,7 +153,7 @@ namespace Services.Implement
                 Name = request.Name,
                 EnrolledDogCount = 0,
                 AssignedTrainerCount = request.TrainerProfileIds.Count(),
-                Status = 0,
+                Status = 1,
                 StartingDate = request.StartingDate,
                 CourseId = request.CourseId,
                 CreatedTime = DateTime.UtcNow,
@@ -206,6 +206,65 @@ namespace Services.Implement
             catch (Exception ex)
             {
                 return new BaseResponseDTO<Class> { Success = false, Message = "There has been an error: " + ex.Message };
+            }
+        }
+
+        public async Task<BaseResponseDTO<Class>> DeleteClass(string id)
+        {
+            var existingClass = await _unitOfWork.Classes.GetById(id);
+
+            if (existingClass == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + id };
+            }
+
+            existingClass.Status = 0;
+
+            await _unitOfWork.Classes.Update(existingClass);
+            await _unitOfWork.SaveChanges();
+
+            try
+            {
+                var classTrainers = (await _unitOfWork.TrainerAssignments.GetAll())
+                                                .Where(t => t.ClassId == existingClass.Id)
+                                                .ToList();
+
+                if (classTrainers.Any())
+                {
+                    foreach (var trainer in classTrainers)
+                    {
+                        await _unitOfWork.TrainerAssignments.Delete(trainer);
+                    }
+                }
+
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Trainer removal unsuccessful: " + ex.Message };
+            }
+
+            try
+            {
+                var classSlots = (await _unitOfWork.Slots.GetAll())
+                                            .Where(s => s.ClassId == existingClass.Id)
+                                            .ToList();
+
+                if (classSlots.Any())
+                {
+                    foreach (var classSlot in classSlots)
+                    {
+                        await _unitOfWork.Slots.Delete(classSlot);
+                    }
+                }
+
+                await _unitOfWork.SaveChanges();
+
+                return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Slot removal unsuccessful: " + ex.Message };
             }
         }
     }

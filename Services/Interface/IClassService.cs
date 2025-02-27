@@ -12,6 +12,7 @@ namespace Services.Interface
     public interface IClassService
     {
         Task<BaseResponseDTO<Class>> CreateClass(CreateClassRequest request);
+        Task<BaseResponseDTO<Class>> DeleteClass(string id);
         Task<BaseResponseDTO<Class>> GetAllClasses();
         Task<BaseResponseDTO<Class>> GetClassById(string id);
     }

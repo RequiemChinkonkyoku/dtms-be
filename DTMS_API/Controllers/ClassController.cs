@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Models.DTOs;
 using Models.DTOs.Class;
@@ -44,6 +45,21 @@ namespace DTMS_API.Controllers
         public async Task<IActionResult> CreateClass(CreateClassRequest request)
         {
             var response = await _classService.CreateClass(request);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteClass(string id)
+        {
+            var response = await _classService.DeleteClass(id);
 
             if (response.Success)
             {
