@@ -70,5 +70,20 @@ namespace DTMS_API.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpGet("get-class-slots/{id}")]
+        public async Task<IActionResult> GetClassSlots(string id)
+        {
+            var response = await _classService.GetClassSlots(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

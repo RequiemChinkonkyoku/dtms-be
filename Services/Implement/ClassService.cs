@@ -267,5 +267,33 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "Slot removal unsuccessful: " + ex.Message };
             }
         }
+
+        public async Task<BaseResponseDTO<Class>> GetClassSlots(string id)
+        {
+            var existingClass = await _unitOfWork.Classes.GetById(id);
+
+            if (existingClass == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + id };
+            }
+
+            if (existingClass.Status == 0)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "This class is closed." };
+            }
+
+            var classSlots = (await _unitOfWork.Slots.GetAll())
+                                        .Where(s => s.ClassId == existingClass.Id)
+                                        .ToList();
+
+            if (!classSlots.Any())
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "There are no slots for this class." };
+            }
+
+            existingClass.Slots = classSlots;
+
+            return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
+        }
     }
 }

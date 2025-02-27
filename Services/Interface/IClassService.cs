@@ -15,5 +15,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<Class>> DeleteClass(string id);
         Task<BaseResponseDTO<Class>> GetAllClasses();
         Task<BaseResponseDTO<Class>> GetClassById(string id);
+        Task<BaseResponseDTO<Class>> GetClassSlots(string id);
     }
 }
