@@ -10,5 +10,8 @@ namespace Repositories.Interface
     public interface IDogOwnershipRepository : IRepositoryBase<DogOwnership>
     {
         Task<List<DogOwnership>> GetAllDogOwnerships();
+        Task<DogOwnership> GetDogOwnershipByIdAsync(string id);
+        Task AddDogOwnershipAsync(DogOwnership dogOwnership);
+        Task UpdateDogOwnershipAsync(DogOwnership dogOwnership);
     }
 }
