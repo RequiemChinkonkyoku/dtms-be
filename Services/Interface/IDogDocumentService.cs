@@ -13,6 +13,7 @@ namespace Services.Interface
     {
         Task<List<DogDocumentResponse>> GetAllDogDocuments();
         Task<DogDocumentResponse> GetDogDocumentById(string id);
+        Task<List<DogDocumentResponse>> GetDocumentsByDogId(string dogId);
         Task<DogDocumentResponse> CreateDogDocumentAsync(CreateDogDocumentRequest request);
         Task<DogDocument> UpdateDogDocumentAsync(string id, UpdateDogDocumentRequest request);
         Task<DogDocument> DeleteDogDocumentAsync(string id);

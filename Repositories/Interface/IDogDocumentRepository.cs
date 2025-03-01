@@ -12,5 +12,7 @@ namespace Repositories.Interface
         Task<DogDocument> GetDocumentById(string id);
 
         Task<List<DogDocument>> GetAllDocument();
+
+        Task<List<DogDocument>> GetDocumentsByDogId(string dogId);
     }
 }
