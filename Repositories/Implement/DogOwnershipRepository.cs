@@ -24,5 +24,26 @@ namespace Repositories.Implement
 
             return ownerships;
         }
+
+        public async Task<DogOwnership> GetDogOwnershipByIdAsync(string id)
+        {
+            return await _context.DogOwnerships
+                .AsSplitQuery()
+                .Include(o => o.Dog)
+                    .ThenInclude(d => d.DogBreed)
+                .Include(o => o.CustomerProfile)
+                .FirstOrDefaultAsync(o => o.Id == id);
+        }
+
+        public async Task AddDogOwnershipAsync(DogOwnership dogOwnership)
+        {
+            await _context.DogOwnerships.AddAsync(dogOwnership);
+        }
+
+        public async Task UpdateDogOwnershipAsync(DogOwnership dogOwnership)
+        {
+            _context.DogOwnerships.Update(dogOwnership);
+        }
+
     }
 }

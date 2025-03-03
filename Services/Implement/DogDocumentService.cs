@@ -2,6 +2,7 @@
 using Models.DTOs;
 using Models.DTOs.Response;
 using Models.Entities;
+using Repositories.Implement;
 using Repositories.Interface;
 using Services.Interface;
 using System;
@@ -37,6 +38,13 @@ namespace Services.Implement
             var  result = await _unitOfWork.DogDocuments.GetDocumentById(id);
             return _mapper.Map<DogDocumentResponse>(result);
         }
+
+        public async Task<List<DogDocumentResponse>> GetDocumentsByDogId(string dogId)
+        {
+            var result = await _unitOfWork.DogDocuments.GetDocumentsByDogId(dogId);
+            return _mapper.Map<List<DogDocumentResponse>>(result);
+        }
+
 
         public async Task<DogDocumentResponse> CreateDogDocumentAsync(CreateDogDocumentRequest request)
         {

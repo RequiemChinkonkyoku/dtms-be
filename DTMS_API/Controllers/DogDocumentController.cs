@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
+using Models.DTOs.Response;
 using Services.Implement;
 using Services.Interface;
 
@@ -41,6 +42,18 @@ namespace DTMS_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("dog/{dogId}")]
+        public async Task<IActionResult> GetDocumentsByDogId(string dogId)
+        {
+            var responses = await _documentService.GetDocumentsByDogId(dogId);
+
+            if (responses == null || !responses.Any())
+                return NotFound("No documents found for this dog.");
+
+            return Ok(responses);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateDogDocument(CreateDogDocumentRequest request)
         {
