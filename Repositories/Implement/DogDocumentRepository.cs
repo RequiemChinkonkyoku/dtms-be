@@ -30,5 +30,18 @@ namespace Repositories.Implement
                 .ToListAsync();
             return result;
         }
+
+        public async Task<List<DogDocument>> GetDocumentsByDogId(string dogId)
+        {
+            var result = await _context.DogDocuments
+                .AsSplitQuery()
+                .Include(x => x.DogDocumentType)
+                .Include(x => x.Dog)
+                .Where(x => x.DogId == dogId)
+                .ToListAsync();
+
+            return result;
+        }
+
     }
 }
