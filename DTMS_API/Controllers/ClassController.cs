@@ -85,5 +85,20 @@ namespace DTMS_API.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateClass(UpdateClassRequest request)
+        {
+            var response = await _classService.UpdateClass(request);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Azure.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
+using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.Class;
 using Models.Entities;
@@ -292,6 +294,116 @@ namespace Services.Implement
             }
 
             existingClass.Slots = classSlots;
+
+            return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
+        }
+
+        public async Task<BaseResponseDTO<Class>> UpdateClass(UpdateClassRequest request)
+        {
+            if (request.Id == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "ClassId must be given." };
+            }
+
+            var existingClass = await _unitOfWork.Classes.GetById(request.Id);
+
+            if (existingClass == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + request.Id };
+            }
+
+            if (existingClass.Status == (int)ClassStatusEnum.Ongoing)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Ongoing classes cannot be updated." };
+            }
+
+            if (existingClass.Name.CompareTo(request.Name) != 0)
+            {
+                if (request.Name.IsNullOrEmpty())
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "New name cannot be empty." };
+                }
+
+                existingClass.Name = request.Name;
+            }
+
+            if (existingClass.Status != request.Status)
+            {
+                existingClass.Status = request.Status;
+            }
+
+            if (existingClass.StartingDate != request.StartingDate)
+            {
+                if (request.StartingDate.CompareTo(DateOnly.FromDateTime(DateTime.Today)) < 0)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "StartingDate cannot be in the past." };
+                }
+
+                existingClass.StartingDate = request.StartingDate;
+            }
+
+            if (existingClass.CourseId != request.CourseId)
+            {
+                var course = await _unitOfWork.Courses.GetById(request.CourseId);
+
+                if (course == null)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find course with id " + request.CourseId };
+                }
+
+                existingClass.CourseId = request.CourseId;
+            }
+
+            foreach (var trainerId in request.TrainerIds)
+            {
+                var trainer = await _unitOfWork.TrainerProfiles.GetById(trainerId);
+
+                if (trainer == null)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find trainer with id " + trainerId };
+                }
+            }
+
+            var classTrainerIds = (await _unitOfWork.TrainerAssignments.GetAll())
+                                                .Where(ta => ta.ClassId == existingClass.Id)
+                                                .Select(ta => ta.TrainerProfileId)
+                                                .ToList();
+
+            var trainerIdsToAdd = request.TrainerIds.Except(classTrainerIds).ToList();
+            var trainerIdsToRemove = classTrainerIds.Except(request.TrainerIds).ToList();
+
+            if (trainerIdsToAdd.Any())
+            {
+                var trainers = (await _unitOfWork.TrainerProfiles.GetAll())
+                                            .Where(tp => trainerIdsToAdd.Contains(tp.Id))
+                                            .ToList();
+
+                foreach (var trainer in trainers)
+                {
+                    var newTrainerAssignment = new TrainerAssignment { ClassId = existingClass.Id, TrainerProfileId = trainer.Id };
+
+                    await _unitOfWork.TrainerAssignments.Add(newTrainerAssignment);
+                }
+
+                await _unitOfWork.SaveChanges();
+            }
+
+            if (trainerIdsToRemove.Any())
+            {
+                var trainers = (await _unitOfWork.TrainerAssignments.GetAll())
+                                            .Where(ta => trainerIdsToRemove.Contains(ta.TrainerProfileId))
+                                            .ToList();
+
+                foreach (var trainer in trainers)
+                {
+                    await _unitOfWork.TrainerAssignments.Delete(trainer);
+                }
+
+                await _unitOfWork.SaveChanges();
+            }
+
+            await _unitOfWork.Classes.Update(existingClass);
+            await _unitOfWork.SaveChanges();
 
             return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
         }

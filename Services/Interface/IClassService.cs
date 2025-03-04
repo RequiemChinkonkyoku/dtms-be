@@ -16,5 +16,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<Class>> GetAllClasses();
         Task<BaseResponseDTO<Class>> GetClassById(string id);
         Task<BaseResponseDTO<Class>> GetClassSlots(string id);
+        Task<BaseResponseDTO<Class>> UpdateClass(UpdateClassRequest request);
     }
 }
