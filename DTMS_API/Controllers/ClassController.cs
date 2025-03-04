@@ -100,5 +100,20 @@ namespace DTMS_API.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpPost("enroll-class")]
+        public async Task<IActionResult> EnrollClass(EnrollClassRequest request)
+        {
+            var response = await _classService.EnrollClass(request);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

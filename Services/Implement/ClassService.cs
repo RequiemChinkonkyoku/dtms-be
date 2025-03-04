@@ -11,6 +11,7 @@ using Repositories.Interface;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -406,6 +407,154 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
+        }
+
+        public async Task<BaseResponseDTO<Class>> EnrollClass(EnrollClassRequest request)
+        {
+            if (request.ClassId == null ||
+                request.CustomerProfileId == null ||
+                request.DogId == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Ids must be given." };
+            }
+
+            var existingClass = await _unitOfWork.Classes.GetById(request.ClassId);
+
+            if (existingClass == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + request.ClassId };
+            }
+
+            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
+
+            if (customerProfile == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find customer with id " + request.CustomerProfileId };
+            }
+
+            var dog = await _unitOfWork.Dogs.GetById(request.CustomerProfileId);
+
+            if (dog == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find dog with id " + request.DogId };
+            }
+
+            var dogOwnership = (await _unitOfWork.DogOwnerships.GetAll())
+                                            .Where(d => d.CustomerProfileId == request.CustomerProfileId &&
+                                                        d.DogId == request.DogId &&
+                                                        d.ToDate == null)
+                                            .FirstOrDefault();
+
+            if (dogOwnership == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "The dog doesn't belong to this customer." };
+            }
+
+            var courseDog = (await _unitOfWork.CourseDogs.GetAll())
+                                        .Select(cd => cd.DogBreedId)
+                                        .ToList();
+
+            if (!courseDog.Contains(dog.DogBreedId))
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "The course doesn't support this dog breed." };
+            }
+
+            var course = await _unitOfWork.Courses.GetById(existingClass.CourseId);
+
+            if (existingClass.EnrolledDogCount == course.MaxDogs)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "This class dog enrollment limit is reached." };
+            }
+
+            var prerequisites = (await _unitOfWork.Prerequisites.GetAll())
+                                            .Where(p => p.CourseId == course.Id)
+                                            .Select(p => p.PrerequisiteCourseId)
+                                            .ToList();
+
+            if (prerequisites.Any())
+            {
+                var certificateList = new List<Certificate>();
+
+                foreach (var courseId in prerequisites)
+                {
+                    var certificate = (await _unitOfWork.Certificates.GetAll())
+                                                    .Where(c => c.CourseId == course.Id)
+                                                    .FirstOrDefault();
+
+                    certificateList.Add(certificate);
+                }
+
+                foreach (var certificate in certificateList)
+                {
+                    var dogCertificate = (await _unitOfWork.DogCertificates.GetAll())
+                                                        .Where(dc => dc.DogId == request.DogId &&
+                                                                     dc.CertificateId == certificate.Id)
+                                                        .FirstOrDefault();
+
+                    if (dogCertificate == null)
+                    {
+                        var missingCourse = await _unitOfWork.Courses.GetById(certificate.CourseId);
+
+                        return new BaseResponseDTO<Class>
+                        {
+                            Success = false,
+                            Message = $"The dog doesn't a certificate for the course {missingCourse.Name}."
+                        };
+                    }
+                }
+            }
+
+            var cageId = "1";
+
+            if (request.IsBoarding)
+            {
+                var cage = (await _unitOfWork.Cages.GetAll())
+                                        .Where(c => c.Status == 1)
+                                        .FirstOrDefault();
+
+                if (cage == null)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
+                }
+
+                cageId = cage.Id;
+            }
+
+            var enrollment = new Enrollment
+            {
+                Status = 1,
+                RequiedNightStay = request.IsBoarding,
+                ClassId = request.ClassId,
+                DogId = request.DogId,
+                CageId = cageId
+            };
+
+            await _unitOfWork.Enrollments.Add(enrollment);
+            await _unitOfWork.SaveChanges();
+
+            existingClass.EnrolledDogCount += 1;
+
+            await _unitOfWork.Classes.Update(existingClass);
+            await _unitOfWork.SaveChanges();
+
+            var assignedCage = await _unitOfWork.Cages.GetById(cageId);
+            assignedCage.Status = 0;
+
+            await _unitOfWork.Cages.Update(assignedCage);
+            await _unitOfWork.SaveChanges();
+
+            var pretest = new PreTest
+            {
+                TestDate = existingClass.StartingDate.AddDays(-7),
+                Status = 1,
+                DogId = request.DogId,
+                ClassId = request.ClassId
+            };
+
+            await _unitOfWork.Pretests.Add(pretest);
+            await _unitOfWork.SaveChanges();
+
+            return new BaseResponseDTO<Class> { Success = true };
         }
     }
 }
