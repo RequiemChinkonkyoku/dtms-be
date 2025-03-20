@@ -14,7 +14,6 @@ public interface IUnitOfWork : IDisposable
     IChatRepository Chats { get; }
     IClassRepository Classes { get; }
     ILessonEquipmentRepository LessonEquipments { get; }
-    ISlotLessonRepository SlotLessons { get; }
     ICourseRepository Courses { get; }
     ICustomerProfileRepository CustomerProfiles { get; }
     ICustomerRoleRepository CustomerRoles { get; }

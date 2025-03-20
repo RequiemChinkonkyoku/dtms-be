@@ -9,7 +9,9 @@ using Repositories.Interface;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,7 +50,41 @@ namespace Services.Implement
 
         public async Task<BaseResponseDTO<TrainingReportResponse>> GetTrainingReportsByDogId(string dogId)
         {
-            var result = await _unitOfWork.TrainingReports.Get(d => d.DogId == dogId);
+            var enrollments = (await _unitOfWork.Enrollments.GetAll())
+                                            .Where(e => e.DogId == dogId)
+                                            .Select(e => e.Id)
+                                            .ToList();
+
+            if (enrollments.IsNullOrEmpty())
+            {
+                return new BaseResponseDTO<TrainingReportResponse>
+                {
+                    Success = false,
+                    Message = "Unable to find enrollment with dogId " + dogId
+                };
+            }
+
+            //var result = await _unitOfWork.TrainingReports.Get(d => d.DogId == dogId);
+
+            var result = new List<TrainingReport>();
+
+            foreach (var enrollment in enrollments)
+            {
+                var report = (await _unitOfWork.TrainingReports.GetAll())
+                                        .Where(tr => tr.EnrollmentId == enrollment)
+                                        .ToList();
+
+                if (report.IsNullOrEmpty())
+                {
+                    return new BaseResponseDTO<TrainingReportResponse>
+                    {
+                        Success = false,
+                        Message = "Unable to find training report with enrollmentId " + enrollment
+                    };
+                }
+
+                result.AddRange(report);
+            }
 
             if (result.IsNullOrEmpty())
             {

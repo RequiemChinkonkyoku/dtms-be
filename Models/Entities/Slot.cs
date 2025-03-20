@@ -15,6 +15,10 @@ namespace Models.Entities
 
         public string ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
-        public ICollection<SlotLesson> SlotLessons { get; set; }
+
+        public string? LessonId { get; set; }
+        public Lesson Lesson { get; set; }
+
+        public ICollection<Attendance> Attendances { get; set; }
     }
 }
