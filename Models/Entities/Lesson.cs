@@ -15,7 +15,6 @@ public class Lesson : BaseEntity
     public string SkillId { get; set; }
     public Skill Skill { get; set; }
 
-    public ICollection<SlotLesson> SlotLessons { get; set; }
     public ICollection<LessonEquipment> LessonEquipments { get; set; }
     public ICollection<CourseLesson> CourseLessons { get; set; }
 }

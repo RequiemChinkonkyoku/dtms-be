@@ -16,4 +16,6 @@ public class Enrollment : BaseEntity
 
     public string PaymentId { get; set; }
     public Payment Payment { get; set; }
+
+    public ICollection<TrainingReport> TrainingReports { get; set; }
 }

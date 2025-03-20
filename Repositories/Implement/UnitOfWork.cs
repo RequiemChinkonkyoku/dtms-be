@@ -19,7 +19,6 @@ public class UnitOfWork : IUnitOfWork
     public IChatRepository Chats { get; }
     public IClassRepository Classes { get; }
     public ILessonEquipmentRepository LessonEquipments { get; }
-    public ISlotLessonRepository SlotLessons { get; }
     public ICourseRepository Courses { get; }
     public ICustomerProfileRepository CustomerProfiles { get; }
     public ICustomerRoleRepository CustomerRoles { get; }
@@ -72,7 +71,6 @@ public class UnitOfWork : IUnitOfWork
                       IClassRepository classRepository,
                       ICourseRepository courseRepository,
                       ILessonEquipmentRepository lessonEquipmentRepository,
-                      ISlotLessonRepository slotLessonRepository,
                       ICustomerProfileRepository customerProfileRepository,
                       ICustomerRoleRepository customerRoleRepository,
                       IDogCertificateRepository dogCertificateRepository,
@@ -127,7 +125,6 @@ public class UnitOfWork : IUnitOfWork
         Classes = classRepository;
         Courses = courseRepository;
         LessonEquipments = lessonEquipmentRepository;
-        SlotLessons = slotLessonRepository;
         CustomerProfiles = customerProfileRepository;
         CustomerRoles = customerRoleRepository;
         DogCertificates = dogCertificateRepository;
