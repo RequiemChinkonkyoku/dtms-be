@@ -1,12 +1,10 @@
 namespace Models.Entities;
 
-public class Membership : BaseEntity
+public class Role : BaseEntity
 {
     public string Name { get; set; }
-    public int RequiredPoints { get; set; }
+    public int Status { get; set; }
     public string Description { get; set; }
-    public decimal DiscountAmount { get; set; }
-
-    // Navigation Property
+    
     public ICollection<Account> Accounts { get; set; }
 }

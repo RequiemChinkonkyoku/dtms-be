@@ -10,8 +10,8 @@ namespace Models.Entities
     {
         public bool Status { get; set; }
 
-        public string TrainerProfileId { get; set; }
-        public TrainerProfile TrainerProfile { get; set; }
+        public string TrainerId { get; set; }
+        public Account Account { get; set; }
 
         public string ScheduleId { get; set; }
         public Schedule Schedule { get; set; }

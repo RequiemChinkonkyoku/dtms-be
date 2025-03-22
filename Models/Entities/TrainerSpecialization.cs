@@ -8,8 +8,8 @@ namespace Models.Entities
 {
     public class TrainerSpecialization : BaseEntity
     {
-        public string TrainerProfileId { get; set; }
-        public TrainerProfile TrainerProfile { get; set; }
+        public string TrainerId { get; set; }
+        public Account Account { get; set; }
 
         public string SpecializaionId { get; set; }
         public Specialization Specialization { get; set; }

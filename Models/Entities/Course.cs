@@ -19,7 +19,7 @@ public class Course : BaseEntity
     public int Complexity { get; set; }
 
     public string CreatedTrainerId { get; set; }
-    public TrainerProfile CreatedTrainerProfile { get; set; }
+    public Account Account { get; set; }
 
     public string CategoryId { get; set; }
     public Category Category { get; set; }

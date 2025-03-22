@@ -18,7 +18,7 @@ namespace Models.Entities
         public string? EnrollmentId { get; set; }
         public Enrollment Enrollment { get; set; }
 
-        public string TrainerProfileId { get; set; }
-        public TrainerProfile TrainerProfile { get; set; }
+        public string TrainerId { get; set; }
+        public Account Account { get; set; }
     }
 }

@@ -8,8 +8,8 @@ namespace Models.Entities
 {
     public class WishList : BaseEntity
     {
-        public string CustomerProfileId { get; set; }
-        public CustomerProfile CustomerProfile { get; set; }
+        public string CustomerId { get; set; }
+        public Account Account { get; set; }
 
         public string CourseId { get; set; }
         public Course Course { get; set; }
