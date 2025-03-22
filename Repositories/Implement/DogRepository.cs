@@ -17,7 +17,7 @@ namespace Repositories.Implement
                 .AsSplitQuery()
                 .Include(d => d.DogBreed)
                 .Include(d => d.DogOwnerships)
-                    .ThenInclude(o => o.CustomerProfile)
+                    .ThenInclude(o => o.Customer)
                 .ToListAsync();
         }
         public async Task<Dog> GetDogById(string dogId)
@@ -26,19 +26,19 @@ namespace Repositories.Implement
                 .AsSplitQuery()
                 .Include(d => d.DogBreed)
                 .Include(d => d.DogOwnerships)
-                    .ThenInclude(o => o.CustomerProfile)
+                    .ThenInclude(o => o.Customer)
                 .FirstOrDefaultAsync(d => d.Id == dogId);
         }
 
-        public async Task<List<Dog>> GetCustomerDog(string customerProfileId)
+        public async Task<List<Dog>> GetCustomerDog(string customerId)
         {
             var dogs = await _context.Dogs
                 .AsSplitQuery()
                 .Include(d => d.DogBreed)
                 .Include(d => d.DogOwnerships)
-                .ThenInclude(o => o.CustomerProfile)
+                .ThenInclude(o => o.Customer)
                 .Where(d => d.DogOwnerships
-                    .Any(o => o.CustomerProfileId == customerProfileId && o.ToDate == null))
+                    .Any(o => o.CustomerId == customerId && o.ToDate == null))
                 .ToListAsync();
 
             return dogs;

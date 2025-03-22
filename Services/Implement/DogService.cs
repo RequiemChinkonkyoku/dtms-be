@@ -38,10 +38,10 @@ namespace Services.Implement
 
         public async Task<Dog> CreateDogAsync(CreateDogRequest request)
         {
-            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
+            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerId);
             if (customerProfile == null)
             {
-                throw new ArgumentException($"CustomerProfile with ID {request.CustomerProfileId} not found.");
+                throw new ArgumentException($"CustomerProfile with ID {request.CustomerId} not found.");
             }
             var dogBreed = await _unitOfWork.DogBreeds.GetById(request.DogBreedId);
             if (dogBreed == null)
@@ -69,7 +69,7 @@ namespace Services.Implement
             {
                 Id = Guid.NewGuid().ToString(),
                 FromDate = DateOnly.FromDateTime(DateTime.UtcNow),
-                CustomerProfileId = request.CustomerProfileId,
+                CustomerId = request.CustomerId,
                 DogId = newDog.Id
             };
 
@@ -99,8 +99,6 @@ namespace Services.Implement
             existingDog.Gender = request.Gender;
             existingDog.Status = request.Status;
             existingDog.DogBreedId = request.DogBreedId ?? existingDog.DogBreedId;
-
-
 
             existingDog.LastUpdatedTime = DateTime.UtcNow;
 
@@ -134,6 +132,5 @@ namespace Services.Implement
 
             return _mapper.Map<List<DogResponse>>(result);
         }
-
     }
 }

@@ -97,7 +97,7 @@ namespace Services.Implement
             }
 
             if (request.CourseId == null ||
-                request.TrainerProfileIds.Count <= 0)
+                request.TrainerIds.Count <= 0)
             {
                 return new BaseResponseDTO<Class> { Success = false, Message = "Ids must be given." };
             }
@@ -116,7 +116,7 @@ namespace Services.Implement
 
             var trainerIds = new List<string>();
 
-            foreach (var id in request.TrainerProfileIds)
+            foreach (var id in request.TrainerIds)
             {
                 var trainerProfile = await _unitOfWork.TrainerProfiles.GetById(id);
 
@@ -155,7 +155,7 @@ namespace Services.Implement
             {
                 Name = request.Name,
                 EnrolledDogCount = 0,
-                AssignedTrainerCount = request.TrainerProfileIds.Count(),
+                AssignedTrainerCount = request.TrainerIds.Count(),
                 Status = 1,
                 StartingDate = request.StartingDate,
                 CourseId = request.CourseId,
@@ -170,7 +170,7 @@ namespace Services.Implement
             {
                 var trainerAssignment = new TrainerAssignment
                 {
-                    TrainerProfileId = trainerId,
+                    TrainerId = trainerId,
                     ClassId = newClass.Id,
                 };
 
@@ -367,7 +367,7 @@ namespace Services.Implement
 
             var classTrainerIds = (await _unitOfWork.TrainerAssignments.GetAll())
                                                 .Where(ta => ta.ClassId == existingClass.Id)
-                                                .Select(ta => ta.TrainerProfileId)
+                                                .Select(ta => ta.TrainerId)
                                                 .ToList();
 
             var trainerIdsToAdd = request.TrainerIds.Except(classTrainerIds).ToList();
@@ -381,7 +381,7 @@ namespace Services.Implement
 
                 foreach (var trainer in trainers)
                 {
-                    var newTrainerAssignment = new TrainerAssignment { ClassId = existingClass.Id, TrainerProfileId = trainer.Id };
+                    var newTrainerAssignment = new TrainerAssignment { ClassId = existingClass.Id, TrainerId = trainer.Id };
 
                     await _unitOfWork.TrainerAssignments.Add(newTrainerAssignment);
                 }
@@ -392,7 +392,7 @@ namespace Services.Implement
             if (trainerIdsToRemove.Any())
             {
                 var trainers = (await _unitOfWork.TrainerAssignments.GetAll())
-                                            .Where(ta => trainerIdsToRemove.Contains(ta.TrainerProfileId))
+                                            .Where(ta => trainerIdsToRemove.Contains(ta.TrainerId))
                                             .ToList();
 
                 foreach (var trainer in trainers)
@@ -440,7 +440,7 @@ namespace Services.Implement
             }
 
             var dogOwnership = (await _unitOfWork.DogOwnerships.GetAll())
-                                            .Where(d => d.CustomerProfileId == request.CustomerProfileId &&
+                                            .Where(d => d.CustomerId == request.CustomerProfileId &&
                                                         d.DogId == request.DogId &&
                                                         d.ToDate == null)
                                             .FirstOrDefault();

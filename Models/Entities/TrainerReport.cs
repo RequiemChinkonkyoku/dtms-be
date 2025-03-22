@@ -11,10 +11,10 @@ namespace Models.Entities
         public int Rating { get; set; }
         public string Message { get; set; }
 
-        public string TrainerProfileId { get; set; }
-        public TrainerProfile TrainerProfile { get; set; }
+        public string TrainerId { get; set; }
+        public Account Trainer { get; set; }
 
-        public string CustomerProfileId { get; set; }
-        public CustomerProfile CustomerProfile { get; set; }
+        public string CustomerId { get; set; }
+        public Account Customer { get; set; }
     }
 }

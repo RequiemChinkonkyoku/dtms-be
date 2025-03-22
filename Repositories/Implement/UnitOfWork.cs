@@ -57,6 +57,7 @@ public class UnitOfWork : IUnitOfWork
     public ICourseDogRepository CourseDogs { get; }
     public IDogOwnershipRepository DogOwnerships { get; }
     public IPretestRepository Pretests { get; }
+    public IRoleRepository Roles { get; }
 
     public UnitOfWork(IAccountRepository accountRepository,
                       IAttendanceRepository attendanceRepository,
@@ -108,7 +109,8 @@ public class UnitOfWork : IUnitOfWork
                       ICourseLessonRepository courseLessonRepository,
                       ICourseDogRepository courseDogRepository,
                       IDogOwnershipRepository dogOwnershipRepository,
-                      IPretestRepository pretestRepository)
+                      IPretestRepository pretestRepository,
+                      IRoleRepository roleRepository)
                                                         
     {
         _dbContext = new DtmsDbContext();
@@ -163,6 +165,7 @@ public class UnitOfWork : IUnitOfWork
         CourseDogs = courseDogRepository;
         DogOwnerships = dogOwnershipRepository;
         Pretests = pretestRepository;
+        Roles = roleRepository;
     }
 
     public async Task SaveChanges()

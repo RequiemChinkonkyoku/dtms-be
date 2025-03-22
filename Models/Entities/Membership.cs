@@ -8,5 +8,5 @@ public class Membership : BaseEntity
     public decimal DiscountAmount { get; set; }
 
     // Navigation Property
-    public ICollection<CustomerProfile> CustomerProfiles { get; set; }
+    public ICollection<Account> Accounts { get; set; }
 }
