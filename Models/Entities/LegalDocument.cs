@@ -9,5 +9,5 @@ public class LegalDocument : BaseEntity
     public string ImageUrl { get; set; }
     
     public string CustomerId { get; set; }
-    public Account Account { get; set; }
+    public Account Customer { get; set; }
 }

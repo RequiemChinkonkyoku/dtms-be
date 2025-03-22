@@ -9,5 +9,5 @@ public class Blog : BaseEntity
     public DateTime TimePublished { get; set; }
     
     public string StaffId { get; set; }
-    public Account Account { get; set; }
+    public Account Staff { get; set; }
 }

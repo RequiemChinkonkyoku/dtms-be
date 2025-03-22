@@ -19,5 +19,5 @@ public class Payment : BaseEntity
     public PaymentMethod PaymentMethod { get; set; }
     
     public string CustomerId { get; set; }
-    public Account Account { get; set; }
+    public Account Customer { get; set; }
 }

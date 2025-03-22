@@ -12,7 +12,7 @@ namespace Models.Entities
         public DateOnly? ToDate { get; set; }
 
         public string CustomerId { get; set; }
-        public Account Account { get; set; }
+        public Account Customer { get; set; }
 
         public string DogId { get; set; }
         public Dog Dog { get; set; }

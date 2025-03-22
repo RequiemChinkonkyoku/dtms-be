@@ -11,7 +11,7 @@ namespace Models.Entities
         public bool Status { get; set; }
 
         public string TrainerId { get; set; }
-        public Account Account { get; set; }
+        public Account Trainer { get; set; }
 
         public string ScheduleId { get; set; }
         public Schedule Schedule { get; set; }

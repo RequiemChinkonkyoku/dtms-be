@@ -9,7 +9,7 @@ namespace Models.Entities
     public class TrainerSpecialization : BaseEntity
     {
         public string TrainerId { get; set; }
-        public Account Account { get; set; }
+        public Account Trainer { get; set; }
 
         public string SpecializaionId { get; set; }
         public Specialization Specialization { get; set; }

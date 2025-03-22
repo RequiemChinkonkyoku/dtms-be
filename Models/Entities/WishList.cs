@@ -9,7 +9,7 @@ namespace Models.Entities
     public class WishList : BaseEntity
     {
         public string CustomerId { get; set; }
-        public Account Account { get; set; }
+        public Account Customer { get; set; }
 
         public string CourseId { get; set; }
         public Course Course { get; set; }

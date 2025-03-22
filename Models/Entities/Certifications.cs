@@ -9,5 +9,5 @@ public class Certifications : BaseEntity
     public string ImageUrl { get; set; }
     
     public string TrainerId { get; set; }
-    public Account Account { get; set; }
+    public Account Trainer { get; set; }
 }

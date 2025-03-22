@@ -18,7 +18,7 @@ public class Enrollment : BaseEntity
     public Payment Payment { get; set; }
     
     public string StaffId { get; set; }
-    public Account Account { get; set; }
+    public Account Staff { get; set; }
 
     public ICollection<TrainingReport> TrainingReports { get; set; }
 }

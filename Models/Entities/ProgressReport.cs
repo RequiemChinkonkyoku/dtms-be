@@ -18,6 +18,6 @@ namespace Models.Entities
         public Attendance Attendance { get; set; }
 
         public string TrainerId { get; set; }
-        public Account Account { get; set; }
+        public Account Trainer { get; set; }
     }
 }
