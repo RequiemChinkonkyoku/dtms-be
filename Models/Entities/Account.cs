@@ -58,5 +58,6 @@ public class Account : BaseEntity
     public ICollection<ProgressReport> ProgressReports { get; set; }
     
     public ICollection<TrainerReport> TrainerReportsAsTrainer { get; set; }
+    
     public ICollection<TrainerReport> TrainerReportsAsCustomer { get; set; }
 }
