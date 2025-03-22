@@ -38,7 +38,7 @@ namespace Models.DTOs
         [Required(ErrorMessage = "Gender is required.")]
         public int Gender { get; set; }
         
-        [Required(ErrorMessage = "ProfileType is required.")]
-        public int ProfileType { get; set; }
+        [Required(ErrorMessage = "RoleName is required.")]
+        public string RoleName { get; set; }
     }
 }
