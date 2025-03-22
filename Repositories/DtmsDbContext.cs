@@ -80,7 +80,7 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<PreTest> PreTests { get; set; }
     public virtual DbSet<DogType> DogTypes { get; set; }
     
-    public virtual DbSet<Role> Roles { get; set; }
+    public virtual DbSet<Models.Entities.Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -460,5 +460,8 @@ public class DtmsDbContext : DbContext
             .WithMany(d => d.Enrollments)
             .HasForeignKey(e => e.StaffId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        //SEEDING DATA
+        modelBuilder.Seed();
     }
 }

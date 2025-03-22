@@ -3,7 +3,7 @@ using Repositories.Interface;
 
 namespace Repositories.Implement;
 
-public class RoleRepository : RepositoryBase<Role>, IRoleRepository
+public class RoleRepository : RepositoryBase<Models.Entities.Role>, IRoleRepository
 {
     
 }
