@@ -83,7 +83,8 @@ public class AccountService : IAccountService
                 Address = request.Address,
                 DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
-                RoleId = role.Id // Assign the matched role ID
+                RoleId = role.Id, 
+                MembershipId = "8012856c6cc045cea011acf51b60227d"
             };
 
             await _unitOfWork.Accounts.Add(account);
@@ -98,8 +99,6 @@ public class AccountService : IAccountService
             throw new HttpRequestException("Failed to create an account", ex);
         }
     }
-
-
 
     public async Task<string> Login(AccountLoginRequest request)
     {

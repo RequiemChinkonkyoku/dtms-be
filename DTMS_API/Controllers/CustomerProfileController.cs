@@ -17,22 +17,22 @@ public class CustomerProfileController : ControllerBase
         _customerProfileService = customerProfileService;
     }
 
-    [HttpGet("{accountId}")]
-    public async Task<ActionResult<CustomerProfileResponse>> GetCustomerProfile(string accountId)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        try
-        {
-            var response = await _customerProfileService.GetCustomerProfile(accountId);
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+    // [HttpGet("{accountId}")]
+    // public async Task<ActionResult<CustomerProfileResponse>> GetCustomerProfile(string accountId)
+    // {
+    //     if (!ModelState.IsValid)
+    //     {
+    //         return BadRequest(ModelState);
+    //     }
+    //
+    //     try
+    //     {
+    //         var response = await _customerProfileService.GetCustomerProfile(accountId);
+    //         return Ok(response);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         return BadRequest(ex.Message);
+    //     }
+    // }
 }

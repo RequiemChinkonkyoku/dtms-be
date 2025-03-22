@@ -17,29 +17,29 @@ namespace DTMS_API.Controllers
             _trainerProfileService = trainerProfileService;
         }
 
-        [HttpGet("{accountId}")]
-        public async Task<ActionResult<TrainerProfileResponse>> GetTrainerProfile(string accountId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            try
-            {
-                var response = await _trainerProfileService.GetTrainerProfile(accountId);
-
-                if (response == null)
-                {
-                    return NotFound("Trainer profile not found.");
-                }
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        // [HttpGet("{accountId}")]
+        // public async Task<ActionResult<TrainerProfileResponse>> GetTrainerProfile(string accountId)
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return BadRequest(ModelState);
+        //     }
+        //
+        //     try
+        //     {
+        //         var response = await _trainerProfileService.GetTrainerProfile(accountId);
+        //
+        //         if (response == null)
+        //         {
+        //             return NotFound("Trainer profile not found.");
+        //         }
+        //
+        //         return Ok(response);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return BadRequest(ex.Message);
+        //     }
+        // }
     }
 }

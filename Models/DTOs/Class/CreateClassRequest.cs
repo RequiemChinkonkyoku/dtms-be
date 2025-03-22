@@ -17,7 +17,7 @@ namespace Models.DTOs.Class
         [Required]
         public string CourseId { get; set; }
         [Required]
-        public List<string> TrainerProfileIds { get; set; }
+        public List<string> TrainerIds { get; set; }
         [Required]
         public List<SlotData> SlotDatas { get; set; }
 

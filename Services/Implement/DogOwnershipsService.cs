@@ -43,7 +43,7 @@ namespace Services.Implement
             {
                 Id = Guid.NewGuid().ToString(),
                 DogId = request.DogId,
-                CustomerProfileId = request.CustomerProfileId,
+                CustomerId = request.CustomerId,
                 FromDate = request.FromDate,
                 ToDate = null 
             };
@@ -61,7 +61,7 @@ namespace Services.Implement
 
 
             existingOwnership.DogId = request.DogId;
-            existingOwnership.CustomerProfileId = request.CustomerProfileId;
+            existingOwnership.CustomerId = request.CustomerId;
             existingOwnership.FromDate = request.FromDate;
             existingOwnership.ToDate = DateOnly.FromDateTime(DateTime.UtcNow);
 

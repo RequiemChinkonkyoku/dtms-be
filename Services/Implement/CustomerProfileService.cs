@@ -22,38 +22,38 @@ namespace Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<CustomerProfileResponse> GetCustomerProfile(string accountId)
-        {
-            var account = await _unitOfWork.Accounts
-                .GetById(accountId);
-
-            if (account == null || account.ProfileType != 1) 
-            {
-                return null; 
-            }
-            
-            var customerProfiles = await _unitOfWork.CustomerProfiles.GetAll();
-            var customerProfile = customerProfiles.FirstOrDefault(cp => cp.AccountId == accountId);
-
-            if (customerProfile == null)
-            {
-                return null; 
-            }
-
-            return new CustomerProfileResponse
-            {
-                Id = customerProfile.Id,
-                Username = account.Username,
-                Email = account.Email,
-                Status = account.Status,
-                ProfileType = account.ProfileType,
-                FullName = customerProfile.FullName,
-                PhoneNumber = customerProfile.PhoneNumber,
-                Address = customerProfile.Address,
-                DateOfBirth = customerProfile.DateOfBirth,
-                Gender = customerProfile.Gender,
-                MembershipPoints = customerProfile.MembershipPoints
-            };
-        }
+        // public async Task<CustomerProfileResponse> GetCustomerProfile(string accountId)
+        // {
+        //     var account = await _unitOfWork.Accounts
+        //         .GetById(accountId);
+        //
+        //     if (account == null || account.ProfileType != 1) 
+        //     {
+        //         return null; 
+        //     }
+        //     
+        //     var customerProfiles = await _unitOfWork.CustomerProfiles.GetAll();
+        //     var customerProfile = customerProfiles.FirstOrDefault(cp => cp.AccountId == accountId);
+        //
+        //     if (customerProfile == null)
+        //     {
+        //         return null; 
+        //     }
+        //
+        //     return new CustomerProfileResponse
+        //     {
+        //         Id = customerProfile.Id,
+        //         Username = account.Username,
+        //         Email = account.Email,
+        //         Status = account.Status,
+        //         ProfileType = account.ProfileType,
+        //         FullName = customerProfile.FullName,
+        //         PhoneNumber = customerProfile.PhoneNumber,
+        //         Address = customerProfile.Address,
+        //         DateOfBirth = customerProfile.DateOfBirth,
+        //         Gender = customerProfile.Gender,
+        //         MembershipPoints = customerProfile.MembershipPoints
+        //     };
+        // }
     }
 }

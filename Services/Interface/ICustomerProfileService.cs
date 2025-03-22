@@ -9,6 +9,6 @@ namespace Services.Interface
 {
     public interface ICustomerProfileService
     {
-        Task<CustomerProfileResponse> GetCustomerProfile(string accountId);
+        // Task<CustomerProfileResponse> GetCustomerProfile(string accountId);
     }
 }

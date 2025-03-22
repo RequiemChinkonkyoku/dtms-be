@@ -19,7 +19,7 @@ namespace Models.DTOs
         public int Gender { get; set; }
         
         [Required(ErrorMessage = "Customer Profile Id is required.")]
-        public string CustomerProfileId { get; set; }
+        public string CustomerId { get; set; }
         [Required(ErrorMessage = "Dog Breed Id is required.")]
         public string DogBreedId { get; set; }
     }
