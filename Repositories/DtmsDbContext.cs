@@ -461,7 +461,6 @@ public class DtmsDbContext : DbContext
             .HasForeignKey(e => e.StaffId)
             .OnDelete(DeleteBehavior.Restrict);
         
-        //SEEDING DATA
         modelBuilder.Seed();
     }
 }
