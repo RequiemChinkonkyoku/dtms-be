@@ -65,7 +65,6 @@ namespace Services.Implement
                 ImageUrl = request.ImageUrl,
                 Description = request.Description,
                 Status = 1,
-                IssuingAuthority = request.IssuingAuthority,
                 IssueDate = request.IssueDate,
                 UploadTime = DateTime.UtcNow,
                 DogId = request.DogId,
@@ -102,7 +101,6 @@ namespace Services.Implement
             existingDogDocument.ImageUrl = request.ImageUrl ?? existingDogDocument.ImageUrl;
             existingDogDocument.Description = request.Description ?? existingDogDocument.Description;
             existingDogDocument.Status = request.Status != 0 ? request.Status : existingDogDocument.Status;
-            existingDogDocument.IssuingAuthority = request.IssuingAuthority ?? existingDogDocument.IssuingAuthority;
             existingDogDocument.IssueDate = request.IssueDate != default ? request.IssueDate : existingDogDocument.IssueDate;
             existingDogDocument.DogId = request.DogId ?? existingDogDocument.DogId;
             existingDogDocument.DogDocumentTypeId = request.DogDocumentTypeId ?? existingDogDocument.DogDocumentTypeId;

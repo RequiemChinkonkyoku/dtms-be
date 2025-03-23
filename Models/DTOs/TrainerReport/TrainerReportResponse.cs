@@ -11,8 +11,8 @@ namespace Models.DTOs.TrainerReport
         public string Id {  get; set; }
         public int Rating { get; set; }
         public string Message { get; set; }
-        public string TrainerProfileId { get; set; }
-        public string CustomerProfileId { get; set; }
+        public string TrainerId { get; set; }
+        public string CustomerId { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
     }
