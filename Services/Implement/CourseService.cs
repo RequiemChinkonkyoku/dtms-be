@@ -79,9 +79,9 @@ namespace Services.Implement
                 };
             }
 
-            var trainerProfile = await _unitOfWork.TrainerProfiles.GetById(request.CreatedTrainerId);
+            var trainerAccount = await _unitOfWork.Accounts.GetById(request.CreatedTrainerId);
 
-            if (trainerProfile == null)
+            if (trainerAccount == null)
             {
                 return new BaseResponseDTO<Course>
                 {

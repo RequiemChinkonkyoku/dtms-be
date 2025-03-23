@@ -15,6 +15,7 @@ namespace Services.Interface
         Task<BaseResponseDTO<Class>> DeleteClass(string id);
         Task<BaseResponseDTO<Class>> EnrollClass(EnrollClassRequest request);
         Task<BaseResponseDTO<Class>> GetAllClasses();
+        Task<BaseResponseDTO<Class>> GetClassByCourseId(string id);
         Task<BaseResponseDTO<Class>> GetClassById(string id);
         Task<BaseResponseDTO<Class>> GetClassSlots(string id);
         Task<BaseResponseDTO<Class>> UpdateClass(UpdateClassRequest request);
