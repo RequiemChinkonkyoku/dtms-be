@@ -95,141 +95,141 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3787a33421be4310ac5eb1ab8d697fbf",
+                            Id = "ac908e5d3d5b4a53a3e5c17308f9309c",
                             Address = "Admin Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 710, DateTimeKind.Unspecified).AddTicks(1370), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 603, DateTimeKind.Unspecified).AddTicks(9430), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             FullName = "Admin User",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 710, DateTimeKind.Unspecified).AddTicks(1370), new TimeSpan(0, 7, 0, 0, 0)),
-                            MembershipId = "28f472bccf5544d29d47ce5223797e21",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 603, DateTimeKind.Unspecified).AddTicks(9430), new TimeSpan(0, 7, 0, 0, 0)),
+                            MembershipId = "0383b1b8c4da4aeda3b15448582963a7",
                             MembershipPoints = 0,
-                            Password = "$2a$11$HwTI5kdpct7P/CPMX9eM6.p1bZ3w69zOx0DNhUOTal6/EAUjMGIMG",
+                            Password = "$2a$11$/Wg00FBYkdjJGtLdSlym2ehnArpqN/oP6xoeHBO0.SJDLkkuH1sQK",
                             PhoneNumber = "0123456789",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = "afe7f0fbabd04cddbd77b2c78dcfeff0",
+                            RoleId = "f6f66051635d4be1ae994afca1664b33",
                             Status = 1,
                             Username = "admin"
                         },
                         new
                         {
-                            Id = "bc0f6d9bf7b2463a85358014070e5f59",
+                            Id = "2c5a23e6584e4129bae285cb63694681",
                             Address = "Trainer Member Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 828, DateTimeKind.Unspecified).AddTicks(687), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 719, DateTimeKind.Unspecified).AddTicks(2889), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trainer_member@gmail.com",
                             FullName = "Trainer Member",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 828, DateTimeKind.Unspecified).AddTicks(687), new TimeSpan(0, 7, 0, 0, 0)),
-                            MembershipId = "28f472bccf5544d29d47ce5223797e21",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 719, DateTimeKind.Unspecified).AddTicks(2889), new TimeSpan(0, 7, 0, 0, 0)),
+                            MembershipId = "0383b1b8c4da4aeda3b15448582963a7",
                             MembershipPoints = 0,
-                            Password = "$2a$11$GaWBiodHe5q0yImvlhIlT.SL48upF/nGunTSEAV3KFMisfK2jWZ7e",
+                            Password = "$2a$11$OpCtM/oW6W/Tf8TakAP4B.XqTYHaOA8pmZIHBGyetBPfLrNIUeyoW",
                             PhoneNumber = "0987654321",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = "ee741db0d7294aceaa9c361dab1a253a",
+                            RoleId = "4aca89ad500a4ccf88fc387fb3203eba",
                             Status = 1,
                             Username = "trainer_member"
                         },
                         new
                         {
-                            Id = "23c1a3c8753d4d349a4b378c5dfe99a5",
+                            Id = "bfe42d83023840efa405572cf451ed6b",
                             Address = "Trainer Lead Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 942, DateTimeKind.Unspecified).AddTicks(1310), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 832, DateTimeKind.Unspecified).AddTicks(2405), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1983, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trainer_lead@gmail.com",
                             FullName = "Trainer Lead",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 942, DateTimeKind.Unspecified).AddTicks(1310), new TimeSpan(0, 7, 0, 0, 0)),
-                            MembershipId = "28f472bccf5544d29d47ce5223797e21",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 832, DateTimeKind.Unspecified).AddTicks(2405), new TimeSpan(0, 7, 0, 0, 0)),
+                            MembershipId = "0383b1b8c4da4aeda3b15448582963a7",
                             MembershipPoints = 0,
-                            Password = "$2a$11$8ruAIahZunr19n5U9rtvFeqmrYS6L33tyZ7x/w8iGgcNFTwB8mHdi",
+                            Password = "$2a$11$Ohx.1HM9.wYRuFjfgKGNPOSuEljf1Umf1YNuvMYzCeP/SrvNEc8q.",
                             PhoneNumber = "0911223344",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = "e507e39010454782b947a9850e903471",
+                            RoleId = "9546c4a031e54038b1c0a1e91828db5c",
                             Status = 1,
                             Username = "trainer_lead"
                         },
                         new
                         {
-                            Id = "df71c939b0c74cb697080ae7055f11c5",
+                            Id = "30f3752615534f3e981932ebb53ab285",
                             Address = "Customer Individual Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 55, DateTimeKind.Unspecified).AddTicks(4426), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 949, DateTimeKind.Unspecified).AddTicks(1764), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1995, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer_individual@gmail.com",
                             FullName = "Customer Individual",
                             Gender = 2,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 55, DateTimeKind.Unspecified).AddTicks(4426), new TimeSpan(0, 7, 0, 0, 0)),
-                            MembershipId = "28f472bccf5544d29d47ce5223797e21",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 949, DateTimeKind.Unspecified).AddTicks(1764), new TimeSpan(0, 7, 0, 0, 0)),
+                            MembershipId = "0383b1b8c4da4aeda3b15448582963a7",
                             MembershipPoints = 100,
-                            Password = "$2a$11$BbN4pDUHjhQFn46H0TWVZe5.BFITi9dBDUggAf5BqeisgAoIAFw7C",
+                            Password = "$2a$11$BB6TUwFgVihoOuR/L8QrKeWDBYBgCw4jra3wRlN6D.uo7CoUiMr4.",
                             PhoneNumber = "0988112233",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = "a364df780be740ae9c2e4f4d8c1bcf06",
+                            RoleId = "db16396ac6b14e19aa314ed1bab402c8",
                             Status = 1,
                             Username = "customer_individual"
                         },
                         new
                         {
-                            Id = "a19fbb199fb74103a17e0c97fe3a894c",
+                            Id = "ac432bd246a74fb7ae3dd585c39144e8",
                             Address = "Customer Organization Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 167, DateTimeKind.Unspecified).AddTicks(8396), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 63, DateTimeKind.Unspecified).AddTicks(549), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer_organization@gmail.com",
                             FullName = "Customer Organization",
                             Gender = 2,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 167, DateTimeKind.Unspecified).AddTicks(8396), new TimeSpan(0, 7, 0, 0, 0)),
-                            MembershipId = "28f472bccf5544d29d47ce5223797e21",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 63, DateTimeKind.Unspecified).AddTicks(549), new TimeSpan(0, 7, 0, 0, 0)),
+                            MembershipId = "0383b1b8c4da4aeda3b15448582963a7",
                             MembershipPoints = 200,
-                            Password = "$2a$11$619WAX.dpkYLj/3rMu9AVObHXb3rcMD4QCLyksHrusZLsdwYarsLO",
+                            Password = "$2a$11$91iyesNbqtA4/7B72tiOZu1Sr0gqlOfwMWjG/1I1w9rmeMErF3u92",
                             PhoneNumber = "0977554433",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = "03912efa2c7f4586bb32b6b8dfdc9826",
+                            RoleId = "961f548e2f214205b0ff0ab6028921ea",
                             Status = 1,
                             Username = "customer_organization"
                         },
                         new
                         {
-                            Id = "90794052e3144171b73a2205c9d37809",
+                            Id = "215faf644c3c402d8312e9ea3369005b",
                             Address = "Staff Employee Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 281, DateTimeKind.Unspecified).AddTicks(7715), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 181, DateTimeKind.Unspecified).AddTicks(8014), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1988, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "staff_employee@gmail.com",
                             FullName = "Staff Employee",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 281, DateTimeKind.Unspecified).AddTicks(7715), new TimeSpan(0, 7, 0, 0, 0)),
-                            MembershipId = "28f472bccf5544d29d47ce5223797e21",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 181, DateTimeKind.Unspecified).AddTicks(8014), new TimeSpan(0, 7, 0, 0, 0)),
+                            MembershipId = "0383b1b8c4da4aeda3b15448582963a7",
                             MembershipPoints = 0,
-                            Password = "$2a$11$dXrKcJAQLuLJbRpSllIfQuRhFe6ecrmTy8xEluAW5RqRhbPwnvCaq",
+                            Password = "$2a$11$L6VMAbcwRe30EQuGPksmTOLh78dC.HDaYs0qFUkg36zMmiWsS4nv.",
                             PhoneNumber = "0966332211",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = "830225e9ca4541419b82c76e5ce670b7",
+                            RoleId = "7a9d724be0744dadbb70ee173af51278",
                             Status = 1,
                             Username = "staff_employee"
                         },
                         new
                         {
-                            Id = "35f3ac27b17a4295a337b78341807c6a",
+                            Id = "431753f94cc74affaabedd250e15a4de",
                             Address = "Staff Manager Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 395, DateTimeKind.Unspecified).AddTicks(9368), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 300, DateTimeKind.Unspecified).AddTicks(2252), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1980, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "staff_manager@gmail.com",
                             FullName = "Staff Manager",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 395, DateTimeKind.Unspecified).AddTicks(9368), new TimeSpan(0, 7, 0, 0, 0)),
-                            MembershipId = "28f472bccf5544d29d47ce5223797e21",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 300, DateTimeKind.Unspecified).AddTicks(2252), new TimeSpan(0, 7, 0, 0, 0)),
+                            MembershipId = "0383b1b8c4da4aeda3b15448582963a7",
                             MembershipPoints = 0,
-                            Password = "$2a$11$wbAW2cxQ9kDtCyu2ucKituCHyuWMe.6Hp.WH3K2XeSrLVRWvv5mmK",
+                            Password = "$2a$11$Lhi4iVRTo.EA0/KovSb0N.Dv6NjkxfVBo.zm71WmTJ3TpXRKH/o6i",
                             PhoneNumber = "0955223344",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = "1005e54c31f249ef8a7337d77f92f06a",
+                            RoleId = "e404ea5e9e534b48b0bd2b4802c6af3a",
                             Status = 1,
                             Username = "staff_manager"
                         });
@@ -376,24 +376,24 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "04c25f4cb1624ea0aafc44c6a9365928",
+                            Id = "1a5d57b63cb84fa69149f6f3c0e9c5a8",
                             Content = "Training your dog is crucial for a harmonious relationship between pet and owner...",
                             CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             ImageUrl = "https://example.com/blog1.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            StaffId = "90794052e3144171b73a2205c9d37809",
+                            StaffId = "215faf644c3c402d8312e9ea3369005b",
                             Status = 1,
                             TimePublished = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Importance of Dog Training"
                         },
                         new
                         {
-                            Id = "3f4a2c0104c04b3597e38efa8c1a2696",
+                            Id = "cea9eeb12d60485ba435cc4fc2fe811f",
                             Content = "Providing a balanced diet is essential for your dog's overall health and well-being...",
                             CreatedTime = new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             ImageUrl = "https://example.com/blog2.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            StaffId = "35f3ac27b17a4295a337b78341807c6a",
+                            StaffId = "431753f94cc74affaabedd250e15a4de",
                             Status = 1,
                             TimePublished = new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Understanding Canine Nutrition"
@@ -493,7 +493,7 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8d3e15f1cba34bb188544eafa1e8f952",
+                            Id = "91082895f4504e2b955ce19599c3ad94",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Covers fundamental obedience commands and essential skills.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -502,7 +502,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "e534e655f8d2443fa3c68f26bac2033b",
+                            Id = "49dfbf47acc54e03bff603715a24d3b5",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Focuses on advanced obedience and specialized training techniques.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -511,7 +511,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "d40034d06b7e4f7db33aa7f7655b546e",
+                            Id = "3f3a3953e82348b49ec2466bdc3bc784",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Addresses problem behaviors and corrective training for dogs.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -897,10 +897,10 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1f66a91d3eb14e27972d3350e646cf6d",
+                            Id = "f989df546cbb4e1fabe8367d9a659cae",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2021, 5, 15),
-                            DogBreedId = "2a9762d7af614a918e5b50763c809239",
+                            DogBreedId = "34bd0db5cfea403e87a893e5d0bbdebb",
                             Gender = 0,
                             ImageUrl = "https://example.com/dog1.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -910,10 +910,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "9665cff6ccae4e0fada2e86eaa910b09",
+                            Id = "0999ddb2e73648faa29d16f33eea5ed0",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2020, 8, 22),
-                            DogBreedId = "1c49ea971f3245d6be2fc57d9d00fdd1",
+                            DogBreedId = "949c8566c6ed43a39663b92651ad281c",
                             Gender = 1,
                             ImageUrl = "https://example.com/dog2.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -923,10 +923,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "0bd12e7dc4f1437da140a6dc2dc926ad",
+                            Id = "0183af359c43482d88dcdd3d0dd6e4a1",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2022, 1, 30),
-                            DogBreedId = "ab040de66f1742e784c44b6e77bdd558",
+                            DogBreedId = "552d3f9cfd5c413884a0c827ba1f3d2b",
                             Gender = 0,
                             ImageUrl = "https://example.com/dog3.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -936,10 +936,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "905a6529c2d44595be248663218a16f1",
+                            Id = "5b4d60721b664b32ac425fe131b29214",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2019, 12, 5),
-                            DogBreedId = "c923f4c2b5d84fdca3661053041ae7ca",
+                            DogBreedId = "272ed288a22c4634b3df87347d436de3",
                             Gender = 1,
                             ImageUrl = "https://example.com/dog4.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -949,10 +949,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "0a31e68c8ab948598db829119ad303d1",
+                            Id = "157cd3db746548b1abfd918a7a673045",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2021, 7, 18),
-                            DogBreedId = "a8ebf8995f394dd2b8b06e73f926df53",
+                            DogBreedId = "6091c9e41f494b34a171ca21602f16d8",
                             Gender = 1,
                             ImageUrl = "https://example.com/dog5.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -962,10 +962,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "00583a64b6564f95afb24fd3ced987b5",
+                            Id = "d15ff7d2410a474e82aa624676abf84b",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2020, 6, 10),
-                            DogBreedId = "62084d91e2a34062bd47fac8f60d91bd",
+                            DogBreedId = "02f0710451de472cb3765cae550e3983",
                             Gender = 0,
                             ImageUrl = "https://example.com/dog6.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -975,10 +975,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "696499b846d0486da5d4c4c209610b67",
+                            Id = "4defa4d820a444a688feae61b6b55222",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2018, 11, 25),
-                            DogBreedId = "b851fac40d1c4befbce78af9cb997b66",
+                            DogBreedId = "8c26eec9201f48eda89b368373553ef2",
                             Gender = 1,
                             ImageUrl = "https://example.com/dog7.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -988,10 +988,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "2541af20051a47db88eed1e7b8d10e68",
+                            Id = "1aaeb3072f4c4f7ca9a231e206064a24",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2019, 9, 14),
-                            DogBreedId = "6d57c21e4e664bea97c3ac7822b4b178",
+                            DogBreedId = "87f6188d4c844bea9f06fa4d888e62dc",
                             Gender = 1,
                             ImageUrl = "https://example.com/dog8.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1001,10 +1001,10 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "68f21d1bbd9a40a5980c57ad0d8cbbba",
+                            Id = "94e47c4ac085487490eb8f45c13d2bb6",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateOnly(2021, 3, 8),
-                            DogBreedId = "5104d9a7ee484d1e9deeaa5c4ee8ab7f",
+                            DogBreedId = "8de3c0542b3c44ddbfe7785aa265d1be",
                             Gender = 0,
                             ImageUrl = "https://example.com/dog9.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1048,90 +1048,90 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2a9762d7af614a918e5b50763c809239",
+                            Id = "34bd0db5cfea403e87a893e5d0bbdebb",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A tiny breed known for its lively personality.",
-                            DogTypeId = "fe95dc1803a945a68a16368ee20bb11c",
+                            DogTypeId = "db92a74d1bca4738afa4d775b7f57aa4",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Chihuahua",
                             Status = 1
                         },
                         new
                         {
-                            Id = "1c49ea971f3245d6be2fc57d9d00fdd1",
+                            Id = "949c8566c6ed43a39663b92651ad281c",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A fluffy and energetic small breed.",
-                            DogTypeId = "fe95dc1803a945a68a16368ee20bb11c",
+                            DogTypeId = "db92a74d1bca4738afa4d775b7f57aa4",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Pomeranian",
                             Status = 1
                         },
                         new
                         {
-                            Id = "ab040de66f1742e784c44b6e77bdd558",
+                            Id = "552d3f9cfd5c413884a0c827ba1f3d2b",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A small, muscular dog with a distinctive bat-like ear shape.",
-                            DogTypeId = "fe95dc1803a945a68a16368ee20bb11c",
+                            DogTypeId = "db92a74d1bca4738afa4d775b7f57aa4",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "French Bulldog",
                             Status = 1
                         },
                         new
                         {
-                            Id = "c923f4c2b5d84fdca3661053041ae7ca",
+                            Id = "272ed288a22c4634b3df87347d436de3",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A friendly and intelligent medium-sized breed.",
-                            DogTypeId = "e4d84a1b04564b1eac93686da5ed3891",
+                            DogTypeId = "addef8a118ea4285ab68a26583ba089a",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Cocker Spaniel",
                             Status = 1
                         },
                         new
                         {
-                            Id = "a8ebf8995f394dd2b8b06e73f926df53",
+                            Id = "6091c9e41f494b34a171ca21602f16d8",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A highly intelligent and energetic breed.",
-                            DogTypeId = "e4d84a1b04564b1eac93686da5ed3891",
+                            DogTypeId = "addef8a118ea4285ab68a26583ba089a",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Border Collie",
                             Status = 1
                         },
                         new
                         {
-                            Id = "62084d91e2a34062bd47fac8f60d91bd",
+                            Id = "02f0710451de472cb3765cae550e3983",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A curious and friendly breed known for its great sense of smell.",
-                            DogTypeId = "e4d84a1b04564b1eac93686da5ed3891",
+                            DogTypeId = "addef8a118ea4285ab68a26583ba089a",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Beagle",
                             Status = 1
                         },
                         new
                         {
-                            Id = "b851fac40d1c4befbce78af9cb997b66",
+                            Id = "8c26eec9201f48eda89b368373553ef2",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A friendly and intelligent large breed.",
-                            DogTypeId = "38e4bde4713b44c7857c238faee8b17e",
+                            DogTypeId = "3e742350d1a342bb98abb9afd02a33aa",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Golden Retriever",
                             Status = 1
                         },
                         new
                         {
-                            Id = "6d57c21e4e664bea97c3ac7822b4b178",
+                            Id = "87f6188d4c844bea9f06fa4d888e62dc",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A strong and intelligent breed used in working roles.",
-                            DogTypeId = "38e4bde4713b44c7857c238faee8b17e",
+                            DogTypeId = "3e742350d1a342bb98abb9afd02a33aa",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "German Shepherd",
                             Status = 1
                         },
                         new
                         {
-                            Id = "5104d9a7ee484d1e9deeaa5c4ee8ab7f",
+                            Id = "8de3c0542b3c44ddbfe7785aa265d1be",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A loyal and protective breed, often used as a guard dog.",
-                            DogTypeId = "38e4bde4713b44c7857c238faee8b17e",
+                            DogTypeId = "3e742350d1a342bb98abb9afd02a33aa",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Rottweiler",
                             Status = 1
@@ -1217,6 +1217,143 @@ namespace Repositories.Migrations
                     b.HasIndex("DogId");
 
                     b.ToTable("DogDocuments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5fcb313c83de40cc879818b11aad329e",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Annual vaccination record for Bella.",
+                            DogDocumentTypeId = "e02e01be87904edb8f7bf12f0e27f1f8",
+                            DogId = "f989df546cbb4e1fabe8367d9a659cae",
+                            ImageUrl = "https://example.com/documents/vaccination1.jpg",
+                            IssueDate = new DateOnly(2023, 1, 10),
+                            IssuingAuthority = "City Veterinary Clinic",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Vaccination Record",
+                            Status = 1,
+                            UploadTime = new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "977aa6d96b4742218f918aa49467e225",
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Pedigree certificate for Rocky.",
+                            DogDocumentTypeId = "43227c23455d4aa9b75365a286bfe69d",
+                            DogId = "0999ddb2e73648faa29d16f33eea5ed0",
+                            ImageUrl = "https://example.com/documents/pedigree1.jpg",
+                            IssueDate = new DateOnly(2020, 9, 1),
+                            IssuingAuthority = "National Kennel Club",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Pedigree Certificate",
+                            Status = 1,
+                            UploadTime = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "f9bad4d5d4ab402cb6c94cc0c187f7ce",
+                            CreatedTime = new DateTimeOffset(new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Microchip registration for Luna.",
+                            DogDocumentTypeId = "672850dfe45540239e3388c162e7acfc",
+                            DogId = "0183af359c43482d88dcdd3d0dd6e4a1",
+                            ImageUrl = "https://example.com/documents/microchip1.jpg",
+                            IssueDate = new DateOnly(2022, 2, 15),
+                            IssuingAuthority = "Pet Identification Bureau",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Microchip Registration",
+                            Status = 1,
+                            UploadTime = new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "a5574170b3a8489189b62c2745d9ec7e",
+                            CreatedTime = new DateTimeOffset(new DateTime(2021, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Basic obedience training certificate for Charlie.",
+                            DogDocumentTypeId = "9980d1a6d6154434a0fc350ba65c67ba",
+                            DogId = "5b4d60721b664b32ac425fe131b29214",
+                            ImageUrl = "https://example.com/documents/training1.jpg",
+                            IssueDate = new DateOnly(2021, 3, 20),
+                            IssuingAuthority = "Pawsitive Training Center",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2021, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Training Certificate",
+                            Status = 1,
+                            UploadTime = new DateTime(2021, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "c95204e5d06949cdbb6f850bef38e8f4",
+                            CreatedTime = new DateTimeOffset(new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Health insurance policy for Max.",
+                            DogDocumentTypeId = "36042241238d4a6b94c54df1ae2ef062",
+                            DogId = "157cd3db746548b1abfd918a7a673045",
+                            ImageUrl = "https://example.com/documents/insurance1.jpg",
+                            IssueDate = new DateOnly(2021, 8, 5),
+                            IssuingAuthority = "PetCare Insurance",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Health Insurance",
+                            Status = 1,
+                            UploadTime = new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "7cac972c97df45109dd417c519ff8b31",
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Adoption papers for Daisy.",
+                            DogDocumentTypeId = "a05880b2a6ac4c7793da54d913fc3a7e",
+                            DogId = "d15ff7d2410a474e82aa624676abf84b",
+                            ImageUrl = "https://example.com/documents/adoption1.jpg",
+                            IssueDate = new DateOnly(2020, 7, 12),
+                            IssuingAuthority = "Happy Tails Shelter",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2020, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Adoption Papers",
+                            Status = 1,
+                            UploadTime = new DateTime(2020, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "9ac48bd67bb541f08e3b1a80310610e4",
+                            CreatedTime = new DateTimeOffset(new DateTime(2019, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Certificate for winning Best in Show.",
+                            DogDocumentTypeId = "795780ea162c40b79b99e23ad09fd215",
+                            DogId = "4defa4d820a444a688feae61b6b55222",
+                            ImageUrl = "https://example.com/documents/show1.jpg",
+                            IssueDate = new DateOnly(2019, 12, 1),
+                            IssuingAuthority = "National Dog Show Association",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2019, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Show Competition Certificate",
+                            Status = 1,
+                            UploadTime = new DateTime(2019, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "7a6f520c6ca7425989bfe67521e201b0",
+                            CreatedTime = new DateTimeOffset(new DateTime(2019, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Breeding license for Rex.",
+                            DogDocumentTypeId = "637c85ce08c34549840ef782c720c284",
+                            DogId = "1aaeb3072f4c4f7ca9a231e206064a24",
+                            ImageUrl = "https://example.com/documents/breeding1.jpg",
+                            IssueDate = new DateOnly(2019, 10, 1),
+                            IssuingAuthority = "State Breeding Authority",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2019, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Breeding License",
+                            Status = 1,
+                            UploadTime = new DateTime(2019, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "493412ceae9c427b96cb1c745993e515",
+                            CreatedTime = new DateTimeOffset(new DateTime(2021, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Therapy dog certification for Zara.",
+                            DogDocumentTypeId = "59ed6370b7a44e5f81af14d983e0f884",
+                            DogId = "94e47c4ac085487490eb8f45c13d2bb6",
+                            ImageUrl = "https://example.com/documents/therapy1.jpg",
+                            IssueDate = new DateOnly(2021, 4, 1),
+                            IssuingAuthority = "Therapy Dogs International",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2021, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Therapy Dog Certification",
+                            Status = 1,
+                            UploadTime = new DateTime(2021, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Models.Entities.DogDocumentType", b =>
@@ -1241,6 +1378,80 @@ namespace Repositories.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DogDocumentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e02e01be87904edb8f7bf12f0e27f1f8",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Document containing vaccination history of the dog.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Vaccination Record"
+                        },
+                        new
+                        {
+                            Id = "43227c23455d4aa9b75365a286bfe69d",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Official document proving the dog's lineage and breed.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Pedigree Certificate"
+                        },
+                        new
+                        {
+                            Id = "672850dfe45540239e3388c162e7acfc",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Document containing the dog's microchip details.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Microchip Registration"
+                        },
+                        new
+                        {
+                            Id = "9980d1a6d6154434a0fc350ba65c67ba",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Certificate proving the dog has completed a training program.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Training Certificate"
+                        },
+                        new
+                        {
+                            Id = "36042241238d4a6b94c54df1ae2ef062",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Document detailing the dog's health insurance policy.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Health Insurance"
+                        },
+                        new
+                        {
+                            Id = "a05880b2a6ac4c7793da54d913fc3a7e",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Legal documents for the adoption of the dog.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Adoption Papers"
+                        },
+                        new
+                        {
+                            Id = "795780ea162c40b79b99e23ad09fd215",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Certificate awarded for participation or winning in dog shows.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Show Competition Certificate"
+                        },
+                        new
+                        {
+                            Id = "637c85ce08c34549840ef782c720c284",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Official license permitting the dog to be used for breeding.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Breeding License"
+                        },
+                        new
+                        {
+                            Id = "59ed6370b7a44e5f81af14d983e0f884",
+                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "Certification proving the dog is qualified as a therapy dog.",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Therapy Dog Certification"
+                        });
                 });
 
             modelBuilder.Entity("Models.Entities.DogOwnership", b =>
@@ -1279,82 +1490,82 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cf6ccf22594c46e68c57fe9e89265701",
+                            Id = "7e95d146314f4343971c921e975310de",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "df71c939b0c74cb697080ae7055f11c5",
-                            DogId = "1f66a91d3eb14e27972d3350e646cf6d",
+                            CustomerId = "30f3752615534f3e981932ebb53ab285",
+                            DogId = "f989df546cbb4e1fabe8367d9a659cae",
                             FromDate = new DateOnly(2023, 1, 1),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "3f601a06f0a04c36af1f03fab23e101c",
+                            Id = "56b699bc77ad4b5785fb315c56163203",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "df71c939b0c74cb697080ae7055f11c5",
-                            DogId = "9665cff6ccae4e0fada2e86eaa910b09",
+                            CustomerId = "30f3752615534f3e981932ebb53ab285",
+                            DogId = "0999ddb2e73648faa29d16f33eea5ed0",
                             FromDate = new DateOnly(2023, 3, 15),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "504ec6afd9194a5c9ddaf8966284b746",
+                            Id = "3e337193aeb54a9187c22b0167d3bf69",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "a19fbb199fb74103a17e0c97fe3a894c",
-                            DogId = "0bd12e7dc4f1437da140a6dc2dc926ad",
+                            CustomerId = "ac432bd246a74fb7ae3dd585c39144e8",
+                            DogId = "0183af359c43482d88dcdd3d0dd6e4a1",
                             FromDate = new DateOnly(2022, 6, 10),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "a92c1e88095c46e6b86a8a7aee30e082",
+                            Id = "241f99dd8ec94e2f8e53c21a2c92fc04",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "a19fbb199fb74103a17e0c97fe3a894c",
-                            DogId = "905a6529c2d44595be248663218a16f1",
+                            CustomerId = "ac432bd246a74fb7ae3dd585c39144e8",
+                            DogId = "5b4d60721b664b32ac425fe131b29214",
                             FromDate = new DateOnly(2021, 9, 5),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "5a13747de125445d9cd25b32f2cf58fc",
+                            Id = "e44a2de4b6a64952b636bc814cc5a430",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "a19fbb199fb74103a17e0c97fe3a894c",
-                            DogId = "0a31e68c8ab948598db829119ad303d1",
+                            CustomerId = "ac432bd246a74fb7ae3dd585c39144e8",
+                            DogId = "157cd3db746548b1abfd918a7a673045",
                             FromDate = new DateOnly(2020, 4, 20),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "d27695d982dc4e4ea58d0d63d80cf47a",
+                            Id = "56e0b0c6ea8841c29c19ec88b56d94b0",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "a19fbb199fb74103a17e0c97fe3a894c",
-                            DogId = "00583a64b6564f95afb24fd3ced987b5",
+                            CustomerId = "ac432bd246a74fb7ae3dd585c39144e8",
+                            DogId = "d15ff7d2410a474e82aa624676abf84b",
                             FromDate = new DateOnly(2022, 8, 12),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "6874018864024f8c909fe45381dcd87e",
+                            Id = "71d886766e114de5863784105996097f",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "a19fbb199fb74103a17e0c97fe3a894c",
-                            DogId = "696499b846d0486da5d4c4c209610b67",
+                            CustomerId = "ac432bd246a74fb7ae3dd585c39144e8",
+                            DogId = "4defa4d820a444a688feae61b6b55222",
                             FromDate = new DateOnly(2023, 2, 14),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "0229c2aa42c64c7ea2aeb1ac843f9be1",
+                            Id = "68ae3e0c7581425d8bd5d42bd188d4d4",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "a19fbb199fb74103a17e0c97fe3a894c",
-                            DogId = "2541af20051a47db88eed1e7b8d10e68",
+                            CustomerId = "ac432bd246a74fb7ae3dd585c39144e8",
+                            DogId = "1aaeb3072f4c4f7ca9a231e206064a24",
                             FromDate = new DateOnly(2023, 5, 7),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         },
                         new
                         {
-                            Id = "23d497dfcbca46b3a6d8d824b763e5b1",
+                            Id = "fabf98509ec049629a2925f73ab15350",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            CustomerId = "a19fbb199fb74103a17e0c97fe3a894c",
-                            DogId = "68f21d1bbd9a40a5980c57ad0d8cbbba",
+                            CustomerId = "ac432bd246a74fb7ae3dd585c39144e8",
+                            DogId = "94e47c4ac085487490eb8f45c13d2bb6",
                             FromDate = new DateOnly(2023, 7, 22),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0))
                         });
@@ -1389,7 +1600,7 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fe95dc1803a945a68a16368ee20bb11c",
+                            Id = "db92a74d1bca4738afa4d775b7f57aa4",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Small-sized dog breeds",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1398,7 +1609,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "e4d84a1b04564b1eac93686da5ed3891",
+                            Id = "addef8a118ea4285ab68a26583ba089a",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Medium-sized dog breeds",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1407,7 +1618,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "38e4bde4713b44c7857c238faee8b17e",
+                            Id = "3e742350d1a342bb98abb9afd02a33aa",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Large-sized dog breeds",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1504,30 +1715,30 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "675195344e184af1af53cdefa0f3dc57",
+                            Id = "0ac25f7855a84585bdeeb01d7400bca8",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A clicker used for positive reinforcement training.",
-                            EquipmentCategoryId = "0da87b4d397c4b5cb74b3ab186c8b985",
+                            EquipmentCategoryId = "bf589e7df3a249f3b48bd24ce401060a",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Training Clicker",
                             Status = 1
                         },
                         new
                         {
-                            Id = "cd9fce55230047c3963a78ed10c070ec",
+                            Id = "ba83ad9675c14e6db41ef5f4b24c2662",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A comfortable harness designed for safety and control.",
-                            EquipmentCategoryId = "95078837cecb4bc3b11acfcb18c57bdf",
+                            EquipmentCategoryId = "d2881608c36e4f93b0e29f70ccc1d2d4",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Dog Harness",
                             Status = 1
                         },
                         new
                         {
-                            Id = "4eae38eb3ef04506918fb96278de3668",
+                            Id = "fd569aae2040492a8d4a718b2bf36617",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "A brush for maintaining a dog's coat and hygiene.",
-                            EquipmentCategoryId = "505bc7e58be54b72b1634084772bed35",
+                            EquipmentCategoryId = "ce7dda743e294b2dbfa8d7470f177bba",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Name = "Grooming Brush",
                             Status = 1
@@ -1563,7 +1774,7 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0da87b4d397c4b5cb74b3ab186c8b985",
+                            Id = "bf589e7df3a249f3b48bd24ce401060a",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Equipment used for dog training and obedience exercises.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1572,7 +1783,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "95078837cecb4bc3b11acfcb18c57bdf",
+                            Id = "d2881608c36e4f93b0e29f70ccc1d2d4",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Protective gear for dogs, such as harnesses and pads.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1581,7 +1792,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "505bc7e58be54b72b1634084772bed35",
+                            Id = "ce7dda743e294b2dbfa8d7470f177bba",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Tools used for dog grooming, including brushes and clippers.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1738,7 +1949,7 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "28f472bccf5544d29d47ce5223797e21",
+                            Id = "0383b1b8c4da4aeda3b15448582963a7",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Entry-level membership",
                             DiscountAmount = 0m,
@@ -1748,7 +1959,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "01d9059a2bae4ffe949d5b6d79bab8f8",
+                            Id = "ae18a4fb2c874fd78b217d9c6e019512",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Premium membership",
                             DiscountAmount = 10m,
@@ -1758,7 +1969,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "85ab8cfa4658442abd31fd66da960d4d",
+                            Id = "951ec72a63904816857bef8747ba8738",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Elite membership",
                             DiscountAmount = 20m,
@@ -2020,7 +2231,7 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "afe7f0fbabd04cddbd77b2c78dcfeff0",
+                            Id = "f6f66051635d4be1ae994afca1664b33",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "System administrator with full access",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2029,7 +2240,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "ee741db0d7294aceaa9c361dab1a253a",
+                            Id = "4aca89ad500a4ccf88fc387fb3203eba",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Trainer responsible for courses and lessons",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2038,7 +2249,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "e507e39010454782b947a9850e903471",
+                            Id = "9546c4a031e54038b1c0a1e91828db5c",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Lead trainer responsible for courses and lessons",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2047,7 +2258,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "a364df780be740ae9c2e4f4d8c1bcf06",
+                            Id = "db16396ac6b14e19aa314ed1bab402c8",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Individual customer who can enroll in courses",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2056,7 +2267,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "03912efa2c7f4586bb32b6b8dfdc9826",
+                            Id = "961f548e2f214205b0ff0ab6028921ea",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Organizational customer who can enroll in courses",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2065,7 +2276,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "830225e9ca4541419b82c76e5ce670b7",
+                            Id = "7a9d724be0744dadbb70ee173af51278",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Staff employee member managing operations",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2074,7 +2285,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "1005e54c31f249ef8a7337d77f92f06a",
+                            Id = "e404ea5e9e534b48b0bd2b4802c6af3a",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Staff manager member managing operations",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2134,7 +2345,7 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5127126e02684789bace61adc31d270d",
+                            Id = "d1d426a922d74ff8a31936f9e905b3b7",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Training dogs to follow basic commands like sit, stay, and come.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2143,7 +2354,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "56e479f7881b4baf840c69db1dc69154",
+                            Id = "da58f9f2cba2492682029425c56a3c10",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Enhancing a dog's physical abilities and responsiveness through obstacle courses.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2152,7 +2363,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "24aee1f8ad8d4d76b6ab9898e1733b57",
+                            Id = "eb7c17ab658c4851bbc7bc584b113a7c",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Addressing and correcting unwanted behaviors in dogs.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2161,7 +2372,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "fc6c1be2372d4622bdd131ae1bc86a55",
+                            Id = "ce8597792f5e4dcb9bf2ea0f5a957f9a",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Helping dogs become comfortable around other animals and people.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2170,7 +2381,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "bee87c802fb84f749ee1b9544177ca6f",
+                            Id = "fc1626207ed94d8380072bf67a74e6fc",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Training dogs for guarding and protective behavior.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2241,7 +2452,7 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "558b3f6bd6144abfb2fa642635050d21",
+                            Id = "506458d889064ab7934ee797d267feb3",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Basic and advanced obedience training for dogs.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2249,7 +2460,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "4016bc5d36bb44f3a0ce8c56d8863441",
+                            Id = "26d8ec7cca444e87b07a246a551f7a6e",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Helping dogs overcome behavioral issues.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2257,7 +2468,7 @@ namespace Repositories.Migrations
                         },
                         new
                         {
-                            Id = "8e5070597a5f4069967fb4dc1d696237",
+                            Id = "30eea12e080642998e0d031950eba20d",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Training dogs for agility courses and competitions.",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
@@ -2478,67 +2689,67 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "efa763e682cb48c4b27165daa0572e90",
+                            Id = "8aa10fca785a42e4ad3a2de94fcb75c3",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "5127126e02684789bace61adc31d270d",
-                            TrainerId = "bc0f6d9bf7b2463a85358014070e5f59"
+                            SkillId = "d1d426a922d74ff8a31936f9e905b3b7",
+                            TrainerId = "2c5a23e6584e4129bae285cb63694681"
                         },
                         new
                         {
-                            Id = "2939c154e9f04317b41248388b6f2d21",
+                            Id = "33434df2df6e44dba9b5812d1edf7c92",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "56e479f7881b4baf840c69db1dc69154",
-                            TrainerId = "bc0f6d9bf7b2463a85358014070e5f59"
+                            SkillId = "da58f9f2cba2492682029425c56a3c10",
+                            TrainerId = "2c5a23e6584e4129bae285cb63694681"
                         },
                         new
                         {
-                            Id = "d60a806fb9bc4112834c8917749b50b7",
+                            Id = "71789a6d0c654a97903fda83d63f967f",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "24aee1f8ad8d4d76b6ab9898e1733b57",
-                            TrainerId = "bc0f6d9bf7b2463a85358014070e5f59"
+                            SkillId = "eb7c17ab658c4851bbc7bc584b113a7c",
+                            TrainerId = "2c5a23e6584e4129bae285cb63694681"
                         },
                         new
                         {
-                            Id = "e73852d373db4d7eb40866e2993d5c8c",
+                            Id = "eff871c7638c48bf9dce7deb665842b7",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "5127126e02684789bace61adc31d270d",
-                            TrainerId = "23c1a3c8753d4d349a4b378c5dfe99a5"
+                            SkillId = "d1d426a922d74ff8a31936f9e905b3b7",
+                            TrainerId = "bfe42d83023840efa405572cf451ed6b"
                         },
                         new
                         {
-                            Id = "d7ddee2e36ea4bb7b6aa6b8913f1f8b5",
+                            Id = "9472d104654f4a7496f653d79c2688d1",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "56e479f7881b4baf840c69db1dc69154",
-                            TrainerId = "23c1a3c8753d4d349a4b378c5dfe99a5"
+                            SkillId = "da58f9f2cba2492682029425c56a3c10",
+                            TrainerId = "bfe42d83023840efa405572cf451ed6b"
                         },
                         new
                         {
-                            Id = "b3833e55495a4049996dfc28820f593a",
+                            Id = "ab2a8c7e5f6f49bdbef83225dde084cb",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "24aee1f8ad8d4d76b6ab9898e1733b57",
-                            TrainerId = "23c1a3c8753d4d349a4b378c5dfe99a5"
+                            SkillId = "eb7c17ab658c4851bbc7bc584b113a7c",
+                            TrainerId = "bfe42d83023840efa405572cf451ed6b"
                         },
                         new
                         {
-                            Id = "d71d21f23e174c93913ff2ae52451bac",
+                            Id = "5ef7fbf6376146aa829b8d142f1ef9e0",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "fc6c1be2372d4622bdd131ae1bc86a55",
-                            TrainerId = "23c1a3c8753d4d349a4b378c5dfe99a5"
+                            SkillId = "ce8597792f5e4dcb9bf2ea0f5a957f9a",
+                            TrainerId = "bfe42d83023840efa405572cf451ed6b"
                         },
                         new
                         {
-                            Id = "d35873e224854ce3bed0012cfe8e5fca",
+                            Id = "3f5219d9d9044960aa6c53517fc2f864",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SkillId = "bee87c802fb84f749ee1b9544177ca6f",
-                            TrainerId = "23c1a3c8753d4d349a4b378c5dfe99a5"
+                            SkillId = "fc1626207ed94d8380072bf67a74e6fc",
+                            TrainerId = "bfe42d83023840efa405572cf451ed6b"
                         });
                 });
 
@@ -2572,27 +2783,27 @@ namespace Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e4c7d6640d4143e6b787eeed51ba8d6c",
+                            Id = "596c9c79035c4b7db0a5e256a391f3f8",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SpecializaionId = "558b3f6bd6144abfb2fa642635050d21",
-                            TrainerId = "bc0f6d9bf7b2463a85358014070e5f59"
+                            SpecializaionId = "506458d889064ab7934ee797d267feb3",
+                            TrainerId = "2c5a23e6584e4129bae285cb63694681"
                         },
                         new
                         {
-                            Id = "1dd776d4784a461c820505b0dca0a17d",
+                            Id = "35fa00965885417f8856f3e737d8cde7",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SpecializaionId = "4016bc5d36bb44f3a0ce8c56d8863441",
-                            TrainerId = "23c1a3c8753d4d349a4b378c5dfe99a5"
+                            SpecializaionId = "26d8ec7cca444e87b07a246a551f7a6e",
+                            TrainerId = "bfe42d83023840efa405572cf451ed6b"
                         },
                         new
                         {
-                            Id = "0582a92730a7447e8306867c8229aaa2",
+                            Id = "1f62bf2fbc784409a57e6a4bbe5b81d1",
                             CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            SpecializaionId = "8e5070597a5f4069967fb4dc1d696237",
-                            TrainerId = "23c1a3c8753d4d349a4b378c5dfe99a5"
+                            SpecializaionId = "30eea12e080642998e0d031950eba20d",
+                            TrainerId = "bfe42d83023840efa405572cf451ed6b"
                         });
                 });
 

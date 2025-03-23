@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Repositories.Migrations
 {
     /// <inheritdoc />
-    public partial class DataSeedingForDocument : Migration
+    public partial class V1_AddSeedforDogDocument : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -403,9 +403,25 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { "8d3e15f1cba34bb188544eafa1e8f952", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Covers fundamental obedience commands and essential skills.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic Training", 1 },
-                    { "d40034d06b7e4f7db33aa7f7655b546e", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Addresses problem behaviors and corrective training for dogs.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioral Modification", 1 },
-                    { "e534e655f8d2443fa3c68f26bac2033b", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Focuses on advanced obedience and specialized training techniques.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Advanced Training", 1 }
+                    { "3f3a3953e82348b49ec2466bdc3bc784", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Addresses problem behaviors and corrective training for dogs.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioral Modification", 1 },
+                    { "49dfbf47acc54e03bff603715a24d3b5", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Focuses on advanced obedience and specialized training techniques.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Advanced Training", 1 },
+                    { "91082895f4504e2b955ce19599c3ad94", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Covers fundamental obedience commands and essential skills.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic Training", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DogDocumentTypes",
+                columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name" },
+                values: new object[,]
+                {
+                    { "36042241238d4a6b94c54df1ae2ef062", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Document detailing the dog's health insurance policy.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Health Insurance" },
+                    { "43227c23455d4aa9b75365a286bfe69d", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Official document proving the dog's lineage and breed.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Pedigree Certificate" },
+                    { "59ed6370b7a44e5f81af14d983e0f884", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Certification proving the dog is qualified as a therapy dog.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Therapy Dog Certification" },
+                    { "637c85ce08c34549840ef782c720c284", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Official license permitting the dog to be used for breeding.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Breeding License" },
+                    { "672850dfe45540239e3388c162e7acfc", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Document containing the dog's microchip details.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Microchip Registration" },
+                    { "795780ea162c40b79b99e23ad09fd215", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Certificate awarded for participation or winning in dog shows.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Show Competition Certificate" },
+                    { "9980d1a6d6154434a0fc350ba65c67ba", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Certificate proving the dog has completed a training program.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training Certificate" },
+                    { "a05880b2a6ac4c7793da54d913fc3a7e", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Legal documents for the adoption of the dog.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Adoption Papers" },
+                    { "e02e01be87904edb8f7bf12f0e27f1f8", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Document containing vaccination history of the dog.", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Vaccination Record" }
                 });
 
             migrationBuilder.InsertData(
@@ -413,9 +429,9 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { "38e4bde4713b44c7857c238faee8b17e", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Large-sized dog breeds", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Large", 1 },
-                    { "e4d84a1b04564b1eac93686da5ed3891", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Medium-sized dog breeds", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Medium", 1 },
-                    { "fe95dc1803a945a68a16368ee20bb11c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Small-sized dog breeds", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Small", 1 }
+                    { "3e742350d1a342bb98abb9afd02a33aa", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Large-sized dog breeds", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Large", 1 },
+                    { "addef8a118ea4285ab68a26583ba089a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Medium-sized dog breeds", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Medium", 1 },
+                    { "db92a74d1bca4738afa4d775b7f57aa4", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Small-sized dog breeds", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Small", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -423,9 +439,9 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { "0da87b4d397c4b5cb74b3ab186c8b985", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Equipment used for dog training and obedience exercises.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training Tools", 1 },
-                    { "505bc7e58be54b72b1634084772bed35", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Tools used for dog grooming, including brushes and clippers.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Grooming Equipment", 1 },
-                    { "95078837cecb4bc3b11acfcb18c57bdf", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Protective gear for dogs, such as harnesses and pads.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Safety Gear", 1 }
+                    { "bf589e7df3a249f3b48bd24ce401060a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Equipment used for dog training and obedience exercises.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training Tools", 1 },
+                    { "ce7dda743e294b2dbfa8d7470f177bba", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Tools used for dog grooming, including brushes and clippers.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Grooming Equipment", 1 },
+                    { "d2881608c36e4f93b0e29f70ccc1d2d4", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Protective gear for dogs, such as harnesses and pads.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Safety Gear", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -433,9 +449,9 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "DiscountAmount", "LastUpdatedTime", "Name", "RequiredPoints" },
                 values: new object[,]
                 {
-                    { "01d9059a2bae4ffe949d5b6d79bab8f8", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Premium membership", 10m, new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Gold", 500 },
-                    { "28f472bccf5544d29d47ce5223797e21", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Entry-level membership", 0m, new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic", 0 },
-                    { "85ab8cfa4658442abd31fd66da960d4d", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Elite membership", 20m, new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Platinum", 1000 }
+                    { "0383b1b8c4da4aeda3b15448582963a7", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Entry-level membership", 0m, new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic", 0 },
+                    { "951ec72a63904816857bef8747ba8738", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Elite membership", 20m, new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Platinum", 1000 },
+                    { "ae18a4fb2c874fd78b217d9c6e019512", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Premium membership", 10m, new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Gold", 500 }
                 });
 
             migrationBuilder.InsertData(
@@ -443,13 +459,13 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { "03912efa2c7f4586bb32b6b8dfdc9826", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Organizational customer who can enroll in courses", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Customer_Organizational", 1 },
-                    { "1005e54c31f249ef8a7337d77f92f06a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff manager member managing operations", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff_Manager", 1 },
-                    { "830225e9ca4541419b82c76e5ce670b7", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff employee member managing operations", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff_Employee", 1 },
-                    { "a364df780be740ae9c2e4f4d8c1bcf06", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Individual customer who can enroll in courses", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Customer_Individual", 1 },
-                    { "afe7f0fbabd04cddbd77b2c78dcfeff0", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "System administrator with full access", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Admin", 1 },
-                    { "e507e39010454782b947a9850e903471", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Lead trainer responsible for courses and lessons", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer_Lead", 1 },
-                    { "ee741db0d7294aceaa9c361dab1a253a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer responsible for courses and lessons", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer_Member", 1 }
+                    { "4aca89ad500a4ccf88fc387fb3203eba", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer responsible for courses and lessons", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer_Member", 1 },
+                    { "7a9d724be0744dadbb70ee173af51278", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff employee member managing operations", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff_Employee", 1 },
+                    { "9546c4a031e54038b1c0a1e91828db5c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Lead trainer responsible for courses and lessons", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer_Lead", 1 },
+                    { "961f548e2f214205b0ff0ab6028921ea", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Organizational customer who can enroll in courses", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Customer_Organizational", 1 },
+                    { "db16396ac6b14e19aa314ed1bab402c8", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Individual customer who can enroll in courses", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Customer_Individual", 1 },
+                    { "e404ea5e9e534b48b0bd2b4802c6af3a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff manager member managing operations", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Staff_Manager", 1 },
+                    { "f6f66051635d4be1ae994afca1664b33", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "System administrator with full access", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Admin", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -457,11 +473,11 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { "24aee1f8ad8d4d76b6ab9898e1733b57", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Addressing and correcting unwanted behaviors in dogs.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioral Correction", 1 },
-                    { "5127126e02684789bace61adc31d270d", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training dogs to follow basic commands like sit, stay, and come.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic Commands", 1 },
-                    { "56e479f7881b4baf840c69db1dc69154", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Enhancing a dog's physical abilities and responsiveness through obstacle courses.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Agility Training", 1 },
-                    { "bee87c802fb84f749ee1b9544177ca6f", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training dogs for guarding and protective behavior.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Protection Training", 1 },
-                    { "fc6c1be2372d4622bdd131ae1bc86a55", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Helping dogs become comfortable around other animals and people.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Socialization", 1 }
+                    { "ce8597792f5e4dcb9bf2ea0f5a957f9a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Helping dogs become comfortable around other animals and people.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Socialization", 1 },
+                    { "d1d426a922d74ff8a31936f9e905b3b7", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training dogs to follow basic commands like sit, stay, and come.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic Commands", 1 },
+                    { "da58f9f2cba2492682029425c56a3c10", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Enhancing a dog's physical abilities and responsiveness through obstacle courses.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Agility Training", 1 },
+                    { "eb7c17ab658c4851bbc7bc584b113a7c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Addressing and correcting unwanted behaviors in dogs.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioral Correction", 1 },
+                    { "fc1626207ed94d8380072bf67a74e6fc", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training dogs for guarding and protective behavior.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Protection Training", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -469,9 +485,9 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name" },
                 values: new object[,]
                 {
-                    { "4016bc5d36bb44f3a0ce8c56d8863441", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Helping dogs overcome behavioral issues.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioral Therapy" },
-                    { "558b3f6bd6144abfb2fa642635050d21", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic and advanced obedience training for dogs.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Obedience Training" },
-                    { "8e5070597a5f4069967fb4dc1d696237", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training dogs for agility courses and competitions.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Agility Training" }
+                    { "26d8ec7cca444e87b07a246a551f7a6e", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Helping dogs overcome behavioral issues.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioral Therapy" },
+                    { "30eea12e080642998e0d031950eba20d", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training dogs for agility courses and competitions.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Agility Training" },
+                    { "506458d889064ab7934ee797d267feb3", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic and advanced obedience training for dogs.", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Obedience Training" }
                 });
 
             migrationBuilder.InsertData(
@@ -479,13 +495,13 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "Address", "CreatedTime", "DateOfBirth", "Email", "FullName", "Gender", "ImageUrl", "LastUpdatedTime", "MembershipId", "MembershipPoints", "Password", "PhoneNumber", "RegistrationTime", "RoleId", "Status", "Username" },
                 values: new object[,]
                 {
-                    { "23c1a3c8753d4d349a4b378c5dfe99a5", "Trainer Lead Address", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 942, DateTimeKind.Unspecified).AddTicks(1310), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1983, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_lead@gmail.com", "Trainer Lead", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 942, DateTimeKind.Unspecified).AddTicks(1310), new TimeSpan(0, 7, 0, 0, 0)), "28f472bccf5544d29d47ce5223797e21", 0, "$2a$11$8ruAIahZunr19n5U9rtvFeqmrYS6L33tyZ7x/w8iGgcNFTwB8mHdi", "0911223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e507e39010454782b947a9850e903471", 1, "trainer_lead" },
-                    { "35f3ac27b17a4295a337b78341807c6a", "Staff Manager Address", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 395, DateTimeKind.Unspecified).AddTicks(9368), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1980, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_manager@gmail.com", "Staff Manager", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 395, DateTimeKind.Unspecified).AddTicks(9368), new TimeSpan(0, 7, 0, 0, 0)), "28f472bccf5544d29d47ce5223797e21", 0, "$2a$11$wbAW2cxQ9kDtCyu2ucKituCHyuWMe.6Hp.WH3K2XeSrLVRWvv5mmK", "0955223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "1005e54c31f249ef8a7337d77f92f06a", 1, "staff_manager" },
-                    { "3787a33421be4310ac5eb1ab8d697fbf", "Admin Address", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 710, DateTimeKind.Unspecified).AddTicks(1370), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", "Admin User", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 710, DateTimeKind.Unspecified).AddTicks(1370), new TimeSpan(0, 7, 0, 0, 0)), "28f472bccf5544d29d47ce5223797e21", 0, "$2a$11$HwTI5kdpct7P/CPMX9eM6.p1bZ3w69zOx0DNhUOTal6/EAUjMGIMG", "0123456789", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "afe7f0fbabd04cddbd77b2c78dcfeff0", 1, "admin" },
-                    { "90794052e3144171b73a2205c9d37809", "Staff Employee Address", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 281, DateTimeKind.Unspecified).AddTicks(7715), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1988, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_employee@gmail.com", "Staff Employee", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 281, DateTimeKind.Unspecified).AddTicks(7715), new TimeSpan(0, 7, 0, 0, 0)), "28f472bccf5544d29d47ce5223797e21", 0, "$2a$11$dXrKcJAQLuLJbRpSllIfQuRhFe6ecrmTy8xEluAW5RqRhbPwnvCaq", "0966332211", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "830225e9ca4541419b82c76e5ce670b7", 1, "staff_employee" },
-                    { "a19fbb199fb74103a17e0c97fe3a894c", "Customer Organization Address", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 167, DateTimeKind.Unspecified).AddTicks(8396), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_organization@gmail.com", "Customer Organization", 2, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 167, DateTimeKind.Unspecified).AddTicks(8396), new TimeSpan(0, 7, 0, 0, 0)), "28f472bccf5544d29d47ce5223797e21", 200, "$2a$11$619WAX.dpkYLj/3rMu9AVObHXb3rcMD4QCLyksHrusZLsdwYarsLO", "0977554433", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "03912efa2c7f4586bb32b6b8dfdc9826", 1, "customer_organization" },
-                    { "bc0f6d9bf7b2463a85358014070e5f59", "Trainer Member Address", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 828, DateTimeKind.Unspecified).AddTicks(687), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_member@gmail.com", "Trainer Member", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 51, 828, DateTimeKind.Unspecified).AddTicks(687), new TimeSpan(0, 7, 0, 0, 0)), "28f472bccf5544d29d47ce5223797e21", 0, "$2a$11$GaWBiodHe5q0yImvlhIlT.SL48upF/nGunTSEAV3KFMisfK2jWZ7e", "0987654321", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ee741db0d7294aceaa9c361dab1a253a", 1, "trainer_member" },
-                    { "df71c939b0c74cb697080ae7055f11c5", "Customer Individual Address", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 55, DateTimeKind.Unspecified).AddTicks(4426), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1995, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_individual@gmail.com", "Customer Individual", 2, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 9, 33, 52, 55, DateTimeKind.Unspecified).AddTicks(4426), new TimeSpan(0, 7, 0, 0, 0)), "28f472bccf5544d29d47ce5223797e21", 100, "$2a$11$BbN4pDUHjhQFn46H0TWVZe5.BFITi9dBDUggAf5BqeisgAoIAFw7C", "0988112233", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "a364df780be740ae9c2e4f4d8c1bcf06", 1, "customer_individual" }
+                    { "215faf644c3c402d8312e9ea3369005b", "Staff Employee Address", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 181, DateTimeKind.Unspecified).AddTicks(8014), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1988, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_employee@gmail.com", "Staff Employee", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 181, DateTimeKind.Unspecified).AddTicks(8014), new TimeSpan(0, 7, 0, 0, 0)), "0383b1b8c4da4aeda3b15448582963a7", 0, "$2a$11$L6VMAbcwRe30EQuGPksmTOLh78dC.HDaYs0qFUkg36zMmiWsS4nv.", "0966332211", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "7a9d724be0744dadbb70ee173af51278", 1, "staff_employee" },
+                    { "2c5a23e6584e4129bae285cb63694681", "Trainer Member Address", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 719, DateTimeKind.Unspecified).AddTicks(2889), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_member@gmail.com", "Trainer Member", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 719, DateTimeKind.Unspecified).AddTicks(2889), new TimeSpan(0, 7, 0, 0, 0)), "0383b1b8c4da4aeda3b15448582963a7", 0, "$2a$11$OpCtM/oW6W/Tf8TakAP4B.XqTYHaOA8pmZIHBGyetBPfLrNIUeyoW", "0987654321", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "4aca89ad500a4ccf88fc387fb3203eba", 1, "trainer_member" },
+                    { "30f3752615534f3e981932ebb53ab285", "Customer Individual Address", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 949, DateTimeKind.Unspecified).AddTicks(1764), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1995, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_individual@gmail.com", "Customer Individual", 2, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 949, DateTimeKind.Unspecified).AddTicks(1764), new TimeSpan(0, 7, 0, 0, 0)), "0383b1b8c4da4aeda3b15448582963a7", 100, "$2a$11$BB6TUwFgVihoOuR/L8QrKeWDBYBgCw4jra3wRlN6D.uo7CoUiMr4.", "0988112233", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "db16396ac6b14e19aa314ed1bab402c8", 1, "customer_individual" },
+                    { "431753f94cc74affaabedd250e15a4de", "Staff Manager Address", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 300, DateTimeKind.Unspecified).AddTicks(2252), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1980, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_manager@gmail.com", "Staff Manager", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 300, DateTimeKind.Unspecified).AddTicks(2252), new TimeSpan(0, 7, 0, 0, 0)), "0383b1b8c4da4aeda3b15448582963a7", 0, "$2a$11$Lhi4iVRTo.EA0/KovSb0N.Dv6NjkxfVBo.zm71WmTJ3TpXRKH/o6i", "0955223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e404ea5e9e534b48b0bd2b4802c6af3a", 1, "staff_manager" },
+                    { "ac432bd246a74fb7ae3dd585c39144e8", "Customer Organization Address", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 63, DateTimeKind.Unspecified).AddTicks(549), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_organization@gmail.com", "Customer Organization", 2, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 54, 63, DateTimeKind.Unspecified).AddTicks(549), new TimeSpan(0, 7, 0, 0, 0)), "0383b1b8c4da4aeda3b15448582963a7", 200, "$2a$11$91iyesNbqtA4/7B72tiOZu1Sr0gqlOfwMWjG/1I1w9rmeMErF3u92", "0977554433", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "961f548e2f214205b0ff0ab6028921ea", 1, "customer_organization" },
+                    { "ac908e5d3d5b4a53a3e5c17308f9309c", "Admin Address", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 603, DateTimeKind.Unspecified).AddTicks(9430), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", "Admin User", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 603, DateTimeKind.Unspecified).AddTicks(9430), new TimeSpan(0, 7, 0, 0, 0)), "0383b1b8c4da4aeda3b15448582963a7", 0, "$2a$11$/Wg00FBYkdjJGtLdSlym2ehnArpqN/oP6xoeHBO0.SJDLkkuH1sQK", "0123456789", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "f6f66051635d4be1ae994afca1664b33", 1, "admin" },
+                    { "bfe42d83023840efa405572cf451ed6b", "Trainer Lead Address", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 832, DateTimeKind.Unspecified).AddTicks(2405), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1983, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_lead@gmail.com", "Trainer Lead", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 23, 10, 7, 53, 832, DateTimeKind.Unspecified).AddTicks(2405), new TimeSpan(0, 7, 0, 0, 0)), "0383b1b8c4da4aeda3b15448582963a7", 0, "$2a$11$Ohx.1HM9.wYRuFjfgKGNPOSuEljf1Umf1YNuvMYzCeP/SrvNEc8q.", "0911223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "9546c4a031e54038b1c0a1e91828db5c", 1, "trainer_lead" }
                 });
 
             migrationBuilder.InsertData(
@@ -493,15 +509,15 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "DogTypeId", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { "1c49ea971f3245d6be2fc57d9d00fdd1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A fluffy and energetic small breed.", "fe95dc1803a945a68a16368ee20bb11c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Pomeranian", 1 },
-                    { "2a9762d7af614a918e5b50763c809239", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A tiny breed known for its lively personality.", "fe95dc1803a945a68a16368ee20bb11c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Chihuahua", 1 },
-                    { "5104d9a7ee484d1e9deeaa5c4ee8ab7f", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A loyal and protective breed, often used as a guard dog.", "38e4bde4713b44c7857c238faee8b17e", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Rottweiler", 1 },
-                    { "62084d91e2a34062bd47fac8f60d91bd", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A curious and friendly breed known for its great sense of smell.", "e4d84a1b04564b1eac93686da5ed3891", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Beagle", 1 },
-                    { "6d57c21e4e664bea97c3ac7822b4b178", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A strong and intelligent breed used in working roles.", "38e4bde4713b44c7857c238faee8b17e", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "German Shepherd", 1 },
-                    { "a8ebf8995f394dd2b8b06e73f926df53", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A highly intelligent and energetic breed.", "e4d84a1b04564b1eac93686da5ed3891", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Border Collie", 1 },
-                    { "ab040de66f1742e784c44b6e77bdd558", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A small, muscular dog with a distinctive bat-like ear shape.", "fe95dc1803a945a68a16368ee20bb11c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "French Bulldog", 1 },
-                    { "b851fac40d1c4befbce78af9cb997b66", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A friendly and intelligent large breed.", "38e4bde4713b44c7857c238faee8b17e", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Golden Retriever", 1 },
-                    { "c923f4c2b5d84fdca3661053041ae7ca", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A friendly and intelligent medium-sized breed.", "e4d84a1b04564b1eac93686da5ed3891", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Cocker Spaniel", 1 }
+                    { "02f0710451de472cb3765cae550e3983", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A curious and friendly breed known for its great sense of smell.", "addef8a118ea4285ab68a26583ba089a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Beagle", 1 },
+                    { "272ed288a22c4634b3df87347d436de3", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A friendly and intelligent medium-sized breed.", "addef8a118ea4285ab68a26583ba089a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Cocker Spaniel", 1 },
+                    { "34bd0db5cfea403e87a893e5d0bbdebb", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A tiny breed known for its lively personality.", "db92a74d1bca4738afa4d775b7f57aa4", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Chihuahua", 1 },
+                    { "552d3f9cfd5c413884a0c827ba1f3d2b", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A small, muscular dog with a distinctive bat-like ear shape.", "db92a74d1bca4738afa4d775b7f57aa4", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "French Bulldog", 1 },
+                    { "6091c9e41f494b34a171ca21602f16d8", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A highly intelligent and energetic breed.", "addef8a118ea4285ab68a26583ba089a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Border Collie", 1 },
+                    { "87f6188d4c844bea9f06fa4d888e62dc", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A strong and intelligent breed used in working roles.", "3e742350d1a342bb98abb9afd02a33aa", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "German Shepherd", 1 },
+                    { "8c26eec9201f48eda89b368373553ef2", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A friendly and intelligent large breed.", "3e742350d1a342bb98abb9afd02a33aa", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Golden Retriever", 1 },
+                    { "8de3c0542b3c44ddbfe7785aa265d1be", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A loyal and protective breed, often used as a guard dog.", "3e742350d1a342bb98abb9afd02a33aa", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Rottweiler", 1 },
+                    { "949c8566c6ed43a39663b92651ad281c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A fluffy and energetic small breed.", "db92a74d1bca4738afa4d775b7f57aa4", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Pomeranian", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -509,9 +525,9 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "Description", "EquipmentCategoryId", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
                 {
-                    { "4eae38eb3ef04506918fb96278de3668", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A brush for maintaining a dog's coat and hygiene.", "505bc7e58be54b72b1634084772bed35", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Grooming Brush", 1 },
-                    { "675195344e184af1af53cdefa0f3dc57", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A clicker used for positive reinforcement training.", "0da87b4d397c4b5cb74b3ab186c8b985", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training Clicker", 1 },
-                    { "cd9fce55230047c3963a78ed10c070ec", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A comfortable harness designed for safety and control.", "95078837cecb4bc3b11acfcb18c57bdf", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Dog Harness", 1 }
+                    { "0ac25f7855a84585bdeeb01d7400bca8", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A clicker used for positive reinforcement training.", "bf589e7df3a249f3b48bd24ce401060a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training Clicker", 1 },
+                    { "ba83ad9675c14e6db41ef5f4b24c2662", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A comfortable harness designed for safety and control.", "d2881608c36e4f93b0e29f70ccc1d2d4", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Dog Harness", 1 },
+                    { "fd569aae2040492a8d4a718b2bf36617", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "A brush for maintaining a dog's coat and hygiene.", "ce7dda743e294b2dbfa8d7470f177bba", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Grooming Brush", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -519,8 +535,8 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "Content", "CreatedTime", "ImageUrl", "LastUpdatedTime", "StaffId", "Status", "TimePublished", "Title" },
                 values: new object[,]
                 {
-                    { "04c25f4cb1624ea0aafc44c6a9365928", "Training your dog is crucial for a harmonious relationship between pet and owner...", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "https://example.com/blog1.jpg", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "90794052e3144171b73a2205c9d37809", 1, new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Importance of Dog Training" },
-                    { "3f4a2c0104c04b3597e38efa8c1a2696", "Providing a balanced diet is essential for your dog's overall health and well-being...", new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "https://example.com/blog2.jpg", new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "35f3ac27b17a4295a337b78341807c6a", 1, new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Understanding Canine Nutrition" }
+                    { "1a5d57b63cb84fa69149f6f3c0e9c5a8", "Training your dog is crucial for a harmonious relationship between pet and owner...", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "https://example.com/blog1.jpg", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "215faf644c3c402d8312e9ea3369005b", 1, new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Importance of Dog Training" },
+                    { "cea9eeb12d60485ba435cc4fc2fe811f", "Providing a balanced diet is essential for your dog's overall health and well-being...", new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "https://example.com/blog2.jpg", new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "431753f94cc74affaabedd250e15a4de", 1, new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Understanding Canine Nutrition" }
                 });
 
             migrationBuilder.InsertData(
@@ -528,15 +544,15 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "DateOfBirth", "DogBreedId", "Gender", "ImageUrl", "LastUpdatedTime", "Name", "RegistrationTime", "Status" },
                 values: new object[,]
                 {
-                    { "00583a64b6564f95afb24fd3ced987b5", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2020, 6, 10), "62084d91e2a34062bd47fac8f60d91bd", 0, "https://example.com/dog6.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Daisy", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "0a31e68c8ab948598db829119ad303d1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2021, 7, 18), "a8ebf8995f394dd2b8b06e73f926df53", 1, "https://example.com/dog5.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Max", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "0bd12e7dc4f1437da140a6dc2dc926ad", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2022, 1, 30), "ab040de66f1742e784c44b6e77bdd558", 0, "https://example.com/dog3.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Luna", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "1f66a91d3eb14e27972d3350e646cf6d", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2021, 5, 15), "2a9762d7af614a918e5b50763c809239", 0, "https://example.com/dog1.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Bella", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "2541af20051a47db88eed1e7b8d10e68", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2019, 9, 14), "6d57c21e4e664bea97c3ac7822b4b178", 1, "https://example.com/dog8.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Rex", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "68f21d1bbd9a40a5980c57ad0d8cbbba", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2021, 3, 8), "5104d9a7ee484d1e9deeaa5c4ee8ab7f", 0, "https://example.com/dog9.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Zara", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "696499b846d0486da5d4c4c209610b67", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2018, 11, 25), "b851fac40d1c4befbce78af9cb997b66", 1, "https://example.com/dog7.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Buddy", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "905a6529c2d44595be248663218a16f1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2019, 12, 5), "c923f4c2b5d84fdca3661053041ae7ca", 1, "https://example.com/dog4.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Charlie", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { "9665cff6ccae4e0fada2e86eaa910b09", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2020, 8, 22), "1c49ea971f3245d6be2fc57d9d00fdd1", 1, "https://example.com/dog2.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Rocky", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
+                    { "0183af359c43482d88dcdd3d0dd6e4a1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2022, 1, 30), "552d3f9cfd5c413884a0c827ba1f3d2b", 0, "https://example.com/dog3.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Luna", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "0999ddb2e73648faa29d16f33eea5ed0", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2020, 8, 22), "949c8566c6ed43a39663b92651ad281c", 1, "https://example.com/dog2.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Rocky", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "157cd3db746548b1abfd918a7a673045", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2021, 7, 18), "6091c9e41f494b34a171ca21602f16d8", 1, "https://example.com/dog5.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Max", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "1aaeb3072f4c4f7ca9a231e206064a24", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2019, 9, 14), "87f6188d4c844bea9f06fa4d888e62dc", 1, "https://example.com/dog8.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Rex", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "4defa4d820a444a688feae61b6b55222", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2018, 11, 25), "8c26eec9201f48eda89b368373553ef2", 1, "https://example.com/dog7.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Buddy", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "5b4d60721b664b32ac425fe131b29214", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2019, 12, 5), "272ed288a22c4634b3df87347d436de3", 1, "https://example.com/dog4.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Charlie", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "94e47c4ac085487490eb8f45c13d2bb6", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2021, 3, 8), "8de3c0542b3c44ddbfe7785aa265d1be", 0, "https://example.com/dog9.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Zara", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "d15ff7d2410a474e82aa624676abf84b", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2020, 6, 10), "02f0710451de472cb3765cae550e3983", 0, "https://example.com/dog6.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Daisy", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { "f989df546cbb4e1fabe8367d9a659cae", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateOnly(2021, 5, 15), "34bd0db5cfea403e87a893e5d0bbdebb", 0, "https://example.com/dog1.jpg", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Bella", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -544,14 +560,14 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "LastUpdatedTime", "SkillId", "TrainerId" },
                 values: new object[,]
                 {
-                    { "2939c154e9f04317b41248388b6f2d21", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "56e479f7881b4baf840c69db1dc69154", "bc0f6d9bf7b2463a85358014070e5f59" },
-                    { "b3833e55495a4049996dfc28820f593a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "24aee1f8ad8d4d76b6ab9898e1733b57", "23c1a3c8753d4d349a4b378c5dfe99a5" },
-                    { "d35873e224854ce3bed0012cfe8e5fca", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "bee87c802fb84f749ee1b9544177ca6f", "23c1a3c8753d4d349a4b378c5dfe99a5" },
-                    { "d60a806fb9bc4112834c8917749b50b7", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "24aee1f8ad8d4d76b6ab9898e1733b57", "bc0f6d9bf7b2463a85358014070e5f59" },
-                    { "d71d21f23e174c93913ff2ae52451bac", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "fc6c1be2372d4622bdd131ae1bc86a55", "23c1a3c8753d4d349a4b378c5dfe99a5" },
-                    { "d7ddee2e36ea4bb7b6aa6b8913f1f8b5", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "56e479f7881b4baf840c69db1dc69154", "23c1a3c8753d4d349a4b378c5dfe99a5" },
-                    { "e73852d373db4d7eb40866e2993d5c8c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "5127126e02684789bace61adc31d270d", "23c1a3c8753d4d349a4b378c5dfe99a5" },
-                    { "efa763e682cb48c4b27165daa0572e90", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "5127126e02684789bace61adc31d270d", "bc0f6d9bf7b2463a85358014070e5f59" }
+                    { "33434df2df6e44dba9b5812d1edf7c92", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "da58f9f2cba2492682029425c56a3c10", "2c5a23e6584e4129bae285cb63694681" },
+                    { "3f5219d9d9044960aa6c53517fc2f864", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "fc1626207ed94d8380072bf67a74e6fc", "bfe42d83023840efa405572cf451ed6b" },
+                    { "5ef7fbf6376146aa829b8d142f1ef9e0", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ce8597792f5e4dcb9bf2ea0f5a957f9a", "bfe42d83023840efa405572cf451ed6b" },
+                    { "71789a6d0c654a97903fda83d63f967f", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "eb7c17ab658c4851bbc7bc584b113a7c", "2c5a23e6584e4129bae285cb63694681" },
+                    { "8aa10fca785a42e4ad3a2de94fcb75c3", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "d1d426a922d74ff8a31936f9e905b3b7", "2c5a23e6584e4129bae285cb63694681" },
+                    { "9472d104654f4a7496f653d79c2688d1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "da58f9f2cba2492682029425c56a3c10", "bfe42d83023840efa405572cf451ed6b" },
+                    { "ab2a8c7e5f6f49bdbef83225dde084cb", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "eb7c17ab658c4851bbc7bc584b113a7c", "bfe42d83023840efa405572cf451ed6b" },
+                    { "eff871c7638c48bf9dce7deb665842b7", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "d1d426a922d74ff8a31936f9e905b3b7", "bfe42d83023840efa405572cf451ed6b" }
                 });
 
             migrationBuilder.InsertData(
@@ -559,9 +575,25 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "LastUpdatedTime", "SpecializaionId", "TrainerId" },
                 values: new object[,]
                 {
-                    { "0582a92730a7447e8306867c8229aaa2", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "8e5070597a5f4069967fb4dc1d696237", "23c1a3c8753d4d349a4b378c5dfe99a5" },
-                    { "1dd776d4784a461c820505b0dca0a17d", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "4016bc5d36bb44f3a0ce8c56d8863441", "23c1a3c8753d4d349a4b378c5dfe99a5" },
-                    { "e4c7d6640d4143e6b787eeed51ba8d6c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "558b3f6bd6144abfb2fa642635050d21", "bc0f6d9bf7b2463a85358014070e5f59" }
+                    { "1f62bf2fbc784409a57e6a4bbe5b81d1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "30eea12e080642998e0d031950eba20d", "bfe42d83023840efa405572cf451ed6b" },
+                    { "35fa00965885417f8856f3e737d8cde7", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "26d8ec7cca444e87b07a246a551f7a6e", "bfe42d83023840efa405572cf451ed6b" },
+                    { "596c9c79035c4b7db0a5e256a391f3f8", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "506458d889064ab7934ee797d267feb3", "2c5a23e6584e4129bae285cb63694681" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DogDocuments",
+                columns: new[] { "Id", "CreatedTime", "Description", "DogDocumentTypeId", "DogId", "ImageUrl", "IssueDate", "IssuingAuthority", "LastUpdatedTime", "Name", "Status", "UploadTime" },
+                values: new object[,]
+                {
+                    { "493412ceae9c427b96cb1c745993e515", new DateTimeOffset(new DateTime(2021, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Therapy dog certification for Zara.", "59ed6370b7a44e5f81af14d983e0f884", "94e47c4ac085487490eb8f45c13d2bb6", "https://example.com/documents/therapy1.jpg", new DateOnly(2021, 4, 1), "Therapy Dogs International", new DateTimeOffset(new DateTime(2021, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Therapy Dog Certification", 1, new DateTime(2021, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "5fcb313c83de40cc879818b11aad329e", new DateTimeOffset(new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Annual vaccination record for Bella.", "e02e01be87904edb8f7bf12f0e27f1f8", "f989df546cbb4e1fabe8367d9a659cae", "https://example.com/documents/vaccination1.jpg", new DateOnly(2023, 1, 10), "City Veterinary Clinic", new DateTimeOffset(new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Vaccination Record", 1, new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "7a6f520c6ca7425989bfe67521e201b0", new DateTimeOffset(new DateTime(2019, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Breeding license for Rex.", "637c85ce08c34549840ef782c720c284", "1aaeb3072f4c4f7ca9a231e206064a24", "https://example.com/documents/breeding1.jpg", new DateOnly(2019, 10, 1), "State Breeding Authority", new DateTimeOffset(new DateTime(2019, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Breeding License", 1, new DateTime(2019, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "7cac972c97df45109dd417c519ff8b31", new DateTimeOffset(new DateTime(2020, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Adoption papers for Daisy.", "a05880b2a6ac4c7793da54d913fc3a7e", "d15ff7d2410a474e82aa624676abf84b", "https://example.com/documents/adoption1.jpg", new DateOnly(2020, 7, 12), "Happy Tails Shelter", new DateTimeOffset(new DateTime(2020, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Adoption Papers", 1, new DateTime(2020, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "977aa6d96b4742218f918aa49467e225", new DateTimeOffset(new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Pedigree certificate for Rocky.", "43227c23455d4aa9b75365a286bfe69d", "0999ddb2e73648faa29d16f33eea5ed0", "https://example.com/documents/pedigree1.jpg", new DateOnly(2020, 9, 1), "National Kennel Club", new DateTimeOffset(new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Pedigree Certificate", 1, new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "9ac48bd67bb541f08e3b1a80310610e4", new DateTimeOffset(new DateTime(2019, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Certificate for winning Best in Show.", "795780ea162c40b79b99e23ad09fd215", "4defa4d820a444a688feae61b6b55222", "https://example.com/documents/show1.jpg", new DateOnly(2019, 12, 1), "National Dog Show Association", new DateTimeOffset(new DateTime(2019, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Show Competition Certificate", 1, new DateTime(2019, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "a5574170b3a8489189b62c2745d9ec7e", new DateTimeOffset(new DateTime(2021, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic obedience training certificate for Charlie.", "9980d1a6d6154434a0fc350ba65c67ba", "5b4d60721b664b32ac425fe131b29214", "https://example.com/documents/training1.jpg", new DateOnly(2021, 3, 20), "Pawsitive Training Center", new DateTimeOffset(new DateTime(2021, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Training Certificate", 1, new DateTime(2021, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "c95204e5d06949cdbb6f850bef38e8f4", new DateTimeOffset(new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Health insurance policy for Max.", "36042241238d4a6b94c54df1ae2ef062", "157cd3db746548b1abfd918a7a673045", "https://example.com/documents/insurance1.jpg", new DateOnly(2021, 8, 5), "PetCare Insurance", new DateTimeOffset(new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Health Insurance", 1, new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { "f9bad4d5d4ab402cb6c94cc0c187f7ce", new DateTimeOffset(new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Microchip registration for Luna.", "672850dfe45540239e3388c162e7acfc", "0183af359c43482d88dcdd3d0dd6e4a1", "https://example.com/documents/microchip1.jpg", new DateOnly(2022, 2, 15), "Pet Identification Bureau", new DateTimeOffset(new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Microchip Registration", 1, new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -569,15 +601,15 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "CreatedTime", "CustomerId", "DogId", "FromDate", "LastUpdatedTime", "ToDate" },
                 values: new object[,]
                 {
-                    { "0229c2aa42c64c7ea2aeb1ac843f9be1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a19fbb199fb74103a17e0c97fe3a894c", "2541af20051a47db88eed1e7b8d10e68", new DateOnly(2023, 5, 7), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "23d497dfcbca46b3a6d8d824b763e5b1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a19fbb199fb74103a17e0c97fe3a894c", "68f21d1bbd9a40a5980c57ad0d8cbbba", new DateOnly(2023, 7, 22), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "3f601a06f0a04c36af1f03fab23e101c", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "df71c939b0c74cb697080ae7055f11c5", "9665cff6ccae4e0fada2e86eaa910b09", new DateOnly(2023, 3, 15), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "504ec6afd9194a5c9ddaf8966284b746", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a19fbb199fb74103a17e0c97fe3a894c", "0bd12e7dc4f1437da140a6dc2dc926ad", new DateOnly(2022, 6, 10), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "5a13747de125445d9cd25b32f2cf58fc", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a19fbb199fb74103a17e0c97fe3a894c", "0a31e68c8ab948598db829119ad303d1", new DateOnly(2020, 4, 20), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "6874018864024f8c909fe45381dcd87e", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a19fbb199fb74103a17e0c97fe3a894c", "696499b846d0486da5d4c4c209610b67", new DateOnly(2023, 2, 14), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "a92c1e88095c46e6b86a8a7aee30e082", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a19fbb199fb74103a17e0c97fe3a894c", "905a6529c2d44595be248663218a16f1", new DateOnly(2021, 9, 5), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "cf6ccf22594c46e68c57fe9e89265701", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "df71c939b0c74cb697080ae7055f11c5", "1f66a91d3eb14e27972d3350e646cf6d", new DateOnly(2023, 1, 1), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
-                    { "d27695d982dc4e4ea58d0d63d80cf47a", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a19fbb199fb74103a17e0c97fe3a894c", "00583a64b6564f95afb24fd3ced987b5", new DateOnly(2022, 8, 12), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null }
+                    { "241f99dd8ec94e2f8e53c21a2c92fc04", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ac432bd246a74fb7ae3dd585c39144e8", "5b4d60721b664b32ac425fe131b29214", new DateOnly(2021, 9, 5), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "3e337193aeb54a9187c22b0167d3bf69", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ac432bd246a74fb7ae3dd585c39144e8", "0183af359c43482d88dcdd3d0dd6e4a1", new DateOnly(2022, 6, 10), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "56b699bc77ad4b5785fb315c56163203", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "30f3752615534f3e981932ebb53ab285", "0999ddb2e73648faa29d16f33eea5ed0", new DateOnly(2023, 3, 15), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "56e0b0c6ea8841c29c19ec88b56d94b0", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ac432bd246a74fb7ae3dd585c39144e8", "d15ff7d2410a474e82aa624676abf84b", new DateOnly(2022, 8, 12), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "68ae3e0c7581425d8bd5d42bd188d4d4", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ac432bd246a74fb7ae3dd585c39144e8", "1aaeb3072f4c4f7ca9a231e206064a24", new DateOnly(2023, 5, 7), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "71d886766e114de5863784105996097f", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ac432bd246a74fb7ae3dd585c39144e8", "4defa4d820a444a688feae61b6b55222", new DateOnly(2023, 2, 14), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "7e95d146314f4343971c921e975310de", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "30f3752615534f3e981932ebb53ab285", "f989df546cbb4e1fabe8367d9a659cae", new DateOnly(2023, 1, 1), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "e44a2de4b6a64952b636bc814cc5a430", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ac432bd246a74fb7ae3dd585c39144e8", "157cd3db746548b1abfd918a7a673045", new DateOnly(2020, 4, 20), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null },
+                    { "fabf98509ec049629a2925f73ab15350", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "ac432bd246a74fb7ae3dd585c39144e8", "94e47c4ac085487490eb8f45c13d2bb6", new DateOnly(2023, 7, 22), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null }
                 });
         }
 
@@ -587,387 +619,477 @@ namespace Repositories.Migrations
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: "3787a33421be4310ac5eb1ab8d697fbf");
+                keyValue: "ac908e5d3d5b4a53a3e5c17308f9309c");
 
             migrationBuilder.DeleteData(
                 table: "Blogs",
                 keyColumn: "Id",
-                keyValue: "04c25f4cb1624ea0aafc44c6a9365928");
+                keyValue: "1a5d57b63cb84fa69149f6f3c0e9c5a8");
 
             migrationBuilder.DeleteData(
                 table: "Blogs",
                 keyColumn: "Id",
-                keyValue: "3f4a2c0104c04b3597e38efa8c1a2696");
+                keyValue: "cea9eeb12d60485ba435cc4fc2fe811f");
 
             migrationBuilder.DeleteData(
                 table: "Categories",
                 keyColumn: "Id",
-                keyValue: "8d3e15f1cba34bb188544eafa1e8f952");
+                keyValue: "3f3a3953e82348b49ec2466bdc3bc784");
 
             migrationBuilder.DeleteData(
                 table: "Categories",
                 keyColumn: "Id",
-                keyValue: "d40034d06b7e4f7db33aa7f7655b546e");
+                keyValue: "49dfbf47acc54e03bff603715a24d3b5");
 
             migrationBuilder.DeleteData(
                 table: "Categories",
                 keyColumn: "Id",
-                keyValue: "e534e655f8d2443fa3c68f26bac2033b");
+                keyValue: "91082895f4504e2b955ce19599c3ad94");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "493412ceae9c427b96cb1c745993e515");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "5fcb313c83de40cc879818b11aad329e");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "7a6f520c6ca7425989bfe67521e201b0");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "7cac972c97df45109dd417c519ff8b31");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "977aa6d96b4742218f918aa49467e225");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "9ac48bd67bb541f08e3b1a80310610e4");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "a5574170b3a8489189b62c2745d9ec7e");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "c95204e5d06949cdbb6f850bef38e8f4");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocuments",
+                keyColumn: "Id",
+                keyValue: "f9bad4d5d4ab402cb6c94cc0c187f7ce");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "0229c2aa42c64c7ea2aeb1ac843f9be1");
+                keyValue: "241f99dd8ec94e2f8e53c21a2c92fc04");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "23d497dfcbca46b3a6d8d824b763e5b1");
+                keyValue: "3e337193aeb54a9187c22b0167d3bf69");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "3f601a06f0a04c36af1f03fab23e101c");
+                keyValue: "56b699bc77ad4b5785fb315c56163203");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "504ec6afd9194a5c9ddaf8966284b746");
+                keyValue: "56e0b0c6ea8841c29c19ec88b56d94b0");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "5a13747de125445d9cd25b32f2cf58fc");
+                keyValue: "68ae3e0c7581425d8bd5d42bd188d4d4");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "6874018864024f8c909fe45381dcd87e");
+                keyValue: "71d886766e114de5863784105996097f");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "a92c1e88095c46e6b86a8a7aee30e082");
+                keyValue: "7e95d146314f4343971c921e975310de");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "cf6ccf22594c46e68c57fe9e89265701");
+                keyValue: "e44a2de4b6a64952b636bc814cc5a430");
 
             migrationBuilder.DeleteData(
                 table: "DogOwnerships",
                 keyColumn: "Id",
-                keyValue: "d27695d982dc4e4ea58d0d63d80cf47a");
+                keyValue: "fabf98509ec049629a2925f73ab15350");
 
             migrationBuilder.DeleteData(
                 table: "Equipments",
                 keyColumn: "Id",
-                keyValue: "4eae38eb3ef04506918fb96278de3668");
+                keyValue: "0ac25f7855a84585bdeeb01d7400bca8");
 
             migrationBuilder.DeleteData(
                 table: "Equipments",
                 keyColumn: "Id",
-                keyValue: "675195344e184af1af53cdefa0f3dc57");
+                keyValue: "ba83ad9675c14e6db41ef5f4b24c2662");
 
             migrationBuilder.DeleteData(
                 table: "Equipments",
                 keyColumn: "Id",
-                keyValue: "cd9fce55230047c3963a78ed10c070ec");
+                keyValue: "fd569aae2040492a8d4a718b2bf36617");
 
             migrationBuilder.DeleteData(
                 table: "Memberships",
                 keyColumn: "Id",
-                keyValue: "01d9059a2bae4ffe949d5b6d79bab8f8");
+                keyValue: "951ec72a63904816857bef8747ba8738");
 
             migrationBuilder.DeleteData(
                 table: "Memberships",
                 keyColumn: "Id",
-                keyValue: "85ab8cfa4658442abd31fd66da960d4d");
+                keyValue: "ae18a4fb2c874fd78b217d9c6e019512");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "2939c154e9f04317b41248388b6f2d21");
+                keyValue: "33434df2df6e44dba9b5812d1edf7c92");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "b3833e55495a4049996dfc28820f593a");
+                keyValue: "3f5219d9d9044960aa6c53517fc2f864");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "d35873e224854ce3bed0012cfe8e5fca");
+                keyValue: "5ef7fbf6376146aa829b8d142f1ef9e0");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "d60a806fb9bc4112834c8917749b50b7");
+                keyValue: "71789a6d0c654a97903fda83d63f967f");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "d71d21f23e174c93913ff2ae52451bac");
+                keyValue: "8aa10fca785a42e4ad3a2de94fcb75c3");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "d7ddee2e36ea4bb7b6aa6b8913f1f8b5");
+                keyValue: "9472d104654f4a7496f653d79c2688d1");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "e73852d373db4d7eb40866e2993d5c8c");
+                keyValue: "ab2a8c7e5f6f49bdbef83225dde084cb");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSkills",
                 keyColumn: "Id",
-                keyValue: "efa763e682cb48c4b27165daa0572e90");
+                keyValue: "eff871c7638c48bf9dce7deb665842b7");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSpecializations",
                 keyColumn: "Id",
-                keyValue: "0582a92730a7447e8306867c8229aaa2");
+                keyValue: "1f62bf2fbc784409a57e6a4bbe5b81d1");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSpecializations",
                 keyColumn: "Id",
-                keyValue: "1dd776d4784a461c820505b0dca0a17d");
+                keyValue: "35fa00965885417f8856f3e737d8cde7");
 
             migrationBuilder.DeleteData(
                 table: "TrainerSpecializations",
                 keyColumn: "Id",
-                keyValue: "e4c7d6640d4143e6b787eeed51ba8d6c");
+                keyValue: "596c9c79035c4b7db0a5e256a391f3f8");
 
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: "23c1a3c8753d4d349a4b378c5dfe99a5");
+                keyValue: "215faf644c3c402d8312e9ea3369005b");
 
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: "35f3ac27b17a4295a337b78341807c6a");
+                keyValue: "2c5a23e6584e4129bae285cb63694681");
 
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: "90794052e3144171b73a2205c9d37809");
+                keyValue: "30f3752615534f3e981932ebb53ab285");
 
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: "a19fbb199fb74103a17e0c97fe3a894c");
+                keyValue: "431753f94cc74affaabedd250e15a4de");
 
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: "bc0f6d9bf7b2463a85358014070e5f59");
+                keyValue: "ac432bd246a74fb7ae3dd585c39144e8");
 
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: "df71c939b0c74cb697080ae7055f11c5");
+                keyValue: "bfe42d83023840efa405572cf451ed6b");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "36042241238d4a6b94c54df1ae2ef062");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "43227c23455d4aa9b75365a286bfe69d");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "59ed6370b7a44e5f81af14d983e0f884");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "637c85ce08c34549840ef782c720c284");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "672850dfe45540239e3388c162e7acfc");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "795780ea162c40b79b99e23ad09fd215");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "9980d1a6d6154434a0fc350ba65c67ba");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "a05880b2a6ac4c7793da54d913fc3a7e");
+
+            migrationBuilder.DeleteData(
+                table: "DogDocumentTypes",
+                keyColumn: "Id",
+                keyValue: "e02e01be87904edb8f7bf12f0e27f1f8");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "00583a64b6564f95afb24fd3ced987b5");
+                keyValue: "0183af359c43482d88dcdd3d0dd6e4a1");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "0a31e68c8ab948598db829119ad303d1");
+                keyValue: "0999ddb2e73648faa29d16f33eea5ed0");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "0bd12e7dc4f1437da140a6dc2dc926ad");
+                keyValue: "157cd3db746548b1abfd918a7a673045");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "1f66a91d3eb14e27972d3350e646cf6d");
+                keyValue: "1aaeb3072f4c4f7ca9a231e206064a24");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "2541af20051a47db88eed1e7b8d10e68");
+                keyValue: "4defa4d820a444a688feae61b6b55222");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "68f21d1bbd9a40a5980c57ad0d8cbbba");
+                keyValue: "5b4d60721b664b32ac425fe131b29214");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "696499b846d0486da5d4c4c209610b67");
+                keyValue: "94e47c4ac085487490eb8f45c13d2bb6");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "905a6529c2d44595be248663218a16f1");
+                keyValue: "d15ff7d2410a474e82aa624676abf84b");
 
             migrationBuilder.DeleteData(
                 table: "Dogs",
                 keyColumn: "Id",
-                keyValue: "9665cff6ccae4e0fada2e86eaa910b09");
+                keyValue: "f989df546cbb4e1fabe8367d9a659cae");
 
             migrationBuilder.DeleteData(
                 table: "EquipmentCategories",
                 keyColumn: "Id",
-                keyValue: "0da87b4d397c4b5cb74b3ab186c8b985");
+                keyValue: "bf589e7df3a249f3b48bd24ce401060a");
 
             migrationBuilder.DeleteData(
                 table: "EquipmentCategories",
                 keyColumn: "Id",
-                keyValue: "505bc7e58be54b72b1634084772bed35");
+                keyValue: "ce7dda743e294b2dbfa8d7470f177bba");
 
             migrationBuilder.DeleteData(
                 table: "EquipmentCategories",
                 keyColumn: "Id",
-                keyValue: "95078837cecb4bc3b11acfcb18c57bdf");
+                keyValue: "d2881608c36e4f93b0e29f70ccc1d2d4");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "afe7f0fbabd04cddbd77b2c78dcfeff0");
+                keyValue: "f6f66051635d4be1ae994afca1664b33");
 
             migrationBuilder.DeleteData(
                 table: "Skills",
                 keyColumn: "Id",
-                keyValue: "24aee1f8ad8d4d76b6ab9898e1733b57");
+                keyValue: "ce8597792f5e4dcb9bf2ea0f5a957f9a");
 
             migrationBuilder.DeleteData(
                 table: "Skills",
                 keyColumn: "Id",
-                keyValue: "5127126e02684789bace61adc31d270d");
+                keyValue: "d1d426a922d74ff8a31936f9e905b3b7");
 
             migrationBuilder.DeleteData(
                 table: "Skills",
                 keyColumn: "Id",
-                keyValue: "56e479f7881b4baf840c69db1dc69154");
+                keyValue: "da58f9f2cba2492682029425c56a3c10");
 
             migrationBuilder.DeleteData(
                 table: "Skills",
                 keyColumn: "Id",
-                keyValue: "bee87c802fb84f749ee1b9544177ca6f");
+                keyValue: "eb7c17ab658c4851bbc7bc584b113a7c");
 
             migrationBuilder.DeleteData(
                 table: "Skills",
                 keyColumn: "Id",
-                keyValue: "fc6c1be2372d4622bdd131ae1bc86a55");
+                keyValue: "fc1626207ed94d8380072bf67a74e6fc");
 
             migrationBuilder.DeleteData(
                 table: "Specializations",
                 keyColumn: "Id",
-                keyValue: "4016bc5d36bb44f3a0ce8c56d8863441");
+                keyValue: "26d8ec7cca444e87b07a246a551f7a6e");
 
             migrationBuilder.DeleteData(
                 table: "Specializations",
                 keyColumn: "Id",
-                keyValue: "558b3f6bd6144abfb2fa642635050d21");
+                keyValue: "30eea12e080642998e0d031950eba20d");
 
             migrationBuilder.DeleteData(
                 table: "Specializations",
                 keyColumn: "Id",
-                keyValue: "8e5070597a5f4069967fb4dc1d696237");
+                keyValue: "506458d889064ab7934ee797d267feb3");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "1c49ea971f3245d6be2fc57d9d00fdd1");
+                keyValue: "02f0710451de472cb3765cae550e3983");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "2a9762d7af614a918e5b50763c809239");
+                keyValue: "272ed288a22c4634b3df87347d436de3");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "5104d9a7ee484d1e9deeaa5c4ee8ab7f");
+                keyValue: "34bd0db5cfea403e87a893e5d0bbdebb");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "62084d91e2a34062bd47fac8f60d91bd");
+                keyValue: "552d3f9cfd5c413884a0c827ba1f3d2b");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "6d57c21e4e664bea97c3ac7822b4b178");
+                keyValue: "6091c9e41f494b34a171ca21602f16d8");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "a8ebf8995f394dd2b8b06e73f926df53");
+                keyValue: "87f6188d4c844bea9f06fa4d888e62dc");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "ab040de66f1742e784c44b6e77bdd558");
+                keyValue: "8c26eec9201f48eda89b368373553ef2");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "b851fac40d1c4befbce78af9cb997b66");
+                keyValue: "8de3c0542b3c44ddbfe7785aa265d1be");
 
             migrationBuilder.DeleteData(
                 table: "DogBreeds",
                 keyColumn: "Id",
-                keyValue: "c923f4c2b5d84fdca3661053041ae7ca");
+                keyValue: "949c8566c6ed43a39663b92651ad281c");
 
             migrationBuilder.DeleteData(
                 table: "Memberships",
                 keyColumn: "Id",
-                keyValue: "28f472bccf5544d29d47ce5223797e21");
+                keyValue: "0383b1b8c4da4aeda3b15448582963a7");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "03912efa2c7f4586bb32b6b8dfdc9826");
+                keyValue: "4aca89ad500a4ccf88fc387fb3203eba");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "1005e54c31f249ef8a7337d77f92f06a");
+                keyValue: "7a9d724be0744dadbb70ee173af51278");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "830225e9ca4541419b82c76e5ce670b7");
+                keyValue: "9546c4a031e54038b1c0a1e91828db5c");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "a364df780be740ae9c2e4f4d8c1bcf06");
+                keyValue: "961f548e2f214205b0ff0ab6028921ea");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "e507e39010454782b947a9850e903471");
+                keyValue: "db16396ac6b14e19aa314ed1bab402c8");
 
             migrationBuilder.DeleteData(
                 table: "Roles",
                 keyColumn: "Id",
-                keyValue: "ee741db0d7294aceaa9c361dab1a253a");
+                keyValue: "e404ea5e9e534b48b0bd2b4802c6af3a");
 
             migrationBuilder.DeleteData(
                 table: "DogTypes",
                 keyColumn: "Id",
-                keyValue: "38e4bde4713b44c7857c238faee8b17e");
+                keyValue: "3e742350d1a342bb98abb9afd02a33aa");
 
             migrationBuilder.DeleteData(
                 table: "DogTypes",
                 keyColumn: "Id",
-                keyValue: "e4d84a1b04564b1eac93686da5ed3891");
+                keyValue: "addef8a118ea4285ab68a26583ba089a");
 
             migrationBuilder.DeleteData(
                 table: "DogTypes",
                 keyColumn: "Id",
-                keyValue: "fe95dc1803a945a68a16368ee20bb11c");
+                keyValue: "db92a74d1bca4738afa4d775b7f57aa4");
 
             migrationBuilder.InsertData(
                 table: "Categories",
