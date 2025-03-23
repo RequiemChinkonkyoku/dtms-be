@@ -15,7 +15,7 @@ namespace Models.DTOs.Certification
         public DateTime UploadTime { get; set; }
         public string ImageUrl { get; set; }
 
-        public string TrainerProfileId { get; set; }
+        public string TrainerId { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
     }
