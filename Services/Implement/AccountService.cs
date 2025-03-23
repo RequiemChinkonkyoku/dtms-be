@@ -32,6 +32,7 @@ public class AccountService : IAccountService
 
         var responses = accounts.Select(account => new AllAccountsResponse
         {
+            Id = account.Id,
             Username = account.Username,
             Email = account.Email,
             // Password = account.Password, 
@@ -51,6 +52,15 @@ public class AccountService : IAccountService
         return responses;
     }
 
+    public async Task<Account> GetAccountById(string id)
+    {
+        var account = await _unitOfWork.Accounts.GetById(id);
+
+        if (account == null)
+            throw new KeyNotFoundException("Account not found.");
+
+        return account;
+    }
 
     public async Task<Account> CreateNewAccount(CreateAccountRequest request)
     {
