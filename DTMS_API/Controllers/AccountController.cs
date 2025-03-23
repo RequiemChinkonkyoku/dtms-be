@@ -24,6 +24,24 @@ public class AccountController : ControllerBase
         var response = await _accountService.GetAllAccounts();
         return Ok(response);
     }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAccountById(string id)
+    {
+        try
+        {
+            var account = await _accountService.GetAccountById(id);
+            return Ok(account);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+        }
+    }
 
     [HttpPost]
     public async Task<IActionResult> CreateNewAccount(CreateAccountRequest request)
