@@ -66,16 +66,27 @@ namespace Services.Implement
                 throw new ArgumentException("TrainerProfileId is required.");
             }
 
-            var trainerProfileId = await _unitOfWork.TrainerProfiles.GetById(createCertificationRequest.TrainerProfileId);
+            var trainerProfileId = await _unitOfWork.Accounts.GetById(createCertificationRequest.TrainerProfileId);
             if (trainerProfileId == null)
             {
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+
+            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfileId.RoleId);
+            if (trainerRole == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+            if (trainerRole.Name != "Trainer_Member" && trainerRole.Name != "Trainer_Lead")
+            {
+                throw new ArgumentException("TrainerProfileId is not a trainer.");
             }
 
             var certification = _mapper.Map<Certifications>(createCertificationRequest);
 
             certification.Status = 1;
             certification.UploadTime = DateTime.UtcNow;
+            certification.TrainerId = createCertificationRequest.TrainerProfileId;
 
             await _unitOfWork.Certifications.Add(certification);
             await _unitOfWork.SaveChanges();
@@ -99,15 +110,26 @@ namespace Services.Implement
                 throw new ArgumentException("TrainerProfileId is required.");
             }
 
-            var trainerProfileId = await _unitOfWork.TrainerProfiles.GetById(request.TrainerProfileId);
+            var trainerProfileId = await _unitOfWork.Accounts.GetById(request.TrainerProfileId);
             if (trainerProfileId == null)
             {
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
             }
 
+            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfileId.RoleId);
+            if (trainerRole == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+            if (trainerRole.Name != "Trainer_Member" && trainerRole.Name != "Trainer_Lead")
+            {
+                throw new ArgumentException("TrainerProfileId is not a trainer.");
+            }
+
             _mapper.Map(request, existingCertification);
 
             existingCertification.LastUpdatedTime = DateTime.UtcNow;
+            existingCertification.TrainerId = request.TrainerProfileId;
 
             _unitOfWork.Certifications.Update(existingCertification);
             await _unitOfWork.SaveChanges();

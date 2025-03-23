@@ -52,12 +52,22 @@ namespace Services.Implement
                 throw new ArgumentException("TrainerProfileId and CustomerProfileId are required.");
             }
 
-            var trainerProfileId = await _unitOfWork.TrainerProfiles.GetById(createTrainerReportRequest.TrainerProfileId);
-            var customerProfileId = await _unitOfWork.CustomerProfiles.GetById(createTrainerReportRequest.CustomerProfileId);
+            var trainerProfileId = await _unitOfWork.Accounts.GetById(createTrainerReportRequest.TrainerProfileId);
+            var customerProfileId = await _unitOfWork.Accounts.GetById(createTrainerReportRequest.CustomerProfileId);
 
             if (trainerProfileId == null)
             {
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+
+            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfileId.RoleId);
+            if (trainerRole == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+            if (trainerRole.Name != "Trainer_Member" && trainerRole.Name != "Trainer_Lead")
+            {
+                throw new ArgumentException("TrainerProfileId is not a trainer.");
             }
 
             if (customerProfileId == null)
@@ -65,7 +75,21 @@ namespace Services.Implement
                 throw new KeyNotFoundException("CustomerProfileId is not valid.");
             }
 
+            var customerRole = await _unitOfWork.Roles.GetById(customerProfileId.RoleId);
+            if (customerRole == null)
+            {
+                throw new KeyNotFoundException("CustomerProfileId is not valid.");
+            }
+            if (customerRole.Name != "Customer_Individual" && customerRole.Name != "Customer_Organizational")
+            {
+                throw new ArgumentException("CustomerProfileId is not a customer.");
+            }
+
             var report = _mapper.Map<TrainerReport>(createTrainerReportRequest);
+
+            report.TrainerId = createTrainerReportRequest.TrainerProfileId;
+            report.CustomerId = createTrainerReportRequest.CustomerProfileId;
+
             await _unitOfWork.TrainerReports.Add(report);
             await _unitOfWork.SaveChanges();
 
@@ -88,12 +112,22 @@ namespace Services.Implement
                 throw new ArgumentException("TrainerProfileId and CustomerProfileId are required.");
             }
 
-            var trainerProfile = await _unitOfWork.TrainerProfiles.GetById(request.TrainerProfileId);
-            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
+            var trainerProfile = await _unitOfWork.Accounts.GetById(request.TrainerProfileId);
+            var customerProfile = await _unitOfWork.Accounts.GetById(request.CustomerProfileId);
 
             if (trainerProfile == null)
             {
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+
+            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfile.RoleId);
+            if (trainerRole == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+            if (trainerRole.Name != "Trainer_Member" && trainerRole.Name != "Trainer_Lead")
+            {
+                throw new ArgumentException("TrainerProfileId is not a trainer.");
             }
 
             if (customerProfile == null)
@@ -101,9 +135,21 @@ namespace Services.Implement
                 throw new KeyNotFoundException("CustomerProfileId is not valid.");
             }
 
+            var customerRole = await _unitOfWork.Roles.GetById(customerProfile.RoleId);
+            if (customerRole == null)
+            {
+                throw new KeyNotFoundException("CustomerProfileId is not valid.");
+            }
+            if (customerRole.Name != "Customer_Individual" && customerRole.Name != "Customer_Organizational")
+            {
+                throw new ArgumentException("CustomerProfileId is not a customer.");
+            }
+
             _mapper.Map(request, existingReport);
 
             existingReport.LastUpdatedTime = DateTime.UtcNow;
+            existingReport.TrainerId = request.TrainerProfileId;
+            existingReport.CustomerId = request.CustomerProfileId;
 
             _unitOfWork.TrainerReports.Update(existingReport);
             await _unitOfWork.SaveChanges();

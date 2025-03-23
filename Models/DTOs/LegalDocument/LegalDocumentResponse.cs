@@ -14,7 +14,7 @@ namespace Models.DTOs.LegalDocument
         public int Status { get; set; }
         public DateTime UploadTime { get; set; }
         public string ImageUrl { get; set; }
-        public string CustomerProfileId { get; set; }
+        public string CustomerId { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
     }

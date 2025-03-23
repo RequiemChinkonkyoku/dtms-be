@@ -1,16 +1,9 @@
 ﻿using AutoMapper;
-using CloudinaryDotNet;
 using Models.DTOs;
 using Models.DTOs.Blog;
-using Models.DTOs.Certification;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implement
 {
@@ -65,16 +58,27 @@ namespace Services.Implement
                 throw new ArgumentException("StaffProfileId is required.");
             }
 
-            var staffProfileId = await _unitOfWork.StaffProfiles.GetById(createBlogRequest.StaffProfileId);
+            var staffProfileId = await _unitOfWork.Accounts.GetById(createBlogRequest.StaffProfileId);
             if (staffProfileId == null)
             {
                 throw new KeyNotFoundException("StaffProfileId is not valid.");
+            }
+
+            var staffRole = await _unitOfWork.Roles.GetById(staffProfileId.RoleId);
+            if (staffRole == null)
+            {
+                throw new KeyNotFoundException("StaffProfileId is not valid.");
+            }
+            if (staffRole.Name != "Staff_Manager" && staffRole.Name != "Staff_Employee")
+            {
+                throw new ArgumentException("StaffProfileId is not a staff.");
             }
 
             var blog = _mapper.Map<Blog>(createBlogRequest);
 
             blog.Status = 1;
             blog.TimePublished = DateTime.UtcNow;
+            blog.StaffId = createBlogRequest.StaffProfileId;
 
             await _unitOfWork.Blogs.Add(blog);
             await _unitOfWork.SaveChanges();
@@ -97,15 +101,26 @@ namespace Services.Implement
                 throw new ArgumentException("StaffProfileId is required.");
             }
 
-            var staffProfileId = await _unitOfWork.StaffProfiles.GetById(request.StaffProfileId);
+            var staffProfileId = await _unitOfWork.Accounts.GetById(request.StaffProfileId);
             if (staffProfileId == null)
             {
                 throw new KeyNotFoundException("StaffProfileId is not valid.");
             }
 
+            var staffRole = await _unitOfWork.Roles.GetById(staffProfileId.RoleId);
+            if (staffRole == null)
+            {
+                throw new KeyNotFoundException("StaffProfileId is not valid.");
+            }
+            if (staffRole.Name != "Staff_Manager" && staffRole.Name != "Staff_Employee")
+            {
+                throw new ArgumentException("StaffProfileId is not a staff.");
+            }
+
             _mapper.Map(request, existingBlog);
 
             existingBlog.LastUpdatedTime = DateTime.UtcNow;
+            existingBlog.StaffId = request.StaffProfileId;
 
             _unitOfWork.Blogs.Update(existingBlog);
             await _unitOfWork.SaveChanges();
