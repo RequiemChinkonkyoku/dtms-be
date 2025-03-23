@@ -9,7 +9,7 @@ namespace Models.DTOs
     public class UpdateDogOwnershipRequest
     {
         public string DogId { get; set; }
-        public string CustomerProfileId { get; set; }
+        public string CustomerId { get; set; }
         public DateOnly FromDate { get; set; }
     }
 }

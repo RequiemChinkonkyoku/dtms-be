@@ -11,8 +11,8 @@ namespace Models.Entities
         public DateOnly FromDate { get; set; }
         public DateOnly? ToDate { get; set; }
 
-        public string CustomerProfileId { get; set; }
-        public CustomerProfile CustomerProfile { get; set; }
+        public string CustomerId { get; set; }
+        public Account Customer { get; set; }
 
         public string DogId { get; set; }
         public Dog Dog { get; set; }

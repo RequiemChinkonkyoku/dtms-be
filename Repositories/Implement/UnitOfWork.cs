@@ -19,7 +19,6 @@ public class UnitOfWork : IUnitOfWork
     public IChatRepository Chats { get; }
     public IClassRepository Classes { get; }
     public ILessonEquipmentRepository LessonEquipments { get; }
-    public ISlotLessonRepository SlotLessons { get; }
     public ICourseRepository Courses { get; }
     public ICustomerProfileRepository CustomerProfiles { get; }
     public ICustomerRoleRepository CustomerRoles { get; }
@@ -58,6 +57,7 @@ public class UnitOfWork : IUnitOfWork
     public ICourseDogRepository CourseDogs { get; }
     public IDogOwnershipRepository DogOwnerships { get; }
     public IPretestRepository Pretests { get; }
+    public IRoleRepository Roles { get; }
 
     public UnitOfWork(IAccountRepository accountRepository,
                       IAttendanceRepository attendanceRepository,
@@ -72,7 +72,6 @@ public class UnitOfWork : IUnitOfWork
                       IClassRepository classRepository,
                       ICourseRepository courseRepository,
                       ILessonEquipmentRepository lessonEquipmentRepository,
-                      ISlotLessonRepository slotLessonRepository,
                       ICustomerProfileRepository customerProfileRepository,
                       ICustomerRoleRepository customerRoleRepository,
                       IDogCertificateRepository dogCertificateRepository,
@@ -110,7 +109,8 @@ public class UnitOfWork : IUnitOfWork
                       ICourseLessonRepository courseLessonRepository,
                       ICourseDogRepository courseDogRepository,
                       IDogOwnershipRepository dogOwnershipRepository,
-                      IPretestRepository pretestRepository)
+                      IPretestRepository pretestRepository,
+                      IRoleRepository roleRepository)
                                                         
     {
         _dbContext = new DtmsDbContext();
@@ -127,7 +127,6 @@ public class UnitOfWork : IUnitOfWork
         Classes = classRepository;
         Courses = courseRepository;
         LessonEquipments = lessonEquipmentRepository;
-        SlotLessons = slotLessonRepository;
         CustomerProfiles = customerProfileRepository;
         CustomerRoles = customerRoleRepository;
         DogCertificates = dogCertificateRepository;
@@ -166,6 +165,7 @@ public class UnitOfWork : IUnitOfWork
         CourseDogs = courseDogRepository;
         DogOwnerships = dogOwnershipRepository;
         Pretests = pretestRepository;
+        Roles = roleRepository;
     }
 
     public async Task SaveChanges()

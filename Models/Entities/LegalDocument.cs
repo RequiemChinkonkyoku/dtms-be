@@ -8,6 +8,6 @@ public class LegalDocument : BaseEntity
     public DateTime UploadTime { get; set; }
     public string ImageUrl { get; set; }
     
-    public string CustomerProfileId { get; set; }
-    public CustomerProfile CustomerProfile { get; set; }
+    public string CustomerId { get; set; }
+    public Account Customer { get; set; }
 }

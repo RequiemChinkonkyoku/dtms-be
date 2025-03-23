@@ -5,6 +5,6 @@ namespace Services.Interface
 {
     public interface ITrainerProfileService
     {
-        Task<TrainerProfileResponse> GetTrainerProfile(string accountId);
+        // Task<TrainerProfileResponse> GetTrainerProfile(string accountId);
     }
 }

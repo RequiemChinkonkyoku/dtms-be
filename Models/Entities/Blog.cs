@@ -8,6 +8,6 @@ public class Blog : BaseEntity
     public int Status { get; set; }
     public DateTime TimePublished { get; set; }
     
-    public string StaffProfileId { get; set; }
-    public StaffProfile StaffProfile { get; set; }
+    public string StaffId { get; set; }
+    public Account Staff { get; set; }
 }

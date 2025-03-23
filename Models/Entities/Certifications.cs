@@ -8,6 +8,6 @@ public class Certifications : BaseEntity
     public DateTime UploadTime { get; set; }
     public string ImageUrl { get; set; }
     
-    public string TrainerProfileId { get; set; }
-    public TrainerProfile TrainerProfile { get; set; }
+    public string TrainerId { get; set; }
+    public Account Trainer { get; set; }
 }

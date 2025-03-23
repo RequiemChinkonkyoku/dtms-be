@@ -29,7 +29,6 @@ public static class ServiceExtension
         services.AddScoped<IClassRepository, ClassRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ILessonEquipmentRepository, LessonEquipmentRepository>();
-        services.AddScoped<ISlotLessonRepository, SlotLessonRepository>();
         services.AddScoped<ICustomerProfileRepository, CustomerProfileRepository>();
         services.AddScoped<ICustomerRoleRepository, CustomerRoleRepository>();
         services.AddScoped<IDogRepository, DogRepository>();
@@ -67,6 +66,7 @@ public static class ServiceExtension
         services.AddScoped<ICourseDogRepository, CourseDogRepository>();
         services.AddScoped<IDogOwnershipRepository, DogOwnershipRepository>();
         services.AddScoped<IPretestRepository, PretestRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IAttendanceService, AttendanceService>();
@@ -81,7 +81,6 @@ public static class ServiceExtension
         services.AddScoped<IClassService, ClassService>();
         services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<ILessonEquipmentService, LessonEquipmentService>();
-        services.AddScoped<ISlotLessonService, SlotLessonService>();
         services.AddScoped<ICustomerProfileService, CustomerProfileService>();
         services.AddScoped<ICustomerRoleService, CustomerRoleService>();
         services.AddScoped<IDogService, DogService>();
@@ -115,6 +114,7 @@ public static class ServiceExtension
         services.AddScoped<ITrainingReportService, TrainingReportService>();
         services.AddScoped<IWishListService, WishListService>();
         services.AddScoped<IDogOwnershipsService, DogOwnershipsService>();
+        services.AddScoped<IRoleService, RoleService>();
 
         services.AddSignalR();
 

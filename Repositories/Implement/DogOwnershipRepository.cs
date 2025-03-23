@@ -19,7 +19,7 @@ namespace Repositories.Implement
                 .AsSplitQuery()  
                 .Include(o => o.Dog)  
                     .ThenInclude(d => d.DogBreed) 
-                .Include(o => o.CustomerProfile)  
+                .Include(o => o.Customer)  
                 .ToListAsync();
 
             return ownerships;
@@ -31,7 +31,7 @@ namespace Repositories.Implement
                 .AsSplitQuery()
                 .Include(o => o.Dog)
                     .ThenInclude(d => d.DogBreed)
-                .Include(o => o.CustomerProfile)
+                .Include(o => o.Customer)
                 .FirstOrDefaultAsync(o => o.Id == id);
         }
 

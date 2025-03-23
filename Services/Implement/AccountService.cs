@@ -30,77 +30,45 @@ public class AccountService : IAccountService
     {
         var accounts = await _unitOfWork.Accounts.GetAll();
 
-        var responses = new List<AllAccountsResponse>();
-
-        foreach (var account in accounts)
+        var responses = accounts.Select(account => new AllAccountsResponse
         {
-            var response = new AllAccountsResponse
-            {
-                Id = account.Id.ToString(),
-                CreatedTime = account.CreatedTime,
-                LastUpdatedTime = account.LastUpdatedTime,
-                Username = account.Username,
-                Email = account.Email,
-                Status = account.Status,
-                ProfileType = account.ProfileType
-            };
-
-            // Fetch profile data based on ProfileType
-            switch (account.ProfileType)
-            {
-                case 1: // Customer Profile
-                    var customerProfiles = await _unitOfWork.CustomerProfiles
-                        .GetAll();
-                    var customerProfile = customerProfiles.FirstOrDefault(cp => cp.AccountId == account.Id);
-                    if (customerProfile != null)
-                    {
-                        response.FullName = customerProfile.FullName;
-                        response.PhoneNumber = customerProfile.PhoneNumber;
-                    }
-
-                    break;
-
-                case 2: // Trainer Profile
-                    var trainerProfiles = await _unitOfWork.TrainerProfiles
-                        .GetAll();
-                    var trainerProfile = trainerProfiles.FirstOrDefault(tp => tp.AccountId == account.Id);
-                    if (trainerProfile != null)
-                    {
-                        response.FullName = trainerProfile.FullName;
-                        response.PhoneNumber = trainerProfile.PhoneNumber;
-                    }
-
-                    break;
-
-                case 3: // Staff Profile
-                    var staffProfiles = await _unitOfWork.StaffProfiles
-                        .GetAll();
-                    var staffProfile = staffProfiles.FirstOrDefault(sp => sp.AccountId == account.Id);
-                    if (staffProfile != null)
-                    {
-                        response.FullName = staffProfile.FullName;
-                        response.PhoneNumber = staffProfile.PhoneNumber;
-                    }
-
-                    break;
-            }
-
-            responses.Add(response);
-        }
+            Username = account.Username,
+            Email = account.Email,
+            // Password = account.Password, 
+            ImageUrl = account.ImageUrl,
+            Status = account.Status,
+            RegistrationTime = account.RegistrationTime,
+            FullName = account.FullName,
+            PhoneNumber = account.PhoneNumber,
+            Address = account.Address,
+            DateOfBirth = account.DateOfBirth,
+            Gender = account.Gender,
+            MembershipPoints = account.MembershipPoints,
+            RoleId = account.RoleId,
+            MembershipId = account.MembershipId,
+        }).ToList();
 
         return responses;
     }
+
 
     public async Task<Account> CreateNewAccount(CreateAccountRequest request)
     {
         try
         {
-            if (request.ProfileType < 1 || request.ProfileType > 3)
-                throw new ArgumentException("Invalid ProfileType. Must be 1 (Customer), 2 (Trainer), or 3 (Staff).");
+            // Validate Role Name
+            var roles = await _unitOfWork.Roles.GetAll();
+            var role = roles.FirstOrDefault(r => r.Name == request.RoleName);
+            if (role == null)
+            {
+                throw new InvalidOperationException("Invalid RoleName. No matching role found.");
+            }
 
+            // Hash password before saving
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
-            var account = new Account()
+            // Create the account entity
+            var account = new Models.Entities.Account()
             {
                 Email = request.Email,
                 Password = passwordHash,
@@ -110,66 +78,18 @@ public class AccountService : IAccountService
                 RegistrationTime = DateTime.UtcNow,
                 CreatedTime = DateTime.UtcNow,
                 LastUpdatedTime = DateTime.UtcNow,
-                ProfileType = request.ProfileType
+                FullName = request.FullName,
+                PhoneNumber = request.PhoneNumber,
+                Address = request.Address,
+                DateOfBirth = request.DateOfBirth,
+                Gender = request.Gender,
+                RoleId = role.Id, 
+                MembershipId = "8012856c6cc045cea011acf51b60227d"
             };
 
             await _unitOfWork.Accounts.Add(account);
             await _unitOfWork.SaveChanges();
 
-            // Create the associated profile based on ProfileType
-            switch (request.ProfileType)
-            {
-                case 1: // Customer
-                    var customerProfile = new CustomerProfile()
-                    {
-                        AccountId = account.Id,
-                        FullName = request.FullName,
-                        PhoneNumber = request.PhoneNumber,
-                        Address = request.Address,
-                        DateOfBirth = request.DateOfBirth,
-                        Gender = request.Gender,
-                        MembershipPoints = 0,
-                        MembershipId = "08826fe6-0033-4776-987c-f37e8367f95a", //hardcoded for testing
-                        CustomerRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
-                    };
-                    await _unitOfWork.CustomerProfiles.Add(customerProfile);
-                    break;
-
-                case 2: // Trainer
-                    var trainerProfile = new TrainerProfile()
-                    {
-                        AccountId = account.Id,
-                        FullName = request.FullName,
-                        PhoneNumber = request.PhoneNumber,
-                        Address = request.Address,
-                        DateOfBirth = request.DateOfBirth,
-                        Gender = request.Gender,
-                        EmploymentType = 1,
-                        DateOfHire = DateTime.Today,
-                        EmploymentStatus = 1,
-                        TrainerRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
-                    };
-                    await _unitOfWork.TrainerProfiles.Add(trainerProfile);
-                    break;
-
-                case 3: // Staff
-                    var staffProfile = new StaffProfile()
-                    {
-                        AccountId = account.Id,
-                        FullName = request.FullName,
-                        PhoneNumber = request.PhoneNumber,
-                        Address = request.Address,
-                        DateOfBirth = request.DateOfBirth,
-                        Gender = request.Gender,
-                        EmploymentType = 0, // Default value
-                        DateOfHire = DateTime.UtcNow,
-                        StaffRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
-                    };
-                    await _unitOfWork.StaffProfiles.Add(staffProfile);
-                    break;
-            }
-
-            await _unitOfWork.SaveChanges();
             return account;
         }
         catch (Exception ex)
@@ -179,7 +99,6 @@ public class AccountService : IAccountService
             throw new HttpRequestException("Failed to create an account", ex);
         }
     }
-
 
     public async Task<string> Login(AccountLoginRequest request)
     {
@@ -200,7 +119,7 @@ public class AccountService : IAccountService
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, account.Id.ToString()),
-                    new Claim(ClaimTypes.Role, account.ProfileType.ToString()),
+                    new Claim(ClaimTypes.Role, account.RoleId.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(90),
                 Issuer = config["Jwt:Issuer"],
@@ -236,21 +155,24 @@ public class AccountService : IAccountService
         return null;
     }
 
-    public async Task<Account> Register(AccountRegisterRequest request)
+    public async Task<Account> Register(AccountRegisterRequest request) 
     {
         try
         {
-            var accounts = await _unitOfWork.Accounts.GetAll();
             // Check if the email or username already exists
-            var existingAccount = accounts.FirstOrDefault(a =>
-                a.Email == request.Email || a.Username == request.Username);
+            var accounts = await _unitOfWork.Accounts.GetAll();
+            var existingAccount = accounts.FirstOrDefault
+                (a => a.Email == request.Email || a.Username == request.Username);
+
             if (existingAccount != null)
             {
                 throw new InvalidOperationException("An account with this email or username already exists.");
             }
 
+            // Hash the password
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
+            // Create new account
             var account = new Account()
             {
                 Email = request.Email,
@@ -261,28 +183,22 @@ public class AccountService : IAccountService
                 RegistrationTime = DateTime.UtcNow,
                 CreatedTime = DateTime.UtcNow,
                 LastUpdatedTime = DateTime.UtcNow,
-                ProfileType = 1
-            };
-
-            await _unitOfWork.Accounts.Add(account);
-            await _unitOfWork.SaveChanges();
-            
-            var customerProfile = new CustomerProfile()
-            {
-                AccountId = account.Id,
                 FullName = request.FullName,
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address,
                 DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
                 MembershipPoints = 0,
-                MembershipId = "08826fe6-0033-4776-987c-f37e8367f95a", //hardcoded for testing
-                CustomerRoleId = "6b6beed1-86f4-4dc1-b520-bb343e832029" //hardcoded for testing
+                MembershipId = "8012856c6cc045cea011acf51b60227d", // Hardcoded membership ID
+                RoleId = "dd17f217736e46f6ab93912f4d4bbe76" // Hardcoded role ID
             };
-            await _unitOfWork.CustomerProfiles.Add(customerProfile);
+
+            await _unitOfWork.Accounts.Add(account);
             await _unitOfWork.SaveChanges();
-            
+
+            // Send OTP for email verification
             await SendOtpAsync(account.Email);
+
             return account;
         }
         catch (Exception ex)
@@ -291,6 +207,7 @@ public class AccountService : IAccountService
             throw;
         }
     }
+
 
     private string SendEmailAsync(string _to, string _subject, string name, string otpCode)
     {

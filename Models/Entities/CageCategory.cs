@@ -10,8 +10,10 @@ namespace Models.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Size { get; set; }
         public int Status { get; set; }
+
+        public string? DogTypeId { get; set; }
+        public DogType DogType { get; set; }
 
         public ICollection<Cage> Cages { get; set; }
     }

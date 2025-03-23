@@ -3,7 +3,7 @@ namespace Models.Entities;
 public class Enrollment : BaseEntity
 {
     public int Status { get; set; }
-    public int RequiedNightStay { get; set; }
+    public bool RequiedNightStay { get; set; }
 
     public string ClassId { get; set; }
     public Class Class { get; set; }
@@ -16,4 +16,9 @@ public class Enrollment : BaseEntity
 
     public string PaymentId { get; set; }
     public Payment Payment { get; set; }
+    
+    public string StaffId { get; set; }
+    public Account Staff { get; set; }
+
+    public ICollection<TrainingReport> TrainingReports { get; set; }
 }

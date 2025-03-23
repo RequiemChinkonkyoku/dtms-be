@@ -1,5 +1,3 @@
-using System.Reflection.Metadata;
-using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models.Entities;
@@ -71,7 +69,6 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<Chat> Chats { get; set; }
     public virtual DbSet<Notification> Notifications { get; set; }
     public virtual DbSet<CageCategory> CageCategories { get; set; }
-    public virtual DbSet<SlotLesson> SlotLessons { get; set; }
     public virtual DbSet<LessonEquipment> LessonEquipments { get; set; }
     public virtual DbSet<EquipmentCategory> EquipmentCategories { get; set; }
     public virtual DbSet<DogBreed> DogBreeds { get; set; }
@@ -81,15 +78,18 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<CourseDog> CourseDogs { get; set; }
     public virtual DbSet<DogOwnership> DogOwnerships { get; set; }
     public virtual DbSet<PreTest> PreTests { get; set; }
+    public virtual DbSet<DogType> DogTypes { get; set; }
+    
+    public virtual DbSet<Models.Entities.Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<CustomerProfile>()
-            .HasOne(cp => cp.Membership) // One CustomerProfile has one Membership
-            .WithMany(m => m.CustomerProfiles) // One Membership can have many CustomerProfiles
-            .HasForeignKey(cp => cp.MembershipId) // Foreign key in CustomerProfile
+        modelBuilder.Entity<Account>()
+            .HasOne(m => m.Membership) // One CustomerProfile has one Membership
+            .WithMany(a => a.Accounts) // One Membership can have many CustomerProfiles
+            .HasForeignKey(m => m.MembershipId) // Foreign key in CustomerProfile
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
         modelBuilder.Entity<Payment>()
@@ -117,39 +117,27 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<LegalDocument>()
-            .HasOne(dd => dd.CustomerProfile)
+            .HasOne(dd => dd.Customer)
             .WithMany(d => d.LegalDocuments)
-            .HasForeignKey(dd => dd.CustomerProfileId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<StaffProfile>()
-            .HasOne(dd => dd.StaffRole)
-            .WithMany(d => d.StaffProfiles)
-            .HasForeignKey(dd => dd.StaffRoleId)
+            .HasForeignKey(dd => dd.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Blog>()
-            .HasOne(dd => dd.StaffProfile)
+            .HasOne(dd => dd.Staff)
             .WithMany(d => d.Blogs)
-            .HasForeignKey(dd => dd.StaffProfileId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<TrainerProfile>()
-            .HasOne(dd => dd.TrainerRole)
-            .WithMany(d => d.TrainerProfiles)
-            .HasForeignKey(dd => dd.TrainerRoleId)
+            .HasForeignKey(dd => dd.StaffId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Certifications>()
-            .HasOne(dd => dd.TrainerProfile)
+            .HasOne(dd => dd.Trainer)
             .WithMany(d => d.Certifications)
-            .HasForeignKey(dd => dd.TrainerProfileId)
+            .HasForeignKey(dd => dd.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainerSkill>()
-            .HasOne(dd => dd.TrainerProfile)
+            .HasOne(dd => dd.Trainer)
             .WithMany(d => d.TrainerSkills)
-            .HasForeignKey(dd => dd.TrainerProfileId)
+            .HasForeignKey(dd => dd.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainerSkill>()
@@ -171,21 +159,9 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Course>()
-            .HasOne(dd => dd.CreatedTrainerProfile)
+            .HasOne(dd => dd.Trainer)
             .WithMany(d => d.Courses)
             .HasForeignKey(dd => dd.CreatedTrainerId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<SlotLesson>()
-            .HasOne(dd => dd.Slot)
-            .WithMany(d => d.SlotLessons)
-            .HasForeignKey(dd => dd.SlotId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<SlotLesson>()
-            .HasOne(dd => dd.Lesson)
-            .WithMany(d => d.SlotLessons)
-            .HasForeignKey(dd => dd.LessonId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Prerequisite>()
@@ -201,9 +177,9 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
 
         modelBuilder.Entity<TrainerSpecialization>()
-            .HasOne(tsp => tsp.TrainerProfile)
+            .HasOne(tsp => tsp.Trainer)
             .WithMany(tp => tp.TrainerSpecializations)
-            .HasForeignKey(tsp => tsp.TrainerProfileId)
+            .HasForeignKey(tsp => tsp.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainerSpecialization>()
@@ -219,9 +195,9 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainerAssignment>()
-            .HasOne(ta => ta.TrainerProfile)
+            .HasOne(ta => ta.Trainer)
             .WithMany(tp => tp.TrainerAssignments)
-            .HasForeignKey(ta => ta.TrainerProfileId)
+            .HasForeignKey(ta => ta.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainerAssignment>()
@@ -243,9 +219,9 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Availability>()
-            .HasOne(av => av.TrainerProfile)
+            .HasOne(av => av.Trainer)
             .WithMany(tp => tp.Availabilities)
-            .HasForeignKey(av => av.TrainerProfileId)
+            .HasForeignKey(av => av.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Availability>()
@@ -309,9 +285,9 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Attendance>()
-            .HasOne(a => a.Class)
+            .HasOne(a => a.Slot)
             .WithMany(a => a.Attendances)
-            .HasForeignKey(a => a.ClassId)
+            .HasForeignKey(a => a.SlotId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ProgressReport>()
@@ -321,39 +297,39 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ProgressReport>()
-            .HasOne(pr => pr.TrainerProfile)
+            .HasOne(pr => pr.Trainer)
             .WithMany(t => t.ProgressReports)
-            .HasForeignKey(pr => pr.TrainerProfileId)
+            .HasForeignKey(pr => pr.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainingReport>()
-            .HasOne(tr => tr.Dog)
+            .HasOne(tr => tr.Enrollment)
             .WithMany(d => d.TrainingReports)
-            .HasForeignKey(tr => tr.DogId)
+            .HasForeignKey(tr => tr.EnrollmentId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainingReport>()
-            .HasOne(tr => tr.TrainerProfile)
+            .HasOne(tr => tr.Trainer)
             .WithMany(t => t.TrainingReports)
-            .HasForeignKey(tr => tr.TrainerProfileId)
+            .HasForeignKey(tr => tr.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainerReport>()
-            .HasOne(tp => tp.TrainerProfile)
-            .WithMany(t => t.TrainerReports)
-            .HasForeignKey(tr => tr.TrainerProfileId)
+            .HasOne(tr => tr.Trainer)
+            .WithMany(a => a.TrainerReportsAsTrainer) // Use the new collection
+            .HasForeignKey(tr => tr.TrainerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<TrainerReport>()
-            .HasOne(tp => tp.CustomerProfile)
-            .WithMany(c => c.TrainerReports)
-            .HasForeignKey(tr => tr.CustomerProfileId)
+            .HasOne(tr => tr.Customer)
+            .WithMany(a => a.TrainerReportsAsCustomer) // Use the new collection
+            .HasForeignKey(tr => tr.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<WishList>()
-            .HasOne(w => w.CustomerProfile)
+            .HasOne(w => w.Customer)
             .WithMany(c => c.WishLists)
-            .HasForeignKey(tr => tr.CustomerProfileId)
+            .HasForeignKey(tr => tr.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<WishList>()
@@ -401,12 +377,6 @@ public class DtmsDbContext : DbContext
             .HasForeignKey(d => d.DogBreedId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<CustomerProfile>()
-            .HasOne(cp => cp.CustomerRole)
-            .WithMany(cr => cr.CustomerProfiles)
-            .HasForeignKey(cp => cp.CustomerRoleId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         modelBuilder.Entity<AccountOtp>()
             .HasOne(u => u.Account)
             .WithMany(r => r.AccountOtps)
@@ -438,9 +408,9 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<DogOwnership>()
-            .HasOne(dd => dd.CustomerProfile)
+            .HasOne(dd => dd.Customer)
             .WithMany(d => d.DogOwnerships)
-            .HasForeignKey(dd => dd.CustomerProfileId)
+            .HasForeignKey(dd => dd.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<DogOwnership>()
@@ -460,5 +430,38 @@ public class DtmsDbContext : DbContext
             .WithMany(d => d.PreTests)
             .HasForeignKey(dd => dd.ClassId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DogBreed>()
+            .HasOne(db => db.DogType)
+            .WithMany(dt => dt.DogBreeds)
+            .HasForeignKey(db => db.DogTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CageCategory>()
+            .HasOne(cc => cc.DogType)
+            .WithMany(dt => dt.CageCategories)
+            .HasForeignKey(cc => cc.DogTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Account>()
+            .HasOne(a => a.Role)
+            .WithMany(r => r.Accounts)
+            .HasForeignKey(a => a.RoleId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Payment>()
+            .HasOne(a => a.Customer)
+            .WithMany(r => r.Payments)
+            .HasForeignKey(a => a.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Enrollment>()
+            .HasOne(e => e.Staff)
+            .WithMany(d => d.Enrollments)
+            .HasForeignKey(e => e.StaffId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        //SEEDING DATA
+        modelBuilder.Seed();
     }
 }

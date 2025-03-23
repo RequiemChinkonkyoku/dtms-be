@@ -12,7 +12,7 @@ namespace Models.Entities
         public string ClassId { get; set; }
         public Class Class { get; set; }
 
-        public string TrainerProfileId { get; set; }
-        public TrainerProfile TrainerProfile { get; set; }
+        public string TrainerId { get; set; }
+        public Account Trainer { get; set; }
     }
 }

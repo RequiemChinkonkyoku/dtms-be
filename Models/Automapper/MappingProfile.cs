@@ -49,24 +49,24 @@ namespace Models.Automapper
                     src.DogOwnerships != null && src.DogOwnerships.Any() ?
                     src.DogOwnerships
                         .Where(ownership => ownership.ToDate == null)
-                        .Select(ownership => ownership.CustomerProfile.FullName)
+                        .Select(ownership => ownership.Customer.FullName)
                         .FirstOrDefault() : "No Owner"))
                 .ForMember(dest => dest.CustomerProfileId, opt => opt.MapFrom(src =>
                     src.DogOwnerships != null && src.DogOwnerships.Any() ?
                     src.DogOwnerships
                         .Where(ownership => ownership.ToDate == null)
-                        .Select(ownership => ownership.CustomerProfileId)
+                        .Select(ownership => ownership.CustomerId)
                         .FirstOrDefault() : null))
                 .ReverseMap();
             CreateMap<DogBreed, DogBreedResponse>()
                 .ForMember(dest => dest.DogNames, opt => opt.MapFrom(src => src.Dogs.Select(d => d.Name).ToList()))
                 .ReverseMap();
             CreateMap<DogOwnership, DogOwnershipResponse>()
-                .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => src.CustomerProfile.FullName))
+                .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => src.Customer.FullName))
                 .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
                 .ReverseMap();
             CreateMap<Course, CourseResponse>()
-                .ForMember(dest => dest.CreatedTrainerId, opt => opt.MapFrom(src => src.CreatedTrainerProfile.Id))
+                .ForMember(dest => dest.CreatedTrainerId, opt => opt.MapFrom(src => src.Trainer.Id))
                 .ForMember(dest => dest.CertificateId, opt => opt.MapFrom(src => src.Certificate.Id))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id))
                 .ForMember(dest => dest.PrerequisiteIds, opt => opt.MapFrom(src => src.Prerequisites.Select(p => p.PrerequisiteCourse.Id).ToList()))

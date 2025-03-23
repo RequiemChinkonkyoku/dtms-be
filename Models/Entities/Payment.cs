@@ -17,4 +17,7 @@ public class Payment : BaseEntity
 
     public string PaymentMethodId { get; set; } // Many-to-One
     public PaymentMethod PaymentMethod { get; set; }
+    
+    public string CustomerId { get; set; }
+    public Account Customer { get; set; }
 }

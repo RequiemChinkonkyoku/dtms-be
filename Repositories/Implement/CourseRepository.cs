@@ -15,7 +15,7 @@ namespace Repositories.Implement
         {
             return await _context.Courses
                 .AsSplitQuery()
-                .Include(c => c.CreatedTrainerProfile)
+                .Include(c => c.Trainer)
                 .Include(c => c.Category)
                 .Include(c => c.Certificate)
                 .Include(c => c.Prerequisites)
