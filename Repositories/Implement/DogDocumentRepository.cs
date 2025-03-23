@@ -17,6 +17,7 @@ namespace Repositories.Implement
                 .AsSplitQuery()
                 .Include(x => x.DogDocumentType)
                 .Include(x => x.Dog)
+                .ThenInclude(o => o.DogOwnerships)
                 .FirstOrDefaultAsync(x => x.Id == id);
             return result;
         }
@@ -27,6 +28,7 @@ namespace Repositories.Implement
                 .AsSplitQuery()
                 .Include (x => x.DogDocumentType)
                 .Include(x => x.Dog)
+                .ThenInclude(o => o.DogOwnerships)
                 .ToListAsync();
             return result;
         }
@@ -37,6 +39,7 @@ namespace Repositories.Implement
                 .AsSplitQuery()
                 .Include(x => x.DogDocumentType)
                 .Include(x => x.Dog)
+                    .ThenInclude(o => o.DogOwnerships)
                 .Where(x => x.DogId == dogId)
                 .ToListAsync();
 

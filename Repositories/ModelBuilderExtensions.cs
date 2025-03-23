@@ -24,5 +24,7 @@ public static class ModelBuilderExtensions
         Specialization.Seed(modelBuilder);
         TrainerSkill.Seed(modelBuilder);
         TrainerSpecialization.Seed(modelBuilder);
+        DogDocument.Seed(modelBuilder);
+        DogDocumentType.Seed(modelBuilder);
     }
 }
