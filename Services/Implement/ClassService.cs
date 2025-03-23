@@ -118,9 +118,9 @@ namespace Services.Implement
 
             foreach (var id in request.TrainerIds)
             {
-                var trainerProfile = await _unitOfWork.TrainerProfiles.GetById(id);
+                var trainerAccount = await _unitOfWork.Accounts.GetById(id);
 
-                if (trainerProfile == null)
+                if (trainerAccount == null)
                 {
                     return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find trainer with id " + id };
                 }
@@ -555,6 +555,45 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             return new BaseResponseDTO<Class> { Success = true };
+        }
+
+        public async Task<BaseResponseDTO<Class>> GetClassByCourseId(string id)
+        {
+            var course = await _unitOfWork.Courses.GetById(id);
+
+            if (course == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find course with id " + id };
+            }
+
+            var courseClasses = (await _unitOfWork.Classes.GetAll())
+                                            .Where(c => c.CourseId == id && c.Status == (int)ClassStatusEnum.Active)
+                                            .ToList();
+
+            if (!courseClasses.Any())
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "There are no active classes for the course." };
+            }
+
+            var result = new List<Class>();
+
+            foreach (var currentClass in courseClasses)
+            {
+                var classSlots = (await _unitOfWork.Slots.GetAll())
+                                            .Where(s => s.ClassId == currentClass.Id)
+                                            .ToList();
+
+                if (!classSlots.Any())
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "There are no slots for the class " + currentClass.Id };
+                }
+
+                currentClass.Slots = classSlots;
+
+                result.Add(currentClass);
+            }
+
+            return new BaseResponseDTO<Class> { Success = true, ObjectList = result };
         }
     }
 }

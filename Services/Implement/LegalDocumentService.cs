@@ -53,17 +53,28 @@ namespace Services.Implement
                 throw new ArgumentException("CustomerProfileId are required.");
             }
 
-            var customerProfileId = await _unitOfWork.CustomerProfiles.GetById(createLegalDocumentRequest.CustomerProfileId);
+            var customerProfileId = await _unitOfWork.Accounts.GetById(createLegalDocumentRequest.CustomerProfileId);
 
             if (customerProfileId == null)
             {
                 throw new KeyNotFoundException("CustomerProfileId is not valid.");
             }
 
+            var customerRole = await _unitOfWork.Roles.GetById(customerProfileId.RoleId);
+            if (customerRole == null)
+            {
+                throw new KeyNotFoundException("CustomerProfileId is not valid.");
+            }
+            if (customerRole.Name != "Customer_Individual" && customerRole.Name != "Customer_Organizational")
+            {
+                throw new ArgumentException("CustomerProfileId is not a customer.");
+            }
+
             var legalDocument = _mapper.Map<LegalDocument>(createLegalDocumentRequest);
 
             legalDocument.UploadTime = DateTime.UtcNow;
             legalDocument.Status = 1;
+            legalDocument.CustomerId = createLegalDocumentRequest.CustomerProfileId;
 
             await _unitOfWork.LegalDocuments.Add(legalDocument);
             await _unitOfWork.SaveChanges();
@@ -86,16 +97,27 @@ namespace Services.Implement
                 throw new ArgumentException("CustomerProfileId are required.");
             }
 
-            var customerProfileId = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
+            var customerProfileId = await _unitOfWork.Accounts.GetById(request.CustomerProfileId);
 
             if (customerProfileId == null)
             {
                 throw new KeyNotFoundException("CustomerProfileId is not valid.");
             }
 
+            var customerRole = await _unitOfWork.Roles.GetById(customerProfileId.RoleId);
+            if (customerRole == null)
+            {
+                throw new KeyNotFoundException("CustomerProfileId is not valid.");
+            }
+            if (customerRole.Name != "Customer_Individual" && customerRole.Name != "Customer_Organizational")
+            {
+                throw new ArgumentException("CustomerProfileId is not a customer.");
+            }
+
             _mapper.Map(request, existingLegalDocument);
 
             existingLegalDocument.LastUpdatedTime = DateTime.UtcNow;
+            existingLegalDocument.CustomerId = request.CustomerProfileId;
 
             _unitOfWork.LegalDocuments.Update(existingLegalDocument);
             await _unitOfWork.SaveChanges();

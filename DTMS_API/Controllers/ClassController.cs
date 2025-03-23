@@ -1,8 +1,10 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Models.DTOs;
 using Models.DTOs.Class;
+using Repositories.Migrations;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
@@ -41,25 +43,10 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateClass(CreateClassRequest request)
+        [HttpGet("get-classes-by-course-id/{id}")]
+        public async Task<IActionResult> GetClassByCourseId(string id)
         {
-            var response = await _classService.CreateClass(request);
-
-            if (response.Success)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClass(string id)
-        {
-            var response = await _classService.DeleteClass(id);
+            var response = await _classService.GetClassByCourseId(id);
 
             if (response.Success)
             {
@@ -86,10 +73,10 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateClass(UpdateClassRequest request)
+        [HttpPost]
+        public async Task<IActionResult> CreateClass(CreateClassRequest request)
         {
-            var response = await _classService.UpdateClass(request);
+            var response = await _classService.CreateClass(request);
 
             if (response.Success)
             {
@@ -105,6 +92,36 @@ namespace DTMS_API.Controllers
         public async Task<IActionResult> EnrollClass(EnrollClassRequest request)
         {
             var response = await _classService.EnrollClass(request);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateClass(UpdateClassRequest request)
+        {
+            var response = await _classService.UpdateClass(request);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteClass(string id)
+        {
+            var response = await _classService.DeleteClass(id);
 
             if (response.Success)
             {

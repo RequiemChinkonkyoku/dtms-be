@@ -15,7 +15,7 @@ namespace Models.DTOs.Blog
         public int Status { get; set; }
         public DateTime TimePublished { get; set; }
 
-        public string StaffProfileId { get; set; }
+        public string StaffId { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
     }
