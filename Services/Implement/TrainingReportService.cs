@@ -97,18 +97,18 @@ namespace Services.Implement
 
         public async Task<BaseResponseDTO<TrainingReportResponse>> CreateTrainingReportAsync(CreateTrainingReportRequest createTrainingReportRequest)
         {
-            if (string.IsNullOrWhiteSpace(createTrainingReportRequest.DogId) ||
+            if (string.IsNullOrWhiteSpace(createTrainingReportRequest.EnrollmentId) ||
             string.IsNullOrWhiteSpace(createTrainingReportRequest.TrainerProfileId))
             {
                 throw new ArgumentException("DogId and TrainerProfileId are required.");
             }
 
-            var dogId = await _unitOfWork.Dogs.GetById(createTrainingReportRequest.DogId);
-            var trainerProfileId = await _unitOfWork.CustomerProfiles.GetById(createTrainingReportRequest.TrainerProfileId);
+            var enrollmentId = await _unitOfWork.Enrollments.GetById(createTrainingReportRequest.EnrollmentId);
+            var trainerProfileId = await _unitOfWork.Accounts.GetById(createTrainingReportRequest.TrainerProfileId);
 
-            if (dogId == null)
+            if (enrollmentId == null)
             {
-                throw new KeyNotFoundException("DogId is not valid.");
+                throw new KeyNotFoundException("EnrollmentId is not valid.");
             }
 
             if (trainerProfileId == null)
@@ -116,7 +116,20 @@ namespace Services.Implement
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
             }
 
+            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfileId.RoleId);
+            if (trainerRole == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+            if (trainerRole.Name != "Trainer_Member" && trainerRole.Name != "Trainer_Lead")
+            {
+                throw new ArgumentException("TrainerProfileId is not a trainer.");
+            }
+
             var report = _mapper.Map<TrainingReport>(createTrainingReportRequest);
+
+            report.TrainerId = createTrainingReportRequest.TrainerProfileId;
+
             await _unitOfWork.TrainingReports.Add(report);
             await _unitOfWork.SaveChanges();
 
@@ -133,18 +146,18 @@ namespace Services.Implement
                 throw new KeyNotFoundException($"Training Report not found.");
             }
 
-            if (string.IsNullOrWhiteSpace(request.DogId) ||
+            if (string.IsNullOrWhiteSpace(request.EnrollmentId) ||
             string.IsNullOrWhiteSpace(request.TrainerProfileId))
             {
-                throw new ArgumentException("DogId and TrainerProfileId are required.");
+                throw new ArgumentException("EnrollmentId and TrainerProfileId are required.");
             }
 
-            var dogId = await _unitOfWork.Dogs.GetById(request.DogId);
-            var trainerProfileId = await _unitOfWork.CustomerProfiles.GetById(request.TrainerProfileId);
+            var enrollmentId = await _unitOfWork.Enrollments.GetById(request.EnrollmentId);
+            var trainerProfileId = await _unitOfWork.Accounts.GetById(request.TrainerProfileId);
 
-            if (dogId == null)
+            if (enrollmentId == null)
             {
-                throw new KeyNotFoundException("DogId is not valid.");
+                throw new KeyNotFoundException("EnrollmentId is not valid.");
             }
 
             if (trainerProfileId == null)
@@ -152,9 +165,20 @@ namespace Services.Implement
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
             }
 
+            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfileId.RoleId);
+            if (trainerRole == null)
+            {
+                throw new KeyNotFoundException("TrainerProfileId is not valid.");
+            }
+            if (trainerRole.Name != "Trainer_Member" && trainerRole.Name != "Trainer_Lead")
+            {
+                throw new ArgumentException("TrainerProfileId is not a trainer.");
+            }
+
             _mapper.Map(request, existingReport);
 
             existingReport.LastUpdatedTime = DateTime.UtcNow;
+            existingReport.TrainerId = request.TrainerProfileId;
 
             _unitOfWork.TrainingReports.Update(existingReport);
             await _unitOfWork.SaveChanges();
