@@ -79,7 +79,7 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<DogOwnership> DogOwnerships { get; set; }
     public virtual DbSet<PreTest> PreTests { get; set; }
     public virtual DbSet<DogType> DogTypes { get; set; }
-    
+
     public virtual DbSet<Models.Entities.Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -100,8 +100,8 @@ public class DtmsDbContext : DbContext
 
         modelBuilder.Entity<Payment>()
             .HasOne(p => p.Enrollment)
-            .WithOne(e => e.Payment)
-            .HasForeignKey<Enrollment>(e => e.PaymentId)
+            .WithMany(e => e.Payments)
+            .HasForeignKey(p => p.EnrollmentId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<DogDocument>()
@@ -442,25 +442,25 @@ public class DtmsDbContext : DbContext
             .WithMany(dt => dt.CageCategories)
             .HasForeignKey(cc => cc.DogTypeId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         modelBuilder.Entity<Account>()
             .HasOne(a => a.Role)
             .WithMany(r => r.Accounts)
             .HasForeignKey(a => a.RoleId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         modelBuilder.Entity<Payment>()
             .HasOne(a => a.Customer)
             .WithMany(r => r.Payments)
             .HasForeignKey(a => a.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         modelBuilder.Entity<Enrollment>()
             .HasOne(e => e.Staff)
             .WithMany(d => d.Enrollments)
             .HasForeignKey(e => e.StaffId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         modelBuilder.Seed();
     }
 }
