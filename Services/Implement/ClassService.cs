@@ -425,14 +425,24 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + request.ClassId };
             }
 
-            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerProfileId);
+            var customerProfile = await _unitOfWork.Accounts.GetById(request.CustomerProfileId);
 
             if (customerProfile == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find customer with id " + request.CustomerProfileId };
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find accounts with id " + request.CustomerProfileId };
             }
 
-            var dog = await _unitOfWork.Dogs.GetById(request.CustomerProfileId);
+            var customerRole = await _unitOfWork.Roles.GetById(customerProfile.RoleId);
+            if (customerRole == null)
+            {
+                throw new KeyNotFoundException("CustomerRole is not valid.");
+            }
+            if (customerRole.Name != "Customer_Individual" && customerRole.Name != "Customer_Organizational")
+            {
+                throw new ArgumentException("User is not a customer.");
+            }
+
+            var dog = await _unitOfWork.Dogs.GetById(request.DogId);
 
             if (dog == null)
             {
@@ -451,6 +461,7 @@ namespace Services.Implement
             }
 
             var courseDog = (await _unitOfWork.CourseDogs.GetAll())
+                                        .Where(c => c.CourseId == existingClass.CourseId)
                                         .Select(cd => cd.DogBreedId)
                                         .ToList();
 
