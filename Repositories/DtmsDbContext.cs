@@ -100,8 +100,8 @@ public class DtmsDbContext : DbContext
 
         modelBuilder.Entity<Payment>()
             .HasOne(p => p.Enrollment)
-            .WithMany(e => e.Payments)
-            .HasForeignKey(p => p.EnrollmentId)
+            .WithOne(e => e.Payment)
+            .HasForeignKey<Payment>(p => p.EnrollmentId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<DogDocument>()
