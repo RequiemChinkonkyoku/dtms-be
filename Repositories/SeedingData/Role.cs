@@ -6,13 +6,13 @@ namespace Repositories.SeedingData
 {
     public static class Role
     {
-        public static readonly string AdminRoleId = Guid.NewGuid().ToString("N");
-        public static readonly string Trainer_MemberRoleId = Guid.NewGuid().ToString("N");
-        public static readonly string Trainer_LeadRoleId = Guid.NewGuid().ToString("N");
-        public static readonly string Customer_IndividualRoleId = Guid.NewGuid().ToString("N");
-        public static readonly string Customer_OrganizationalRoleId = Guid.NewGuid().ToString("N");
-        public static readonly string Staff_EmployeeRoleId = Guid.NewGuid().ToString("N");
-        public static readonly string Staff_ManagerRoleId = Guid.NewGuid().ToString("N");
+        public static readonly string AdminRoleId = "d1e2f3a4b5c67890d1e2f3a4b5c67890";
+        public static readonly string Trainer_MemberRoleId = "e2f3a4b5c67890d1e2f3a4b5c67890d1";
+        public static readonly string Trainer_LeadRoleId = "f3a4b5c67890d1e2f3a4b5c67890d1e2";
+        public static readonly string Customer_IndividualRoleId = "a4b5c67890d1e2f3a4b5c67890d1e2f3";
+        public static readonly string Customer_OrganizationalRoleId = "b5c67890d1e2f3a4b5c67890d1e2f3a4";
+        public static readonly string Staff_EmployeeRoleId = "c67890d1e2f3a4b5c67890d1e2f3a4b5";
+        public static readonly string Staff_ManagerRoleId = "67890d1e2f3a4b5c67890d1e2f3a4b5c";
         
         public static void Seed(ModelBuilder modelBuilder)
         {

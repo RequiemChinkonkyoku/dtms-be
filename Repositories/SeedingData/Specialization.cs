@@ -6,9 +6,9 @@ namespace Repositories.SeedingData
 {
     public static class Specialization
     {
-        public static readonly string ObedienceTrainingId = Guid.NewGuid().ToString("N");
-        public static readonly string BehavioralTherapyId = Guid.NewGuid().ToString("N");
-        public static readonly string AgilityTrainingId = Guid.NewGuid().ToString("N");
+        public static readonly string ObedienceTrainingId = "6f78901a2b3c4d5e6f78901a2b3c4d5e";
+        public static readonly string BehavioralTherapyId = "78901a2b3c4d5e6f78901a2b3c4d5e6f";
+        public static readonly string AgilityTrainingId = "8901a2b3c4d5e6f78901a2b3c4d5e6f7"; // Keeping the same as before
 
         public static void Seed(ModelBuilder modelBuilder)
         {

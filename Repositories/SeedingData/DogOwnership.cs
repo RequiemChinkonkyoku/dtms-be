@@ -6,15 +6,15 @@ namespace Repositories.SeedingData
 {
     public static class DogOwnership
     {
-        public static readonly string Ownership1Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership2Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership3Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership4Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership5Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership6Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership7Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership8Id = Guid.NewGuid().ToString("N");
-        public static readonly string Ownership9Id = Guid.NewGuid().ToString("N");
+        public static readonly string Ownership1Id = "1a2b3c4d5e6f7890a1b2c3d4e5f67890";
+        public static readonly string Ownership2Id = "2b3c4d5e6f7890a1b2c3d4e5f678901a";
+        public static readonly string Ownership3Id = "3c4d5e6f7890a1b2c3d4e5f678901a2b";
+        public static readonly string Ownership4Id = "4d5e6f7890a1b2c3d4e5f678901a2b3c";
+        public static readonly string Ownership5Id = "5e6f7890a1b2c3d4e5f678901a2b3c4d";
+        public static readonly string Ownership6Id = "6f7890a1b2c3d4e5f678901a2b3c4d5e";
+        public static readonly string Ownership7Id = "7890a1b2c3d4e5f678901a2b3c4d5e6f";
+        public static readonly string Ownership8Id = "90a1b2c3d4e5f678901a2b3c4d5e6f78";
+        public static readonly string Ownership9Id = "a1b2c3d4e5f678901a2b3c4d5e6f7890";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

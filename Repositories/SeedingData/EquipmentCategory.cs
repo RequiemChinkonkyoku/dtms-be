@@ -6,9 +6,9 @@ namespace Repositories.SeedingData
 {
     public static class EquipmentCategory
     {
-        public static readonly string TrainingToolsId = Guid.NewGuid().ToString("N");
-        public static readonly string SafetyGearId = Guid.NewGuid().ToString("N");
-        public static readonly string GroomingEquipmentId = Guid.NewGuid().ToString("N");
+        public static readonly string TrainingToolsId = "d4e5f67890a1b2c3d4e5f67890a1b2c3";
+        public static readonly string SafetyGearId = "e5f67890a1b2c3d4e5f67890a1b2c3d4";
+        public static readonly string GroomingEquipmentId = "f67890a1b2c3d4e5f67890a1b2c3d4e5";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

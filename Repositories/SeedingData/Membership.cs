@@ -6,9 +6,9 @@ namespace Repositories.SeedingData
 {
     public static class Membership
     {
-        public static readonly string BasicMembershipId = Guid.NewGuid().ToString("N");
-        public static readonly string GoldMembershipId = Guid.NewGuid().ToString("N");
-        public static readonly string PlatinumMembershipId = Guid.NewGuid().ToString("N");
+        public static readonly string BasicMembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890";
+        public static readonly string GoldMembershipId = "b2c3d4e5f67890a1b2c3d4e5f67890a1";
+        public static readonly string PlatinumMembershipId = "c3d4e5f67890a1b2c3d4e5f67890a1b2";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

@@ -6,8 +6,8 @@ namespace Repositories.SeedingData
 {
     public static class Blog
     {
-        public static readonly string Blog1Id = Guid.NewGuid().ToString("N");
-        public static readonly string Blog2Id = Guid.NewGuid().ToString("N");
+        public static readonly string Blog1Id = "57f1808014f741c79e2791dea717d760";
+        public static readonly string Blog2Id = "fc97a573f1224b93b73ddce3eebd4095";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

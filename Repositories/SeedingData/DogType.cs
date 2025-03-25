@@ -6,9 +6,9 @@ namespace Repositories.SeedingData
 {
     public static class DogType
     {
-        public static readonly string SmallDogTypeId = Guid.NewGuid().ToString("N");
-        public static readonly string MediumDogTypeId = Guid.NewGuid().ToString("N");
-        public static readonly string LargeDogTypeId = Guid.NewGuid().ToString("N");
+        public static readonly string SmallDogTypeId = "d1e2f3a4b5c67890d1e2f3a4b5c67890";
+        public static readonly string MediumDogTypeId = "e2f3a4b5c67890d1e2f3a4b5c67890d1";
+        public static readonly string LargeDogTypeId = "f3a4b5c67890d1e2f3a4b5c67890d1e2";
 
         public static void Seed(ModelBuilder modelBuilder)
         {
