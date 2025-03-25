@@ -9,5 +9,6 @@ namespace Repositories.Interface
 {
     public interface IProgressReportRepository : IRepositoryBase<ProgressReport>
     {
+        Task<List<ProgressReport>> GetAllProgressReport();
     }
 }
