@@ -537,7 +537,7 @@ namespace Services.Implement
                 RequiedNightStay = request.IsBoarding,
                 ClassId = request.ClassId,
                 DogId = request.DogId,
-                CageId = cageId
+                CageId = (request.IsBoarding) ? cageId : null
             };
 
             await _unitOfWork.Enrollments.Add(enrollment);
