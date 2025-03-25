@@ -46,6 +46,44 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProgressReportById(string id)
+        {
+            try
+            {
+                var result = await _progressReportService.GetProgressReportByIdAsync(id);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("slot/{slotId}")]
+        public async Task<IActionResult> GetProgressReportsByClassId(string slotId)
+        {
+            try
+            {
+                var result = await _progressReportService.GetProgressReportsBySlotIdAsync(slotId);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProgressReport(string id, [FromBody] UpdateProgressReportRequest request)
         {

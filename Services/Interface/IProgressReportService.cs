@@ -13,6 +13,8 @@ namespace Services.Interface
     {
       Task<string> CreateProgressReportAsync(CreateProgressReportRequest request);
       Task<List<ProgressReportResponse>> GetAllProgressReport();
-        Task<string> UpdateProgressReportAsync(string progressReportId, UpdateProgressReportRequest request);
+      Task<string> UpdateProgressReportAsync(string progressReportId, UpdateProgressReportRequest request);
+      Task<ProgressReportResponse> GetProgressReportByIdAsync(string progressReportId);
+      Task<List<ProgressReportResponse>> GetProgressReportsBySlotIdAsync(string slotId);
     }
 }

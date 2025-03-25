@@ -8,6 +8,7 @@ namespace Models.DTOs.Response
 {
     public class ProgressReportResponse
     {
+        public string Id { get; set; }
         public string Feedback { get; set; }
         public string HealthObservation { get; set; }
         public string BehaviorObservation { get; set; }

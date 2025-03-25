@@ -31,6 +31,31 @@ namespace Services.Implement
 
         }
 
+        public async Task<ProgressReportResponse> GetProgressReportByIdAsync(string progressReportId)
+        {
+            var progressReport = await _unitOfWork.ProgressReports.GetProgressReportById(progressReportId);
+
+            if (progressReport == null)
+            {
+                throw new ArgumentException($"ProgressReport with ID {progressReportId} not found.");
+            }
+
+            return _mapper.Map<ProgressReportResponse>(progressReport);
+        }
+
+        public async Task<List<ProgressReportResponse>> GetProgressReportsBySlotIdAsync(string slotId)
+        {
+            var progressReports = await _unitOfWork.ProgressReports.GetProgressReportsBySlotId(slotId);
+
+            if (progressReports == null || !progressReports.Any())
+            {
+                throw new ArgumentException($"No Progress Reports found for slot ID {slotId}.");
+            }
+
+            return _mapper.Map<List<ProgressReportResponse>>(progressReports);
+        }
+
+
         public async Task<string> CreateProgressReportAsync(CreateProgressReportRequest request)
         {
             var attendance = await _unitOfWork.Attendances.GetById(request.AttendanceId);

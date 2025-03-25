@@ -10,5 +10,9 @@ namespace Repositories.Interface
     public interface IProgressReportRepository : IRepositoryBase<ProgressReport>
     {
         Task<List<ProgressReport>> GetAllProgressReport();
+
+        Task<ProgressReport> GetProgressReportById(string progressReportId);
+
+        Task<List<ProgressReport>> GetProgressReportsBySlotId(string slotId);
     }
 }
