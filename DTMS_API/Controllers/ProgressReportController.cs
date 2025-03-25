@@ -6,7 +6,7 @@ using Services.Interface;
 namespace DTMS_API.Controllers
 {
     [ApiController]
-    [Route("api/progress-reports")]
+    [Route("api/progressReports")]
     public class ProgressReportController : Controller
     {
         private readonly IProgressReportService _progressReportService;
