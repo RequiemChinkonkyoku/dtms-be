@@ -10,15 +10,15 @@ namespace Repositories.SeedingData
 {
     public class DogDocument
     {
-        public static readonly string DogDocument1Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument2Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument3Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument4Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument5Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument6Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument7Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument8Id = Guid.NewGuid().ToString("N");
-        public static readonly string DogDocument9Id = Guid.NewGuid().ToString("N");
+        public static readonly string DogDocument1Id = "f81d4fae7dec11d0a76500a0c91e6bf6";
+        public static readonly string DogDocument2Id = "a3c12f7e5d9647f9b9a2e8f5b4c3d1a0";
+        public static readonly string DogDocument3Id = "b5d2f8a47c9342c4aa3e1d9f6e7b5c8d";
+        public static readonly string DogDocument4Id = "c8e7d3f5a1b24f6a9d2c5b7e8f4a3d9f";
+        public static readonly string DogDocument5Id = "d2c5a7e9f4b3d6a1c8e5f7b9a3d1f4e8";
+        public static readonly string DogDocument6Id = "e7f5b4a3c1d9f6a8d2c3e5b7a9f4d1c8";
+        public static readonly string DogDocument7Id = "f4d1a9c5e3b7f6a2c8d3e7b5a1f9d2c5";
+        public static readonly string DogDocument8Id = "a9f4b5d3c1e7a8f6d2c3e5b7a1d9f2c8";
+        public static readonly string DogDocument9Id = "b3d7a5c1f9e6a2c8d4e7b5a1f4d2c9e8";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

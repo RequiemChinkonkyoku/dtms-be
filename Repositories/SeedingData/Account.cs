@@ -7,13 +7,13 @@ namespace Repositories.SeedingData
 {
     public static class Account
     {
-        public static readonly string AdminId = Guid.NewGuid().ToString("N");
-        public static readonly string TrainerMemberId = Guid.NewGuid().ToString("N");
-        public static readonly string TrainerLeadId = Guid.NewGuid().ToString("N");
-        public static readonly string CustomerIndividualId = Guid.NewGuid().ToString("N");
-        public static readonly string CustomerOrganizationId = Guid.NewGuid().ToString("N");
-        public static readonly string StaffEmployeeId = Guid.NewGuid().ToString("N");
-        public static readonly string StaffManagerId = Guid.NewGuid().ToString("N");
+        public static readonly string AdminId = "6144c9fe6b7e4f4294ea469ffb6a90fd";
+        public static readonly string TrainerMemberId = "54d3a3e95adc4b38885e43af50e12e42";
+        public static readonly string TrainerLeadId = "fa13bc18b0c54ba0b9886b007f4d8b08";
+        public static readonly string CustomerIndividualId = "ea46ce4e457f42dfb18b6347bd4ea1f4";
+        public static readonly string CustomerOrganizationId = "2bf1c6f4a7db4fed825958e6d78e7226";
+        public static readonly string StaffEmployeeId = "00786efb729542fa87a19d44fb3cdf79";
+        public static readonly string StaffManagerId = "eaa27cff0c91479087bb22370ffbb6d0";
 
         public static void Seed(ModelBuilder modelBuilder)
         {
@@ -142,6 +142,24 @@ namespace Repositories.SeedingData
                     Gender = 1,
                     MembershipPoints = 0,
                     RoleId = Role.Staff_ManagerRoleId,
+                    MembershipId = Membership.BasicMembershipId
+                },
+                new Models.Entities.Account
+                {
+                    Id = "9f7c3e8a4b6d49f19a8d2e3f4c7b5680",
+                    Username = "test",
+                    Email = "test@gmail.com",
+                    Password = BCrypt.Net.BCrypt.HashPassword("Test@1234"),
+                    ImageUrl = "empty",
+                    Status = 1,
+                    RegistrationTime = new DateTime(2000, 1, 1),
+                    FullName = "Test User",
+                    PhoneNumber = "0123456789",
+                    Address = "Test Address",
+                    DateOfBirth = new DateTime(1990, 1, 1),
+                    Gender = 1,
+                    MembershipPoints = 0,
+                    RoleId = Role.Customer_IndividualRoleId,
                     MembershipId = Membership.BasicMembershipId
                 }
             );

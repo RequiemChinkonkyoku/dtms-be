@@ -6,17 +6,17 @@ namespace Repositories.SeedingData
 {
     public static class DogBreed
     {
-        public static readonly string ChihuahuaBreedId = Guid.NewGuid().ToString("N");
-        public static readonly string PomeranianBreedId = Guid.NewGuid().ToString("N");
-        public static readonly string FrenchBulldogBreedId = Guid.NewGuid().ToString("N");
+        public static readonly string ChihuahuaBreedId = "4bee6ab4f7f841d69bacedcfd25c8d07";
+        public static readonly string PomeranianBreedId = "a8f5f1675aaf4d1b8f7c8d924d3c3c4b";
+        public static readonly string FrenchBulldogBreedId = "bb57a3e3cd2048e88e02f5b87a935a62";
 
-        public static readonly string CockerSpanielBreedId = Guid.NewGuid().ToString("N");
-        public static readonly string BorderCollieBreedId = Guid.NewGuid().ToString("N");
-        public static readonly string BeagleBreedId = Guid.NewGuid().ToString("N");
+        public static readonly string CockerSpanielBreedId = "c1a3ebdb3bfa44cc81f3a1f6205f8b64";
+        public static readonly string BorderCollieBreedId = "df76e3ed02444a61ad1efba0a5b75f06";
+        public static readonly string BeagleBreedId = "e478aa3ff61d4b6f88d3b3e3a7f47b14";
 
-        public static readonly string GoldenRetrieverBreedId = Guid.NewGuid().ToString("N");
-        public static readonly string GermanShepherdBreedId = Guid.NewGuid().ToString("N");
-        public static readonly string RottweilerBreedId = Guid.NewGuid().ToString("N");
+        public static readonly string GoldenRetrieverBreedId = "f3c7da2e95764c47be56aeb742ecf3b1";
+        public static readonly string GermanShepherdBreedId = "0d4f1f5a2b4a45d699cf43a66f5b8b22";
+        public static readonly string RottweilerBreedId = "1a5c9e4f7d884cf2a3f99e26c7b5a081";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

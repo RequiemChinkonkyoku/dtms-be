@@ -6,11 +6,11 @@ namespace Repositories.SeedingData
 {
     public static class Skill
     {
-        public static readonly string BasicCommandsId = Guid.NewGuid().ToString("N");
-        public static readonly string AgilityTrainingId = Guid.NewGuid().ToString("N");
-        public static readonly string BehavioralCorrectionId = Guid.NewGuid().ToString("N");
-        public static readonly string SocializationId = Guid.NewGuid().ToString("N");
-        public static readonly string ProtectionTrainingId = Guid.NewGuid().ToString("N");
+        public static readonly string BasicCommandsId = "1a2b3c4d5e6f78901a2b3c4d5e6f7890";
+        public static readonly string AgilityTrainingId = "2b3c4d5e6f78901a2b3c4d5e6f78901a";
+        public static readonly string BehavioralCorrectionId = "3c4d5e6f78901a2b3c4d5e6f78901a2b";
+        public static readonly string SocializationId = "4d5e6f78901a2b3c4d5e6f78901a2b3c";
+        public static readonly string ProtectionTrainingId = "5e6f78901a2b3c4d5e6f78901a2b3c4d";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

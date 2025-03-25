@@ -6,9 +6,9 @@ namespace Repositories.SeedingData
 {
     public static class Category
     {
-        public static readonly string BasicTrainingId = Guid.NewGuid().ToString("N");
-        public static readonly string AdvancedTrainingId = Guid.NewGuid().ToString("N");
-        public static readonly string BehavioralModificationId = Guid.NewGuid().ToString("N");
+        public static readonly string BasicTrainingId = "156552f4dc9942b5bc72a6bae94be821";
+        public static readonly string AdvancedTrainingId = "f8cb65025770497e9a61c75501ed6cd3";
+        public static readonly string BehavioralModificationId = "c44beb29575744b68c42cf4f70274a20";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

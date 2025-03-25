@@ -6,15 +6,15 @@ namespace Repositories.SeedingData
 {
     public static class Dog
     {
-        public static readonly string Dog1Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog2Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog3Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog4Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog5Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog6Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog7Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog8Id = Guid.NewGuid().ToString("N");
-        public static readonly string Dog9Id = Guid.NewGuid().ToString("N");
+        public static readonly string Dog1Id = "2ea60c66720d4571833911be746470a8";
+        public static readonly string Dog2Id = "468c7f90cef546d1a336b133ce986031";
+        public static readonly string Dog3Id = "4e763c98bfd940168bfcc8bbcaa36f92";
+        public static readonly string Dog4Id = "8487615b64754cc2be8401202ffad21e";
+        public static readonly string Dog5Id = "bbf004a7a5c24d1b989bc7110a5c56c3";
+        public static readonly string Dog6Id = "dc8c01d14f87485e910eb153d90d432c";
+        public static readonly string Dog7Id = "e28448d9b78a4098a300783838d4bc15";
+        public static readonly string Dog8Id = "f153eb7f29934c30908c68fc668e01d7";
+        public static readonly string Dog9Id = "fe7077791778468984040eeec2ae731e";
 
         public static void Seed(ModelBuilder modelBuilder)
         {

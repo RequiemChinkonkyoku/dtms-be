@@ -12,7 +12,7 @@ namespace Repositories.SeedingData
                 // Member Trainer (3 skills)
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "a1b2c3d4e5f6478a9b0c1d2e3f4g5678",
                     TrainerId = Account.TrainerMemberId,
                     SkillId = Skill.BasicCommandsId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
@@ -20,7 +20,7 @@ namespace Repositories.SeedingData
                 },
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "b2c3d4e5f6478a9b0c1d2e3f4g5678a1",
                     TrainerId = Account.TrainerMemberId,
                     SkillId = Skill.AgilityTrainingId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
@@ -28,7 +28,7 @@ namespace Repositories.SeedingData
                 },
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "c3d4e5f6478a9b0c1d2e3f4g5678a1b2",
                     TrainerId = Account.TrainerMemberId,
                     SkillId = Skill.BehavioralCorrectionId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
@@ -38,7 +38,7 @@ namespace Repositories.SeedingData
                 // Lead Trainer (All 5 skills)
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "d4e5f6478a9b0c1d2e3f4g5678a1b2c3",
                     TrainerId = Account.TrainerLeadId,
                     SkillId = Skill.BasicCommandsId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
@@ -46,7 +46,7 @@ namespace Repositories.SeedingData
                 },
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "e5f6478a9b0c1d2e3f4g5678a1b2c3d4",
                     TrainerId = Account.TrainerLeadId,
                     SkillId = Skill.AgilityTrainingId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
@@ -54,7 +54,7 @@ namespace Repositories.SeedingData
                 },
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "f6478a9b0c1d2e3f4g5678a1b2c3d4e5",
                     TrainerId = Account.TrainerLeadId,
                     SkillId = Skill.BehavioralCorrectionId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
@@ -62,7 +62,7 @@ namespace Repositories.SeedingData
                 },
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "478a9b0c1d2e3f4g5678a1b2c3d4e5f6",
                     TrainerId = Account.TrainerLeadId,
                     SkillId = Skill.SocializationId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
@@ -70,7 +70,7 @@ namespace Repositories.SeedingData
                 },
                 new Models.Entities.TrainerSkill
                 {
-                    Id = Guid.NewGuid().ToString("N"),
+                    Id = "8a9b0c1d2e3f4g5678a1b2c3d4e5f647",
                     TrainerId = Account.TrainerLeadId,
                     SkillId = Skill.ProtectionTrainingId,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
