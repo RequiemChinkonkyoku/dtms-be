@@ -26,5 +26,11 @@ public static class ModelBuilderExtensions
         TrainerSpecialization.Seed(modelBuilder);
         DogDocument.Seed(modelBuilder);
         DogDocumentType.Seed(modelBuilder);
+        Lesson.Seed(modelBuilder);
+        Course.Seed(modelBuilder);
+        CourseLesson.Seed(modelBuilder);
+        CourseDog.Seed(modelBuilder);
+        Certificate.Seed(modelBuilder);
+        Schedule.Seed(modelBuilder);
     }
 }
