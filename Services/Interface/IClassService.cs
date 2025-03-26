@@ -1,5 +1,6 @@
 ﻿using Models.DTOs;
-using Models.DTOs.Class;
+using Models.DTOs.Class.Request;
+using Models.DTOs.Class.Response;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,11 @@ namespace Services.Interface
         Task<BaseResponseDTO<Class>> CreateClass(CreateClassRequest request);
         Task<BaseResponseDTO<Class>> DeleteClass(string id);
         Task<BaseResponseDTO<Class>> EnrollClass(EnrollClassRequest request);
-        Task<BaseResponseDTO<Class>> GetAllClasses();
+        Task<BaseResponseDTO<GetClassResponse>> GetAllClasses();
         Task<BaseResponseDTO<Class>> GetClassByCourseId(string id);
-        Task<BaseResponseDTO<Class>> GetClassById(string id);
+        Task<BaseResponseDTO<GetClassResponse>> GetClassById(string id);
         Task<BaseResponseDTO<Class>> GetClassSlots(string id);
+        Task<BaseResponseDTO<Class>> GetDogEnrolledClasses(string id);
         Task<BaseResponseDTO<Class>> UpdateClass(UpdateClassRequest request);
     }
 }

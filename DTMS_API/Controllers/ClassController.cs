@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Models.DTOs;
-using Models.DTOs.Class;
+using Models.DTOs.Class.Request;
 using Repositories.Migrations;
 using Services.Interface;
 
@@ -122,6 +122,21 @@ namespace DTMS_API.Controllers
         public async Task<IActionResult> DeleteClass(string id)
         {
             var response = await _classService.DeleteClass(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+
+        [HttpGet("get-dog-enrolled-classes/{id}")]
+        public async Task<IActionResult> GetDogEnrolledClasses(string id)
+        {
+            var response = await _classService.GetDogEnrolledClasses(id);
 
             if (response.Success)
             {
