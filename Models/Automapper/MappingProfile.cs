@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Models.DTOs.Blog;
 using Models.DTOs.Certification;
+using Models.DTOs.Class;
+using Models.DTOs.Class.Response;
 using Models.DTOs.Course;
 using Models.DTOs.LegalDocument;
 using Models.DTOs.Membership;
@@ -75,20 +77,39 @@ namespace Models.Automapper
                 .ReverseMap();
             CreateMap<ProgressReport, ProgressReportResponse>()
                 .ForMember(dest => dest.AttendanceDate,
-                    opt => opt.MapFrom(src => src.Attendance.Date.ToDateTime(TimeOnly.MinValue))) 
+                    opt => opt.MapFrom(src => src.Attendance.Date.ToDateTime(TimeOnly.MinValue)))
                 .ForMember(dest => dest.Feedback, opt => opt.MapFrom(src => src.Feedback))
                 .ForMember(dest => dest.HealthObservation, opt => opt.MapFrom(src => src.HealthObservation))
                 .ForMember(dest => dest.BehaviorObservation, opt => opt.MapFrom(src => src.BehaviorObservation))
                 .ForMember(dest => dest.PerformanceObservation, opt => opt.MapFrom(src => src.PerformanceObservation))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.TrainerName,
-                    opt => opt.MapFrom(src => src.Trainer.FullName)) 
+                    opt => opt.MapFrom(src => src.Trainer.FullName))
                 .ForMember(dest => dest.DogId,
                     opt => opt.MapFrom(src => src.Attendance.DogId));
             CreateMap<Attendance, AttendanceResponse>()
                 .ForMember(dest => dest.DogId, opt => opt.MapFrom(src => src.Dog.Id))
                 .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
                 .ForMember(dest => dest.ProgressReports, opt => opt.MapFrom(src => src.ProgressReports));
+            CreateMap<Class, GetClassResponse>()
+                .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.Course.Id))
+                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Name))
+                .ForMember(dest => dest.AssignedTrainers, opt => opt.MapFrom(src => src.TrainerAssignments
+                    .Select(ta => new AssignedTrainer
+                    {
+                        Id = ta.TrainerId,
+                        Name = ta.Trainer.FullName
+                    })))
+                .ForMember(dest => dest.ClassSlots, opt => opt.MapFrom(src => src.Slots
+                    .Select(s => new ClassSlot
+                    {
+                        SlotDate = s.Date,
+                        ScheduleId = s.ScheduleId,
+                        StartTime = s.Schedule.StartTime,
+                        EndTime = s.Schedule.EndTime
+                    })
+                    .OrderBy(cs => cs.SlotDate)))
+                .ReverseMap();
         }
     }
 }
