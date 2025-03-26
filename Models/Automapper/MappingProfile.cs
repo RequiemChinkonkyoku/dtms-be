@@ -89,6 +89,7 @@ namespace Models.Automapper
                 .ForMember(dest => dest.DogId, opt => opt.MapFrom(src => src.Dog.Id))
                 .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
                 .ForMember(dest => dest.ProgressReports, opt => opt.MapFrom(src => src.ProgressReports));
+            CreateMap<Schedule, ScheduleResponse>();
         }
     }
 }
