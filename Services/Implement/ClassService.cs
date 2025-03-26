@@ -5,7 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using Models.Constants;
 using Models.DTOs;
-using Models.DTOs.Class;
+using Models.DTOs.Class.Request;
+using Models.DTOs.Class.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -30,23 +31,36 @@ namespace Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<BaseResponseDTO<Class>> GetAllClasses()
+        public async Task<BaseResponseDTO<GetClassResponse>> GetAllClasses()
         {
-            var response = await _unitOfWork.Classes.GetAll();
+            var response = await _unitOfWork.Classes.GetAllClassesAsync();
 
-            return new BaseResponseDTO<Class> { Success = true, ObjectList = response };
+            //foreach (var currentClass in response)
+            //{
+            //    var trainerAssignments = (await _unitOfWork.TrainerAssignments.GetAll())
+            //                                        .Where(ta => ta.ClassId == currentClass.Id)
+            //                                        .ToList();
+
+            //    currentClass.TrainerAssignments = trainerAssignments;
+            //}
+
+            var mappedResponse = _mapper.Map<List<GetClassResponse>>(response);
+
+            return new BaseResponseDTO<GetClassResponse> { Success = true, ObjectList = mappedResponse };
         }
 
-        public async Task<BaseResponseDTO<Class>> GetClassById(string id)
+        public async Task<BaseResponseDTO<GetClassResponse>> GetClassById(string id)
         {
-            var response = await _unitOfWork.Classes.GetById(id);
+            var response = await _unitOfWork.Classes.GetClassByIdAsync(id);
 
             if (response == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + id };
+                return new BaseResponseDTO<GetClassResponse> { Success = false, Message = "Unable to find class with id " + id };
             }
 
-            return new BaseResponseDTO<Class> { Success = true, Object = response };
+            var mappedResponse = _mapper.Map<GetClassResponse>(response);
+
+            return new BaseResponseDTO<GetClassResponse> { Success = true, Object = mappedResponse };
         }
 
         private bool ValidateStartingDate(DateOnly startingDate)
@@ -287,6 +301,7 @@ namespace Services.Implement
 
             var classSlots = (await _unitOfWork.Slots.GetAll())
                                         .Where(s => s.ClassId == existingClass.Id)
+                                        .OrderBy(s => s.Date)
                                         .ToList();
 
             if (!classSlots.Any())
@@ -460,6 +475,17 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "The dog doesn't belong to this customer." };
             }
 
+            var existingEnrollment = (await _unitOfWork.Enrollments.GetAll())
+                                                .Where(e => e.DogId == request.DogId &&
+                                                            e.ClassId == request.ClassId &&
+                                                            e.Status != 0)
+                                                .FirstOrDefault();
+
+            if (existingEnrollment != null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "The dog is already enrolled into this class." };
+            }
+
             var courseDog = (await _unitOfWork.CourseDogs.GetAll())
                                         .Where(c => c.CourseId == existingClass.CourseId)
                                         .Select(cd => cd.DogBreedId)
@@ -548,11 +574,14 @@ namespace Services.Implement
             await _unitOfWork.Classes.Update(existingClass);
             await _unitOfWork.SaveChanges();
 
-            var assignedCage = await _unitOfWork.Cages.GetById(cageId);
-            assignedCage.Status = 0;
+            if (request.IsBoarding)
+            {
+                var assignedCage = await _unitOfWork.Cages.GetById(cageId);
+                assignedCage.Status = 0;
 
-            await _unitOfWork.Cages.Update(assignedCage);
-            await _unitOfWork.SaveChanges();
+                await _unitOfWork.Cages.Update(assignedCage);
+                await _unitOfWork.SaveChanges();
+            }
 
             var pretest = new PreTest
             {
@@ -602,6 +631,42 @@ namespace Services.Implement
                 currentClass.Slots = classSlots;
 
                 result.Add(currentClass);
+            }
+
+            return new BaseResponseDTO<Class> { Success = true, ObjectList = result };
+        }
+
+        public async Task<BaseResponseDTO<Class>> GetDogEnrolledClasses(string id)
+        {
+            var dog = await _unitOfWork.Dogs.GetDogById(id);
+
+            if (dog == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find dog with id " + id };
+            }
+
+            var dogEnrollemnts = (await _unitOfWork.Enrollments.GetAll())
+                                            .Where(e => e.DogId == id)
+                                            .OrderByDescending(e => e.CreatedTime)
+                                            .ToList();
+
+            if (!dogEnrollemnts.Any())
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "The dog hasn't enroll into any class." };
+            }
+
+            var result = new List<Class>();
+
+            foreach (var enrollment in dogEnrollemnts)
+            {
+                var currentClass = await _unitOfWork.Classes.GetById(enrollment.ClassId);
+
+                if (currentClass == null)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + enrollment.ClassId };
+                }
+
+                result.Add(enrollment.Class);
             }
 
             return new BaseResponseDTO<Class> { Success = true, ObjectList = result };
