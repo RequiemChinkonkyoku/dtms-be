@@ -666,7 +666,7 @@ namespace Services.Implement
                     return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + enrollment.ClassId };
                 }
 
-                result.Add(enrollment.Class);
+                result.Add(currentClass);
             }
 
             return new BaseResponseDTO<Class> { Success = true, ObjectList = result };
