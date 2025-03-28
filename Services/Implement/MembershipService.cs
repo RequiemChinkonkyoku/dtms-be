@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Models.DTOs;
 using Models.DTOs.Certification;
-using Models.DTOs.Membership;
+using Models.DTOs.Membership.Request;
+using Models.DTOs.Membership.Response;
 using Models.DTOs.TrainerReport;
 using Models.Entities;
 using Repositories.Interface;
+using Repositories.Migrations;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -90,5 +92,51 @@ namespace Services.Implement
             return true;
         }
 
+        public async Task<BaseResponseDTO<GetMembershipProgressResponse>> GetMembershipProgress(string customerId)
+        {
+            var customer = await _unitOfWork.Accounts.GetById(customerId);
+
+            if (customer == null)
+            {
+                return new BaseResponseDTO<GetMembershipProgressResponse>
+                {
+                    Success = false,
+                    Message = $"Unable to find customer with id {customerId}."
+                };
+            }
+
+            var memberships = (await _unitOfWork.Memberships.GetAll())
+                                            .OrderBy(m => m.RequiredPoints)
+                                            .ToList();
+
+            var currentMembership = memberships.FirstOrDefault(m => m.Id == customer.MembershipId);
+
+            if (currentMembership == null)
+            {
+                return new BaseResponseDTO<GetMembershipProgressResponse>
+                {
+                    Success = false,
+                    Message = "Unable to find current membership."
+                };
+            }
+
+            var nextMembership = memberships.FirstOrDefault(m => m.RequiredPoints > currentMembership.RequiredPoints);
+            var previousMembership = memberships.LastOrDefault(m => m.RequiredPoints < currentMembership.RequiredPoints);
+
+            var membershipResponse = new GetMembershipProgressResponse
+            {
+                Point = customer.MembershipPoints,
+                CurrentMembership = currentMembership,
+                NextMembership = nextMembership,
+                PreviousMembership = previousMembership
+            };
+
+            return new BaseResponseDTO<GetMembershipProgressResponse>
+            {
+                Success = true,
+                Message = nextMembership != null ? "Next membership available" : "No futher membership available.",
+                Object = membershipResponse
+            };
+        }
     }
 }

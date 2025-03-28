@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories;
 
@@ -11,9 +12,11 @@ using Repositories;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DtmsDbContext))]
-    partial class DtmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250327141941_V8_UpdateSeedingDataForTblCourseSchedule")]
+    partial class V8_UpdateSeedingDataForTblCourseSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,16 +100,16 @@ namespace Repositories.Migrations
                         {
                             Id = "6144c9fe6b7e4f4294ea469ffb6a90fd",
                             Address = "Admin Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 168, DateTimeKind.Unspecified).AddTicks(5607), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 39, 921, DateTimeKind.Unspecified).AddTicks(3687), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             FullName = "Admin User",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 168, DateTimeKind.Unspecified).AddTicks(5607), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 39, 921, DateTimeKind.Unspecified).AddTicks(3687), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$ytUzadl2DKCXHzSqgp8Zj.gUxDvLhLiKGU0sJrId9jnzeuH7zqxli",
+                            Password = "$2a$11$MsJ/63Sk11RfohJ73WZq4ufnJKQt2mPsNCwGQwsdXDkYl/bYkfp36",
                             PhoneNumber = "0123456789",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "d1e2f3a4b5c67890d1e2f3a4b5c67890",
@@ -117,16 +120,16 @@ namespace Repositories.Migrations
                         {
                             Id = "54d3a3e95adc4b38885e43af50e12e42",
                             Address = "Trainer Member Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 296, DateTimeKind.Unspecified).AddTicks(7001), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 39, DateTimeKind.Unspecified).AddTicks(2574), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trainer_member@gmail.com",
                             FullName = "Trainer Member",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 296, DateTimeKind.Unspecified).AddTicks(7001), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 39, DateTimeKind.Unspecified).AddTicks(2574), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$qKSYEEQXZ9RRP5opSUefaOwOZSclQ9A9pHmwy4jiG9Z47p/acoJFe",
+                            Password = "$2a$11$x2.zb.5FhI3NDxSHwNvNqezn4eHUD9zkaknIbMXYZPzTTZYxE0qn2",
                             PhoneNumber = "0987654321",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "e2f3a4b5c67890d1e2f3a4b5c67890d1",
@@ -137,16 +140,16 @@ namespace Repositories.Migrations
                         {
                             Id = "fa13bc18b0c54ba0b9886b007f4d8b08",
                             Address = "Trainer Lead Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 417, DateTimeKind.Unspecified).AddTicks(9420), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 157, DateTimeKind.Unspecified).AddTicks(7418), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1983, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trainer_lead@gmail.com",
                             FullName = "Trainer Lead",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 417, DateTimeKind.Unspecified).AddTicks(9420), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 157, DateTimeKind.Unspecified).AddTicks(7418), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$KLUtRPB71H0fsKB8pe1gH.NeBvSCAXFCg.RKWMVXb8Nax/r1PxhM2",
+                            Password = "$2a$11$m5xmZ9n4sADqbhGi6l9YH.uGLtGZrwZFfPAU.nA/j1IF2./FXEqiG",
                             PhoneNumber = "0911223344",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "f3a4b5c67890d1e2f3a4b5c67890d1e2",
@@ -157,16 +160,16 @@ namespace Repositories.Migrations
                         {
                             Id = "ea46ce4e457f42dfb18b6347bd4ea1f4",
                             Address = "Customer Individual Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 535, DateTimeKind.Unspecified).AddTicks(8632), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 274, DateTimeKind.Unspecified).AddTicks(4407), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1995, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer_individual@gmail.com",
                             FullName = "Customer Individual",
                             Gender = 2,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 535, DateTimeKind.Unspecified).AddTicks(8632), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 274, DateTimeKind.Unspecified).AddTicks(4407), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 100,
-                            Password = "$2a$11$0CLmYDRUlytKv6JA8D3XK.CawLMRAuSXe0U97yv8o4JFWtgW3w.oW",
+                            Password = "$2a$11$ZNsG.efFQpQ3Z928MIKBAuQGGxFkaHOtOQv528yYH.CmIkFeNer.K",
                             PhoneNumber = "0988112233",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "a4b5c67890d1e2f3a4b5c67890d1e2f3",
@@ -177,16 +180,16 @@ namespace Repositories.Migrations
                         {
                             Id = "2bf1c6f4a7db4fed825958e6d78e7226",
                             Address = "Customer Organization Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 656, DateTimeKind.Unspecified).AddTicks(1079), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 392, DateTimeKind.Unspecified).AddTicks(1), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer_organization@gmail.com",
                             FullName = "Customer Organization",
                             Gender = 2,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 656, DateTimeKind.Unspecified).AddTicks(1079), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 392, DateTimeKind.Unspecified).AddTicks(1), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 200,
-                            Password = "$2a$11$RIYMOJfMOEFum4a6QUD10egepZzS8dfkzeh.6teDxf1OTZzCnUwdW",
+                            Password = "$2a$11$iBy3iA5Tw.ix6OwNHhZgwuBiUlrgJYj90edm3erp6VMS9yIY/xkbq",
                             PhoneNumber = "0977554433",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "b5c67890d1e2f3a4b5c67890d1e2f3a4",
@@ -197,16 +200,16 @@ namespace Repositories.Migrations
                         {
                             Id = "00786efb729542fa87a19d44fb3cdf79",
                             Address = "Staff Employee Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 775, DateTimeKind.Unspecified).AddTicks(9636), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 508, DateTimeKind.Unspecified).AddTicks(6662), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1988, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "staff_employee@gmail.com",
                             FullName = "Staff Employee",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 775, DateTimeKind.Unspecified).AddTicks(9636), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 508, DateTimeKind.Unspecified).AddTicks(6662), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$.7WQZXH.B1mkCKtC/f9PO.lLbYrv1KjKZiWwZ637eeG9OaYNBGieC",
+                            Password = "$2a$11$ZmNmC4sObQxUZh0/Y9ilYulAm0LfbY8BqpsGOJI0fZKKRRComeJ0C",
                             PhoneNumber = "0966332211",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "c67890d1e2f3a4b5c67890d1e2f3a4b5",
@@ -217,16 +220,16 @@ namespace Repositories.Migrations
                         {
                             Id = "eaa27cff0c91479087bb22370ffbb6d0",
                             Address = "Staff Manager Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 899, DateTimeKind.Unspecified).AddTicks(5268), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 624, DateTimeKind.Unspecified).AddTicks(3954), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1980, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "staff_manager@gmail.com",
                             FullName = "Staff Manager",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 32, 899, DateTimeKind.Unspecified).AddTicks(5268), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 624, DateTimeKind.Unspecified).AddTicks(3954), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$4B69OwHpz8OFMHKF5NOyiuLjPHVc4Fx5V4krl5/2K3n27HyMNczVK",
+                            Password = "$2a$11$nGtFVOf85DjIfPfMK8ckou48jfAfAb/TAd85WgpJui1cOKtYb0u/W",
                             PhoneNumber = "0955223344",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "67890d1e2f3a4b5c67890d1e2f3a4b5c",
@@ -237,16 +240,16 @@ namespace Repositories.Migrations
                         {
                             Id = "9f7c3e8a4b6d49f19a8d2e3f4c7b5680",
                             Address = "Test Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 33, 22, DateTimeKind.Unspecified).AddTicks(9363), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 741, DateTimeKind.Unspecified).AddTicks(1303), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "test@gmail.com",
                             FullName = "Test User",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 28, 13, 51, 33, 22, DateTimeKind.Unspecified).AddTicks(9363), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 19, 40, 741, DateTimeKind.Unspecified).AddTicks(1303), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$ZdtdaWZzDXVJutgkATc8fOggjAtNRJ22euQitgmzy6Rp.ayNm84Qe",
+                            Password = "$2a$11$W6yUb/ugZeDp/fGkrJLbcuOqonT35S.gIfOg6E6zINfgHki0WsDtq",
                             PhoneNumber = "0123456789",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "a4b5c67890d1e2f3a4b5c67890d1e2f3",
@@ -292,6 +295,9 @@ namespace Repositories.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ClassId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
@@ -310,6 +316,8 @@ namespace Repositories.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
 
                     b.HasIndex("DogId");
 
@@ -3427,6 +3435,10 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Models.Entities.Attendance", b =>
                 {
+                    b.HasOne("Models.Entities.Class", null)
+                        .WithMany("Attendances")
+                        .HasForeignKey("ClassId");
+
                     b.HasOne("Models.Entities.Dog", "Dog")
                         .WithMany("Attendances")
                         .HasForeignKey("DogId")
@@ -4123,6 +4135,8 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Models.Entities.Class", b =>
                 {
+                    b.Navigation("Attendances");
+
                     b.Navigation("Enrollments");
 
                     b.Navigation("PreTests");

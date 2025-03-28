@@ -14,7 +14,7 @@ public class Enrollment : BaseEntity
     public string? CageId { get; set; }
     public Cage Cage { get; set; }
 
-    public Payment Payment { get; set; }
+    public Transaction Transaction { get; set; }
 
     public string? StaffId { get; set; }
     public Account Staff { get; set; }

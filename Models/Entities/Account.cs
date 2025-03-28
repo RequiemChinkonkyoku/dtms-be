@@ -33,7 +33,7 @@ public class Account : BaseEntity
     
     public ICollection<WishList> WishLists { get; set; }
     
-    public ICollection<Payment> Payments { get; set; }
+    public ICollection<Transaction> Transaction { get; set; }
     
     public ICollection<DogOwnership> DogOwnerships { get; set; }
     

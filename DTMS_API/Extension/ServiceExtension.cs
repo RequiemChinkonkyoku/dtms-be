@@ -43,7 +43,7 @@ public static class ServiceExtension
         services.AddScoped<ILessonRepository, LessonRepository>();
         services.AddScoped<IMembershipRepository, MembershipRepository>();
         services.AddScoped<INotificationRepository, NotificationRepository>();
-        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
         services.AddScoped<IPrerequisiteRepository, PrerequisiteRepository>();
         services.AddScoped<IProgressReportRepository, ProgressReportRepository>();
@@ -115,6 +115,7 @@ public static class ServiceExtension
         services.AddScoped<IWishListService, WishListService>();
         services.AddScoped<IDogOwnershipsService, DogOwnershipsService>();
         services.AddScoped<IRoleService, RoleService>();
+        services.AddScoped<IVnPayService, VnPayService>();
 
         services.AddSignalR();
 

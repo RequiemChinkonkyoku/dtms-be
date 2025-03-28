@@ -32,5 +32,6 @@ public static class ModelBuilderExtensions
         CourseDog.Seed(modelBuilder);
         Certificate.Seed(modelBuilder);
         Schedule.Seed(modelBuilder);
+        PaymentMethod.Seed(modelBuilder);
     }
 }
