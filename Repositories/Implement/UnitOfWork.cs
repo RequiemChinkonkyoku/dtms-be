@@ -35,7 +35,7 @@ public class UnitOfWork : IUnitOfWork
     public IMembershipRepository Memberships { get; }
     public INotificationRepository Notifications { get; }
     public IPaymentMethodRepository PaymentMethods { get; }
-    public IPaymentRepository Payments { get; }
+    public ITransactionRepository Transactions { get; }
     public IPrerequisiteRepository Prerequisites { get; }
     public IProgressReportRepository ProgressReports { get; }
     public IScheduleRepository Schedules { get; }
@@ -87,7 +87,7 @@ public class UnitOfWork : IUnitOfWork
                       IMembershipRepository membershipRepository,
                       INotificationRepository notificationRepository,
                       IPaymentMethodRepository paymentMethodRepository,
-                      IPaymentRepository paymentRepository,
+                      ITransactionRepository transactionRepository,
                       IPrerequisiteRepository prerequisiteRepository,
                       IProgressReportRepository progressReportRepository,
                       IScheduleRepository scheduleRepository,
@@ -111,7 +111,7 @@ public class UnitOfWork : IUnitOfWork
                       IDogOwnershipRepository dogOwnershipRepository,
                       IPretestRepository pretestRepository,
                       IRoleRepository roleRepository)
-                                                        
+
     {
         _dbContext = new DtmsDbContext();
         Accounts = accountRepository;
@@ -142,7 +142,7 @@ public class UnitOfWork : IUnitOfWork
         Memberships = membershipRepository;
         Notifications = notificationRepository;
         PaymentMethods = paymentMethodRepository;
-        Payments = paymentRepository;
+        Transactions = transactionRepository;
         Prerequisites = prerequisiteRepository;
         ProgressReports = progressReportRepository;
         Schedules = scheduleRepository;

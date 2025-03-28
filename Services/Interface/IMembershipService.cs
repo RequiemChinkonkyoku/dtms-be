@@ -1,5 +1,6 @@
 ﻿using Models.DTOs;
-using Models.DTOs.Membership;
+using Models.DTOs.Membership.Request;
+using Models.DTOs.Membership.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<MembershipResponse>> CreateMembershipAsync(CreateMembershipRequest createMembershipRequest);
         Task<BaseResponseDTO<MembershipResponse>> UpdateMembershipAsync(string id, CreateMembershipRequest request);
         Task<bool> DeleteMembershipAsync(string id);
+        Task<BaseResponseDTO<GetMembershipProgressResponse>> GetMembershipProgress(string customerId);
     }
 }

@@ -34,7 +34,7 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<CustomerProfile> CustomerProfiles { get; set; }
     public virtual DbSet<TrainerProfile> TrainerProfiles { get; set; }
     public virtual DbSet<StaffProfile> StaffProfiles { get; set; }
-    public virtual DbSet<Payment> Payments { get; set; }
+    public virtual DbSet<Transaction> Transactions { get; set; }
     public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
     public virtual DbSet<Blog> Blogs { get; set; }
     public virtual DbSet<Enrollment> Enrollments { get; set; }
@@ -92,16 +92,16 @@ public class DtmsDbContext : DbContext
             .HasForeignKey(m => m.MembershipId) // Foreign key in CustomerProfile
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
-        modelBuilder.Entity<Payment>()
+        modelBuilder.Entity<Transaction>()
             .HasOne(pm => pm.PaymentMethod)
-            .WithMany(p => p.Payments)
+            .WithMany(p => p.Transactions)
             .HasForeignKey(pm => pm.PaymentMethodId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Payment>()
+        modelBuilder.Entity<Transaction>()
             .HasOne(p => p.Enrollment)
-            .WithOne(e => e.Payment)
-            .HasForeignKey<Payment>(p => p.EnrollmentId)
+            .WithOne(e => e.Transaction)
+            .HasForeignKey<Transaction>(p => p.EnrollmentId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<DogDocument>()
@@ -449,9 +449,9 @@ public class DtmsDbContext : DbContext
             .HasForeignKey(a => a.RoleId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Payment>()
+        modelBuilder.Entity<Transaction>()
             .HasOne(a => a.Customer)
-            .WithMany(r => r.Payments)
+            .WithMany(r => r.Transaction)
             .HasForeignKey(a => a.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 

@@ -30,7 +30,7 @@ public interface IUnitOfWork : IDisposable
     IMembershipRepository Memberships { get; }
     INotificationRepository Notifications { get; }
     IPaymentMethodRepository PaymentMethods { get; }
-    IPaymentRepository Payments { get; }
+    ITransactionRepository Transactions { get; }
     IPrerequisiteRepository Prerequisites { get; }
     IProgressReportRepository ProgressReports { get; }
     IScheduleRepository Schedules { get; }
