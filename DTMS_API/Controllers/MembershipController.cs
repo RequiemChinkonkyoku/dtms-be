@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models.DTOs.Membership;
+using Models.DTOs.Membership.Request;
 using Models.Entities;
 using Services.Implement;
 using Services.Interface;

@@ -13,10 +13,6 @@ namespace Repositories.SeedingData
         public static readonly string Slot2Id = "2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e";
         public static readonly string Slot3Id = "3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f";
         public static readonly string Slot4Id = "4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a";
-        public static readonly string Slot5Id = "5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b";
-        public static readonly string Slot6Id = "6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c";
-        public static readonly string Slot7Id = "7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d";
-        public static readonly string Slot8Id = "8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e";
 
         public static void Seed(ModelBuilder modelBuilder)
         {
@@ -25,63 +21,31 @@ namespace Repositories.SeedingData
                 {
                     Id = Slot1Id,
                     StartTime = new TimeOnly(8, 0),
-                    EndTime = new TimeOnly(9, 0),
-                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
-                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
-                },
-                new Models.Entities.Schedule
-                {
-                    Id = Slot2Id,
-                    StartTime = new TimeOnly(9, 0),
                     EndTime = new TimeOnly(10, 0),
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 },
                 new Models.Entities.Schedule
                 {
-                    Id = Slot3Id,
+                    Id = Slot2Id,
                     StartTime = new TimeOnly(10, 0),
-                    EndTime = new TimeOnly(11, 0),
-                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
-                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
-                },
-                new Models.Entities.Schedule
-                {
-                    Id = Slot4Id,
-                    StartTime = new TimeOnly(11, 0),
                     EndTime = new TimeOnly(12, 0),
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 },
                 new Models.Entities.Schedule
                 {
-                    Id = Slot5Id,
-                    StartTime = new TimeOnly(12, 0),
-                    EndTime = new TimeOnly(13, 0),
-                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
-                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
-                },
-                new Models.Entities.Schedule
-                {
-                    Id = Slot6Id,
+                    Id = Slot3Id,
                     StartTime = new TimeOnly(13, 0),
-                    EndTime = new TimeOnly(14, 0),
-                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
-                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
-                },
-                new Models.Entities.Schedule
-                {
-                    Id = Slot7Id,
-                    StartTime = new TimeOnly(14, 0),
                     EndTime = new TimeOnly(15, 0),
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 },
                 new Models.Entities.Schedule
                 {
-                    Id = Slot8Id,
+                    Id = Slot4Id,
                     StartTime = new TimeOnly(15, 0),
-                    EndTime = new TimeOnly(16, 0),
+                    EndTime = new TimeOnly(17, 0),
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 }
