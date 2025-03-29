@@ -7,4 +7,8 @@ public class Role : BaseEntity
     public string Description { get; set; }
     
     public ICollection<Account> Accounts { get; set; }
+
+    public bool IsTrainerRole =>
+            Name == "Trainer_Lead" ||
+            Name == "Trainer_Member";
 }

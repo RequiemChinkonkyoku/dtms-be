@@ -169,7 +169,6 @@ public class AccountService : IAccountService
     {
         try
         {
-            // Check if the email or username already exists
             var accounts = await _unitOfWork.Accounts.GetAll();
             var existingAccount = accounts.FirstOrDefault
                 (a => a.Email == request.Email || a.Username == request.Username);
@@ -179,10 +178,10 @@ public class AccountService : IAccountService
                 throw new InvalidOperationException("An account with this email or username already exists.");
             }
 
-            // Hash the password
+            
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
-            // Create new account
+            
             var account = new Account()
             {
                 Email = request.Email,
@@ -394,5 +393,21 @@ public class AccountService : IAccountService
 
         // Step 8: Return true to indicate successful verification.
         return true;
+    }
+
+    public async Task<List<TrainerBasicInfoResponse>> GetAvailableTrainersAsync(TrainerAvailabilityRequest request)
+    {
+        if (request.StartingDate < DateOnly.FromDateTime(DateTime.UtcNow))
+            throw new ArgumentException("Start date cannot be in the past");
+
+        if (request.DurationInWeeks < 1)
+            throw new ArgumentException("Minimum duration is 1 week");
+
+        if (request.SlotData?.Count == 0)
+            throw new ArgumentException("At least one time slot required");
+
+        var availableTrainers = await _unitOfWork.Accounts.GetAvailableTrainersAsync(request);
+
+        return _mapper.Map<List<TrainerBasicInfoResponse>>(availableTrainers);
     }
 }

@@ -112,6 +112,9 @@ namespace Models.Automapper
                     })
                     .OrderBy(cs => cs.SlotDate)))
                 .ReverseMap();
+            CreateMap<Account, TrainerBasicInfoResponse>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName))
+                .ReverseMap();
         }
     }
 }

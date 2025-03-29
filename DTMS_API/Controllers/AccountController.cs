@@ -140,4 +140,32 @@ public class AccountController : ControllerBase
                 new { message = "An unexpected error occurred. Please try again later.", error = ex.Message });
         }
     }
+
+    [HttpPost("trainers/availability")]
+    public async Task<IActionResult> GetAvailableTrainers(
+           [FromBody] TrainerAvailabilityRequest request)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var availableTrainers = await _accountService.GetAvailableTrainersAsync(request);
+            return Ok(availableTrainers);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { Message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                Message = "Error checking trainer availability",
+                Detail = ex.Message
+            });
+        }
+    }
 }
