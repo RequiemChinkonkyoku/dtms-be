@@ -594,7 +594,12 @@ namespace Services.Implement
             await _unitOfWork.Pretests.Add(pretest);
             await _unitOfWork.SaveChanges();
 
-            return new BaseResponseDTO<Class> { Success = true };
+            existingClass.Enrollments = new List<Enrollment>();
+            existingClass.PreTests = new List<PreTest>();
+            existingClass.Enrollments.Add(enrollment);
+            existingClass.PreTests.Add(pretest);
+
+            return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
         }
 
         public async Task<BaseResponseDTO<Class>> GetClassByCourseId(string id)
