@@ -13,4 +13,6 @@ public interface IAccountService
     Task<Account> Register(AccountRegisterRequest request);
     Task<bool> VerifyOtpAsync(string email, string otpCode);
     Task<Account> GetAccountById(string id);
+
+    Task<List<TrainerBasicInfoResponse>> GetAvailableTrainersAsync(TrainerAvailabilityRequest request);
 }
