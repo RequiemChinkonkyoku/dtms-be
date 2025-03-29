@@ -559,7 +559,7 @@ namespace Services.Implement
 
             var enrollment = new Enrollment
             {
-                Status = 1,
+                Status = (int)EnrollmentStatusEnum.Pending,
                 RequiedNightStay = request.IsBoarding,
                 ClassId = request.ClassId,
                 DogId = request.DogId,

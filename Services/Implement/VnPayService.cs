@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
+using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.VnPay;
 using Models.Entities;
@@ -114,7 +115,7 @@ namespace Services.Implement
                 };
             }
 
-            enrollment.Status = 1;
+            enrollment.Status = (int)EnrollmentStatusEnum.Active;
 
             try
             {
