@@ -14,7 +14,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : class
         _context = new DtmsDbContext();
         _dbSet = _context.Set<T>();
     }
-    
+
     public async Task<List<T>> GetAll()
     {
         return await _dbSet.ToListAsync();
@@ -42,7 +42,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         return await _dbSet.FindAsync(id);
     }
-    
+
     public async Task<T> GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
     {
         IQueryable<T> query = _dbSet;
@@ -55,23 +55,31 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : class
 
         return await query.SingleOrDefaultAsync(predicate);
     }
-    
-    public async Task<IQueryable<T>> Get(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties)
+
+    public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
     {
         IQueryable<T> query = _dbSet;
 
-        // Apply the predicate if it's provided
+        // Apply the filter if provided
         if (predicate != null)
         {
             query = query.Where(predicate);
         }
 
-        // Include related entities
-        foreach (var includeProperty in includeProperties)
+        // Include related entities if provided
+        foreach (var includeProperty in includeProperties.Split(
+                     new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
         {
             query = query.Include(includeProperty);
         }
 
-        return query;
+        // Apply ordering if specified
+        if (orderBy != null)
+        {
+            return await Task.FromResult(orderBy(query).ToList());
+        }
+
+        return await Task.FromResult(query.ToList());
     }
+
 }

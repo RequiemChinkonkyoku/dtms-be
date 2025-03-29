@@ -10,5 +10,6 @@ public interface IRepositoryBase<T> where T : class
     Task Delete(T item);
     Task<T> GetById(string id);
     Task<T> GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
-    Task<IQueryable<T>> Get(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties);
+    Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
+
 }

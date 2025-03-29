@@ -594,6 +594,8 @@ namespace Services.Implement
             await _unitOfWork.Pretests.Add(pretest);
             await _unitOfWork.SaveChanges();
 
+            existingClass.Enrollments = new List<Enrollment>();
+            existingClass.PreTests = new List<PreTest>();
             existingClass.Enrollments.Add(enrollment);
             existingClass.PreTests.Add(pretest);
 
