@@ -27,7 +27,7 @@ public class AccountRepository : RepositoryBase<Account>, IAccountRepository
         // Step 2: Find busy trainers (client-side evaluation)
         var busyTrainerIds = assignments
             .SelectMany(ta => ta.Class.Slots
-                .Where(s => request.SlotDatas.Any(sr =>
+                .Where(s => request.SlotData.Any(sr =>
                     sr.DayOfWeek == s.Date.DayOfWeek &&
                     sr.ScheduleId == s.ScheduleId))
             .Select(_ => ta.TrainerId)  // Changed from previous version

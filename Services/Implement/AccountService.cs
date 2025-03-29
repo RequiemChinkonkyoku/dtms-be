@@ -403,7 +403,7 @@ public class AccountService : IAccountService
         if (request.DurationInWeeks < 1)
             throw new ArgumentException("Minimum duration is 1 week");
 
-        if (request.SlotDatas?.Count == 0)
+        if (request.SlotData?.Count == 0)
             throw new ArgumentException("At least one time slot required");
 
         var availableTrainers = await _unitOfWork.Accounts.GetAvailableTrainersAsync(request);
