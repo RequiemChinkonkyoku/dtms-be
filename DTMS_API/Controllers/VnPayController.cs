@@ -45,11 +45,33 @@ namespace DTMS_API.Controllers
 
             if (response.Success)
             {
-                return Ok(response);
+                //return Ok(response);
+
+                var html = $@"
+            <html>
+                <body>
+                    <script>
+                        window.location.href = '/payment/payment-callback?vnp_ResponseCode={query["vnp_ResponseCode"]}&vnp_TransactionNo={query["vnp_TransactionNo"]}';
+                    </script>
+                </body>
+            </html>";
+
+                return Content(html, "text/html");
             }
             else
             {
-                return BadRequest(response);
+                //return BadRequest(response);
+
+                var html = $@"
+            <html>
+                <body>
+                    <script>
+                        window.location.href = '/payment/payment-callback?error=1&message=PaymentFailed';
+                    </script>
+                </body>
+            </html>";
+
+                return Content(html, "text/html");
             }
         }
     }
