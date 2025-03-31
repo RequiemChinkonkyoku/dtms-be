@@ -38,7 +38,7 @@ namespace Services.Implement
 
         public async Task<Dog> CreateDogAsync(CreateDogRequest request)
         {
-            var customerProfile = await _unitOfWork.CustomerProfiles.GetById(request.CustomerId);
+            var customerProfile = await _unitOfWork.Accounts.GetById(request.CustomerId);
             if (customerProfile == null)
             {
                 throw new ArgumentException($"CustomerProfile with ID {request.CustomerId} not found.");
