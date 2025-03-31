@@ -7,6 +7,7 @@ using Models.DTOs.Course;
 using Models.DTOs.LegalDocument;
 using Models.DTOs.Membership.Request;
 using Models.DTOs.Membership.Response;
+using Models.DTOs.Pretest.Response;
 using Models.DTOs.Response;
 using Models.DTOs.TrainerReport;
 using Models.DTOs.TrainingReport;
@@ -114,6 +115,12 @@ namespace Models.Automapper
                 .ReverseMap();
             CreateMap<Account, TrainerBasicInfoResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName))
+                .ReverseMap();
+            CreateMap<PreTest, GetPretestResponse>()
+                .ForMember(dest => dest.DogId, opt => opt.MapFrom(src => src.Dog.Id))
+                .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
+                .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.Class.Id))
+                .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Class.Name))
                 .ReverseMap();
         }
     }
