@@ -63,22 +63,6 @@ namespace Services.Implement
             return new BaseResponseDTO<GetClassResponse> { Success = true, Object = mappedResponse };
         }
 
-        private bool ValidateStartingDate(DateOnly startingDate)
-        {
-            var today = DateOnly.FromDateTime(DateTime.Today);
-            var daysUntilSunday = (int)DayOfWeek.Sunday - (int)today.DayOfWeek;
-
-            if (daysUntilSunday < 0)
-            {
-                daysUntilSunday += 7;
-            }
-
-            var endOfWeek = today.AddDays(daysUntilSunday);
-            var minStartDate = endOfWeek.AddMonths(1);
-
-            return startingDate >= minStartDate;
-        }
-
         public async Task<BaseResponseDTO<Class>> CreateClass(CreateClassRequest request)
         {
             if (request.StartingDate == default ||
@@ -89,17 +73,7 @@ namespace Services.Implement
                     Success = false,
                     Message = "Starting date cannot be default or in the past."
                 };
-
             }
-
-            //if (!ValidateStartingDate(request.StartingDate))
-            //{
-            //    return new BaseResponseDTO<Class>
-            //    {
-            //        Success = false,
-            //        Message = "Class startingDate must be one month away."
-            //    };
-            //}
 
             if (request.StartingDate < DateOnly.FromDateTime(DateTime.Today))
             {
@@ -126,6 +100,41 @@ namespace Services.Implement
             if (course == null)
             {
                 return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find course with id " + request.CourseId };
+            }
+
+            var uniqueDays = request.SlotDatas.Select(sd => sd.DayOfWeek).Distinct().Count();
+
+            if (uniqueDays != course.DaysPerWeek)
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = $"The number of unique days in SlotDatas must be exactly {course.DaysPerWeek}, but got {uniqueDays}."
+                };
+            }
+
+            var slotsPerDay = request.SlotDatas.GroupBy(sd => sd.DayOfWeek)
+                                               .Select(group => new { Day = group.Key, Count = group.Count() });
+
+            foreach (var day in slotsPerDay)
+            {
+                if (day.Count != course.SlotsPerDay)
+                {
+                    return new BaseResponseDTO<Class>
+                    {
+                        Success = false,
+                        Message = $"Day {day.Day} must have exactly {course.SlotsPerDay} slots, but got {day.Count}."
+                    };
+                }
+            }
+
+            if (request.SlotDatas.Count != course.DaysPerWeek * course.SlotsPerDay)
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = $"Total number of slots must be exactly {course.DaysPerWeek * course.SlotsPerDay}, but got {request.SlotDatas.Count}."
+                };
             }
 
             var trainerIds = new List<string>();

@@ -15,6 +15,8 @@ namespace Models.DTOs.Class.Response
         public int AssignedTrainerCount { get; set; }
         public int Status { get; set; }
         public DateOnly StartingDate { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
+        public DateTimeOffset LastUpdatedTime { get; set; }
 
         public string CourseId { get; set; }
         public string CourseName { get; set; }

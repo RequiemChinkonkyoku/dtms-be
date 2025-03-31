@@ -9,5 +9,7 @@ namespace Repositories.Interface
 {
     public interface IPretestRepository : IRepositoryBase<PreTest>
     {
+        Task<List<PreTest>> GetAllPretestsAsync();
+        Task<PreTest> GetPretestByIdAsync(string id);
     }
 }
