@@ -94,7 +94,7 @@ public class AccountService : IAccountService
                 DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
                 RoleId = role.Id, 
-                MembershipId = "8012856c6cc045cea011acf51b60227d"
+                MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890"
             };
 
             await _unitOfWork.Accounts.Add(account);
@@ -201,8 +201,8 @@ public class AccountService : IAccountService
                 DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
                 MembershipPoints = 0,
-                MembershipId = "8012856c6cc045cea011acf51b60227d", // Hardcoded membership ID
-                RoleId = "dd17f217736e46f6ab93912f4d4bbe76" // Hardcoded role ID
+                MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890", // Hardcoded membership ID
+                RoleId = "a4b5c67890d1e2f3a4b5c67890d1e2f3" // Hardcoded role ID
             };
 
             await _unitOfWork.Accounts.Add(account);
