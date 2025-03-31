@@ -116,6 +116,9 @@ public class AccountService : IAccountService
 
         if (account != null)
         {
+            var roles = await _unitOfWork.Roles.GetAll();
+            var role = roles.FirstOrDefault(r => r.Id == account.RoleId);
+            
             // Generate JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
             IConfiguration config = new ConfigurationBuilder()
@@ -129,7 +132,7 @@ public class AccountService : IAccountService
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, account.Id.ToString()),
-                    new Claim(ClaimTypes.Role, account.RoleId.ToString()),
+                    new Claim(ClaimTypes.Role, role.Name.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(90),
                 Issuer = config["Jwt:Issuer"],
