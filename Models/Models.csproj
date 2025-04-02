@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="DTOs\Prerequisite\Request\" />
     <Folder Include="DTOs\Prerequisite\Response\" />
-    <Folder Include="DTOs\Pretest\Request\" />
   </ItemGroup>
 
 </Project>

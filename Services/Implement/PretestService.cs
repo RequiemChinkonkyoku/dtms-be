@@ -3,6 +3,7 @@ using Azure;
 using Microsoft.IdentityModel.Tokens;
 using Models.Constants;
 using Models.DTOs;
+using Models.DTOs.Pretest.Request;
 using Models.DTOs.Pretest.Response;
 using Models.Entities;
 using Repositories.Interface;
@@ -50,19 +51,32 @@ namespace Services.Implement
             return new BaseResponseDTO<GetPretestResponse> { Success = true, Object = mappedResponse };
         }
 
-        public async Task<BaseResponseDTO<GetPretestResponse>> GetClassPretests(string id)
+        public async Task<BaseResponseDTO<GetPretestResponse>> GetClassPretests(GetPretestRequest request)
         {
-            var classPretest = (await _unitOfWork.Pretests.GetAllPretestsAsync())
-                                           .Where(p => p.ClassId == id)
-                                           .OrderBy(p => p.TestDate)
-                                           .ToList();
+            var classPretest = new List<PreTest>();
+
+            if (request.DogId.IsNullOrEmpty() ||
+                string.Equals(request.DogId, "string", StringComparison.OrdinalIgnoreCase))
+            {
+                classPretest = (await _unitOfWork.Pretests.GetAllPretestsAsync())
+                                            .Where(p => p.ClassId == request.ClassId)
+                                            .OrderBy(p => p.TestDate)
+                                            .ToList();
+            }
+            else
+            {
+                classPretest = (await _unitOfWork.Pretests.GetAllPretestsAsync())
+                                            .Where(p => p.ClassId == request.ClassId && p.DogId == request.DogId)
+                                            .OrderBy(p => p.TestDate)
+                                            .ToList();
+            }
 
             if (classPretest.IsNullOrEmpty())
             {
                 return new BaseResponseDTO<GetPretestResponse>
                 {
                     Success = false,
-                    Message = "There are no pretest for the class " + id
+                    Message = "There are no pretest for the class " + request.ClassId
                 };
             }
 
