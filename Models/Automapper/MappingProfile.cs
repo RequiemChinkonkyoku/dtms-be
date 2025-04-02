@@ -140,6 +140,34 @@ namespace Models.Automapper
                 .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.Class.Id))
                 .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Class.Name))
                 .ReverseMap();
+            CreateMap<Slot, GetSlotByClassResponse>()
+                .ForMember(dest => dest.Schedule, opt => opt.MapFrom(src => new ClassScheduleResponse
+                {
+                    StartTime = src.Schedule.StartTime,
+                    EndTime = src.Schedule.EndTime
+                }))
+                .ForMember(dest => dest.Lesson, opt => opt.MapFrom(src => src.Lesson != null
+                    ? new ClassLessonResponse
+                    {
+                        Id = src.Lesson.Id,
+                        Name = src.Lesson.LessonTitle
+                    }
+                    : null))
+                .ForMember(dest => dest.Attendance, opt => opt.MapFrom((src, dest, _, context) =>
+                {
+                    var dogId = context.Items["DogId"] as string;
+                    var attendance = src.Attendances?.FirstOrDefault(a => a.DogId == dogId);
+
+                    return attendance != null
+                        ? new ClassAttendanceResponse
+                        {
+                            Id = attendance.Id,
+                            Date = attendance.Date.ToDateTime(TimeOnly.MinValue),
+                            DogId = dogId
+                        }
+                        : null;
+                }));
         }
     }
+    
 }
