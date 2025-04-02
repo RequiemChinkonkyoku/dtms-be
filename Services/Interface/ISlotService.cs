@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.DTOs.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Services.Interface
 {
     public interface ISlotService
     {
+        Task<List<GetSlotByClassResponse>> GetSlotsByClassAndDog(string classId, string dogId);
     }
 }
