@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Models.DTOs.Pretest.Request;
 using Services.Interface;
 using System.Runtime.CompilerServices;
 
@@ -39,10 +40,10 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpGet("get-class-pretests/{id}")]
-        public async Task<IActionResult> GetClassPretests(string id)
+        [HttpPost("get-class-pretests")]
+        public async Task<IActionResult> GetClassPretests([FromBody] GetPretestRequest request)
         {
-            var response = await _pretestService.GetClassPretests(id);
+            var response = await _pretestService.GetClassPretests(request);
 
             if (response.Success)
             {
