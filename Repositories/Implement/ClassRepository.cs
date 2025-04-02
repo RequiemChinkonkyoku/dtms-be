@@ -18,6 +18,10 @@ namespace Repositories.Implement
                             .Include(c => c.Course)
                             .Include(c => c.TrainerAssignments)
                                 .ThenInclude(ta => ta.Trainer)
+                            .Include(c => c.Enrollments)
+                                .ThenInclude(e => e.Dog)
+                            .Include(c => c.Enrollments)
+                                .ThenInclude(e => e.Cage)
                             .ToListAsync();
         }
 
@@ -30,6 +34,10 @@ namespace Repositories.Implement
                                 .ThenInclude(ta => ta.Trainer)
                             .Include(c => c.Slots)
                                 .ThenInclude(s => s.Schedule)
+                            .Include(c => c.Enrollments)
+                                .ThenInclude(e => e.Dog)
+                            .Include(c => c.Enrollments)
+                                .ThenInclude(e => e.Cage)
                             .FirstOrDefaultAsync(c => c.Id == id);
         }
     }

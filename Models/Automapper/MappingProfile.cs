@@ -130,6 +130,15 @@ namespace Models.Automapper
                         EndTime = s.Schedule.EndTime
                     })
                     .OrderBy(cs => cs.SlotDate)))
+                .ForMember(dest => dest.ClassEnrollments, opt => opt.MapFrom(src => src.Enrollments
+                    .Select(e => new ClassEnrollmentDTO
+                    {
+                        EnrollmentId = e.Id,
+                        DogId = e.DogId,
+                        DogName = e.Dog.Name,
+                        CageId = e.CageId,
+                        Location = e.Cage.Location
+                    })))
                 .ReverseMap();
             CreateMap<Account, TrainerBasicInfoResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName))
@@ -169,5 +178,5 @@ namespace Models.Automapper
                 }));
         }
     }
-    
+
 }
