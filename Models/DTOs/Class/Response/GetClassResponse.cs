@@ -23,5 +23,6 @@ namespace Models.DTOs.Class.Response
 
         public List<AssignedTrainerDTO> AssignedTrainers { get; set; }
         public List<ClassSlotDTO> ClassSlots { get; set; }
+        public List<ClassEnrollmentDTO> ClassEnrollments { get; set; }
     }
 }

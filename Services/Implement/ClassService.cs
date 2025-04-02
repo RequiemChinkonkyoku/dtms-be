@@ -35,15 +35,6 @@ namespace Services.Implement
         {
             var response = await _unitOfWork.Classes.GetAllClassesAsync();
 
-            //foreach (var currentClass in response)
-            //{
-            //    var trainerAssignments = (await _unitOfWork.TrainerAssignments.GetAll())
-            //                                        .Where(ta => ta.ClassId == currentClass.Id)
-            //                                        .ToList();
-
-            //    currentClass.TrainerAssignments = trainerAssignments;
-            //}
-
             var mappedResponse = _mapper.Map<List<GetClassResponse>>(response);
 
             return new BaseResponseDTO<GetClassResponse> { Success = true, ObjectList = mappedResponse };
@@ -550,20 +541,20 @@ namespace Services.Implement
                 }
             }
 
-            var cageId = "1";
+            var cageId = "-1";
 
             if (request.IsBoarding)
             {
-                var cage = (await _unitOfWork.Cages.GetAll())
-                                        .Where(c => c.Status == 1)
-                                        .FirstOrDefault();
+                var availableCage = (await _unitOfWork.Cages.GetAll())
+                                                .Where(c => c.Status == 1)
+                                                .FirstOrDefault();
 
-                if (cage == null)
+                if (availableCage == null)
                 {
                     return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
                 }
 
-                cageId = cage.Id;
+                cageId = availableCage.Id;
             }
 
             var enrollment = new Enrollment
@@ -572,7 +563,7 @@ namespace Services.Implement
                 RequiedNightStay = request.IsBoarding,
                 ClassId = request.ClassId,
                 DogId = request.DogId,
-                CageId = (request.IsBoarding) ? cageId : null
+                CageId = cageId
             };
 
             await _unitOfWork.Enrollments.Add(enrollment);
@@ -583,19 +574,16 @@ namespace Services.Implement
             await _unitOfWork.Classes.Update(existingClass);
             await _unitOfWork.SaveChanges();
 
-            if (request.IsBoarding)
-            {
-                var assignedCage = await _unitOfWork.Cages.GetById(cageId);
-                assignedCage.Status = 0;
+            var assignedCage = await _unitOfWork.Cages.GetById(cageId);
+            assignedCage.Status = 0;
 
-                await _unitOfWork.Cages.Update(assignedCage);
-                await _unitOfWork.SaveChanges();
-            }
+            await _unitOfWork.Cages.Update(assignedCage);
+            await _unitOfWork.SaveChanges();
 
             var pretest = new PreTest
             {
                 TestDate = existingClass.StartingDate.AddDays(-7),
-                Status = 1,
+                Status = (int)PretestStatusEnum.Pending,
                 DogId = request.DogId,
                 ClassId = request.ClassId
             };

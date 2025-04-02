@@ -33,5 +33,7 @@ public static class ModelBuilderExtensions
         Certificate.Seed(modelBuilder);
         Schedule.Seed(modelBuilder);
         PaymentMethod.Seed(modelBuilder);
+        Cage.Seed(modelBuilder);
+        CageCategory.Seed(modelBuilder);
     }
 }
