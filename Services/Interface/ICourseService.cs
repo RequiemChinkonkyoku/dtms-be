@@ -1,5 +1,6 @@
 ﻿using Models.DTOs;
-using Models.DTOs.Course;
+using Models.DTOs.Course.Request;
+using Models.DTOs.Course.Response;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Services.Interface
         Task<BaseResponseDTO<Course>> DeleteCourse(string id);
         Task<BaseResponseDTO<Course>> GetAllCourses();
         Task<BaseResponseDTO<Course>> GetCoursesByCategoryId(string categoryId);
-        Task<BaseResponseDTO<CourseResponse>> GetCourseById(string id);
+        Task<BaseResponseDTO<GetCourseResponse>> GetCourseById(string id);
         Task<BaseResponseDTO<Course>> UpdateCourse(UpdateCourseRequest request);
     }
 }

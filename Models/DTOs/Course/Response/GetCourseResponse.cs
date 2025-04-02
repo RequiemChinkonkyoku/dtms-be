@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.DTOs.Course
+namespace Models.DTOs.Course.Response
 {
-    public class CourseResponse
+    public class GetCourseResponse
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -24,16 +24,18 @@ namespace Models.DTOs.Course
         public int MaxTrainers { get; set; }
         public int Complexity { get; set; }
 
+        public string CreatedTrainerName { get; set; }
         public string CreatedTrainerId { get; set; }
 
+        public string CategoryName { get; set; }
         public string CategoryId { get; set; }
 
         public string CertificateId { get; set; }
 
-        public List<string> PrerequisiteIds { get; set; }
+        public List<CoursePrerequisiteDTO> CoursePrerequisites { get; set; }
 
-        public List<string> LessonIds { get; set; }
+        public List<CourseLessonDTO> CourseLessons { get; set; }
 
-        public List<string> DogBreedIds { get; set; }
+        public List<CourseDogBreedDTO> CourseDogBreeds { get; set; }
     }
 }

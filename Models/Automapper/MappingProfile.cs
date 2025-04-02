@@ -4,6 +4,7 @@ using Models.DTOs.Certification;
 using Models.DTOs.Class;
 using Models.DTOs.Class.Response;
 using Models.DTOs.Course;
+using Models.DTOs.Course.Response;
 using Models.DTOs.LegalDocument;
 using Models.DTOs.Membership.Request;
 using Models.DTOs.Membership.Response;
@@ -69,13 +70,30 @@ namespace Models.Automapper
                 .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => src.Customer.FullName))
                 .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
                 .ReverseMap();
-            CreateMap<Course, CourseResponse>()
+            CreateMap<Course, GetCourseResponse>()
+                .ForMember(dest => dest.CreatedTrainerName, opt => opt.MapFrom(src => src.Trainer.FullName))
                 .ForMember(dest => dest.CreatedTrainerId, opt => opt.MapFrom(src => src.Trainer.Id))
-                .ForMember(dest => dest.CertificateId, opt => opt.MapFrom(src => src.Certificate.Id))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id))
-                .ForMember(dest => dest.PrerequisiteIds, opt => opt.MapFrom(src => src.Prerequisites.Select(p => p.PrerequisiteCourse.Id).ToList()))
-                .ForMember(dest => dest.LessonIds, opt => opt.MapFrom(src => src.CourseLessons.Select(cl => cl.LessonId).ToList()))
-                .ForMember(dest => dest.DogBreedIds, opt => opt.MapFrom(src => src.CourseDogs.Select(cd => cd.DogBreedId).ToList()))
+                .ForMember(dest => dest.CertificateId, opt => opt.MapFrom(src => src.Certificate.Id))
+                .ForMember(dest => dest.CoursePrerequisites, opt => opt.MapFrom(src => src.Prerequisites
+                    .Select(p => new CoursePrerequisiteDTO
+                    {
+                        Id = p.PrerequisiteCourseId,
+                        Name = p.PrerequisiteCourse.Name
+                    })))
+                .ForMember(dest => dest.CourseLessons, opt => opt.MapFrom(src => src.CourseLessons
+                    .Select(cl => new CourseLessonDTO
+                    {
+                        Id = cl.LessonId,
+                        Name = cl.Lesson.LessonTitle
+                    })))
+                .ForMember(dest => dest.CourseDogBreeds, opt => opt.MapFrom(src => src.CourseDogs
+                    .Select(cd => new CourseDogBreedDTO
+                    {
+                        Id = cd.DogBreedId,
+                        Name = cd.DogBreed.Name
+                    })))
                 .ReverseMap();
             CreateMap<ProgressReport, ProgressReportResponse>()
                 .ForMember(dest => dest.AttendanceDate,
@@ -98,13 +116,13 @@ namespace Models.Automapper
                 .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.Course.Id))
                 .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Name))
                 .ForMember(dest => dest.AssignedTrainers, opt => opt.MapFrom(src => src.TrainerAssignments
-                    .Select(ta => new AssignedTrainer
+                    .Select(ta => new AssignedTrainerDTO
                     {
                         Id = ta.TrainerId,
                         Name = ta.Trainer.FullName
                     })))
                 .ForMember(dest => dest.ClassSlots, opt => opt.MapFrom(src => src.Slots
-                    .Select(s => new ClassSlot
+                    .Select(s => new ClassSlotDTO
                     {
                         SlotDate = s.Date,
                         ScheduleId = s.ScheduleId,

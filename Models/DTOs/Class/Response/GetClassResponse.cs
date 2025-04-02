@@ -21,7 +21,7 @@ namespace Models.DTOs.Class.Response
         public string CourseId { get; set; }
         public string CourseName { get; set; }
 
-        public List<AssignedTrainer> AssignedTrainers { get; set; }
-        public List<ClassSlot> ClassSlots { get; set; }
+        public List<AssignedTrainerDTO> AssignedTrainers { get; set; }
+        public List<ClassSlotDTO> ClassSlots { get; set; }
     }
 }

@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
-using Models.DTOs.Course;
+using Models.DTOs.Course.Request;
+using Models.DTOs.Course.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -40,18 +41,18 @@ namespace Services.Implement
             return new BaseResponseDTO<Course> { Success = true, ObjectList = response };
         }
 
-        public async Task<BaseResponseDTO<CourseResponse>> GetCourseById(string id)
+        public async Task<BaseResponseDTO<GetCourseResponse>> GetCourseById(string id)
         {
             var course = await _unitOfWork.Courses.GetCourseById(id);
 
             if (course == null)
             {
-                return new BaseResponseDTO<CourseResponse> { Success = false, Message = "Unable to find course with id " + id };
+                return new BaseResponseDTO<GetCourseResponse> { Success = false, Message = "Unable to find course with id " + id };
             }
 
-            var mappedCourse = _mapper.Map<CourseResponse>(course);
+            var mappedCourse = _mapper.Map<GetCourseResponse>(course);
 
-            return new BaseResponseDTO<CourseResponse> { Success = true, Object = mappedCourse };
+            return new BaseResponseDTO<GetCourseResponse> { Success = true, Object = mappedCourse };
         }
 
         public async Task<BaseResponseDTO<Course>> CreateCourse(CreateCourseRequest request)

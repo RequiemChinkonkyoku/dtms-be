@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
-using Models.DTOs;
+using Models.DTOs.Course.Request;
 using Services.Interface;
 
 namespace DTMS_API.Controllers

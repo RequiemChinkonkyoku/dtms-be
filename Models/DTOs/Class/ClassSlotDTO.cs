@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models.DTOs.Class
 {
-    public class ClassSlot
+    public class ClassSlotDTO
     {
         public DateOnly SlotDate { get; set; }
         public string ScheduleId { get; set; }
