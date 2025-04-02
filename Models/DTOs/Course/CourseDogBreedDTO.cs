@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.DTOs.Class
+namespace Models.DTOs.Course
 {
-    public class AssignedTrainerDTO
+    public class CourseDogBreedDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }

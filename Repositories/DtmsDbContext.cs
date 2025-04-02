@@ -172,8 +172,8 @@ public class DtmsDbContext : DbContext
 
         modelBuilder.Entity<Prerequisite>()
             .HasOne(p => p.PrerequisiteCourse) // The prerequisite course
-            .WithOne() // 1-to-1 constraint
-            .HasForeignKey<Prerequisite>(p => p.PrerequisiteCourseId)
+            .WithMany() // 1-to-1 constraint
+            .HasForeignKey(p => p.PrerequisiteCourseId)
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
 
         modelBuilder.Entity<TrainerSpecialization>()
