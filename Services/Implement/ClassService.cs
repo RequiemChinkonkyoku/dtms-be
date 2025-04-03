@@ -17,6 +17,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static Models.DTOs.Class.Request.CreateClassRequest;
 
 namespace Services.Implement
 {
@@ -339,8 +340,16 @@ namespace Services.Implement
                 {
                     return new BaseResponseDTO<Class> { Success = false, Message = "New name cannot be empty." };
                 }
-
                 existingClass.Name = request.Name;
+            }
+
+            if (!Enum.IsDefined(typeof(ClassStatusEnum), request.Status))
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = "Invalid class status " + request.Status
+                };
             }
 
             if (existingClass.Status != request.Status)
@@ -672,6 +681,51 @@ namespace Services.Implement
             }
 
             return new BaseResponseDTO<Class> { Success = true, ObjectList = result };
+        }
+
+        public async Task<BaseResponseDTO<Class>> UpdateClassStatus(UpdateClassStatusRequest request)
+        {
+            var existingClass = await _unitOfWork.Classes.GetById(request.ClassId);
+
+            if (existingClass == null)
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = "Unable to find class with id " + request.ClassId
+                };
+            }
+
+            if (!Enum.IsDefined(typeof(ClassStatusEnum), request.Status))
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = "Invalid class status " + request.Status
+                };
+            }
+
+            existingClass.Status = request.Status;
+
+            try
+            {
+                await _unitOfWork.Classes.Update(existingClass);
+                await _unitOfWork.SaveChanges();
+
+                return new BaseResponseDTO<Class>
+                {
+                    Success = true,
+                    Object = existingClass
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = "There has been an error updating class status."
+                };
+            }
         }
     }
 }
