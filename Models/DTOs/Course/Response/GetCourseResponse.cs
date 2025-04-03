@@ -23,6 +23,8 @@ namespace Models.DTOs.Course.Response
         public int MinTrainers { get; set; }
         public int MaxTrainers { get; set; }
         public int Complexity { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
+        public DateTimeOffset LastUpdatedTime { get; set; }
 
         public string CreatedTrainerName { get; set; }
         public string CreatedTrainerId { get; set; }

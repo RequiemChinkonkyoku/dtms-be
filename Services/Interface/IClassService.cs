@@ -21,5 +21,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<Class>> GetClassSlots(string id);
         Task<BaseResponseDTO<Class>> GetDogEnrolledClasses(string id);
         Task<BaseResponseDTO<Class>> UpdateClass(UpdateClassRequest request);
+        Task<BaseResponseDTO<Class>> UpdateClassStatus(UpdateClassStatusRequest request);
     }
 }
