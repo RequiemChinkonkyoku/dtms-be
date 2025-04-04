@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models.DTOs.Response;
 using Models.Entities;
 using Repositories.Interface;
 using System;
@@ -38,5 +39,43 @@ namespace Repositories.Implement
                 .Where(pr => pr.Attendance.SlotId == slotId)
                 .ToListAsync();
         }
+
+        public async Task<List<GetProgressReportByClassResponse>> GetByClassAndDog(string classId, string dogId)
+        {
+            return await _context.ProgressReports
+                .AsSplitQuery()
+                .Include(pr => pr.Attendance)
+                    .ThenInclude(a => a.Slot)
+                        .ThenInclude(s => s.Schedule)
+                .Include(pr => pr.Attendance)
+                    .ThenInclude(a => a.Slot)
+                        .ThenInclude(s => s.Lesson)
+                .Where(pr => pr.Attendance.Slot.ClassId == classId &&
+                             pr.Attendance.DogId == dogId)
+                .OrderBy(pr => pr.Attendance.Slot.Date)
+                .Select(pr => new GetProgressReportByClassResponse
+                {
+                    Id = pr.Id,
+                    Date = pr.Attendance.Slot.Date,
+                    Schedule = new ClassScheduleResponse
+                    {
+                        StartTime = pr.Attendance.Slot.Schedule.StartTime,
+                        EndTime = pr.Attendance.Slot.Schedule.EndTime
+                    },
+                    Lesson = pr.Attendance.Slot.Lesson != null ? new ClassLessonResponse
+                    {
+                        Id = pr.Attendance.Slot.Lesson.Id,
+                        Name = pr.Attendance.Slot.Lesson.LessonTitle
+                    } : null,
+                    Attendance = new ClassAttendanceResponse
+                    {
+                        Id = pr.Attendance.Id,
+                        Date = pr.Attendance.Date.ToDateTime(TimeOnly.MinValue),
+                        DogId = pr.Attendance.DogId
+                    },
+                })
+                .ToListAsync();
+        }
+
     }
 }

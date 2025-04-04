@@ -134,6 +134,33 @@ namespace Services.Implement
             return "Progress Report updated successfully.";
         }
 
+        public async Task<List<GetProgressReportByClassResponse>> GetProgressReportsByClassAndDog(string classId, string dogId)
+        {
+            if (string.IsNullOrEmpty(classId))
+                throw new ArgumentException("Class ID cannot be empty");
+
+            if (string.IsNullOrEmpty(dogId))
+                throw new ArgumentException("Dog ID cannot be empty");
+
+            var classExists = await _unitOfWork.Classes.GetById(classId);
+            if (classExists == null)
+            {
+                throw new KeyNotFoundException($"Class with ID {classId} not found.");
+            }
+
+            var dogExists = await _unitOfWork.Dogs.GetById(dogId);
+            if (dogExists == null)
+            {
+                throw new KeyNotFoundException($"Dog with ID {dogId} not found.");
+            }
+
+            var progressReports = await _unitOfWork.ProgressReports.GetByClassAndDog(classId, dogId);
+
+            var result = _mapper.Map<List<GetProgressReportByClassResponse>>(progressReports);
+
+            return result;
+        }
+
 
     }
 }

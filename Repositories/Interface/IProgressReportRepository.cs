@@ -1,4 +1,5 @@
-﻿using Models.Entities;
+﻿using Models.DTOs.Response;
+using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace Repositories.Interface
         Task<ProgressReport> GetProgressReportById(string progressReportId);
 
         Task<List<ProgressReport>> GetProgressReportsBySlotId(string slotId);
+
+        Task<List<GetProgressReportByClassResponse>> GetByClassAndDog(string classId, string dogId);
     }
 }

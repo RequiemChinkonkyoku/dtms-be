@@ -176,6 +176,27 @@ namespace Models.Automapper
                         }
                         : null;
                 }));
+            CreateMap<ProgressReport, GetProgressReportByClassResponse>()
+                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Attendance.Slot.Date))
+                    .ForMember(dest => dest.Schedule, opt => opt.MapFrom(src => new ClassScheduleResponse
+                    {
+                        StartTime = src.Attendance.Slot.Schedule.StartTime,
+                        EndTime = src.Attendance.Slot.Schedule.EndTime
+                    }))
+                    .ForMember(dest => dest.Lesson, opt => opt.MapFrom(src => src.Attendance.Slot.Lesson != null
+                        ? new ClassLessonResponse
+                        {
+                            Id = src.Attendance.Slot.Lesson.Id,
+                            Name = src.Attendance.Slot.Lesson.LessonTitle
+                        }
+                        : null))
+                    .ForMember(dest => dest.Attendance, opt => opt.MapFrom(src => new ClassAttendanceResponse
+                    {
+                        Id = src.Attendance.Id,
+                        Date = src.Attendance.Date.ToDateTime(TimeOnly.MinValue),
+                        DogId = src.Attendance.DogId
+                    }));
         }
     }
 

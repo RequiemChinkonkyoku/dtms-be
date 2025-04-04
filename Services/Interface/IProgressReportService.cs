@@ -16,5 +16,6 @@ namespace Services.Interface
       Task<string> UpdateProgressReportAsync(string progressReportId, UpdateProgressReportRequest request);
       Task<ProgressReportResponse> GetProgressReportByIdAsync(string progressReportId);
       Task<List<ProgressReportResponse>> GetProgressReportsBySlotIdAsync(string slotId);
+      Task<List<GetProgressReportByClassResponse>> GetProgressReportsByClassAndDog(string classId, string dogId);
     }
 }
