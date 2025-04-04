@@ -103,5 +103,30 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpGet("classes/{classId}/dogs/{dogId}")]
+        public async Task<IActionResult> GetProgressReportsByClassAndDog(string classId, string dogId)
+        {
+            if (string.IsNullOrWhiteSpace(classId))
+                return BadRequest("ClassId is required.");
+
+            if (string.IsNullOrWhiteSpace(dogId))
+                return BadRequest("DogId is required.");
+
+            try
+            {
+                var progressReports = await _progressReportService.GetProgressReportsByClassAndDog(classId, dogId);
+                return Ok(progressReports);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
+
 }
+
