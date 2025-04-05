@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
-using Models.DTOs.Response;
+using Models.Constants;
+using Models.DTOs;
+using Models.DTOs.Slot.Response;
+using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,5 +42,69 @@ namespace Services.Implement
             return _mapper.Map<List<GetSlotByClassResponse>>(result);
         }
 
+        public async Task<BaseResponseDTO<GetTrainerSlotResponse>> GetTrainerSlots(string id)
+        {
+            var trainerAcc = _unitOfWork.Accounts.GetById(id);
+
+            if (trainerAcc == null)
+            {
+                return new BaseResponseDTO<GetTrainerSlotResponse>
+                {
+                    Success = false,
+                    Message = "Unable to find trainer account with id " + id
+                };
+            }
+
+            var trainerClassIds = (await _unitOfWork.TrainerAssignments.GetAll())
+                                                .Where(ta => ta.TrainerId == id)
+                                                .Select(ta => ta.ClassId)
+                                                .ToList();
+
+            if (!trainerClassIds.Any())
+            {
+                return new BaseResponseDTO<GetTrainerSlotResponse>
+                {
+                    Success = false,
+                    Message = "The trainer is not in any class."
+                };
+            }
+
+            var trainerSlot = new List<Slot>();
+
+            foreach (var classId in trainerClassIds)
+            {
+                var existingClass = await _unitOfWork.Classes.GetClassByIdAsync(classId);
+
+                if (existingClass == null)
+                {
+                    return new BaseResponseDTO<GetTrainerSlotResponse>
+                    {
+                        Success = false,
+                        Message = $"Unable to find class with id {classId}."
+                    };
+                }
+
+                if (existingClass.Status == (int)ClassStatusEnum.Ongoing ||
+                    existingClass.Status == (int)ClassStatusEnum.Active)
+                {
+                    trainerSlot.AddRange(existingClass.Slots);
+                }
+            }
+
+            if (trainerSlot.Count == 0)
+            {
+                return new BaseResponseDTO<GetTrainerSlotResponse>
+                {
+                    Success = false,
+                    Message = "The trainer has no slot."
+                };
+            }
+
+            trainerSlot.OrderBy(s => s.Date);
+
+            var mappedResponse = _mapper.Map<List<GetTrainerSlotResponse>>(trainerSlot);
+
+            return new BaseResponseDTO<GetTrainerSlotResponse> { Success = true, ObjectList = mappedResponse };
+        }
     }
 }

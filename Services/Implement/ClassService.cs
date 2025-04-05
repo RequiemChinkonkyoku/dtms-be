@@ -569,7 +569,7 @@ namespace Services.Implement
             var enrollment = new Enrollment
             {
                 Status = (int)EnrollmentStatusEnum.Pending,
-                RequiedNightStay = request.IsBoarding,
+                RequiredNightStay = request.IsBoarding,
                 ClassId = request.ClassId,
                 DogId = request.DogId,
                 CageId = cageId

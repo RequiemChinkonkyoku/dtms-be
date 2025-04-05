@@ -1,4 +1,4 @@
-﻿using Models.DTOs.Response;
+﻿using Models.DTOs.Slot.Response;
 using Models.Entities;
 using System;
 using System.Collections.Generic;

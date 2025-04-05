@@ -10,6 +10,7 @@ using Models.DTOs.Membership.Request;
 using Models.DTOs.Membership.Response;
 using Models.DTOs.Pretest.Response;
 using Models.DTOs.Response;
+using Models.DTOs.Slot.Response;
 using Models.DTOs.TrainerReport;
 using Models.DTOs.TrainingReport;
 using Models.Entities;
@@ -133,6 +134,7 @@ namespace Models.Automapper
                 .ForMember(dest => dest.ClassEnrollments, opt => opt.MapFrom(src => src.Enrollments
                     .Select(e => new ClassEnrollmentDTO
                     {
+                        Status = e.Status,
                         EnrollmentId = e.Id,
                         DogId = e.DogId,
                         DogName = e.Dog.Name,
@@ -177,26 +179,36 @@ namespace Models.Automapper
                         : null;
                 }));
             CreateMap<ProgressReport, GetProgressReportByClassResponse>()
-                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                    .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Attendance.Slot.Date))
-                    .ForMember(dest => dest.Schedule, opt => opt.MapFrom(src => new ClassScheduleResponse
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Attendance.Slot.Date))
+                .ForMember(dest => dest.Schedule, opt => opt.MapFrom(src => new ClassScheduleResponse
+                {
+                    StartTime = src.Attendance.Slot.Schedule.StartTime,
+                    EndTime = src.Attendance.Slot.Schedule.EndTime
+                }))
+                .ForMember(dest => dest.Lesson, opt => opt.MapFrom(src => src.Attendance.Slot.Lesson != null
+                    ? new ClassLessonResponse
                     {
-                        StartTime = src.Attendance.Slot.Schedule.StartTime,
-                        EndTime = src.Attendance.Slot.Schedule.EndTime
-                    }))
-                    .ForMember(dest => dest.Lesson, opt => opt.MapFrom(src => src.Attendance.Slot.Lesson != null
-                        ? new ClassLessonResponse
-                        {
-                            Id = src.Attendance.Slot.Lesson.Id,
-                            Name = src.Attendance.Slot.Lesson.LessonTitle
-                        }
-                        : null))
-                    .ForMember(dest => dest.Attendance, opt => opt.MapFrom(src => new ClassAttendanceResponse
-                    {
-                        Id = src.Attendance.Id,
-                        Date = src.Attendance.Date.ToDateTime(TimeOnly.MinValue),
-                        DogId = src.Attendance.DogId
-                    }));
+                        Id = src.Attendance.Slot.Lesson.Id,
+                        Name = src.Attendance.Slot.Lesson.LessonTitle
+                    }
+                    : null))
+                .ForMember(dest => dest.Attendance, opt => opt.MapFrom(src => new ClassAttendanceResponse
+                {
+                    Id = src.Attendance.Id,
+                    Date = src.Attendance.Date.ToDateTime(TimeOnly.MinValue),
+                    DogId = src.Attendance.DogId
+                }));
+            CreateMap<Slot, GetTrainerSlotResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.ClassId))
+                .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Class.Name))
+                .ForMember(dest => dest.ScheduleId, opt => opt.MapFrom(src => src.ScheduleId))
+                .ForMember(dest => dest.StartTime, opt => opt.MapFrom(src => src.Schedule.StartTime))
+                .ForMember(dest => dest.EndTime, opt => opt.MapFrom(src => src.Schedule.EndTime))
+                .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.LessonId))
+                .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.LessonTitle))
+                .ReverseMap();
         }
     }
 
