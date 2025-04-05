@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models.DTOs.Response;
+using Models.DTOs.Slot.Response;
 using Models.Entities;
 using Repositories.Interface;
 using System;

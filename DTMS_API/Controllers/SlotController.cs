@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Repositories.Migrations;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
@@ -14,6 +15,7 @@ namespace DTMS_API.Controllers
         {
             _slotService = slotService;
         }
+
         [HttpGet("classes/{classId}/dogs/{dogId}")]
         public async Task<IActionResult> GetSlotsByClassId(string classId, string dogId)
         {
@@ -32,6 +34,21 @@ namespace DTMS_API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("get-trainer-slots/{id}")]
+        public async Task<IActionResult> GetTrainerSlots(string id)
+        {
+            var response = await _slotService.GetTrainerSlots(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
             }
         }
     }

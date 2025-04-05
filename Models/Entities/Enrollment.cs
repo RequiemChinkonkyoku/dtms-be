@@ -3,7 +3,7 @@ namespace Models.Entities;
 public class Enrollment : BaseEntity
 {
     public int Status { get; set; }
-    public bool RequiedNightStay { get; set; }
+    public bool RequiredNightStay { get; set; }
 
     public string ClassId { get; set; }
     public Class Class { get; set; }
