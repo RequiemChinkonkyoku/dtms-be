@@ -1,6 +1,5 @@
-# github actions to deploy
-
 name: Deploy Backend API
+
 on:
   push:
     branches:
@@ -23,13 +22,13 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ${{ github.workspace }}/DTMS_BE.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build ${{ github.workspace }}/DTMS_BE.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./src/DTMS_API/DTMS_API.csproj --configuration Release --output ${{ github.workspace }}/publish
+        run: dotnet publish ${{ github.workspace }}/DTMS_BE.sln --configuration Release --output ${{ github.workspace }}/publish
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
