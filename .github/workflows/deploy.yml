@@ -29,8 +29,8 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./src/Api/YourApiProject.csproj --configuration Release --output ${{ github.workspace }}/publish
-      
+        run: dotnet publish ./src/DTMS_API/DTMS_API.csproj --configuration Release --output ${{ github.workspace }}/publish
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
