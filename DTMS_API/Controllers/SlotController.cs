@@ -52,6 +52,7 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpPut("checkin-slot/{id}")]
         public async Task<IActionResult> CheckinSlot(string id)
         {
             var response = await _slotService.CheckinSlot(id);
