@@ -111,6 +111,9 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddDbContext<DtmsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DtmsDB")));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -138,8 +141,16 @@ app.MapHub<ChatHub>("/chatHub");
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<DtmsDbContext>();
-    db.Database.Migrate();
+    try
+    {
+        var db = scope.ServiceProvider.GetRequiredService<DtmsDbContext>();
+        db.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Migration failed: {ex.Message}");
+        throw;
+    }
 }
 
 app.Run();
