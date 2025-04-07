@@ -2,6 +2,9 @@
 
 name: Deploy Backend API
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -9,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: action/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
