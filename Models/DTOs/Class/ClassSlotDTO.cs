@@ -8,6 +8,7 @@ namespace Models.DTOs.Class
 {
     public class ClassSlotDTO
     {
+        public string SlotId { get; set; }
         public DateOnly SlotDate { get; set; }
         public string ScheduleId { get; set; }
         public TimeOnly StartTime { get; set; }
