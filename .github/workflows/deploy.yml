@@ -1,0 +1,34 @@
+# github actions to deploy
+
+name: Deploy Backend API
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Checkout code
+        uses: action/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+#      - name: Publish
+#        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/app
+#
+#      - name: Deploy to Azure Web App
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: <your-app-service-name>
+#          slot-name: Production
+#          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+#          package: ${{env.DOTNET_ROOT}}/app
