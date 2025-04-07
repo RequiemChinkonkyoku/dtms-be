@@ -35,5 +35,5 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: Production
-          publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.API_PUBLISH_SECRET }}
           package: ${{ github.workspace }}/publish
