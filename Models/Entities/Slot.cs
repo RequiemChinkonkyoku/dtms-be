@@ -9,6 +9,7 @@ namespace Models.Entities
     public class Slot : BaseEntity
     {
         public DateOnly Date { get; set; }
+        public int Status { get; set; }
 
         public string ClassId { get; set; }
         public Class Class { get; set; }

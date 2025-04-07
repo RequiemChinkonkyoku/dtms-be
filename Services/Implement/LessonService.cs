@@ -75,31 +75,41 @@ namespace Services.Implement
             await _unitOfWork.Lessons.Add(lesson);
             await _unitOfWork.SaveChanges();
 
-            if (request.EquipmentIds.Any())
+            if (request.LessonEquipmentDTOs.Any())
             {
-                var equipmentList = new List<Equipment>();
-
-                foreach (var id in request.EquipmentIds)
+                foreach (var lessonEquipment in request.LessonEquipmentDTOs)
                 {
-                    var equip = await _unitOfWork.Equipments.GetById(id);
+                    var equip = await _unitOfWork.Equipments.GetById(lessonEquipment.EquipmentId);
 
                     if (equip == null)
                     {
-                        return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find equipment with id " + id };
+                        return new BaseResponseDTO<Lesson>
+                        {
+                            Success = false,
+                            Message = $"Unable to find equipment with id {lessonEquipment.EquipmentId}"
+                        };
                     }
 
-                    equipmentList.Add(equip);
-                }
-
-                foreach (var equip in equipmentList)
-                {
                     var lessonEquip = new LessonEquipment
                     {
                         LessonId = lesson.Id,
-                        EquipmentId = equip.Id
+                        EquipmentId = equip.Id,
+                        Quantity = lessonEquipment.Quantity
                     };
 
-                    await _unitOfWork.LessonEquipments.Add(lessonEquip);
+                    try
+                    {
+                        await _unitOfWork.LessonEquipments.Add(lessonEquip);
+                        await _unitOfWork.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        return new BaseResponseDTO<Lesson>
+                        {
+                            Success = false,
+                            Message = $"There has been an error creating lessonEquipment. Ex: {ex.Message}."
+                        };
+                    }
                 }
             }
 

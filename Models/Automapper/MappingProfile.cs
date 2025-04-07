@@ -125,6 +125,7 @@ namespace Models.Automapper
                 .ForMember(dest => dest.ClassSlots, opt => opt.MapFrom(src => src.Slots
                     .Select(s => new ClassSlotDTO
                     {
+                        SlotId = s.Id,
                         SlotDate = s.Date,
                         ScheduleId = s.ScheduleId,
                         StartTime = s.Schedule.StartTime,

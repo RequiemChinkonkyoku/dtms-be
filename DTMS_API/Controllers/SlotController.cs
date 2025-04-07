@@ -51,5 +51,20 @@ namespace DTMS_API.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpPut("checkin-slot/{id}")]
+        public async Task<IActionResult> CheckinSlot(string id)
+        {
+            var response = await _slotService.CheckinSlot(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }
