@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models.Entities
 {
-    public class LessonPrerequisite
+    public class LessonPrerequisite : BaseEntity
     {
         public string LessonId { get; set; }
         public Lesson Lesson { get; set; }
