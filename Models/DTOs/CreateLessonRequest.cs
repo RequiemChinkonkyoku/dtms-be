@@ -15,6 +15,12 @@ namespace Models.DTOs
         public int Duration { get; set; }
         public string Objective { get; set; }
         public string SkillId { get; set; }
-        public List<string> EquipmentIds { get; set; }
+        public List<LessonEquipmentDTO> LessonEquipmentDTOs { get; set; }
+    }
+
+    public class LessonEquipmentDTO
+    {
+        public string EquipmentId { get; set; }
+        public int Quantity { get; set; }
     }
 }
