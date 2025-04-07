@@ -18,7 +18,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="connectionstrings.json">
+      <None Update="connectionstrings.Production.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="connectionstrings.Development.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

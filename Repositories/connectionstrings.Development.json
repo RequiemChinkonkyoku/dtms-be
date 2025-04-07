@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DtmsDB": "server=(local); database=DtmsDB; uid=sa; pwd=12345; Trusted_Connection=True; TrustServerCertificate=True"
+  }
+}
