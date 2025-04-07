@@ -14,5 +14,7 @@ namespace Models.Entities
 
         public string EquipmentId { get; set; }
         public Equipment Equipment { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

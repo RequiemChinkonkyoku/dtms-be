@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models.Entities;
+using Repositories.Implement;
 
 namespace Repositories;
 
@@ -79,6 +80,7 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<DogOwnership> DogOwnerships { get; set; }
     public virtual DbSet<PreTest> PreTests { get; set; }
     public virtual DbSet<DogType> DogTypes { get; set; }
+    public virtual DbSet<LessonPrerequisite> LessonPrerequisites { get; set; }
 
     public virtual DbSet<Models.Entities.Role> Roles { get; set; }
 
@@ -459,6 +461,18 @@ public class DtmsDbContext : DbContext
             .HasOne(e => e.Staff)
             .WithMany(d => d.Enrollments)
             .HasForeignKey(e => e.StaffId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<LessonPrerequisite>()
+            .HasOne(lp => lp.Lesson)
+            .WithMany(l => l.LessonPrerequisites)
+            .HasForeignKey(l => l.LessonId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<LessonPrerequisite>()
+            .HasOne(lp => lp.Lesson)
+            .WithMany()
+            .HasForeignKey(l => l.PrerequisiteLessonId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Seed();
