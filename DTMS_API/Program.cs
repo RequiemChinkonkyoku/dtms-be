@@ -4,11 +4,13 @@ using AutoMapper;
 using DTMS_API.Extension;
 using DTMS_API.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Models.Automapper;
+using Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -133,5 +135,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DtmsDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();
