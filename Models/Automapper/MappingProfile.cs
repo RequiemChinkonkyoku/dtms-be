@@ -200,7 +200,8 @@ namespace Models.Automapper
                     DogId = src.Attendance.DogId
                 }));
             CreateMap<Slot, GetTrainerSlotResponse>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.SlotId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.SlotDate, opt => opt.MapFrom(src => src.Date))
                 .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.ClassId))
                 .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Class.Name))
                 .ForMember(dest => dest.ScheduleId, opt => opt.MapFrom(src => src.ScheduleId))

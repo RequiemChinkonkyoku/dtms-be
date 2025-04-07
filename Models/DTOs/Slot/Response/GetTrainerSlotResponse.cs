@@ -8,7 +8,8 @@ namespace Models.DTOs.Slot.Response
 {
     public class GetTrainerSlotResponse
     {
-        public string Id { get; set; }
+        public string SlotId { get; set; }
+        public DateOnly SlotDate { get; set; }
 
         public string ClassId { get; set; }
         public string ClassName { get; set; }
