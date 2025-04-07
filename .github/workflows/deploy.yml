@@ -7,6 +7,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  AZURE_WEBAPP_NAME: "dtms-test"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,13 +28,13 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-#      - name: Publish
-#        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/app
-#
-#      - name: Deploy to Azure Web App
-#        uses: azure/webapps-deploy@v2
-#        with:
-#          app-name: <your-app-service-name>
-#          slot-name: Production
-#          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
-#          package: ${{env.DOTNET_ROOT}}/app
+      - name: Publish
+        run: dotnet publish ./src/Api/YourApiProject.csproj --configuration Release --output ${{ github.workspace }}/publish
+      
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: Production
+          publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
+          package: ${{ github.workspace }}/publish
