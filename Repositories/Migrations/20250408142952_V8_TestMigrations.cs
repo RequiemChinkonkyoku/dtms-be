@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Repositories.Migrations
 {
     /// <inheritdoc />
-    public partial class V7_TestDataSeeding : Migration
+    public partial class V8_TestMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -647,45 +647,6 @@ namespace Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payments",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AmountDue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PaymentTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EnrollmentId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MembershipId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PaymentMethodId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Payments_Accounts_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Payments_Memberships_MembershipId",
-                        column: x => x.MembershipId,
-                        principalTable: "Memberships",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Payments_PaymentMethods_PaymentMethodId",
-                        column: x => x.PaymentMethodId,
-                        principalTable: "PaymentMethods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StaffProfiles",
                 columns: table => new
                 {
@@ -832,6 +793,7 @@ namespace Repositories.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LessonId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EquipmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
@@ -850,6 +812,34 @@ namespace Repositories.Migrations
                         principalTable: "Lessons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LessonPrerequisites",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LessonId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PrerequisiteLessonId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PrerequisiteLessonId1 = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LessonPrerequisites", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LessonPrerequisites_Lessons_PrerequisiteLessonId",
+                        column: x => x.PrerequisiteLessonId,
+                        principalTable: "Lessons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LessonPrerequisites_Lessons_PrerequisiteLessonId1",
+                        column: x => x.PrerequisiteLessonId1,
+                        principalTable: "Lessons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1105,12 +1095,11 @@ namespace Repositories.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    RequiedNightStay = table.Column<bool>(type: "bit", nullable: false),
+                    RequiredNightStay = table.Column<bool>(type: "bit", nullable: false),
                     ClassId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DogId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CageId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PaymentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StaffId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CageId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    StaffId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
@@ -1141,12 +1130,6 @@ namespace Repositories.Migrations
                         principalTable: "Dogs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Enrollments_Payments_PaymentId",
-                        column: x => x.PaymentId,
-                        principalTable: "Payments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1184,6 +1167,7 @@ namespace Repositories.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     ClassId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ScheduleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LessonId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -1279,25 +1263,67 @@ namespace Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Transactions",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ActualPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    PaymentTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EnrollmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MembershipId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PaymentMethodId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Accounts_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Enrollments_EnrollmentId",
+                        column: x => x.EnrollmentId,
+                        principalTable: "Enrollments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Memberships_MembershipId",
+                        column: x => x.MembershipId,
+                        principalTable: "Memberships",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Transactions_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Attendances",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     SlotId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DogId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClassId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Attendances", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Attendances_Classes_ClassId",
-                        column: x => x.ClassId,
-                        principalTable: "Classes",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Attendances_Dogs_DogId",
                         column: x => x.DogId,
@@ -1401,6 +1427,11 @@ namespace Repositories.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "PaymentMethods",
+                columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
+                values: new object[] { "1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Payment via VnPay", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "VnPay", 1 });
+
+            migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
                 values: new object[,]
@@ -1412,6 +1443,17 @@ namespace Repositories.Migrations
                     { "d1e2f3a4b5c67890d1e2f3a4b5c67890", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "System administrator with full access", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Admin", 1 },
                     { "e2f3a4b5c67890d1e2f3a4b5c67890d1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer responsible for courses and lessons", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer_Member", 1 },
                     { "f3a4b5c67890d1e2f3a4b5c67890d1e2", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Lead trainer responsible for courses and lessons", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Trainer_Lead", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Schedules",
+                columns: new[] { "Id", "CreatedTime", "EndTime", "LastUpdatedTime", "StartTime" },
+                values: new object[,]
+                {
+                    { "1a2b3c4d5e6f7890a1b2c3d4e5f6a7b8", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(10, 0, 0), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(8, 0, 0) },
+                    { "2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(12, 0, 0), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(10, 0, 0) },
+                    { "3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(15, 0, 0), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(13, 0, 0) },
+                    { "4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(17, 0, 0), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new TimeOnly(15, 0, 0) }
                 });
 
             migrationBuilder.InsertData(
@@ -1441,13 +1483,24 @@ namespace Repositories.Migrations
                 columns: new[] { "Id", "Address", "CreatedTime", "DateOfBirth", "Email", "FullName", "Gender", "ImageUrl", "LastUpdatedTime", "MembershipId", "MembershipPoints", "Password", "PhoneNumber", "RegistrationTime", "RoleId", "Status", "Username" },
                 values: new object[,]
                 {
-                    { "00786efb729542fa87a19d44fb3cdf79", "Staff Employee Address", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 31, 217, DateTimeKind.Unspecified).AddTicks(794), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1988, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_employee@gmail.com", "Staff Employee", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 31, 217, DateTimeKind.Unspecified).AddTicks(794), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$q2TNbbklWQqVGkpcAD021OMO35z9tuPaOAwrbMWlg1wpMuXBnh/Wu", "0966332211", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "c67890d1e2f3a4b5c67890d1e2f3a4b5", 1, "staff_employee" },
-                    { "2bf1c6f4a7db4fed825958e6d78e7226", "Customer Organization Address", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 31, 75, DateTimeKind.Unspecified).AddTicks(4782), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_organization@gmail.com", "Customer Organization", 2, "empty", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 31, 75, DateTimeKind.Unspecified).AddTicks(4782), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 200, "$2a$11$.IFG/YXI6oxzYjj0QDB/jOMNP0/DuvmnHO8/KIUeLca7tdnwlSwwu", "0977554433", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "b5c67890d1e2f3a4b5c67890d1e2f3a4", 1, "customer_organization" },
-                    { "54d3a3e95adc4b38885e43af50e12e42", "Trainer Member Address", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 644, DateTimeKind.Unspecified).AddTicks(1043), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_member@gmail.com", "Trainer Member", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 644, DateTimeKind.Unspecified).AddTicks(1043), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$AC0H8O9EsWpf4Ar0dKc0X.7QQ7tZA8EiPM9X.xn0f8SnORdgvx8y6", "0987654321", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e2f3a4b5c67890d1e2f3a4b5c67890d1", 1, "trainer_member" },
-                    { "6144c9fe6b7e4f4294ea469ffb6a90fd", "Admin Address", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 505, DateTimeKind.Unspecified).AddTicks(5037), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", "Admin User", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 505, DateTimeKind.Unspecified).AddTicks(5037), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$sr8HWMkWFOCngFPIJiR9r.unx/iCRxs5.8B6lv/IPGiWJXpDLnU9S", "0123456789", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "d1e2f3a4b5c67890d1e2f3a4b5c67890", 1, "admin" },
-                    { "ea46ce4e457f42dfb18b6347bd4ea1f4", "Customer Individual Address", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 929, DateTimeKind.Unspecified).AddTicks(3610), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1995, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_individual@gmail.com", "Customer Individual", 2, "empty", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 929, DateTimeKind.Unspecified).AddTicks(3610), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 100, "$2a$11$mi3C97OnVi3ZfRWOJnM2SOAhKWkf9QepuA9bRhHVfi41z5eRllrs2", "0988112233", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "a4b5c67890d1e2f3a4b5c67890d1e2f3", 1, "customer_individual" },
-                    { "eaa27cff0c91479087bb22370ffbb6d0", "Staff Manager Address", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 31, 352, DateTimeKind.Unspecified).AddTicks(1564), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1980, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_manager@gmail.com", "Staff Manager", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 31, 352, DateTimeKind.Unspecified).AddTicks(1564), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$maKCMtTh5It5rW9M4Jst9uKHI9EO7Md1o62CuReRWt5Bh9cFYjxsS", "0955223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "67890d1e2f3a4b5c67890d1e2f3a4b5c", 1, "staff_manager" },
-                    { "fa13bc18b0c54ba0b9886b007f4d8b08", "Trainer Lead Address", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 783, DateTimeKind.Unspecified).AddTicks(1149), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1983, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_lead@gmail.com", "Trainer Lead", 1, "empty", new DateTimeOffset(new DateTime(2025, 3, 25, 9, 6, 30, 783, DateTimeKind.Unspecified).AddTicks(1149), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$jh3FfuUM1LhlM2dErIj3leRLTV9n6SpSNbKWI..CR/u2qIIk4XkqC", "0911223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "f3a4b5c67890d1e2f3a4b5c67890d1e2", 1, "trainer_lead" }
+                    { "00786efb729542fa87a19d44fb3cdf79", "Staff Employee Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 503, DateTimeKind.Unspecified).AddTicks(3588), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1988, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_employee@gmail.com", "Staff Employee", 1, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 503, DateTimeKind.Unspecified).AddTicks(3588), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$RFrfS8boDEJjiMLTtn4/KOI2XSEEhFeufkNM/xoFecXdJRpVtPB4G", "0966332211", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "c67890d1e2f3a4b5c67890d1e2f3a4b5", 1, "staff_employee" },
+                    { "2bf1c6f4a7db4fed825958e6d78e7226", "Customer Organization Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 328, DateTimeKind.Unspecified).AddTicks(8883), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_organization@gmail.com", "Customer Organization", 2, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 328, DateTimeKind.Unspecified).AddTicks(8883), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 200, "$2a$11$FVMqhMSsiT0NQv2Uzur4oOMvpzPKPpr0zhrTl6juJXaIPsRG3Hj6e", "0977554433", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "b5c67890d1e2f3a4b5c67890d1e2f3a4", 1, "customer_organization" },
+                    { "54d3a3e95adc4b38885e43af50e12e42", "Trainer Member Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 715, DateTimeKind.Unspecified).AddTicks(6767), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_member@gmail.com", "Trainer Member", 1, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 715, DateTimeKind.Unspecified).AddTicks(6767), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$nAR26ndKstD5Oggjxb0Bhe9bunt1e1HBboVAC.2O8EUZEp/B4p3CG", "0987654321", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e2f3a4b5c67890d1e2f3a4b5c67890d1", 1, "trainer_member" },
+                    { "6144c9fe6b7e4f4294ea469ffb6a90fd", "Admin Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 570, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", "Admin User", 1, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 570, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$pAeNdoDaU8xLJxQbAAZpueQI11w6nk2kNQJ1DhFMfiWQDgkw2FZ5W", "0123456789", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "d1e2f3a4b5c67890d1e2f3a4b5c67890", 1, "admin" },
+                    { "9f7c3e8a4b6d49f19a8d2e3f4c7b5680", "Test Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 810, DateTimeKind.Unspecified).AddTicks(7000), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test@gmail.com", "Test User", 1, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 810, DateTimeKind.Unspecified).AddTicks(7000), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$2TZoXG1K9MninUHGrZJEY.XGPZqfAPsWdzwTDpwMcJ2PKl2Q1EHca", "0123456789", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "a4b5c67890d1e2f3a4b5c67890d1e2f3", 1, "test" },
+                    { "ea46ce4e457f42dfb18b6347bd4ea1f4", "Customer Individual Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 73, DateTimeKind.Unspecified).AddTicks(845), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1995, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer_individual@gmail.com", "Customer Individual", 2, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 73, DateTimeKind.Unspecified).AddTicks(845), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 100, "$2a$11$L5ITOS/eEA2O3QscAa4dnu3v4sI4GW5CDsHJPW4LSD.WOD9brXcRK", "0988112233", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "a4b5c67890d1e2f3a4b5c67890d1e2f3", 1, "customer_individual" },
+                    { "eaa27cff0c91479087bb22370ffbb6d0", "Staff Manager Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 659, DateTimeKind.Unspecified).AddTicks(1212), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1980, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "staff_manager@gmail.com", "Staff Manager", 1, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 659, DateTimeKind.Unspecified).AddTicks(1212), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$alq35FxItnYrmsOFtgLJ2..wJM/hS.9DtuFGcQd6EbyV1nVp3xA22", "0955223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "67890d1e2f3a4b5c67890d1e2f3a4b5c", 1, "staff_manager" },
+                    { "fa13bc18b0c54ba0b9886b007f4d8b08", "Trainer Lead Address", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 860, DateTimeKind.Unspecified).AddTicks(9608), new TimeSpan(0, 7, 0, 0, 0)), new DateTime(1983, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "trainer_lead@gmail.com", "Trainer Lead", 1, "empty", new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 860, DateTimeKind.Unspecified).AddTicks(9608), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 0, "$2a$11$b26ZFBNRzlvbdfGBgnIXSOmHuB4MJbrvxPgC808Ual25dvH/CMpcu", "0911223344", new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "f3a4b5c67890d1e2f3a4b5c67890d1e2", 1, "trainer_lead" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CageCategories",
+                columns: new[] { "Id", "CreatedTime", "Description", "DogTypeId", "LastUpdatedTime", "Name", "Status" },
+                values: new object[,]
+                {
+                    { "57f1808014f741c79e2791dea717d760", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "For small dogs", "d1e2f3a4b5c67890d1e2f3a4b5c67890", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Small Cage", 1 },
+                    { "79e21dea717d7609e2791dea717d7604", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "For large dogs", "f3a4b5c67890d1e2f3a4b5c67890d1e2", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Large Cage", 1 },
+                    { "fc97a573f1224b93b73ddce3eebd4095", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "For medium dogs", "e2f3a4b5c67890d1e2f3a4b5c67890d1", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Medium Cage", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1477,12 +1530,47 @@ namespace Repositories.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Lessons",
+                columns: new[] { "Id", "CreatedTime", "Description", "Duration", "Environment", "LastUpdatedTime", "LessonTitle", "Notes", "Objective", "SkillId", "Status" },
+                values: new object[,]
+                {
+                    { "a1b2c3d4e5f67890a1b2c3d4e5f67890", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Obedience basics", 1, "Indoor", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic Training", "Sit, stay, come", "Good behavior", "1a2b3c4d5e6f78901a2b3c4d5e6f7890", 1 },
+                    { "b2c3d4e5f67890a1b2c3d4e5f67890a1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Speed & coordination", 2, "Outdoor", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Agility", "Jumping, weaving", "Improve agility", "2b3c4d5e6f78901a2b3c4d5e6f78901a", 1 },
+                    { "c3d4e5f67890a1b2c3d4e5f67890a1b2", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Correct bad habits", 3, "Indoor", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioral Fixes", "Reduce aggression", "Better discipline", "3c4d5e6f78901a2b3c4d5e6f78901a2b", 1 },
+                    { "d4e5f67890a1b2c3d4e5f67890a1b2c3", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Interact with dogs", 2, "Outdoor", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Socialization", "Playgroups, exposure", "Friendly behavior", "4d5e6f78901a2b3c4d5e6f78901a2b3c", 1 },
+                    { "e5f67890a1b2c3d4e5f67890a1b2c3d4", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Guard dog skills", 3, "Outdoor", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Protection Training", "Barking, alerting", "Security readiness", "5e6f78901a2b3c4d5e6f78901a2b3c4d", 1 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Blogs",
                 columns: new[] { "Id", "Content", "CreatedTime", "ImageUrl", "LastUpdatedTime", "StaffId", "Status", "TimePublished", "Title" },
                 values: new object[,]
                 {
                     { "57f1808014f741c79e2791dea717d760", "Training your dog is crucial for a harmonious relationship between pet and owner...", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "https://example.com/blog1.jpg", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "00786efb729542fa87a19d44fb3cdf79", 1, new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Importance of Dog Training" },
                     { "fc97a573f1224b93b73ddce3eebd4095", "Providing a balanced diet is essential for your dog's overall health and well-being...", new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "https://example.com/blog2.jpg", new DateTimeOffset(new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "eaa27cff0c91479087bb22370ffbb6d0", 1, new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Understanding Canine Nutrition" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cages",
+                columns: new[] { "Id", "CageCategoryId", "CreatedTime", "LastUpdatedTime", "Location", "Number", "Status" },
+                values: new object[,]
+                {
+                    { "-1", "57f1808014f741c79e2791dea717d760", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "None", 0, 1 },
+                    { "2ba0b50b9b3f48198eb7d789601b22ad", "57f1808014f741c79e2791dea717d760", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Area A", 1, 1 },
+                    { "5696c91a9cff44deafca48fe8bf128b8", "79e21dea717d7609e2791dea717d7604", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Area C", 3, 1 },
+                    { "6588249643834379aa75a9304c33207c", "fc97a573f1224b93b73ddce3eebd4095", new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Area B", 2, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Courses",
+                columns: new[] { "Id", "CategoryId", "Complexity", "CreatedTime", "CreatedTrainerId", "DaysPerWeek", "Description", "DurationInWeeks", "ImageUrl", "LastUpdatedTime", "MaxDogs", "MaxTrainers", "MinDogs", "MinTrainers", "Name", "Price", "SlotsPerDay", "Status" },
+                values: new object[,]
+                {
+                    { "a2b3c4d5e67890a1b2c3d4e5f67890f1", "156552f4dc9942b5bc72a6bae94be821", 1, new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "54d3a3e95adc4b38885e43af50e12e42", 4, "Improve agility", 3, "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296265/inloikxoyxcakdmakrrk.jpg", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 4, 2, 1, 1, "Agility Course", 200000m, 1, 1 },
+                    { "b3c4d5e67890a1b2c3d4e5f67890f1a2", "c44beb29575744b68c42cf4f70274a20", 1, new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "54d3a3e95adc4b38885e43af50e12e42", 3, "Correct bad behaviors", 5, "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296300/vozosvu7c92d3gbz9xmp.jpg", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 4, 2, 1, 1, "Behavioral Correction Course", 300000m, 2, 1 },
+                    { "c4d5e67890a1b2c3d4e5f67890f1a2b3", "156552f4dc9942b5bc72a6bae94be821", 1, new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "54d3a3e95adc4b38885e43af50e12e42", 3, "Improve socializing skill", 3, "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296126/k8lymjfwzbenlvfyt0ev.jpg", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 4, 2, 1, 1, "Socialization Course", 400000m, 2, 1 },
+                    { "d5e67890a1b2c3d4e5f67890f1a2b3c4", "f8cb65025770497e9a61c75501ed6cd3", 1, new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "54d3a3e95adc4b38885e43af50e12e42", 4, "Traing for protection", 8, "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296126/k8lymjfwzbenlvfyt0ev.jpg", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 4, 2, 1, 1, "Protection Trainging Course", 500000m, 3, 1 },
+                    { "f1a2b3c4d5e67890a1b2c3d4e5f67890", "156552f4dc9942b5bc72a6bae94be821", 1, new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "54d3a3e95adc4b38885e43af50e12e42", 3, "For basic training", 2, "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296214/wgpr6pg1jvkwrib4a1op.jpg", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 4, 2, 1, 1, "Basic Course", 100000m, 2, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1524,6 +1612,57 @@ namespace Repositories.Migrations
                     { "a1b2c3d4e5f6478a9b0c1d2e3f4g5678", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "6f78901a2b3c4d5e6f78901a2b3c4d5e", "54d3a3e95adc4b38885e43af50e12e42" },
                     { "b2c3d4e5f6478a9b0c1d2e3f4g5678a1", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "78901a2b3c4d5e6f78901a2b3c4d5e6f", "fa13bc18b0c54ba0b9886b007f4d8b08" },
                     { "c3d4e5f6478a9b0c1d2e3f4g5678a1b2", new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "8901a2b3c4d5e6f78901a2b3c4d5e6f7", "fa13bc18b0c54ba0b9886b007f4d8b08" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Certificates",
+                columns: new[] { "Id", "CourseId", "CreatedTime", "Description", "LastUpdatedTime", "Name", "Status" },
+                values: new object[,]
+                {
+                    { "a2b3c4d5e67890a1b2c3d4e5f67890f1", "a2b3c4d5e67890a1b2c3d4e5f67890f1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Cert for agility course", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Agility Course Certificate", 1 },
+                    { "b3c4d5e67890a1b2c3d4e5f67890f1a2", "b3c4d5e67890a1b2c3d4e5f67890f1a2", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Cert for bahvioural course", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Behavioural Course Certificate", 1 },
+                    { "c4d5e67890a1b2c3d4e5f67890f1a2b3", "c4d5e67890a1b2c3d4e5f67890f1a2b3", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Cert for socialization course", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Socialization Course Certificate", 1 },
+                    { "d5e67890a1b2c3d4e5f67890f1a2b3c4", "d5e67890a1b2c3d4e5f67890f1a2b3c4", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Cert for protection course", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Protection Course Certificate", 1 },
+                    { "f1a2b3c4d5e67890a1b2c3d4e5f67890", "f1a2b3c4d5e67890a1b2c3d4e5f67890", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Cert for basic course", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Basic Course Certificate", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CourseDogs",
+                columns: new[] { "Id", "CourseId", "CreatedTime", "DogBreedId", "LastUpdatedTime", "Status" },
+                values: new object[,]
+                {
+                    { "678b90e1f2a3b4c5d678f890a12b3c45d", "c4d5e67890a1b2c3d4e5f67890f1a2b3", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "bb57a3e3cd2048e88e02f5b87a935a62", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "789c01e1f2a3b4c5d678f890a12b3c45d6", "d5e67890a1b2c3d4e5f67890f1a2b3c4", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "bb57a3e3cd2048e88e02f5b87a935a62", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "890d12e1f2a3b4c5d678f890a12b3c45d6", "d5e67890a1b2c3d4e5f67890f1a2b3c4", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "f3c7da2e95764c47be56aeb742ecf3b1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "901a2b3c4d5e67890e1f2a3b4c5d678f8", "b3c4d5e67890a1b2c3d4e5f67890f1a2", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "f3c7da2e95764c47be56aeb742ecf3b1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "901e23e1f2a3b4c5d678f890a12b3c45d6", "d5e67890a1b2c3d4e5f67890f1a2b3c4", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "0d4f1f5a2b4a45d699cf43a66f5b8b22", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "a12b3c4d5e67890e1f2a3b4c5d678f890", "b3c4d5e67890a1b2c3d4e5f67890f1a2", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "0d4f1f5a2b4a45d699cf43a66f5b8b22", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "a12f34e1f2a3b4c5d678f890a12b3c45d6", "d5e67890a1b2c3d4e5f67890f1a2b3c4", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "1a5c9e4f7d884cf2a3f99e26c7b5a081", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "a3b4c5d67890a1b2c3d4e5f67890e1f2", "f1a2b3c4d5e67890a1b2c3d4e5f67890", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "bb57a3e3cd2048e88e02f5b87a935a62", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "b23c4d5e67890e1f2a3b4c5d678f890a1", "b3c4d5e67890a1b2c3d4e5f67890f1a2", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "1a5c9e4f7d884cf2a3f99e26c7b5a081", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "b4c5d67890a1b2c3d4e5f67890e1f2a3", "f1a2b3c4d5e67890a1b2c3d4e5f67890", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "f3c7da2e95764c47be56aeb742ecf3b1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "c34d5e67890e1f2a3b4c5d678f890a12b", "b3c4d5e67890a1b2c3d4e5f67890f1a2", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "bb57a3e3cd2048e88e02f5b87a935a62", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "c5d67890a1b2c3d4e5f67890e1f2a3b4", "a2b3c4d5e67890a1b2c3d4e5f67890f1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "bb57a3e3cd2048e88e02f5b87a935a62", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "d45e67890e1f2a3b4c5d678f890a12b3c", "c4d5e67890a1b2c3d4e5f67890f1a2b3", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "4bee6ab4f7f841d69bacedcfd25c8d07", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "d67890a1b2c3d4e5f67890e1f2a3b4c5", "a2b3c4d5e67890a1b2c3d4e5f67890f1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "c1a3ebdb3bfa44cc81f3a1f6205f8b64", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "e1f2a3b4c5d67890a1b2c3d4e5f67890", "f1a2b3c4d5e67890a1b2c3d4e5f67890", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "4bee6ab4f7f841d69bacedcfd25c8d07", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "e56f7890e1f2a3b4c5d678f890a12b3c4", "c4d5e67890a1b2c3d4e5f67890f1a2b3", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "e478aa3ff61d4b6f88d3b3e3a7f47b14", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "e7890a1b2c3d4e5f67890e1f2a3b4c5d6", "a2b3c4d5e67890a1b2c3d4e5f67890f1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "df76e3ed02444a61ad1efba0a5b75f06", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "f2a3b4c5d67890a1b2c3d4e5f67890e1", "f1a2b3c4d5e67890a1b2c3d4e5f67890", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a8f5f1675aaf4d1b8f7c8d924d3c3c4b", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "f67a890e1f2a3b4c5d678f890a12b3c45", "c4d5e67890a1b2c3d4e5f67890f1a2b3", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a8f5f1675aaf4d1b8f7c8d924d3c3c4b", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 },
+                    { "f890a1b2c3d4e5f67890e1f2a3b4c5d67", "a2b3c4d5e67890a1b2c3d4e5f67890f1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "e478aa3ff61d4b6f88d3b3e3a7f47b14", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CourseLessons",
+                columns: new[] { "Id", "CourseId", "CreatedTime", "LastUpdatedTime", "LessonId", "Status" },
+                values: new object[,]
+                {
+                    { "a3b4c5d67890a1b2c3d4e5f67890e1f2", "b3c4d5e67890a1b2c3d4e5f67890f1a2", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "c3d4e5f67890a1b2c3d4e5f67890a1b2", 1 },
+                    { "b4c5d67890a1b2c3d4e5f67890e1f2a3", "c4d5e67890a1b2c3d4e5f67890f1a2b3", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "d4e5f67890a1b2c3d4e5f67890a1b2c3", 1 },
+                    { "c5d67890a1b2c3d4e5f67890e1f2a3b4", "d5e67890a1b2c3d4e5f67890f1a2b3c4", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "e5f67890a1b2c3d4e5f67890a1b2c3d4", 1 },
+                    { "e1f2a3b4c5d67890a1b2c3d4e5f67890", "f1a2b3c4d5e67890a1b2c3d4e5f67890", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "a1b2c3d4e5f67890a1b2c3d4e5f67890", 1 },
+                    { "f2a3b4c5d67890a1b2c3d4e5f67890e1", "a2b3c4d5e67890a1b2c3d4e5f67890f1", new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "b2c3d4e5f67890a1b2c3d4e5f67890a1", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1572,11 +1711,6 @@ namespace Repositories.Migrations
                 name: "IX_Accounts_RoleId",
                 table: "Accounts",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attendances_ClassId",
-                table: "Attendances",
-                column: "ClassId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attendances_DogId",
@@ -1735,12 +1869,6 @@ namespace Repositories.Migrations
                 column: "DogId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_PaymentId",
-                table: "Enrollments",
-                column: "PaymentId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Enrollments_StaffId",
                 table: "Enrollments",
                 column: "StaffId");
@@ -1766,6 +1894,16 @@ namespace Repositories.Migrations
                 column: "LessonId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LessonPrerequisites_PrerequisiteLessonId",
+                table: "LessonPrerequisites",
+                column: "PrerequisiteLessonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LessonPrerequisites_PrerequisiteLessonId1",
+                table: "LessonPrerequisites",
+                column: "PrerequisiteLessonId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Lessons_SkillId",
                 table: "Lessons",
                 column: "SkillId");
@@ -1776,21 +1914,6 @@ namespace Repositories.Migrations
                 column: "ReceiverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_CustomerId",
-                table: "Payments",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_MembershipId",
-                table: "Payments",
-                column: "MembershipId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_PaymentMethodId",
-                table: "Payments",
-                column: "PaymentMethodId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Prerequisites_CourseId",
                 table: "Prerequisites",
                 column: "CourseId");
@@ -1798,8 +1921,7 @@ namespace Repositories.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Prerequisites_PrerequisiteCourseId",
                 table: "Prerequisites",
-                column: "PrerequisiteCourseId",
-                unique: true);
+                column: "PrerequisiteCourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PreTests_ClassId",
@@ -1912,6 +2034,27 @@ namespace Repositories.Migrations
                 column: "TrainerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Transactions_CustomerId",
+                table: "Transactions",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_EnrollmentId",
+                table: "Transactions",
+                column: "EnrollmentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_MembershipId",
+                table: "Transactions",
+                column: "MembershipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_PaymentMethodId",
+                table: "Transactions",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WishLists_CourseId",
                 table: "WishLists",
                 column: "CourseId");
@@ -1965,6 +2108,9 @@ namespace Repositories.Migrations
                 name: "LessonEquipments");
 
             migrationBuilder.DropTable(
+                name: "LessonPrerequisites");
+
+            migrationBuilder.DropTable(
                 name: "Notifications");
 
             migrationBuilder.DropTable(
@@ -1998,6 +2144,9 @@ namespace Repositories.Migrations
                 name: "TrainingReports");
 
             migrationBuilder.DropTable(
+                name: "Transactions");
+
+            migrationBuilder.DropTable(
                 name: "WishLists");
 
             migrationBuilder.DropTable(
@@ -2028,6 +2177,9 @@ namespace Repositories.Migrations
                 name: "Enrollments");
 
             migrationBuilder.DropTable(
+                name: "PaymentMethods");
+
+            migrationBuilder.DropTable(
                 name: "EquipmentCategories");
 
             migrationBuilder.DropTable(
@@ -2038,9 +2190,6 @@ namespace Repositories.Migrations
 
             migrationBuilder.DropTable(
                 name: "Dogs");
-
-            migrationBuilder.DropTable(
-                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "Classes");
@@ -2056,9 +2205,6 @@ namespace Repositories.Migrations
 
             migrationBuilder.DropTable(
                 name: "DogBreeds");
-
-            migrationBuilder.DropTable(
-                name: "PaymentMethods");
 
             migrationBuilder.DropTable(
                 name: "Courses");
