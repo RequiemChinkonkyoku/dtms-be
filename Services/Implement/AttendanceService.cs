@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.Response;
 using Models.Entities;
@@ -59,14 +60,22 @@ namespace Services.Implement
             {
                 Id = Guid.NewGuid().ToString(),
                 Date = request.Date,
+                Status = (int)AttendanceStatusEnum.CheckedIn,
                 SlotId = request.SlotId,
                 DogId = request.DogId,
                 CreatedTime = DateTime.UtcNow,
                 LastUpdatedTime = DateTime.UtcNow
             };
 
-            await _unitOfWork.Attendances.Add(newAttendance);
-            await _unitOfWork.SaveChanges();
+            try
+            {
+                await _unitOfWork.Attendances.Add(newAttendance);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return $"There has been an error creating attendance. Ex: {ex.Message}.";
+            }
 
             return "Attendance created successfully.";
         }
@@ -90,5 +99,45 @@ namespace Services.Implement
             return "Attendance updated successfully.";
         }
 
+        public async Task<BaseResponseDTO<Attendance>> CheckoutAttendance(string id)
+        {
+            var attendance = await _unitOfWork.Attendances.GetById(id);
+
+            if (attendance == null)
+            {
+                return new BaseResponseDTO<Attendance>
+                {
+                    Success = false,
+                    Message = $"Unable to find attendance with id {id}."
+                };
+            }
+
+            if (attendance.Status != (int)AttendanceStatusEnum.CheckedIn)
+            {
+                return new BaseResponseDTO<Attendance>
+                {
+                    Success = false,
+                    Message = $"Invalid attendance status."
+                };
+            }
+
+            attendance.Status = (int)AttendanceStatusEnum.CheckedOut;
+
+            try
+            {
+                await _unitOfWork.Attendances.Update(attendance);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Attendance>
+                {
+                    Success = false,
+                    Message = $"There has been an error updating attendance."
+                };
+            }
+
+            return new BaseResponseDTO<Attendance> { Success = true, Object = attendance };
+        }
     }
 }

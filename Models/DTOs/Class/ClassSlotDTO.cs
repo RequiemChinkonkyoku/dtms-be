@@ -11,7 +11,6 @@ namespace Models.DTOs.Class
         public int Status { get; set; }
         public string SlotId { get; set; }
         public DateOnly SlotDate { get; set; }
-        public int Status { get; set; }
         public string ScheduleId { get; set; }
         public TimeOnly StartTime { get; set; }
         public TimeOnly EndTime { get; set; }
