@@ -73,5 +73,19 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpPut("checkout/{id}")]
+        public async Task<IActionResult> CheckoutAttendance(string id)
+        {
+            var response = await _attendanceService.CheckoutAttendance(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

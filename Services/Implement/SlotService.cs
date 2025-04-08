@@ -148,5 +148,46 @@ namespace Services.Implement
 
             return new BaseResponseDTO<Slot> { Success = true, Object = slot };
         }
+
+        public async Task<BaseResponseDTO<Slot>> ConcludeSlot(string id)
+        {
+            var slot = await _unitOfWork.Slots.GetById(id);
+
+            if (slot == null)
+            {
+                return new BaseResponseDTO<Slot>
+                {
+                    Success = false,
+                    Message = "Unable to find slot."
+                };
+            }
+
+            if (slot.Status != (int)SlotStatusEnum.CheckedIn)
+            {
+                return new BaseResponseDTO<Slot>
+                {
+                    Success = false,
+                    Message = "Invalid slot status for checkin."
+                };
+            }
+
+            slot.Status = (int)SlotStatusEnum.Concluded;
+
+            try
+            {
+                await _unitOfWork.Slots.Update(slot);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Slot>
+                {
+                    Success = false,
+                    Message = $"There has been an error updating the slot.EX: {ex.Message}"
+                };
+            }
+
+            return new BaseResponseDTO<Slot> { Success = true, Object = slot };
+        }
     }
 }

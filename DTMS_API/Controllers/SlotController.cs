@@ -66,5 +66,20 @@ namespace DTMS_API.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpPut("conclude-slot/{id}")]
+        public async Task<IActionResult> ConcludeSlot(string id)
+        {
+            var response = await _slotService.ConcludeSlot(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace Services.Interface
         Task<List<GetSlotByClassResponse>> GetSlotsByClassAndDog(string classId, string dogId);
         Task<BaseResponseDTO<Slot>> CheckinSlot(string id);
         Task<BaseResponseDTO<GetTrainerSlotResponse>> GetTrainerSlots(string id);
+        Task<BaseResponseDTO<Slot>> ConcludeSlot(string id);
     }
 }

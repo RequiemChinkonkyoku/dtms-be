@@ -9,6 +9,7 @@ namespace Models.Entities
     public class Attendance : BaseEntity
     {
         public DateOnly Date { get; set; }
+        public int Status { get; set; }
 
         public string SlotId { get; set; }
         public Slot Slot { get; set; }
