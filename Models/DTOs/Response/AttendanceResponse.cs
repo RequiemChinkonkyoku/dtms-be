@@ -10,9 +10,10 @@ namespace Models.DTOs.Response
     {
         public string Id { get; set; }
         public DateOnly Date { get; set; }
+        public int Status { get; set; }
         public string SlotId { get; set; }
-        public string DogId { get; set; }  
+        public string DogId { get; set; }
         public string DogName { get; set; }
-        public List<ProgressReportResponse> ProgressReports { get; set; } 
+        public List<ProgressReportResponse> ProgressReports { get; set; }
     }
 }
