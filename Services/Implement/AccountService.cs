@@ -19,11 +19,13 @@ public class AccountService : IAccountService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IConfiguration _config;
 
-    public AccountService(IUnitOfWork unitOfWork, IMapper mapper)
+    public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _config = config;
     }
 
     public async Task<List<AllAccountsResponse>> GetAllAccounts()
@@ -121,12 +123,12 @@ public class AccountService : IAccountService
             
             // Generate JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
-                .Build();
-            var strConn = config["ConnectionStrings:PodBookingSystemDB"];
-            var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]);
+            // IConfiguration config = new ConfigurationBuilder()
+            //     .SetBasePath(Directory.GetCurrentDirectory())
+            //     .AddJsonFile("appsettings.json", true, true)
+            //     .Build();
+            // var strConn = config["ConnectionStrings:PodBookingSystemDB"];
+            var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -135,8 +137,8 @@ public class AccountService : IAccountService
                     new Claim(ClaimTypes.Role, role.Name.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(90),
-                Issuer = config["Jwt:Issuer"],
-                Audience = config["Jwt:Audience"],
+                Issuer = _config["Jwt:Issuer"],
+                Audience = _config["Jwt:Audience"],
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
