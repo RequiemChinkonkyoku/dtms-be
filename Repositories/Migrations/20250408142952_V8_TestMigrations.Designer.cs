@@ -12,8 +12,8 @@ using Repositories;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DtmsDbContext))]
-    [Migration("20250327141258_V7_ChangePaymentTblToTransaction")]
-    partial class V7_ChangePaymentTblToTransaction
+    [Migration("20250408142952_V8_TestMigrations")]
+    partial class V8_TestMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,16 +100,16 @@ namespace Repositories.Migrations
                         {
                             Id = "6144c9fe6b7e4f4294ea469ffb6a90fd",
                             Address = "Admin Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 458, DateTimeKind.Unspecified).AddTicks(670), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 570, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             FullName = "Admin User",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 458, DateTimeKind.Unspecified).AddTicks(670), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 570, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$JgCWKIedQziTX8iKv6cDo.8UgJZMt2T.Aq5WSvs3/p8e10xutPXti",
+                            Password = "$2a$11$pAeNdoDaU8xLJxQbAAZpueQI11w6nk2kNQJ1DhFMfiWQDgkw2FZ5W",
                             PhoneNumber = "0123456789",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "d1e2f3a4b5c67890d1e2f3a4b5c67890",
@@ -120,16 +120,16 @@ namespace Repositories.Migrations
                         {
                             Id = "54d3a3e95adc4b38885e43af50e12e42",
                             Address = "Trainer Member Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 588, DateTimeKind.Unspecified).AddTicks(9970), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 715, DateTimeKind.Unspecified).AddTicks(6767), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trainer_member@gmail.com",
                             FullName = "Trainer Member",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 588, DateTimeKind.Unspecified).AddTicks(9970), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 715, DateTimeKind.Unspecified).AddTicks(6767), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$KcF5szlSIsx0jPrfpXGf2.tP0zOFIlQK6dr1PbTKjZ3HwSAFTQg2C",
+                            Password = "$2a$11$nAR26ndKstD5Oggjxb0Bhe9bunt1e1HBboVAC.2O8EUZEp/B4p3CG",
                             PhoneNumber = "0987654321",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "e2f3a4b5c67890d1e2f3a4b5c67890d1",
@@ -140,16 +140,16 @@ namespace Repositories.Migrations
                         {
                             Id = "fa13bc18b0c54ba0b9886b007f4d8b08",
                             Address = "Trainer Lead Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 707, DateTimeKind.Unspecified).AddTicks(3523), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 860, DateTimeKind.Unspecified).AddTicks(9608), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1983, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trainer_lead@gmail.com",
                             FullName = "Trainer Lead",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 707, DateTimeKind.Unspecified).AddTicks(3523), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 50, 860, DateTimeKind.Unspecified).AddTicks(9608), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$nHqJMumgrALMmjL3v8Lo.O/XTEB1WhZ2R1sDA.XWPkZNdBhkwlHZO",
+                            Password = "$2a$11$b26ZFBNRzlvbdfGBgnIXSOmHuB4MJbrvxPgC808Ual25dvH/CMpcu",
                             PhoneNumber = "0911223344",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "f3a4b5c67890d1e2f3a4b5c67890d1e2",
@@ -160,16 +160,16 @@ namespace Repositories.Migrations
                         {
                             Id = "ea46ce4e457f42dfb18b6347bd4ea1f4",
                             Address = "Customer Individual Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 831, DateTimeKind.Unspecified).AddTicks(1490), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 73, DateTimeKind.Unspecified).AddTicks(845), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1995, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer_individual@gmail.com",
                             FullName = "Customer Individual",
                             Gender = 2,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 831, DateTimeKind.Unspecified).AddTicks(1490), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 73, DateTimeKind.Unspecified).AddTicks(845), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 100,
-                            Password = "$2a$11$iBz0is27aW2MJvN1aUiI2u7cF9toxL7QjGERKsJ33Tsz9MEeeLaaK",
+                            Password = "$2a$11$L5ITOS/eEA2O3QscAa4dnu3v4sI4GW5CDsHJPW4LSD.WOD9brXcRK",
                             PhoneNumber = "0988112233",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "a4b5c67890d1e2f3a4b5c67890d1e2f3",
@@ -180,16 +180,16 @@ namespace Repositories.Migrations
                         {
                             Id = "2bf1c6f4a7db4fed825958e6d78e7226",
                             Address = "Customer Organization Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 951, DateTimeKind.Unspecified).AddTicks(7849), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 328, DateTimeKind.Unspecified).AddTicks(8883), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1992, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer_organization@gmail.com",
                             FullName = "Customer Organization",
                             Gender = 2,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 56, 951, DateTimeKind.Unspecified).AddTicks(7849), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 328, DateTimeKind.Unspecified).AddTicks(8883), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 200,
-                            Password = "$2a$11$bOj9p1uvLXwQP8Bq3GFwbejhRcZZZyaXyDZsrvk.XPPj4nQy69EEa",
+                            Password = "$2a$11$FVMqhMSsiT0NQv2Uzur4oOMvpzPKPpr0zhrTl6juJXaIPsRG3Hj6e",
                             PhoneNumber = "0977554433",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "b5c67890d1e2f3a4b5c67890d1e2f3a4",
@@ -200,16 +200,16 @@ namespace Repositories.Migrations
                         {
                             Id = "00786efb729542fa87a19d44fb3cdf79",
                             Address = "Staff Employee Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 57, 77, DateTimeKind.Unspecified).AddTicks(6536), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 503, DateTimeKind.Unspecified).AddTicks(3588), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1988, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "staff_employee@gmail.com",
                             FullName = "Staff Employee",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 57, 77, DateTimeKind.Unspecified).AddTicks(6536), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 503, DateTimeKind.Unspecified).AddTicks(3588), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$wcW79.0oqKjrIo3OAgL3hO4mVR5gebG9zzQl0kv0KXMpzB/6alU92",
+                            Password = "$2a$11$RFrfS8boDEJjiMLTtn4/KOI2XSEEhFeufkNM/xoFecXdJRpVtPB4G",
                             PhoneNumber = "0966332211",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "c67890d1e2f3a4b5c67890d1e2f3a4b5",
@@ -220,16 +220,16 @@ namespace Repositories.Migrations
                         {
                             Id = "eaa27cff0c91479087bb22370ffbb6d0",
                             Address = "Staff Manager Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 57, 206, DateTimeKind.Unspecified).AddTicks(3309), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 659, DateTimeKind.Unspecified).AddTicks(1212), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1980, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "staff_manager@gmail.com",
                             FullName = "Staff Manager",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 57, 206, DateTimeKind.Unspecified).AddTicks(3309), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 659, DateTimeKind.Unspecified).AddTicks(1212), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$v/X/YMoDp6aqaSt1Te8mB.LDtTJFt.nsEw7cPZ5NpVY9NKUknGPAe",
+                            Password = "$2a$11$alq35FxItnYrmsOFtgLJ2..wJM/hS.9DtuFGcQd6EbyV1nVp3xA22",
                             PhoneNumber = "0955223344",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "67890d1e2f3a4b5c67890d1e2f3a4b5c",
@@ -240,16 +240,16 @@ namespace Repositories.Migrations
                         {
                             Id = "9f7c3e8a4b6d49f19a8d2e3f4c7b5680",
                             Address = "Test Address",
-                            CreatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 57, 346, DateTimeKind.Unspecified).AddTicks(2281), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 810, DateTimeKind.Unspecified).AddTicks(7000), new TimeSpan(0, 7, 0, 0, 0)),
                             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "test@gmail.com",
                             FullName = "Test User",
                             Gender = 1,
                             ImageUrl = "empty",
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 3, 27, 21, 12, 57, 346, DateTimeKind.Unspecified).AddTicks(2281), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2025, 4, 8, 21, 29, 51, 810, DateTimeKind.Unspecified).AddTicks(7000), new TimeSpan(0, 7, 0, 0, 0)),
                             MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890",
                             MembershipPoints = 0,
-                            Password = "$2a$11$OGwnzAZrdcjiACR3MuWaNuvcDzLfmgAbBYl/YRafBToEK1s3VBxtC",
+                            Password = "$2a$11$2TZoXG1K9MninUHGrZJEY.XGPZqfAPsWdzwTDpwMcJ2PKl2Q1EHca",
                             PhoneNumber = "0123456789",
                             RegistrationTime = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = "a4b5c67890d1e2f3a4b5c67890d1e2f3",
@@ -295,9 +295,6 @@ namespace Repositories.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ClassId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
@@ -315,9 +312,10 @@ namespace Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ClassId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DogId");
 
@@ -453,6 +451,48 @@ namespace Repositories.Migrations
                     b.HasIndex("CageCategoryId");
 
                     b.ToTable("Cages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "-1",
+                            CageCategoryId = "57f1808014f741c79e2791dea717d760",
+                            CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Location = "None",
+                            Number = 0,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = "2ba0b50b9b3f48198eb7d789601b22ad",
+                            CageCategoryId = "57f1808014f741c79e2791dea717d760",
+                            CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Location = "Area A",
+                            Number = 1,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = "6588249643834379aa75a9304c33207c",
+                            CageCategoryId = "fc97a573f1224b93b73ddce3eebd4095",
+                            CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Location = "Area B",
+                            Number = 2,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = "5696c91a9cff44deafca48fe8bf128b8",
+                            CageCategoryId = "79e21dea717d7609e2791dea717d7604",
+                            CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Location = "Area C",
+                            Number = 3,
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("Models.Entities.CageCategory", b =>
@@ -485,6 +525,38 @@ namespace Repositories.Migrations
                     b.HasIndex("DogTypeId");
 
                     b.ToTable("CageCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "57f1808014f741c79e2791dea717d760",
+                            CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "For small dogs",
+                            DogTypeId = "d1e2f3a4b5c67890d1e2f3a4b5c67890",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Small Cage",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = "fc97a573f1224b93b73ddce3eebd4095",
+                            CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "For medium dogs",
+                            DogTypeId = "e2f3a4b5c67890d1e2f3a4b5c67890d1",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Medium Cage",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = "79e21dea717d7609e2791dea717d7604",
+                            CreatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Description = "For large dogs",
+                            DogTypeId = "f3a4b5c67890d1e2f3a4b5c67890d1e2",
+                            LastUpdatedTime = new DateTimeOffset(new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            Name = "Large Cage",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("Models.Entities.Category", b =>
@@ -819,18 +891,18 @@ namespace Repositories.Migrations
                             Complexity = 1,
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedTrainerId = "54d3a3e95adc4b38885e43af50e12e42",
-                            DaysPerWeek = 1,
+                            DaysPerWeek = 3,
                             Description = "For basic training",
-                            DurationInWeeks = 1,
-                            ImageUrl = "",
+                            DurationInWeeks = 2,
+                            ImageUrl = "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296214/wgpr6pg1jvkwrib4a1op.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             MaxDogs = 4,
                             MaxTrainers = 2,
                             MinDogs = 1,
                             MinTrainers = 1,
                             Name = "Basic Course",
-                            Price = 100m,
-                            SlotsPerDay = 1,
+                            Price = 100000m,
+                            SlotsPerDay = 2,
                             Status = 1
                         },
                         new
@@ -840,17 +912,17 @@ namespace Repositories.Migrations
                             Complexity = 1,
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedTrainerId = "54d3a3e95adc4b38885e43af50e12e42",
-                            DaysPerWeek = 1,
+                            DaysPerWeek = 4,
                             Description = "Improve agility",
-                            DurationInWeeks = 2,
-                            ImageUrl = "",
+                            DurationInWeeks = 3,
+                            ImageUrl = "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296265/inloikxoyxcakdmakrrk.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             MaxDogs = 4,
                             MaxTrainers = 2,
                             MinDogs = 1,
                             MinTrainers = 1,
                             Name = "Agility Course",
-                            Price = 100m,
+                            Price = 200000m,
                             SlotsPerDay = 1,
                             Status = 1
                         },
@@ -861,18 +933,18 @@ namespace Repositories.Migrations
                             Complexity = 1,
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedTrainerId = "54d3a3e95adc4b38885e43af50e12e42",
-                            DaysPerWeek = 1,
+                            DaysPerWeek = 3,
                             Description = "Correct bad behaviors",
-                            DurationInWeeks = 2,
-                            ImageUrl = "",
+                            DurationInWeeks = 5,
+                            ImageUrl = "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296300/vozosvu7c92d3gbz9xmp.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             MaxDogs = 4,
                             MaxTrainers = 2,
                             MinDogs = 1,
                             MinTrainers = 1,
                             Name = "Behavioral Correction Course",
-                            Price = 100m,
-                            SlotsPerDay = 1,
+                            Price = 300000m,
+                            SlotsPerDay = 2,
                             Status = 1
                         },
                         new
@@ -882,18 +954,18 @@ namespace Repositories.Migrations
                             Complexity = 1,
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedTrainerId = "54d3a3e95adc4b38885e43af50e12e42",
-                            DaysPerWeek = 1,
+                            DaysPerWeek = 3,
                             Description = "Improve socializing skill",
-                            DurationInWeeks = 2,
-                            ImageUrl = "",
+                            DurationInWeeks = 3,
+                            ImageUrl = "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296126/k8lymjfwzbenlvfyt0ev.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             MaxDogs = 4,
                             MaxTrainers = 2,
                             MinDogs = 1,
                             MinTrainers = 1,
                             Name = "Socialization Course",
-                            Price = 100m,
-                            SlotsPerDay = 1,
+                            Price = 400000m,
+                            SlotsPerDay = 2,
                             Status = 1
                         },
                         new
@@ -903,18 +975,18 @@ namespace Repositories.Migrations
                             Complexity = 1,
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedTrainerId = "54d3a3e95adc4b38885e43af50e12e42",
-                            DaysPerWeek = 1,
+                            DaysPerWeek = 4,
                             Description = "Traing for protection",
-                            DurationInWeeks = 3,
-                            ImageUrl = "",
+                            DurationInWeeks = 8,
+                            ImageUrl = "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296126/k8lymjfwzbenlvfyt0ev.jpg",
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             MaxDogs = 4,
                             MaxTrainers = 2,
                             MinDogs = 1,
                             MinTrainers = 1,
                             Name = "Protection Trainging Course",
-                            Price = 100m,
-                            SlotsPerDay = 1,
+                            Price = 500000m,
+                            SlotsPerDay = 3,
                             Status = 1
                         });
                 });
@@ -2047,7 +2119,7 @@ namespace Repositories.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<bool>("RequiedNightStay")
+                    b.Property<bool>("RequiredNightStay")
                         .HasColumnType("bit");
 
                     b.Property<string>("StaffId")
@@ -2369,6 +2441,9 @@ namespace Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EquipmentId");
@@ -2376,6 +2451,38 @@ namespace Repositories.Migrations
                     b.HasIndex("LessonId");
 
                     b.ToTable("LessonEquipments");
+                });
+
+            modelBuilder.Entity("Models.Entities.LessonPrerequisite", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LessonId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrerequisiteLessonId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PrerequisiteLessonId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrerequisiteLessonId");
+
+                    b.HasIndex("PrerequisiteLessonId1");
+
+                    b.ToTable("LessonPrerequisites");
                 });
 
             modelBuilder.Entity("Models.Entities.Membership", b =>
@@ -2568,8 +2675,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("PrerequisiteCourseId")
-                        .IsUnique();
+                    b.HasIndex("PrerequisiteCourseId");
 
                     b.ToTable("Prerequisites");
                 });
@@ -2739,7 +2845,7 @@ namespace Repositories.Migrations
                         {
                             Id = "1a2b3c4d5e6f7890a1b2c3d4e5f6a7b8",
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(9, 0, 0),
+                            EndTime = new TimeOnly(10, 0, 0),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             StartTime = new TimeOnly(8, 0, 0)
                         },
@@ -2747,55 +2853,23 @@ namespace Repositories.Migrations
                         {
                             Id = "2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e",
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(10, 0, 0),
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartTime = new TimeOnly(9, 0, 0)
-                        },
-                        new
-                        {
-                            Id = "3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f",
-                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(11, 0, 0),
+                            EndTime = new TimeOnly(12, 0, 0),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             StartTime = new TimeOnly(10, 0, 0)
                         },
                         new
                         {
-                            Id = "4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a",
+                            Id = "3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f",
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(12, 0, 0),
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartTime = new TimeOnly(11, 0, 0)
-                        },
-                        new
-                        {
-                            Id = "5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b",
-                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(13, 0, 0),
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartTime = new TimeOnly(12, 0, 0)
-                        },
-                        new
-                        {
-                            Id = "6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c",
-                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(14, 0, 0),
+                            EndTime = new TimeOnly(15, 0, 0),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             StartTime = new TimeOnly(13, 0, 0)
                         },
                         new
                         {
-                            Id = "7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d",
+                            Id = "4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a",
                             CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(15, 0, 0),
-                            LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            StartTime = new TimeOnly(14, 0, 0)
-                        },
-                        new
-                        {
-                            Id = "8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e",
-                            CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
-                            EndTime = new TimeOnly(16, 0, 0),
+                            EndTime = new TimeOnly(17, 0, 0),
                             LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             StartTime = new TimeOnly(15, 0, 0)
                         });
@@ -2899,6 +2973,9 @@ namespace Repositories.Migrations
                     b.Property<string>("ScheduleId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -3467,10 +3544,6 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Models.Entities.Attendance", b =>
                 {
-                    b.HasOne("Models.Entities.Class", null)
-                        .WithMany("Attendances")
-                        .HasForeignKey("ClassId");
-
                     b.HasOne("Models.Entities.Dog", "Dog")
                         .WithMany("Attendances")
                         .HasForeignKey("DogId")
@@ -3826,6 +3899,25 @@ namespace Repositories.Migrations
                     b.Navigation("Lesson");
                 });
 
+            modelBuilder.Entity("Models.Entities.LessonPrerequisite", b =>
+                {
+                    b.HasOne("Models.Entities.Lesson", "Lesson")
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteLessonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Models.Entities.Lesson", "PrerequisiteLesson")
+                        .WithMany("LessonPrerequisites")
+                        .HasForeignKey("PrerequisiteLessonId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+
+                    b.Navigation("PrerequisiteLesson");
+                });
+
             modelBuilder.Entity("Models.Entities.Notification", b =>
                 {
                     b.HasOne("Models.Entities.Account", "ReceiverAccount")
@@ -3865,8 +3957,8 @@ namespace Repositories.Migrations
                         .IsRequired();
 
                     b.HasOne("Models.Entities.Course", "PrerequisiteCourse")
-                        .WithOne()
-                        .HasForeignKey("Models.Entities.Prerequisite", "PrerequisiteCourseId")
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteCourseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -4167,8 +4259,6 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Models.Entities.Class", b =>
                 {
-                    b.Navigation("Attendances");
-
                     b.Navigation("Enrollments");
 
                     b.Navigation("PreTests");
@@ -4258,6 +4348,8 @@ namespace Repositories.Migrations
                     b.Navigation("CourseLessons");
 
                     b.Navigation("LessonEquipments");
+
+                    b.Navigation("LessonPrerequisites");
                 });
 
             modelBuilder.Entity("Models.Entities.Membership", b =>
