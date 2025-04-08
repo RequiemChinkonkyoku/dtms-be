@@ -1,0 +1,39 @@
+name: Deploy Backend API
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: "dtms-test"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Install dependencies
+        run: dotnet restore ${{ github.workspace }}/DTMS_BE.sln
+
+      - name: Build
+        run: dotnet build ${{ github.workspace }}/DTMS_BE.sln --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish ${{ github.workspace }}/DTMS_BE.sln --configuration Release --output ${{ github.workspace }}/publish
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: Production
+          publish-profile: ${{ secrets.API_PUBLISH_SECRET }}
+          package: ${{ github.workspace }}/publish
