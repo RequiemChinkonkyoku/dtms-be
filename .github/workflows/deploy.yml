@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install EF Core tools
+        run: dotnet tool install --global dotnet-ef
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -23,6 +26,12 @@ jobs:
 
       - name: Install dependencies
         run: dotnet restore ${{ github.workspace }}/DTMS_BE.sln
+
+      - name: Apply EF Core Migrations
+        run: dotnet ef database update --project ./Repositories --startup-project ./DTMS_API
+        env:
+          ASPNETCORE_ENVIRONMENT: Production
+          ConnectionStrings__DtmsDB: ${{ secrets.DATABASE_CONNECTION_STRING }}
 
       - name: Build
         run: dotnet build ${{ github.workspace }}/DTMS_BE.sln --configuration Release --no-restore
