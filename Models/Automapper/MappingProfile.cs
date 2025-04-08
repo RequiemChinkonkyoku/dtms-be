@@ -125,6 +125,7 @@ namespace Models.Automapper
                 .ForMember(dest => dest.ClassSlots, opt => opt.MapFrom(src => src.Slots
                     .Select(s => new ClassSlotDTO
                     {
+                        Status = s.Status,
                         SlotId = s.Id,
                         SlotDate = s.Date,
                         Status = s.Status,
@@ -202,6 +203,7 @@ namespace Models.Automapper
                     DogId = src.Attendance.DogId
                 }));
             CreateMap<Slot, GetTrainerSlotResponse>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.SlotId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.SlotDate, opt => opt.MapFrom(src => src.Date))
                 .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.ClassId))

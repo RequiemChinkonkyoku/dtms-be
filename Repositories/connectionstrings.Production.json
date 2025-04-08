@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DtmsDB": "Server=tcp:dtms-db.database.windows.net,1433;Initial Catalog=dtms-db;Persist Security Info=False;User ID=dtmsadmin;Password=Test@1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
+}

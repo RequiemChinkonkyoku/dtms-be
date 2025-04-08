@@ -19,11 +19,17 @@ public class DtmsDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        
+        string connectionStringFile = environment == "Development" 
+            ? "connectionstrings.Development.json" 
+            : "connectionstrings.Production.json";
+        
         if (!optionsBuilder.IsConfigured)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("connectionstrings.json", true, true)
+                .AddJsonFile(connectionStringFile, true, true)
                 .Build();
             var connectionString = configuration.GetConnectionString("DtmsDB");
             optionsBuilder.UseSqlServer(connectionString);

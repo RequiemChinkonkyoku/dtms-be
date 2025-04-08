@@ -4,11 +4,13 @@ using AutoMapper;
 using DTMS_API.Extension;
 using DTMS_API.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Models.Automapper;
+using Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -109,10 +111,13 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddDbContext<DtmsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DtmsDB")));
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// CHANGE BACK TO EXCLUDE PRODUCTION AFTER TESTING
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -133,5 +138,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
+
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var db = scope.ServiceProvider.GetRequiredService<DtmsDbContext>();
+        db.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Migration failed: {ex.Message}");
+        throw;
+    }
+}
 
 app.Run();
