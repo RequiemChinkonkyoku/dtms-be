@@ -127,6 +127,7 @@ namespace Models.Automapper
                     {
                         SlotId = s.Id,
                         SlotDate = s.Date,
+                        Status = s.Status,
                         ScheduleId = s.ScheduleId,
                         StartTime = s.Schedule.StartTime,
                         EndTime = s.Schedule.EndTime
