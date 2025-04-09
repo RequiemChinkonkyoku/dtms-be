@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging.EventSource;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using Models.DTOs;
+using Models.DTOs.Lesson.Request;
+using Models.DTOs.Lesson.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -33,16 +35,18 @@ namespace Services.Implement
             return new BaseResponseDTO<Lesson> { Success = true, ObjectList = response };
         }
 
-        public async Task<BaseResponseDTO<Lesson>> GetLessonById(string id)
+        public async Task<BaseResponseDTO<GetLessonResponse>> GetLessonById(string id)
         {
-            var lesson = await _unitOfWork.Lessons.GetById(id);
+            var lesson = await _unitOfWork.Lessons.GetLessonByIdAsync(id);
 
             if (lesson == null)
             {
-                return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find lesson with id " + id };
+                return new BaseResponseDTO<GetLessonResponse> { Success = false, Message = "Unable to find lesson with id " + id };
             }
 
-            return new BaseResponseDTO<Lesson> { Success = true, Object = lesson };
+            var mappedResponse = _mapper.Map<GetLessonResponse>(lesson);
+
+            return new BaseResponseDTO<GetLessonResponse> { Success = true, Object = mappedResponse };
         }
 
         public async Task<BaseResponseDTO<Lesson>> CreateLesson(CreateLessonRequest request)
