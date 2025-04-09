@@ -11,5 +11,6 @@ namespace Repositories.Interface
     public interface ISlotRepository : IRepositoryBase<Slot>
     {
         Task<List<GetSlotByClassResponse>> GetSlotsByClassAndDog(string classId, string dogId);
+        Task<Slot> GetSlotByIdAsync(string id);
     }
 }

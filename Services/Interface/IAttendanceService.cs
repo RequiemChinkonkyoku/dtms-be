@@ -16,5 +16,6 @@ namespace Services.Interface
         Task<string> CreateAttendanceAsync(CreateAttendanceRequest request);
         Task<string> UpdateAttendanceAsync(string id, UpdateAttendanceRequest request);
         Task<BaseResponseDTO<Attendance>> CheckoutAttendance(string id);
+        Task<BaseResponseDTO<AttendanceResponse>> GetAttendanceBySlotId(string id);
     }
 }
