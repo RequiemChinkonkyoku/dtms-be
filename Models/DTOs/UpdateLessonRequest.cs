@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.DTOs.LessonEquipment;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,6 @@ namespace Models.DTOs
         public string Objective { get; set; }
         public string SkillId { get; set; }
         public int Status { get; set; }
-        public List<string> EquipmentIds { get; set; }
+        public List<LessonEquipmentDTO> LessonEquipmentDTOs { get; set; }
     }
 }

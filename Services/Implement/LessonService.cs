@@ -152,22 +152,47 @@ namespace Services.Implement
             await _unitOfWork.Lessons.Update(lesson);
             await _unitOfWork.SaveChanges();
 
-            var currentEquipmentIds = (await _unitOfWork.LessonEquipments.GetAll())
+            //var currentEquipmentIds = (await _unitOfWork.LessonEquipments.GetAll())
+            //                                    .Where(le => le.LessonId == lesson.Id)
+            //                                    .Select(le => le.EquipmentId)
+            //                                    .ToList();
+
+            //var equipmentIdsToAdd = request.EquipmentIds.Except(currentEquipmentIds).ToList();
+            //var equipmentIdsToRemove = currentEquipmentIds.Except(request.EquipmentIds).ToList();
+
+            var currentEquipments = (await _unitOfWork.LessonEquipments.GetAll())
                                                 .Where(le => le.LessonId == lesson.Id)
-                                                .Select(le => le.EquipmentId)
                                                 .ToList();
 
-            var equipmentIdsToAdd = request.EquipmentIds.Except(currentEquipmentIds).ToList();
-            var equipmentIdsToRemove = currentEquipmentIds.Except(request.EquipmentIds).ToList();
+            var requestEquipments = request.LessonEquipmentDTOs.ToList();
 
-            if (equipmentIdsToAdd.Any())
+            var currentEquipmentsDict = currentEquipments.ToDictionary(le => le.EquipmentId, le => le);
+            var requestEquipmentsDict = requestEquipments.ToDictionary(le => le.EquipmentId, le => le);
+
+            var equipmentToAdd = requestEquipments
+                                    .Where(le => !currentEquipmentsDict.ContainsKey(le.EquipmentId))
+                                    .ToList();
+
+            var equipmentToRemove = currentEquipments
+                                        .Where(le => !requestEquipmentsDict.ContainsKey(le.EquipmentId))
+                                        .ToList();
+
+            var equipmentToUpdate = currentEquipments
+                                        .Where(le => requestEquipmentsDict.ContainsKey(le.EquipmentId) &&
+                                                     le.Quantity != requestEquipmentsDict[le.EquipmentId].Quantity)
+                                        .ToList();
+
+
+            if (equipmentToAdd.Any())
             {
-                var equipments = (await _unitOfWork.Equipments.GetAll())
-                                            .Where(e => equipmentIdsToAdd.Contains(e.Id)).ToList();
-
-                foreach (var equip in equipments)
+                foreach (var equipDto in equipmentToAdd)
                 {
-                    var newLessonEquip = new LessonEquipment { LessonId = lesson.Id, EquipmentId = equip.Id };
+                    var newLessonEquip = new LessonEquipment
+                    {
+                        LessonId = lesson.Id,
+                        EquipmentId = equipDto.EquipmentId,
+                        Quantity = equipDto.Quantity,
+                    };
 
                     await _unitOfWork.LessonEquipments.Add(newLessonEquip);
                 }
@@ -175,14 +200,23 @@ namespace Services.Implement
                 await _unitOfWork.SaveChanges();
             }
 
-            if (equipmentIdsToRemove.Any())
+            if (equipmentToRemove.Any())
             {
-                var lessonEquipToRemove = (await _unitOfWork.LessonEquipments.GetAll())
-                                                     .Where(le => equipmentIdsToRemove.Contains(le.Id)).ToList();
-
-                foreach (var lessonEquip in lessonEquipToRemove)
+                foreach (var equipDto in equipmentToRemove)
                 {
-                    await _unitOfWork.LessonEquipments.Delete(lessonEquip);
+                    await _unitOfWork.LessonEquipments.Delete(equipDto);
+                }
+
+                await _unitOfWork.SaveChanges();
+            }
+
+            if (equipmentToUpdate.Any())
+            {
+                foreach (var lessonEquip in equipmentToUpdate)
+                {
+                    lessonEquip.Quantity = requestEquipmentsDict[lessonEquip.EquipmentId].Quantity;
+
+                    await _unitOfWork.LessonEquipments.Update(lessonEquip);
                 }
 
                 await _unitOfWork.SaveChanges();
