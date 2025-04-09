@@ -6,6 +6,8 @@ using Models.DTOs.Class.Response;
 using Models.DTOs.Course;
 using Models.DTOs.Course.Response;
 using Models.DTOs.LegalDocument;
+using Models.DTOs.Lesson.Response;
+using Models.DTOs.LessonEquipment;
 using Models.DTOs.Membership.Request;
 using Models.DTOs.Membership.Response;
 using Models.DTOs.Pretest.Response;
@@ -213,7 +215,37 @@ namespace Models.Automapper
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.LessonId))
                 .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.LessonTitle))
                 .ReverseMap();
+            CreateMap<Lesson, GetLessonResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.LessonTitle, opt => opt.MapFrom(src => src.LessonTitle))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
+                .ForMember(dest => dest.Environment, opt => opt.MapFrom(src => src.Environment))
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
+                .ForMember(dest => dest.Objective, opt => opt.MapFrom(src => src.Objective))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.SkillId, opt => opt.MapFrom(src => src.SkillId))
+                .ForMember(dest => dest.SkillName, opt => opt.MapFrom(src => src.Skill.Name))
+                .ForMember(dest => dest.LessonEquipments, opt => opt.MapFrom(src => src.LessonEquipments
+                    .Select(le => new GetLessonEquipmentDTO
+                    {
+                        EquipmentId = le.EquipmentId,
+                        EquipmentName = le.Equipment.Name,
+                        Quantity = le.Quantity,
+                    })))
+                .ForMember(dest => dest.CourseList, opt => opt.MapFrom(src => src.CourseLessons
+                    .Select(cl => new CourseLessonDTO
+                    {
+                        Id = cl.CourseId,
+                        Name = cl.Course.Name
+                    })))
+                .ForMember(dest => dest.LessonPrerequisites, opt => opt.MapFrom(src => src.LessonPrerequisites
+                    .Select(lp => new CoursePrerequisiteDTO
+                    {
+                        Id = lp.PrerequisiteLessonId,
+                        Name = lp.PrerequisiteLesson.LessonTitle
+                    })))
+                .ReverseMap();
         }
     }
-
 }

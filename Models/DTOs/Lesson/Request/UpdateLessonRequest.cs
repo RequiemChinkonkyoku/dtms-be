@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.DTOs
+namespace Models.DTOs.Lesson.Request
 {
     public class UpdateLessonRequest
     {
