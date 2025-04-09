@@ -229,6 +229,9 @@ namespace Models.Automapper
                 .ForMember(dest => dest.LessonEquipments, opt => opt.MapFrom(src => src.LessonEquipments
                     .Select(le => new GetLessonEquipmentDTO
                     {
+                        Id = le.Id,
+                        LessonId = le.LessonId,
+                        LessonTitle = le.Lesson.LessonTitle,
                         EquipmentId = le.EquipmentId,
                         EquipmentName = le.Equipment.Name,
                         Quantity = le.Quantity,
