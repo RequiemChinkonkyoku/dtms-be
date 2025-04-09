@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
-using Models.DTOs.Lesson.Request;
+using Models.DTOs;
 using Services.Interface;
 using System.Runtime.CompilerServices;
 

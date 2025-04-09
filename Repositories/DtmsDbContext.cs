@@ -476,7 +476,7 @@ public class DtmsDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<LessonPrerequisite>()
-            .HasOne(lp => lp.PrerequisiteLesson)
+            .HasOne(lp => lp.Lesson)
             .WithMany()
             .HasForeignKey(l => l.PrerequisiteLessonId)
             .OnDelete(DeleteBehavior.Restrict);

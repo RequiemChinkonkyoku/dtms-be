@@ -9,6 +9,5 @@ namespace Repositories.Interface
 {
     public interface ILessonRepository : IRepositoryBase<Lesson>
     {
-        Task<Lesson> GetLessonByIdAsync(string id);
     }
 }
