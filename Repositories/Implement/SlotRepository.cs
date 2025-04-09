@@ -49,5 +49,16 @@ namespace Repositories.Implement
                 })
                 .ToListAsync();
         }
+
+        public async Task<Slot> GetSlotByIdAsync(string id)
+        {
+            return await _context.Slots
+                            .AsSplitQuery()
+                            .Include(s => s.Class)
+                            .Include(s => s.Schedule)
+                            .Include(s => s.Lesson)
+                            .Include(s => s.Attendances)
+                            .FirstOrDefaultAsync(s => s.Id == id);
+        }
     }
 }

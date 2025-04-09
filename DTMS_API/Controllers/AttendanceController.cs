@@ -87,5 +87,20 @@ namespace DTMS_API.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpGet("get-attendance-by-slot-id/{id}")]
+        public async Task<IActionResult> GetAttendanceBySlotId(string id)
+        {
+            var response = await _attendanceService.GetAttendanceBySlotId(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

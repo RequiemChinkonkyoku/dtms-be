@@ -32,7 +32,7 @@ namespace Services.Implement
 
         public async Task<AttendanceResponse> GetAttendanceByIdAsync(string id)
         {
-            var attendance = await _unitOfWork.Attendances.GetAttendnceByIdAsync(id);
+            var attendance = await _unitOfWork.Attendances.GetAttendanceByIdAsync(id);
 
             if (attendance == null)
             {
@@ -138,6 +138,53 @@ namespace Services.Implement
             }
 
             return new BaseResponseDTO<Attendance> { Success = true, Object = attendance };
+        }
+
+        public async Task<BaseResponseDTO<AttendanceResponse>> GetAttendanceBySlotId(string id)
+        {
+            var slot = await _unitOfWork.Slots.GetSlotByIdAsync(id);
+
+            if (slot == null)
+            {
+                return new BaseResponseDTO<AttendanceResponse>
+                {
+                    Success = false,
+                    Message = $"Unable to find slot with id {id}."
+                };
+            }
+
+            var slotAttendanceIds = slot.Attendances.Select(a => a.Id).ToList();
+
+            if (!slotAttendanceIds.Any())
+            {
+                return new BaseResponseDTO<AttendanceResponse>
+                {
+                    Success = false,
+                    Message = $"The slot doesn't have any attendance."
+                };
+            }
+
+            var resultList = new List<Attendance>();
+
+            foreach (var attendanceId in slotAttendanceIds)
+            {
+                var attendance = await _unitOfWork.Attendances.GetAttendanceByIdAsync(attendanceId);
+
+                if (attendance == null)
+                {
+                    return new BaseResponseDTO<AttendanceResponse>
+                    {
+                        Success = false,
+                        Message = $"Unable to find attendance with id {attendanceId}."
+                    };
+                }
+
+                resultList.Add(attendance);
+            }
+
+            var mappedResponse = _mapper.Map<List<AttendanceResponse>>(resultList);
+
+            return new BaseResponseDTO<AttendanceResponse> { Success = true, ObjectList = mappedResponse };
         }
     }
 }

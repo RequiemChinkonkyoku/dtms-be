@@ -21,7 +21,7 @@ namespace Repositories.Implement
                     .ThenInclude(p => p.Trainer)
                 .ToListAsync();
         }
-        public async Task<Attendance> GetAttendnceByIdAsync(string id)
+        public async Task<Attendance> GetAttendanceByIdAsync(string id)
         {
             return await _context.Attendances
                 .AsSplitQuery() 

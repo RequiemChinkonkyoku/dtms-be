@@ -10,6 +10,6 @@ namespace Repositories.Interface
     public interface IAttendanceRepository : IRepositoryBase<Attendance>
     {
         Task<List<Attendance>> GetAllAttendancesAsync();
-        Task<Attendance> GetAttendnceByIdAsync(string id);
+        Task<Attendance> GetAttendanceByIdAsync(string id);
     }
 }
