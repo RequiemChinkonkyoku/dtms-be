@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
@@ -113,6 +114,10 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddDbContext<DtmsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DtmsDB")));
+
+var cultureInfo = new CultureInfo("en-GB");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var app = builder.Build();
 
