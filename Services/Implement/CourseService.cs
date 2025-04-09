@@ -119,6 +119,18 @@ namespace Services.Implement
                 }
             }
 
+            var existingCourseName = (await _unitOfWork.Courses.GetAll())
+                .FirstOrDefault(c => string.Equals(c.Name, request.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingCourseName != null)
+            {
+                return new BaseResponseDTO<Course>
+                {
+                    Success = false,
+                    Message = $"There exist a course with the same name {request.Name}"
+                };
+            }
+
             try
             {
                 var course = new Course()
