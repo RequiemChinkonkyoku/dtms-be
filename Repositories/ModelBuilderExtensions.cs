@@ -35,5 +35,6 @@ public static class ModelBuilderExtensions
         PaymentMethod.Seed(modelBuilder);
         Cage.Seed(modelBuilder);
         CageCategory.Seed(modelBuilder);
+        LessonEquipment.Seed(modelBuilder);
     }
 }
