@@ -232,11 +232,16 @@ public class AccountService : IAccountService
         var _email = config["GmailSender:Email"];
         var _password = config["GmailSender:Password"];
 
-        // Read the email template
-        string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailTemplates", "register_verify.html");
-        string emailBody = File.ReadAllText(templatePath);
+        string baseDir = AppContext.BaseDirectory;
+        string templatePath = Path.Combine(baseDir, "EmailTemplates", "register_verify.html");
 
-        // Replace placeholders with actual values
+        if (!File.Exists(templatePath))
+        {
+            throw new FileNotFoundException("Email template not found at: " + templatePath);
+        }
+
+        string emailBody = File.ReadAllText(templatePath);
+        
         emailBody = emailBody.Replace("{{Username}}", name)
             .Replace("{{OTPCode}}", otpCode);
 
