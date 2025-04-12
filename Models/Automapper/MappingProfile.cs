@@ -5,6 +5,7 @@ using Models.DTOs.Class;
 using Models.DTOs.Class.Response;
 using Models.DTOs.Course;
 using Models.DTOs.Course.Response;
+using Models.DTOs.DogCertificate.Response;
 using Models.DTOs.LegalDocument;
 using Models.DTOs.Lesson.Response;
 using Models.DTOs.LessonEquipment;
@@ -249,6 +250,9 @@ namespace Models.Automapper
                         Name = lp.PrerequisiteLesson.LessonTitle
                     })))
                 .ReverseMap();
+            CreateMap<DogCertificate, DogCertificateResponse>()
+                    .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
+                    .ForMember(dest => dest.CertificateName, opt => opt.MapFrom(src => src.Certificate.Name));
         }
     }
 }
