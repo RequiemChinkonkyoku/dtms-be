@@ -148,5 +148,25 @@ namespace Services.Implement
             return "No changes were made to the certificate";
         }
 
+        public async Task<List<CertificateResponse>> GetCertificatesByDogId(string dogId)
+        {
+            var dog = await _unitOfWork.Dogs.GetById(dogId);
+            if (dog == null)
+                throw new KeyNotFoundException($"Dog with ID {dogId} not found");
+
+            var certificates = await _unitOfWork.Certificates.GetCertificatesByDogIdAsync(dogId);
+
+            return certificates.Select(c => new CertificateResponse
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                Status = c.Status,
+                CourseId = c.Course?.Id,
+                CourseName = c.Course?.Name,
+                CourseDescription = c.Course?.Description
+            }).ToList();
+        }
+
     }
 }

@@ -39,6 +39,25 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpGet("by-dog/{dogId}")]
+        public async Task<ActionResult<List<CertificateResponse>>> GetCertificatesByDogId(string dogId)
+        {
+            try
+            {
+                var certificates = await _certificateService.GetCertificatesByDogId(dogId);
+                return Ok(certificates);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request" });
+            }
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCertificateRequest request)
         {

@@ -33,5 +33,15 @@ namespace Repositories.Implement
                 .FirstOrDefaultAsync(c => c.CourseId == courseId);
         }
 
+        public async Task<List<Certificate>> GetCertificatesByDogIdAsync(string dogId)
+        {
+            return await _context.Certificates
+                .AsSplitQuery()
+                .Include(c => c.Course) 
+                .Where(c => c.DogCertificates.Any(dc => dc.DogId == dogId))
+                .ToListAsync();
+        }
+
+
     }
 }

@@ -18,5 +18,6 @@ namespace Services.Interface
         Task<string> CreateCertificateAsync(CreateCertificateRequest request);
 
         Task<string> UpdateCertificateAsync(string certificateId, UpdateCertificateRequest request);
+        Task<List<CertificateResponse>> GetCertificatesByDogId(string dogId);
     }
 }

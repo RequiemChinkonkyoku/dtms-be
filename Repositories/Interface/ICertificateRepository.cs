@@ -13,5 +13,7 @@ namespace Repositories.Interface
         Task<bool> CourseHasCertificate(string courseId);
 
         Task<Certificate?> GetCertificateByCourseId(string courseId);
+
+        Task<List<Certificate>> GetCertificatesByDogIdAsync(string dogId);
     }
 }
