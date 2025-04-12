@@ -144,17 +144,17 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
 
-using (var scope = app.Services.CreateScope())
+if (app.Environment.IsProduction())
 {
-    try
+    using (var scope = app.Services.CreateScope())
     {
         var db = scope.ServiceProvider.GetRequiredService<DtmsDbContext>();
-        db.Database.Migrate();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Migration failed: {ex.Message}");
-        throw;
+        var pendingMigrations = db.Database.GetPendingMigrations();
+
+        if (pendingMigrations.Any())
+        {
+            db.Database.Migrate();
+        }
     }
 }
 
