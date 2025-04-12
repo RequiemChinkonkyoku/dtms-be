@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Models.DTOs.Blog;
+using Models.DTOs.Certificate.Response;
 using Models.DTOs.Certification;
 using Models.DTOs.Class;
 using Models.DTOs.Class.Response;
@@ -253,6 +254,10 @@ namespace Models.Automapper
             CreateMap<DogCertificate, DogCertificateResponse>()
                     .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
                     .ForMember(dest => dest.CertificateName, opt => opt.MapFrom(src => src.Certificate.Name));
+            CreateMap<Certificate, CertificateResponse>()
+                    .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.Course.Id))
+                    .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Name))
+                    .ForMember(dest => dest.CourseDescription, opt => opt.MapFrom(src => src.Course.Description));
         }
     }
 }

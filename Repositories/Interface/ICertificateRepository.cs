@@ -9,5 +9,9 @@ namespace Repositories.Interface
 {
     public interface ICertificateRepository : IRepositoryBase<Certificate>
     {
+        Task<Certificate> GetByIdWithDetailsAsync(string id);
+        Task<bool> CourseHasCertificate(string courseId);
+
+        Task<Certificate?> GetCertificateByCourseId(string courseId);
     }
 }
