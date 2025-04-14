@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models.Constants
 {
-    public enum EnrollmentStatusEnum
+    public enum CageStatusEnum
     {
-        Inactive = 0,
-        Active = 1,
-        Pending = 2,
-        Concluded = 3
+        Unavailable = 0,
+        Available = 1
     }
 }

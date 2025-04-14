@@ -512,19 +512,19 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "This class dog enrollment limit is reached." };
             }
 
-            var prerequisites = (await _unitOfWork.Prerequisites.GetAll())
+            var preCourseIds = (await _unitOfWork.Prerequisites.GetAll())
                                             .Where(p => p.CourseId == course.Id)
                                             .Select(p => p.PrerequisiteCourseId)
                                             .ToList();
 
-            if (prerequisites.Any())
+            if (preCourseIds.Any())
             {
                 var certificateList = new List<Certificate>();
 
-                foreach (var courseId in prerequisites)
+                foreach (var preCourseId in preCourseIds)
                 {
                     var certificate = (await _unitOfWork.Certificates.GetAll())
-                                                    .Where(c => c.CourseId == course.Id)
+                                                    .Where(c => c.CourseId == preCourseId)
                                                     .FirstOrDefault();
 
                     certificateList.Add(certificate);
@@ -555,7 +555,7 @@ namespace Services.Implement
             if (request.IsBoarding)
             {
                 var availableCage = (await _unitOfWork.Cages.GetAll())
-                                                .Where(c => c.Status == 1)
+                                                .Where(c => c.Status == (int)CageStatusEnum.Available)
                                                 .FirstOrDefault();
 
                 if (availableCage == null)
@@ -584,7 +584,7 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             var assignedCage = await _unitOfWork.Cages.GetById(cageId);
-            assignedCage.Status = 0;
+            assignedCage.Status = (int)CageStatusEnum.Unavailable;
 
             await _unitOfWork.Cages.Update(assignedCage);
             await _unitOfWork.SaveChanges();
@@ -727,5 +727,7 @@ namespace Services.Implement
                 };
             }
         }
+
+
     }
 }

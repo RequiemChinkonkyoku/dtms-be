@@ -14,6 +14,7 @@ namespace Models.DTOs.TrainingReport
         public int Socialization { get; set; }
         public int StressLevel { get; set; }
         public string Notes { get; set; }
+        public bool IsPassed {  get; set; }
         public string EnrollmentId { get; set; }
         public string TrainerProfileId { get; set; }
     }
