@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
+using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.Certification;
 using Models.DTOs.TrainerReport;
@@ -103,20 +104,20 @@ namespace Services.Implement
                 throw new ArgumentException("DogId and TrainerProfileId are required.");
             }
 
-            var enrollmentId = await _unitOfWork.Enrollments.GetById(createTrainingReportRequest.EnrollmentId);
-            var trainerProfileId = await _unitOfWork.Accounts.GetById(createTrainingReportRequest.TrainerProfileId);
+            var enrollment = await _unitOfWork.Enrollments.GetById(createTrainingReportRequest.EnrollmentId);
+            var trainerProfile = await _unitOfWork.Accounts.GetById(createTrainingReportRequest.TrainerProfileId);
 
-            if (enrollmentId == null)
+            if (enrollment == null)
             {
                 throw new KeyNotFoundException("EnrollmentId is not valid.");
             }
 
-            if (trainerProfileId == null)
+            if (trainerProfile == null)
             {
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
             }
 
-            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfileId.RoleId);
+            var trainerRole = await _unitOfWork.Roles.GetById(trainerProfile.RoleId);
             if (trainerRole == null)
             {
                 throw new KeyNotFoundException("TrainerProfileId is not valid.");
@@ -130,8 +131,81 @@ namespace Services.Implement
 
             report.TrainerId = createTrainingReportRequest.TrainerProfileId;
 
-            await _unitOfWork.TrainingReports.Add(report);
-            await _unitOfWork.SaveChanges();
+            try
+            {
+                await _unitOfWork.TrainingReports.Add(report);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<TrainingReportResponse>
+                {
+                    Success = false,
+                    Message = $"There has been an error adding the trainingReport. Ex: {ex.Message}."
+                };
+            }
+
+            enrollment.Status = (int)EnrollmentStatusEnum.Concluded;
+
+            try
+            {
+                await _unitOfWork.Enrollments.Update(enrollment);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<TrainingReportResponse>
+                {
+                    Success = false,
+                    Message = $"There has been an error updating the enrollment. Ex: {ex.Message}."
+                };
+            }
+
+            var cage = await _unitOfWork.Cages.GetById(enrollment.CageId);
+            cage.Status = (int)CageStatusEnum.Available;
+
+            try
+            {
+                await _unitOfWork.Cages.Update(cage);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<TrainingReportResponse>
+                {
+                    Success = false,
+                    Message = $"There has been an error updating the cage. Ex: {ex.Message}."
+                };
+            }
+
+            if (report.IsPassed)
+            {
+                try
+                {
+                    var existingClass = await _unitOfWork.Classes.GetById(enrollment.ClassId);
+                    var course = await _unitOfWork.Courses.GetById(existingClass.CourseId);
+                    var cert = (await _unitOfWork.Certificates.GetAll())
+                                            .Where(c => c.CourseId == course.Id)
+                                            .FirstOrDefault();
+
+                    var dogCert = new DogCertificate
+                    {
+                        DogId = enrollment.DogId,
+                        CertificateId = cert.Id
+                    };
+
+                    await _unitOfWork.DogCertificates.Add(dogCert);
+                    await _unitOfWork.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return new BaseResponseDTO<TrainingReportResponse>
+                    {
+                        Success = false,
+                        Message = $"There has been an error creating dogCertificate. Ex: {ex.Message}."
+                    };
+                }
+            }
 
             var response = _mapper.Map<TrainingReportResponse>(report);
             return new BaseResponseDTO<TrainingReportResponse> { Success = true, Object = response };

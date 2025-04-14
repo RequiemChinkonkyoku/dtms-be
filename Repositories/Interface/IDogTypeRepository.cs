@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Interface
 {
-    public interface ICageRepository : IRepositoryBase<Cage>
+    public interface IDogTypeRepository : IRepositoryBase<DogType>
     {
-        Task<List<Cage>> GetAllCages();
-        Task<Cage> GetCageById(string id);
     }
 }

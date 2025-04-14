@@ -466,7 +466,7 @@ namespace Services.Implement
                 throw new ArgumentException("User is not a customer.");
             }
 
-            var dog = await _unitOfWork.Dogs.GetById(request.DogId);
+            var dog = await _unitOfWork.Dogs.GetDogById(request.DogId);
 
             if (dog == null)
             {
@@ -512,19 +512,19 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "This class dog enrollment limit is reached." };
             }
 
-            var prerequisites = (await _unitOfWork.Prerequisites.GetAll())
+            var preCourseIds = (await _unitOfWork.Prerequisites.GetAll())
                                             .Where(p => p.CourseId == course.Id)
                                             .Select(p => p.PrerequisiteCourseId)
                                             .ToList();
 
-            if (prerequisites.Any())
+            if (preCourseIds.Any())
             {
                 var certificateList = new List<Certificate>();
 
-                foreach (var courseId in prerequisites)
+                foreach (var preCourseId in preCourseIds)
                 {
                     var certificate = (await _unitOfWork.Certificates.GetAll())
-                                                    .Where(c => c.CourseId == course.Id)
+                                                    .Where(c => c.CourseId == preCourseId)
                                                     .FirstOrDefault();
 
                     certificateList.Add(certificate);
@@ -554,16 +554,23 @@ namespace Services.Implement
 
             if (request.IsBoarding)
             {
-                var availableCage = (await _unitOfWork.Cages.GetAll())
-                                                .Where(c => c.Status == 1)
-                                                .FirstOrDefault();
+                var availableCageList = (await _unitOfWork.Cages.GetAllCages())
+                                                .Where(c => c.Status == (int)CageStatusEnum.Available)
+                                                .ToList();
 
-                if (availableCage == null)
+                if (availableCageList.IsNullOrEmpty())
                 {
                     return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
                 }
 
-                cageId = availableCage.Id;
+                var suitableCage = availableCageList.FirstOrDefault(c => c.CageCategory.DogTypeId == dog.DogBreed.DogTypeId);
+
+                if (suitableCage == null)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "There are no suitable cage for the dogType." };
+                }
+
+                cageId = suitableCage.Id;
             }
 
             var enrollment = new Enrollment
@@ -584,7 +591,7 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             var assignedCage = await _unitOfWork.Cages.GetById(cageId);
-            assignedCage.Status = 0;
+            assignedCage.Status = (int)CageStatusEnum.Unavailable;
 
             await _unitOfWork.Cages.Update(assignedCage);
             await _unitOfWork.SaveChanges();
@@ -727,5 +734,7 @@ namespace Services.Implement
                 };
             }
         }
+
+
     }
 }

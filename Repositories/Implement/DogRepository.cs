@@ -25,6 +25,7 @@ namespace Repositories.Implement
             return await _context.Dogs
                 .AsSplitQuery()
                 .Include(d => d.DogBreed)
+                    .ThenInclude(db => db.DogType)
                 .Include(d => d.DogOwnerships)
                     .ThenInclude(o => o.Customer)
                 .FirstOrDefaultAsync(d => d.Id == dogId);

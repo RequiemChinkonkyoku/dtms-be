@@ -68,6 +68,7 @@ public static class ServiceExtension
         services.AddScoped<IPretestRepository, PretestRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<ILessonPrerequisiteRepository, LessonPrerequisiteRepository>();
+        services.AddScoped<IDogTypeRepository, DogTypeRepository>();
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IAttendanceService, AttendanceService>();

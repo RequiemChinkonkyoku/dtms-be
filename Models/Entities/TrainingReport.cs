@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Web;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Models.Entities
         public int Socialization { get; set; }
         public int StressLevel { get; set; }
         public string Notes { get; set; }
+        public bool IsPassed { get; set; }
 
         public string? EnrollmentId { get; set; }
         public Enrollment Enrollment { get; set; }
