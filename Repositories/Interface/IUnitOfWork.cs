@@ -54,6 +54,7 @@ public interface IUnitOfWork : IDisposable
     IPretestRepository Pretests { get; }
     IRoleRepository Roles { get; }
     ILessonPrerequisiteRepository LessonPrerequisites { get; }
+    IDogTypeRepository DogTypes{ get; }
 
     Task SaveChanges();
 }

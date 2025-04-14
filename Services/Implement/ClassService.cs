@@ -466,7 +466,7 @@ namespace Services.Implement
                 throw new ArgumentException("User is not a customer.");
             }
 
-            var dog = await _unitOfWork.Dogs.GetById(request.DogId);
+            var dog = await _unitOfWork.Dogs.GetDogById(request.DogId);
 
             if (dog == null)
             {
@@ -554,16 +554,23 @@ namespace Services.Implement
 
             if (request.IsBoarding)
             {
-                var availableCage = (await _unitOfWork.Cages.GetAll())
+                var availableCageList = (await _unitOfWork.Cages.GetAllCages())
                                                 .Where(c => c.Status == (int)CageStatusEnum.Available)
-                                                .FirstOrDefault();
+                                                .ToList();
 
-                if (availableCage == null)
+                if (availableCageList.IsNullOrEmpty())
                 {
                     return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
                 }
 
-                cageId = availableCage.Id;
+                var suitableCage = availableCageList.FirstOrDefault(c => c.CageCategory.DogTypeId == dog.DogBreed.DogTypeId);
+
+                if (suitableCage == null)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "There are no suitable cage for the dogType." };
+                }
+
+                cageId = suitableCage.Id;
             }
 
             var enrollment = new Enrollment
