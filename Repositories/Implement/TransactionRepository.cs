@@ -25,5 +25,17 @@ namespace Repositories.Implement
                 .ToListAsync();
         }
 
+        public async Task<List<Transaction>> GetTransactionByAccountId(string accountId)
+        {
+            return await _context.Transactions
+                .AsSplitQuery()
+                .Include(t => t.Enrollment)    
+                    .ThenInclude(e => e.Dog)  
+                .Include(t => t.Enrollment)
+                    .ThenInclude(e => e.Class)
+                    .ThenInclude(c => c.Course)  
+                .Where(t => t.CustomerId == accountId)  
+                .ToListAsync();
+        }
     }
 }

@@ -32,5 +32,23 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpGet("by-account/{accountId}")]
+        public async Task<IActionResult> GetTransactionByAccountId(string accountId)
+        {
+            try
+            {
+                var transactionResponses = await _transactionService.GetTransactionByAccountId(accountId);
+                return Ok(transactionResponses);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while fetching the transaction.", details = ex.Message });
+            }
+        }
+
     }
 }

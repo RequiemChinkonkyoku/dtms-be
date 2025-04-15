@@ -21,24 +21,17 @@ namespace Services.Implement
             _mapper = mapper;
         }
 
-        public async Task<TransactionResponse> GetTransactionByEnrollmentId(string enrollmentId)
+        public async Task<List<TransactionResponse>> GetTransactionByEnrollmentId(string enrollmentId)
         {
-            var transaction = await _unitOfWork.Transactions.GetSingle(
-                t => t.EnrollmentId == enrollmentId,
-                t => t.Enrollment,
-                t => t.Enrollment.Dog,
-                t => t.Enrollment.Class,
-                t => t.Enrollment.Class.Course
-            );
+            var transactions = await _unitOfWork.Transactions.GetTransactionByEnrollmentId(enrollmentId);
+            return _mapper.Map<List<TransactionResponse>>(transactions);
+        }
 
-            if (transaction == null)
-            {
-                throw new KeyNotFoundException($"Transaction not found for EnrollmentId {enrollmentId}");
-            }
 
-            var transactionResponse = _mapper.Map<TransactionResponse>(transaction);
-
-            return transactionResponse;
+        public async Task<List<TransactionResponse>> GetTransactionByAccountId(string accountId)
+        {
+            var transactions = await _unitOfWork.Transactions.GetTransactionByAccountId(accountId);
+            return _mapper.Map<List<TransactionResponse>>(transactions);
         }
 
     }

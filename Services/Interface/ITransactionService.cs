@@ -9,7 +9,7 @@ namespace Services.Interface
 {
     public interface ITransactionService
     {
-        Task<TransactionResponse> GetTransactionByEnrollmentId(string enrollmentId);
-
+        Task<List<TransactionResponse>> GetTransactionByEnrollmentId(string enrollmentId);
+        Task<List<TransactionResponse>> GetTransactionByAccountId(string accountId);
     }
 }
