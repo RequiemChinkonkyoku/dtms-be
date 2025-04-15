@@ -12,6 +12,7 @@ namespace Models.DTOs.Transaction.Response
         public string EnrollmentId { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime PaymentTime { get; set; }
+        public string PaymentId { get; set; }
 
         public string DogId { get; set; }
         public string DogName { get; set; }
