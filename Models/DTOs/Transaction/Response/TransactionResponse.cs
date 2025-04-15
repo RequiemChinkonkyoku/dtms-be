@@ -11,7 +11,7 @@ namespace Models.DTOs.Transaction.Response
         public string Id { get; set; }
         public string EnrollmentId { get; set; }
         public decimal TotalAmount { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateTime PaymentTime { get; set; }
 
         public string DogId { get; set; }
         public string DogName { get; set; }
