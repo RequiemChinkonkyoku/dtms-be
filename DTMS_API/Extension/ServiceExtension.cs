@@ -120,6 +120,7 @@ public static class ServiceExtension
         services.AddScoped<IVnPayService, VnPayService>();
         services.AddScoped<IPretestService, PretestService>();
         services.AddScoped<ILessonPrerequisiteService, LessonPrerequisiteService>();
+        services.AddScoped<ITransactionService, TransactionService>();
 
         services.AddSignalR();
 
