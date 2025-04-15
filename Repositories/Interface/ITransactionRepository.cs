@@ -9,5 +9,6 @@ namespace Repositories.Interface
 {
     public interface ITransactionRepository : IRepositoryBase<Transaction>
     {
+        Task<List<Transaction>> GetTransactionByEnrollmentId(string enrollmentId);
     }
 }

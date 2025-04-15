@@ -1,4 +1,6 @@
-﻿using Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Models.DTOs.Transaction.Response;
+using Models.Entities;
 using Repositories.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,5 +12,18 @@ namespace Repositories.Implement
 {
     public class TransactionRepository : RepositoryBase<Transaction>, ITransactionRepository
     {
+        public async Task<List<Transaction>> GetTransactionByEnrollmentId(string enrollmentId)
+        {
+            return await _context.Transactions
+                .AsSplitQuery()
+                .Include(t => t.Enrollment)
+                    .ThenInclude(e => e.Dog)
+                .Include(t => t.Enrollment)
+                    .ThenInclude(e => e.Class)
+                    .ThenInclude(c => c.Course)
+                .Where(t => t.EnrollmentId == enrollmentId)
+                .ToListAsync();
+        }
+
     }
 }

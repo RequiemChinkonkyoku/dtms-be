@@ -17,6 +17,7 @@ using Models.DTOs.Response;
 using Models.DTOs.Slot.Response;
 using Models.DTOs.TrainerReport;
 using Models.DTOs.TrainingReport;
+using Models.DTOs.Transaction.Response;
 using Models.Entities;
 
 namespace Models.Automapper
@@ -258,6 +259,13 @@ namespace Models.Automapper
                     .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.Course.Id))
                     .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Name))
                     .ForMember(dest => dest.CourseDescription, opt => opt.MapFrom(src => src.Course.Description));
+            CreateMap<Transaction, TransactionResponse>()
+                .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Enrollment.Dog.Name))
+                .ForMember(dest => dest.DogId, opt => opt.MapFrom(src => src.Enrollment.Dog.Id))
+                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Enrollment.Class.Course.Name))
+                .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.Enrollment.Class.Course.Id))
+                .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Enrollment.Class.Name))
+                .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.Enrollment.Class.Id));
         }
     }
 }

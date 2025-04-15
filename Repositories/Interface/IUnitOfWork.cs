@@ -55,6 +55,6 @@ public interface IUnitOfWork : IDisposable
     IRoleRepository Roles { get; }
     ILessonPrerequisiteRepository LessonPrerequisites { get; }
     IDogTypeRepository DogTypes{ get; }
-
+    ITransactionRepository Transaction { get; }
     Task SaveChanges();
 }
