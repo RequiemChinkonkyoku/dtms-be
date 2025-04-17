@@ -12,5 +12,7 @@ namespace Repositories.Interface
     {
         Task<List<GetSlotByClassResponse>> GetSlotsByClassAndDog(string classId, string dogId);
         Task<Slot> GetSlotByIdAsync(string id);
+        Task<List<Slot>> GetClassSlots(string classId);
+        Task<List<Slot>> GetSlotsByDogAndDate(string dogId, DateOnly date);
     }
 }

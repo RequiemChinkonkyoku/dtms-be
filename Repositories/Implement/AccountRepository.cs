@@ -42,4 +42,15 @@ public class AccountRepository : RepositoryBase<Account>, IAccountRepository
                 !busyTrainerIds.Contains(a.Id))
             .ToListAsync();
     }
+
+    public async Task<List<Account>> GetStaffAccountsAsync()
+    {
+        return await _context.Accounts
+                        .AsSplitQuery()
+                        .Include(a => a.Role)
+                        .Where(a => a.Role.Name == "Staff_Employee" ||
+                                    a.Role.Name == "Staff_Manager" ||
+                                    a.Status == 1)
+                        .ToListAsync();
+    }
 }

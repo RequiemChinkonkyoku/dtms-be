@@ -9,5 +9,6 @@ namespace Repositories.Interface
 {
     public interface IEnrollmentRepository : IRepositoryBase<Enrollment>
     {
+        Task<int> GetActiveCageCountByStaffId(string staffId);
     }
 }

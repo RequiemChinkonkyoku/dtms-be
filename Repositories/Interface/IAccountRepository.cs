@@ -7,4 +7,5 @@ namespace Repositories.Interface;
 public interface IAccountRepository : IRepositoryBase<Account>
 {
     Task<List<Account>> GetAvailableTrainersAsync(TrainerAvailabilityRequest request);
+    Task<List<Account>> GetStaffAccountsAsync();
 }

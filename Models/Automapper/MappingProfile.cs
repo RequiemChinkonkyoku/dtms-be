@@ -141,6 +141,7 @@ namespace Models.Automapper
                     .Select(e => new ClassEnrollmentDTO
                     {
                         Status = e.Status,
+                        RequiredNightStay = e.RequiredNightStay,
                         EnrollmentId = e.Id,
                         DogId = e.DogId,
                         DogName = e.Dog.Name,

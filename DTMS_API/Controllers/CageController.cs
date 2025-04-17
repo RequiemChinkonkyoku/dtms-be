@@ -85,5 +85,20 @@ namespace DTMS_API.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpGet("get-cage-by-staff-id/{id}")]
+        public async Task<IActionResult> GetCageByStaffId(string id)
+        {
+            var response = await _cageService.GetCageByStaffId(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }
