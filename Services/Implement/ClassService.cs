@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Azure.Core;
+using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
@@ -7,6 +8,7 @@ using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.Class.Request;
 using Models.DTOs.Class.Response;
+using Models.DTOs.Slot.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -178,23 +180,44 @@ namespace Services.Implement
                 LastUpdatedTime = DateTime.UtcNow
             };
 
-            await _unitOfWork.Classes.Add(newClass);
-            await _unitOfWork.SaveChanges();
-
-            foreach (var trainerId in trainerIds)
+            try
             {
-                var trainerAssignment = new TrainerAssignment
+                await _unitOfWork.Classes.Add(newClass);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Class>
                 {
-                    TrainerId = trainerId,
-                    ClassId = newClass.Id,
+                    Success = false,
+                    Message = $"There has been a problem adding the class. Ex: {ex.Message}."
                 };
-
-                await _unitOfWork.TrainerAssignments.Add(trainerAssignment);
             }
 
-            await _unitOfWork.SaveChanges();
+            try
+            {
+                foreach (var trainerId in trainerIds)
+                {
+                    var trainerAssignment = new TrainerAssignment
+                    {
+                        TrainerId = trainerId,
+                        ClassId = newClass.Id,
+                    };
 
-            //var slotList = new List<Slot>();
+                    await _unitOfWork.TrainerAssignments.Add(trainerAssignment);
+                }
+
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = $"There has been a problem adding trainerAssignment. Ex: {ex.Message}."
+                };
+            }
+
             var endDate = request.StartingDate.AddDays(course.DurationInWeeks * 7);
 
             for (var date = request.StartingDate; date < endDate; date = date.AddDays(1))
@@ -210,8 +233,49 @@ namespace Services.Implement
                         Date = date,
                     };
 
-                    //slotList.Add(newSlot);
                     await _unitOfWork.Slots.Add(newSlot);
+                }
+            }
+
+            var courseLesson = (await _unitOfWork.CourseLessons.GetCourseLessonsByCourseId(request.CourseId))
+                                            .Select(cl => cl.Lesson)
+                                            .OrderBy(l => l.Difficulty)
+                                            .ToList();
+
+            if (!courseLesson.Any())
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = $"There are no lesssons for the course." };
+            }
+
+            var classSlots = (await _unitOfWork.Slots.GetClassSlots(newClass.Id))
+                                        .OrderBy(s => s.Date)
+                                        .ToList();
+
+            if (!classSlots.Any())
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = $"There are no slot for the class." };
+            }
+
+            var slotIndex = 0;
+
+            foreach (var lesson in courseLesson)
+            {
+                for (var i = 0; i < lesson.Duration; i++)
+                {
+                    if (slotIndex >= classSlots.Count)
+                    {
+                        return new BaseResponseDTO<Class>
+                        {
+                            Success = false,
+                            Message = $"There aren't enough slots for all lessson."
+                        };
+                    }
+
+                    var slot = classSlots[slotIndex];
+                    slot.LessonId = lesson.Id;
+
+                    await _unitOfWork.Slots.Update(slot);
+                    slotIndex++;
                 }
             }
 
@@ -487,7 +551,7 @@ namespace Services.Implement
             var existingEnrollment = (await _unitOfWork.Enrollments.GetAll())
                                                 .Where(e => e.DogId == request.DogId &&
                                                             e.ClassId == request.ClassId &&
-                                                            e.Status != 0)
+                                                            e.Status == (int)EnrollmentStatusEnum.Active)
                                                 .FirstOrDefault();
 
             if (existingEnrollment != null)
@@ -551,26 +615,62 @@ namespace Services.Implement
             }
 
             var cageId = "-1";
+            string assignedStaffId = null;
 
             if (request.IsBoarding)
             {
-                var availableCageList = (await _unitOfWork.Cages.GetAllCages())
-                                                .Where(c => c.Status == (int)CageStatusEnum.Available)
-                                                .ToList();
+                var existingCageId = (await _unitOfWork.Enrollments.GetAll())
+                                                .Where(e => e.Status == (int)EnrollmentStatusEnum.Active &&
+                                                            e.DogId == request.DogId)
+                                                .Select(e => e.CageId)
+                                                .FirstOrDefault();
 
-                if (availableCageList.IsNullOrEmpty())
+                if (existingCageId != null)
                 {
-                    return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
+                    cageId = existingCageId;
+                }
+                else
+                {
+                    var availableCageList = (await _unitOfWork.Cages.GetAllCages())
+                                                    .Where(c => c.Status == (int)CageStatusEnum.Available)
+                                                    .ToList();
+
+                    if (availableCageList.IsNullOrEmpty())
+                    {
+                        return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
+                    }
+
+                    var suitableCage = availableCageList.FirstOrDefault(c => c.CageCategory.DogTypeId == dog.DogBreed.DogTypeId);
+
+                    if (suitableCage == null)
+                    {
+                        return new BaseResponseDTO<Class> { Success = false, Message = "There are no suitable cage for the dogType." };
+                    }
+
+                    cageId = suitableCage.Id;
                 }
 
-                var suitableCage = availableCageList.FirstOrDefault(c => c.CageCategory.DogTypeId == dog.DogBreed.DogTypeId);
+                var staffList = await _unitOfWork.Accounts.GetStaffAccountsAsync();
 
-                if (suitableCage == null)
+                foreach (var staff in staffList)
                 {
-                    return new BaseResponseDTO<Class> { Success = false, Message = "There are no suitable cage for the dogType." };
+                    var activeCageCount = await _unitOfWork.Enrollments.GetActiveCageCountByStaffId(staff.Id);
+
+                    if (activeCageCount < 5)
+                    {
+                        assignedStaffId = staff.Id;
+                        break;
+                    }
                 }
 
-                cageId = suitableCage.Id;
+                if (assignedStaffId.IsNullOrEmpty())
+                {
+                    return new BaseResponseDTO<Class>
+                    {
+                        Success = false,
+                        Message = $"There are no available staff to attend the cage (Max 5 per staff)."
+                    };
+                }
             }
 
             var enrollment = new Enrollment
@@ -579,7 +679,8 @@ namespace Services.Implement
                 RequiredNightStay = request.IsBoarding,
                 ClassId = request.ClassId,
                 DogId = request.DogId,
-                CageId = cageId
+                CageId = cageId,
+                StaffId = assignedStaffId
             };
 
             await _unitOfWork.Enrollments.Add(enrollment);
@@ -734,7 +835,5 @@ namespace Services.Implement
                 };
             }
         }
-
-
     }
 }

@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Server.HttpSys;
 using Models.Constants;
 using Models.DTOs;
+using Models.DTOs.Cage;
 using Models.DTOs.Cage.Request;
+using Models.DTOs.Cage.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -174,6 +177,92 @@ namespace Services.Implement
             }
 
             return new BaseResponseDTO<Cage> { Success = true };
+        }
+
+        public async Task<BaseResponseDTO<GetStaffCageResponse>> GetCageByStaffId(string id)
+        {
+            var staffAcc = await _unitOfWork.Accounts.GetById(id);
+
+            if (staffAcc == null)
+            {
+                return new BaseResponseDTO<GetStaffCageResponse>
+                {
+                    Success = false,
+                    Message = $"Unable to find staff with id {id}."
+                };
+            }
+
+            var staffEnrollments = (await _unitOfWork.Enrollments.GetAll())
+                                            .Where(e => e.StaffId == id &&
+                                                        e.RequiredNightStay == true &&
+                                                        e.Status == (int)EnrollmentStatusEnum.Active)
+                                            .ToList();
+
+            if (!staffEnrollments.Any())
+            {
+                return new BaseResponseDTO<GetStaffCageResponse>
+                {
+                    Success = false,
+                    Message = $"The staff isn't assigned to any cage."
+                };
+            }
+
+            var staffCageResponse = new List<GetStaffCageResponse>();
+
+            foreach (var enrollment in staffEnrollments)
+            {
+                var classSlots = await _unitOfWork.Slots.GetClassSlots(enrollment.ClassId);
+
+                var cageSlots = new List<CageSlotDTO>();
+
+                foreach (var slot in classSlots.OrderBy(s => s.Date).ThenBy(s => s.Schedule.StartTime))
+                {
+                    var slotDate = slot.Date;
+                    var schedule = slot.Schedule;
+                    var currentEndTime = schedule.EndTime;
+
+                    var otherSlotsSameDay = (await _unitOfWork.Slots.GetSlotsByDogAndDate(enrollment.DogId, slotDate))
+                                                        .Where(s => s.Id != slot.Id)
+                                                        .OrderBy(s => s.Schedule.StartTime)
+                                                        .ToList();
+
+                    var hasLaterSlot = otherSlotsSameDay.Any(s => s.Schedule.StartTime > currentEndTime);
+
+                    if (!hasLaterSlot)
+                    {
+                        cageSlots.Add(new CageSlotDTO
+                        {
+                            SlotDate = slotDate,
+                            StartTime = schedule.StartTime,
+                            EndTime = schedule.EndTime,
+                        });
+                    }
+                }
+
+                if (cageSlots.Any())
+                {
+                    var dog = await _unitOfWork.Dogs.GetById(enrollment.DogId);
+                    var dogBreed = await _unitOfWork.DogBreeds.GetById(dog.DogBreedId);
+                    var cage = await _unitOfWork.Cages.GetById(enrollment.CageId);
+                    var category = await _unitOfWork.CageCategories.GetById(cage.CageCategoryId);
+
+                    staffCageResponse.Add(new GetStaffCageResponse
+                    {
+                        CageId = cage.Id,
+                        Number = cage.Number,
+                        Location = cage.Location,
+                        CategoryId = category.Id,
+                        CategoryName = category.Name,
+                        DogId = dog.Id,
+                        DogName = dog.Name,
+                        DogBreedId = dogBreed.Id,
+                        DogBreedName = dogBreed.Name,
+                        CageSlots = cageSlots
+                    });
+                }
+            }
+
+            return new BaseResponseDTO<GetStaffCageResponse> { Success = true, ObjectList = staffCageResponse };
         }
     }
 }

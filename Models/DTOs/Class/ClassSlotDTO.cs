@@ -14,5 +14,7 @@ namespace Models.DTOs.Class
         public string ScheduleId { get; set; }
         public TimeOnly StartTime { get; set; }
         public TimeOnly EndTime { get; set; }
+        public string LessonId { get; set; }
+        public string LessonName { get; set; }
     }
 }

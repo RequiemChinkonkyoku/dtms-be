@@ -91,20 +91,6 @@ namespace Services.Implement
                 };
             }
 
-            foreach (var id in request.LessonIds)
-            {
-                var lesson = await _unitOfWork.Lessons.GetById(id);
-
-                if (lesson == null)
-                {
-                    return new BaseResponseDTO<Course>
-                    {
-                        Success = false,
-                        Message = "Unable to find lesson with id " + id
-                    };
-                }
-            }
-
             foreach (var id in request.DogBreedIds)
             {
                 var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
@@ -128,6 +114,36 @@ namespace Services.Implement
                 {
                     Success = false,
                     Message = $"There exist a course with the same name {request.Name}"
+                };
+            }
+
+            var totalRequiredSlots = 0;
+
+            foreach (var id in request.LessonIds)
+            {
+                var lesson = await _unitOfWork.Lessons.GetById(id);
+
+                if (lesson == null)
+                {
+                    return new BaseResponseDTO<Course>
+                    {
+                        Success = false,
+                        Message = "Unable to find lesson with id " + id
+                    };
+                }
+
+                totalRequiredSlots += lesson.Duration;
+            }
+
+            var totalAvailableSlots = request.DurationInWeeks * request.DaysPerWeek * request.SlotsPerDay;
+
+            if (totalRequiredSlots > totalAvailableSlots)
+            {
+                return new BaseResponseDTO<Course>
+                {
+                    Success = false,
+                    Message = $"The course requires {totalRequiredSlots} slots for all lessons, " +
+                              $"there are only {totalAvailableSlots} slots currently."
                 };
             }
 
@@ -189,7 +205,22 @@ namespace Services.Implement
 
                 await _unitOfWork.SaveChanges();
 
-                return new BaseResponseDTO<Course> { Success = true, Object = course };
+                var slotsPerWeek = request.DaysPerWeek * request.SlotsPerDay;
+                var minWeekRequired = (int)Math.Ceiling((double)totalRequiredSlots / slotsPerWeek);
+                var message = "";
+
+                if (totalRequiredSlots < totalAvailableSlots)
+                {
+                    message = $"The lessons requires only {totalRequiredSlots} of {totalAvailableSlots} slots, " +
+                              $"the course duration can be shorten to {minWeekRequired} weeks.";
+                }
+
+                return new BaseResponseDTO<Course>
+                {
+                    Success = true,
+                    Object = course,
+                    Message = (!message.IsNullOrEmpty()) ? message : ""
+                };
             }
             catch (Exception ex)
             {
@@ -222,20 +253,6 @@ namespace Services.Implement
                 };
             }
 
-            foreach (var id in request.LessonIds)
-            {
-                var lesson = await _unitOfWork.Lessons.GetById(id);
-
-                if (lesson == null)
-                {
-                    return new BaseResponseDTO<Course>
-                    {
-                        Success = false,
-                        Message = "Unable to find lesson with id " + id
-                    };
-                }
-            }
-
             foreach (var id in request.DogBreedIds)
             {
                 var dogBreed = await _unitOfWork.DogBreeds.GetById(id);
@@ -258,6 +275,36 @@ namespace Services.Implement
                 {
                     Success = false,
                     Message = "Unable to find course with id " + request.Id
+                };
+            }
+
+            var totalRequiredSlots = 0;
+
+            foreach (var id in request.LessonIds)
+            {
+                var lesson = await _unitOfWork.Lessons.GetById(id);
+
+                if (lesson == null)
+                {
+                    return new BaseResponseDTO<Course>
+                    {
+                        Success = false,
+                        Message = "Unable to find lesson with id " + id
+                    };
+                }
+
+                totalRequiredSlots += lesson.Duration;
+            }
+
+            var totalAvailableSlots = request.DurationInWeeks * request.DaysPerWeek * request.SlotsPerDay;
+
+            if (totalRequiredSlots > totalAvailableSlots)
+            {
+                return new BaseResponseDTO<Course>
+                {
+                    Success = false,
+                    Message = $"The course requires {totalRequiredSlots} slots for all lessons, " +
+                              $"there are only {totalAvailableSlots} slots currently."
                 };
             }
 
@@ -362,7 +409,22 @@ namespace Services.Implement
                     await _unitOfWork.SaveChanges();
                 }
 
-                return new BaseResponseDTO<Course> { Success = true, Object = course };
+                var slotsPerWeek = request.DaysPerWeek * request.SlotsPerDay;
+                var minWeekRequired = (int)Math.Ceiling((double)totalRequiredSlots / slotsPerWeek);
+                var message = "";
+
+                if (totalRequiredSlots < totalAvailableSlots)
+                {
+                    message = $"The lessons requires only {totalRequiredSlots} of {totalAvailableSlots} slots, " +
+                              $"the course duration can be shorten to {minWeekRequired} weeks.";
+                }
+
+                return new BaseResponseDTO<Course>
+                {
+                    Success = true,
+                    Object = course,
+                    Message = (!message.IsNullOrEmpty()) ? message : ""
+                };
             }
             catch (Exception ex)
             {

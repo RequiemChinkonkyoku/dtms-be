@@ -135,13 +135,16 @@ namespace Models.Automapper
                         SlotDate = s.Date,
                         ScheduleId = s.ScheduleId,
                         StartTime = s.Schedule.StartTime,
-                        EndTime = s.Schedule.EndTime
+                        EndTime = s.Schedule.EndTime,
+                        LessonId = s.LessonId,
+                        LessonName = s.Lesson.LessonTitle,
                     })
                     .OrderBy(cs => cs.SlotDate)))
                 .ForMember(dest => dest.ClassEnrollments, opt => opt.MapFrom(src => src.Enrollments
                     .Select(e => new ClassEnrollmentDTO
                     {
                         Status = e.Status,
+                        RequiredNightStay = e.RequiredNightStay,
                         EnrollmentId = e.Id,
                         DogId = e.DogId,
                         DogName = e.Dog.Name,

@@ -6,6 +6,7 @@ public class Lesson : BaseEntity
 {
     public string LessonTitle { get; set; }
     public string Description { get; set; }
+    public int Difficulty { get; set; }
     public string Notes { get; set; }
     public string Environment { get; set; }
     public int Duration { get; set; }

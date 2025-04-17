@@ -34,6 +34,8 @@ namespace Repositories.Implement
                                 .ThenInclude(ta => ta.Trainer)
                             .Include(c => c.Slots)
                                 .ThenInclude(s => s.Schedule)
+                            .Include(c => c.Slots)
+                                .ThenInclude(s => s.Lesson)
                             .Include(c => c.Enrollments)
                                 .ThenInclude(e => e.Dog)
                             .Include(c => c.Enrollments)

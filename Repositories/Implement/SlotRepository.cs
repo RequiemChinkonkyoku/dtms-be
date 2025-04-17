@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models.Constants;
 using Models.DTOs.Slot.Response;
 using Models.Entities;
 using Repositories.Interface;
@@ -50,6 +51,17 @@ namespace Repositories.Implement
                 .ToListAsync();
         }
 
+        public async Task<List<Slot>> GetClassSlots(string classId)
+        {
+            return await _context.Slots
+                            .AsSplitQuery()
+                            .Include(s => s.Class)
+                            .Include(s => s.Schedule)
+                            .Include(s => s.Lesson)
+                            .Where(s => s.ClassId == classId)
+                            .ToListAsync();
+        }
+
         public async Task<Slot> GetSlotByIdAsync(string id)
         {
             return await _context.Slots
@@ -59,6 +71,24 @@ namespace Repositories.Implement
                             .Include(s => s.Lesson)
                             .Include(s => s.Attendances)
                             .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<List<Slot>> GetSlotsByDogAndDate(string dogId, DateOnly date)
+        {
+            var enrolledClassIds = await _context.Enrollments
+                                            .AsSplitQuery()
+                                            .Where(e => e.DogId == dogId &&
+                                                        e.Status == (int)EnrollmentStatusEnum.Active)
+                                            .Select(e => e.ClassId)
+                                            .ToListAsync();
+
+            var slots = await _context.Slots
+                                .AsSplitQuery()
+                                .Include(s => s.Schedule)
+                                .Where(s => s.Date == date && enrolledClassIds.Contains(s.ClassId))
+                                .ToListAsync();
+
+            return slots;
         }
     }
 }
