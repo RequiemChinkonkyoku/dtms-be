@@ -8,6 +8,7 @@ using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.Class.Request;
 using Models.DTOs.Class.Response;
+using Models.DTOs.Slot.Response;
 using Models.Entities;
 using Repositories.Interface;
 using Services.Interface;
@@ -179,23 +180,44 @@ namespace Services.Implement
                 LastUpdatedTime = DateTime.UtcNow
             };
 
-            await _unitOfWork.Classes.Add(newClass);
-            await _unitOfWork.SaveChanges();
-
-            foreach (var trainerId in trainerIds)
+            try
             {
-                var trainerAssignment = new TrainerAssignment
+                await _unitOfWork.Classes.Add(newClass);
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Class>
                 {
-                    TrainerId = trainerId,
-                    ClassId = newClass.Id,
+                    Success = false,
+                    Message = $"There has been a problem adding the class. Ex: {ex.Message}."
                 };
-
-                await _unitOfWork.TrainerAssignments.Add(trainerAssignment);
             }
 
-            await _unitOfWork.SaveChanges();
+            try
+            {
+                foreach (var trainerId in trainerIds)
+                {
+                    var trainerAssignment = new TrainerAssignment
+                    {
+                        TrainerId = trainerId,
+                        ClassId = newClass.Id,
+                    };
 
-            //var slotList = new List<Slot>();
+                    await _unitOfWork.TrainerAssignments.Add(trainerAssignment);
+                }
+
+                await _unitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseDTO<Class>
+                {
+                    Success = false,
+                    Message = $"There has been a problem adding trainerAssignment. Ex: {ex.Message}."
+                };
+            }
+
             var endDate = request.StartingDate.AddDays(course.DurationInWeeks * 7);
 
             for (var date = request.StartingDate; date < endDate; date = date.AddDays(1))
@@ -211,8 +233,49 @@ namespace Services.Implement
                         Date = date,
                     };
 
-                    //slotList.Add(newSlot);
                     await _unitOfWork.Slots.Add(newSlot);
+                }
+            }
+
+            var courseLesson = (await _unitOfWork.CourseLessons.GetCourseLessonsByCourseId(request.CourseId))
+                                            .Select(cl => cl.Lesson)
+                                            .OrderBy(l => l.Difficulty)
+                                            .ToList();
+
+            if (!courseLesson.Any())
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = $"There are no lesssons for the course." };
+            }
+
+            var classSlots = (await _unitOfWork.Slots.GetClassSlots(newClass.Id))
+                                        .OrderBy(s => s.Date)
+                                        .ToList();
+
+            if (!classSlots.Any())
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = $"There are no slot for the class." };
+            }
+
+            var slotIndex = 0;
+
+            foreach (var lesson in courseLesson)
+            {
+                for (var i = 0; i < lesson.Duration; i++)
+                {
+                    if (slotIndex >= classSlots.Count)
+                    {
+                        return new BaseResponseDTO<Class>
+                        {
+                            Success = false,
+                            Message = $"There aren't enough slots for all lessson."
+                        };
+                    }
+
+                    var slot = classSlots[slotIndex];
+                    slot.LessonId = lesson.Id;
+
+                    await _unitOfWork.Slots.Update(slot);
+                    slotIndex++;
                 }
             }
 

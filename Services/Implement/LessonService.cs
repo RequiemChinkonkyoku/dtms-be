@@ -63,6 +63,11 @@ namespace Services.Implement
                 return new BaseResponseDTO<Lesson> { Success = false, Message = "Unable to find skill with id " + request.SkillId };
             }
 
+            if (request.Duration > 50)
+            {
+                return new BaseResponseDTO<Lesson> { Success = false, Message = "Lesson duration cannot be more than 50 slots." };
+            }
+
             var lesson = new Lesson
             {
                 LessonTitle = request.LessonTitle,
