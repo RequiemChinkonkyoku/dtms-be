@@ -136,8 +136,8 @@ namespace Models.Automapper
                         ScheduleId = s.ScheduleId,
                         StartTime = s.Schedule.StartTime,
                         EndTime = s.Schedule.EndTime,
-                        LessonId = s.LessonId,
-                        LessonName = s.Lesson.LessonTitle,
+                        LessonId = s.LessonId != null ? s.Lesson.LessonTitle : "N/A",
+                        LessonName = s.Lesson != null ? s.Lesson.LessonTitle : "N/A",
                     })
                     .OrderBy(cs => cs.SlotDate)))
                 .ForMember(dest => dest.ClassEnrollments, opt => opt.MapFrom(src => src.Enrollments
