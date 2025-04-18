@@ -11,6 +11,7 @@ namespace Repositories.SeedingData
         public static readonly string BehavioralCorrectionId = "3c4d5e6f78901a2b3c4d5e6f78901a2b";
         public static readonly string SocializationId = "4d5e6f78901a2b3c4d5e6f78901a2b3c";
         public static readonly string ProtectionTrainingId = "5e6f78901a2b3c4d5e6f78901a2b3c4d";
+        public static readonly string RevisionSkillId = "6f78901a2b3c4d5e6f78901a2b3c4d5e";
 
         public static void Seed(ModelBuilder modelBuilder)
         {
@@ -56,6 +57,15 @@ namespace Repositories.SeedingData
                     Id = ProtectionTrainingId,
                     Name = "Protection Training",
                     Description = "Training dogs for guarding and protective behavior.",
+                    Status = 1,
+                    CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
+                    LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1))
+                },
+                new Models.Entities.Skill
+                {
+                    Id = RevisionSkillId,
+                    Name = "Revision",
+                    Description = "Covers all previously taught skills for reinforcement",
                     Status = 1,
                     CreatedTime = new DateTimeOffset(new DateTime(2000, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2000, 1, 1))

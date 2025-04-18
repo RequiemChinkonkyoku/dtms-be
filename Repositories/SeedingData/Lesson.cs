@@ -14,6 +14,7 @@ namespace Repositories.SeedingData
         public static readonly string BehavioralCorrectionLessonId = "c3d4e5f67890a1b2c3d4e5f67890a1b2";
         public static readonly string SocializationLessonId = "d4e5f67890a1b2c3d4e5f67890a1b2c3";
         public static readonly string ProtectionTrainingLessonId = "e5f67890a1b2c3d4e5f67890a1b2c3d4";
+        public static readonly string RevisionLessonId = "f67890a1b2c3d4e5f67890a1b2c3d4e5";
 
         public static void Seed(ModelBuilder modelBuilder)
         {
@@ -90,6 +91,21 @@ namespace Repositories.SeedingData
                     Objective = "Security readiness",
                     Status = 1,
                     SkillId = "5e6f78901a2b3c4d5e6f78901a2b3c4d",
+                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
+                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
+                },
+                new Models.Entities.Lesson
+                {
+                    Id = RevisionLessonId,
+                    LessonTitle = "Revision",
+                    Description = "Review previously lesson",
+                    Difficulty = 10,
+                    Notes = "Flexible content depending on class performance",
+                    Environment = "Indoor",
+                    Duration = 1,
+                    Objective = "Reinforce learning",
+                    Status = 1,
+                    SkillId = "6f78901a2b3c4d5e6f78901a2b3c4d5e",
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 }

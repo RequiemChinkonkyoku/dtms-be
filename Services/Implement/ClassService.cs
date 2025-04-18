@@ -279,6 +279,15 @@ namespace Services.Implement
                 }
             }
 
+            while (slotIndex < classSlots.Count)
+            {
+                var revisionLesson = (await _unitOfWork.Lessons.GetAllLessons())
+                                                .Where(l => String.Equals(l.LessonTitle, "Revision", StringComparison.OrdinalIgnoreCase))
+                                                .FirstOrDefault();
+
+                classSlots[slotIndex].LessonId = (revisionLesson != null) ? revisionLesson.Id : null;
+                slotIndex++;
+            }
             try
             {
                 await _unitOfWork.SaveChanges();
@@ -621,6 +630,7 @@ namespace Services.Implement
             {
                 var existingCageId = (await _unitOfWork.Enrollments.GetAll())
                                                 .Where(e => e.Status == (int)EnrollmentStatusEnum.Active &&
+                                                            e.RequiredNightStay == true &&
                                                             e.DogId == request.DogId)
                                                 .Select(e => e.CageId)
                                                 .FirstOrDefault();
@@ -632,7 +642,8 @@ namespace Services.Implement
                 else
                 {
                     var availableCageList = (await _unitOfWork.Cages.GetAllCages())
-                                                    .Where(c => c.Status == (int)CageStatusEnum.Available)
+                                                    .Where(c => c.Status == (int)CageStatusEnum.Available &&
+                                                                c.Id != "-1")
                                                     .ToList();
 
                     if (availableCageList.IsNullOrEmpty())
@@ -640,7 +651,8 @@ namespace Services.Implement
                         return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
                     }
 
-                    var suitableCage = availableCageList.FirstOrDefault(c => c.CageCategory.DogTypeId == dog.DogBreed.DogTypeId);
+                    var suitableCage = availableCageList.FirstOrDefault(c => c.CageCategory.DogTypeId == dog.DogBreed.DogTypeId &&
+                                                                             c.Id != "-1");
 
                     if (suitableCage == null)
                     {
@@ -648,6 +660,11 @@ namespace Services.Implement
                     }
 
                     cageId = suitableCage.Id;
+                }
+
+                if (cageId == null)
+                {
+                    return new BaseResponseDTO<Class> { Success = false, Message = "Unable to assign cage." };
                 }
 
                 var staffList = await _unitOfWork.Accounts.GetStaffAccountsAsync();
