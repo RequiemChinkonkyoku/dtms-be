@@ -70,7 +70,7 @@ namespace Services.Implement
 
             var cage = new Cage
             {
-                Number = maxNumber++,
+                Number = ++maxNumber,
                 Status = (int)CageStatusEnum.Available,
                 Location = request.Location,
                 CageCategoryId = request.CageCategoryId
