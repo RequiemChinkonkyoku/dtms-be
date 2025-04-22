@@ -109,6 +109,14 @@ namespace Services.Implement
                 throw new ArgumentException($"Trainer with ID {request.TrainerId} not found.");
             }
 
+            var createdDate = DateOnly.FromDateTime(existingReport.CreatedTime.UtcDateTime);
+            var currentDate = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            if (currentDate != createdDate)
+            {
+                return "Updates can only be made within the same day.";
+            }
+
             existingReport.Feedback = request.Feedback ?? existingReport.Feedback;
             existingReport.HealthObservation = request.HealthObservation ?? existingReport.HealthObservation;
             existingReport.BehaviorObservation = request.BehaviorObservation ?? existingReport.BehaviorObservation;

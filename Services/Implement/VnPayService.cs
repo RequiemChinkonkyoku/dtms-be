@@ -39,6 +39,20 @@ namespace Services.Implement
             var pay = new VnPayLibrary();
             var urlCallBack = _configuration["Vnpay:ReturnUrl"];
 
+            var existingEnrollment = await _unitOfWork.Enrollments.GetEnrolmentById(model.EnrollmentId);
+
+            var courseId = existingEnrollment.Class.CourseId;
+            var dogId = existingEnrollment.DogId;
+
+            var previousEnrollments = await _unitOfWork.Enrollments.GetEnrollmentsByDogAndCourse(dogId, courseId);
+            var hasFailedBefore = previousEnrollments.Any(e => e.Id != existingEnrollment.Id &&
+                                                               e.Status == (int)EnrollmentStatusEnum.Concluded);
+
+            if (hasFailedBefore)
+            {
+                model.Amount *= 0.5;
+            }
+
             pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);
             pay.AddRequestData("vnp_TmnCode", _configuration["Vnpay:TmnCode"]);

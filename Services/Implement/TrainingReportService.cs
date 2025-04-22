@@ -226,7 +226,7 @@ namespace Services.Implement
                 throw new ArgumentException("EnrollmentId and TrainerProfileId are required.");
             }
 
-            var enrollmentId = await _unitOfWork.Enrollments.GetById(request.EnrollmentId);
+            var enrollmentId = await _unitOfWork.Enrollments.GetEnrolmentById(request.EnrollmentId);
             var trainerProfileId = await _unitOfWork.Accounts.GetById(request.TrainerProfileId);
 
             if (enrollmentId == null)
@@ -249,10 +249,98 @@ namespace Services.Implement
                 throw new ArgumentException("TrainerProfileId is not a trainer.");
             }
 
+            var createdDate = DateOnly.FromDateTime(existingReport.CreatedTime.UtcDateTime);
+            var currentDate = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            if (currentDate != createdDate)
+            {
+                return new BaseResponseDTO<TrainingReportResponse>
+                {
+                    Success = false,
+                    Message = "Updates can only be made within the same day."
+                };
+            }
+
+            if (existingReport.IsPassed != request.IsPassed)
+            {
+                if (request.IsPassed)
+                {
+                    var dogId = enrollmentId.DogId;
+                    var certificate = (await _unitOfWork.Certificates.GetCertificateByCourseId(enrollmentId.Class.CourseId));
+
+                    if (certificate == null || dogId == null)
+                    {
+                        return new BaseResponseDTO<TrainingReportResponse>
+                        {
+                            Success = false,
+                            Message = "Unable to find cert or dog."
+                        };
+                    }
+
+                    var dogCert = new DogCertificate
+                    {
+                        DogId = dogId,
+                        CertificateId = certificate.Id
+                    };
+
+                    try
+                    {
+                        await _unitOfWork.DogCertificates.Add(dogCert);
+                        await _unitOfWork.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        return new BaseResponseDTO<TrainingReportResponse>
+                        {
+                            Success = false,
+                            Message = $"There has been an error creating dogCertificate. Ex: {ex.Message}."
+                        };
+                    }
+                }
+                else
+                {
+                    var dogId = enrollmentId.DogId;
+                    var certificate = (await _unitOfWork.Certificates.GetCertificateByCourseId(enrollmentId.Class.CourseId));
+
+                    if (certificate == null || dogId == null)
+                    {
+                        return new BaseResponseDTO<TrainingReportResponse>
+                        {
+                            Success = false,
+                            Message = "Unable to find cert or dog."
+                        };
+                    }
+
+                    var existingDogCert = await _unitOfWork.DogCertificates.GetDogCertificateByDogAndCert(dogId, certificate.Id);
+
+                    if (existingDogCert == null)
+                    {
+                        return new BaseResponseDTO<TrainingReportResponse>
+                        {
+                            Success = false,
+                            Message = "Unable to find dogCertificate."
+                        };
+                    }
+
+                    try
+                    {
+                        await _unitOfWork.DogCertificates.Delete(existingDogCert);
+                        await _unitOfWork.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        return new BaseResponseDTO<TrainingReportResponse>
+                        {
+                            Success = false,
+                            Message = $"There has been an error deleting dogCert. Ex: {ex.Message}."
+                        };
+                    }
+                }
+            }
+
             _mapper.Map(request, existingReport);
 
             existingReport.LastUpdatedTime = DateTime.UtcNow;
-            existingReport.TrainerId = request.TrainerProfileId;
 
             _unitOfWork.TrainingReports.Update(existingReport);
             await _unitOfWork.SaveChanges();

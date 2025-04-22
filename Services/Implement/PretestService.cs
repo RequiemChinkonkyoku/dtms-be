@@ -103,6 +103,34 @@ namespace Services.Implement
 
             try
             {
+                if (pretest.Status == (int)PretestStatusEnum.Rejected)
+                {
+                    var enrollment = await _unitOfWork.Enrollments.GetEnrollmentByDogAndClass(pretest.DogId, pretest.ClassId);
+
+                    if (enrollment == null)
+                    {
+                        return new BaseResponseDTO<GetPretestResponse> { Success = false, Message = "Unable to find the matching enrollment." };
+                    }
+
+                    enrollment.Status = (int)EnrollmentStatusEnum.Inactive;
+
+                    if (enrollment.RequiredNightStay)
+                    {
+                        var cage = await _unitOfWork.Cages.GetCageById(enrollment.CageId);
+
+                        if (cage == null)
+                        {
+                            return new BaseResponseDTO<GetPretestResponse> { Success = false, Message = "Unable to find cage." };
+                        }
+
+                        cage.Status = (int)CageStatusEnum.Available;
+
+                        await _unitOfWork.Cages.Update(cage);
+                    }
+
+                    await _unitOfWork.Enrollments.Update(enrollment);
+                }
+
                 await _unitOfWork.Pretests.Update(pretest);
                 await _unitOfWork.SaveChanges();
 
@@ -115,7 +143,7 @@ namespace Services.Implement
                 return new BaseResponseDTO<GetPretestResponse>
                 {
                     Success = false,
-                    Message = "There has been an error updating pretest. Ex: " + ex.Message
+                    Message = "There has been an error. Ex: " + ex.Message
                 };
             }
         }
