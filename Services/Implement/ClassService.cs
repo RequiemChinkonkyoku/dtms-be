@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Azure.Core;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.DependencyInjection;
@@ -637,6 +638,64 @@ namespace Services.Implement
                             Message = $"The dog doesn't a certificate for the course {missingCourse.Name}."
                         };
                     }
+                }
+            }
+
+            var dogClassIds = (await _unitOfWork.Enrollments.GetAll())
+                                        .Where(e => e.DogId == dog.Id)
+                                        .Select(e => e.ClassId)
+                                        .ToList();
+
+            if (dogClassIds.Any())
+            {
+                var enrollingClassSlots = await _unitOfWork.Slots.GetClassSlots(existingClass.Id);
+
+                if (!enrollingClassSlots.Any())
+                {
+                    return new BaseResponseDTO<Class>
+                    {
+                        Success = false,
+                        Message = $"There has been an error getting slot for enrollingClass {existingClass.Id}."
+                    };
+                }
+
+                var currentClassSlots = new List<Slot>();
+
+                foreach (var classId in dogClassIds)
+                {
+                    var classSlots = await _unitOfWork.Slots.GetClassSlots(classId);
+
+                    if (!classSlots.Any())
+                    {
+                        return new BaseResponseDTO<Class>
+                        {
+                            Success = false,
+                            Message = $"There has been an error getting slot for classId {classId}."
+                        };
+                    }
+
+                    currentClassSlots.AddRange(classSlots);
+                }
+
+                var overlappingSlot = enrollingClassSlots
+                    .SelectMany(newSlot => currentClassSlots, (newSlot, existingSlot) => new { newSlot, existingSlot })
+                    .FirstOrDefault(pair =>
+                        pair.newSlot.Date == pair.existingSlot.Date &&
+                        pair.newSlot.Schedule.StartTime == pair.existingSlot.Schedule.StartTime &&
+                        pair.newSlot.Schedule.EndTime == pair.existingSlot.Schedule.EndTime
+                    );
+
+                if (overlappingSlot != null)
+                {
+                    var overlappingDate = overlappingSlot.existingSlot.Date;
+                    var overlappingStartTime = overlappingSlot.existingSlot.Schedule.StartTime;
+                    var overlappingEndTime = overlappingSlot.existingSlot.Schedule.EndTime;
+
+                    return new BaseResponseDTO<Class>
+                    {
+                        Success = false,
+                        Message = $"The dog has overlapping slot on {overlappingDate} from {overlappingStartTime} to {overlappingEndTime}."
+                    };
                 }
             }
 
