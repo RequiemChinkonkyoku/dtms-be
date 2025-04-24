@@ -515,7 +515,7 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "Ids must be given." };
             }
 
-            var existingClass = await _unitOfWork.Classes.GetById(request.ClassId);
+            var existingClass = await _unitOfWork.Classes.GetClassByIdAsync(request.ClassId);
 
             if (existingClass == null)
             {
@@ -557,10 +557,27 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "The dog doesn't belong to this customer." };
             }
 
+            var courseCert = await _unitOfWork.Certificates.GetCertificateByCourseId(existingClass.CourseId);
+
+            if (courseCert == null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = $"Unable to find certificate for the course." };
+            }
+
+            var existingDogCert = (await _unitOfWork.DogCertificates.GetAll())
+                                            .Where(dc => dc.DogId == request.DogId &&
+                                                         dc.CertificateId == courseCert.Id)
+                                            .FirstOrDefault();
+            if (existingDogCert != null)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "The dog has already completed the course." };
+            }
+
             var existingEnrollment = (await _unitOfWork.Enrollments.GetAll())
                                                 .Where(e => e.DogId == request.DogId &&
                                                             e.ClassId == request.ClassId &&
-                                                            e.Status == (int)EnrollmentStatusEnum.Active)
+                                                           (e.Status == (int)EnrollmentStatusEnum.Active ||
+                                                            e.Status == (int)EnrollmentStatusEnum.Pending))
                                                 .FirstOrDefault();
 
             if (existingEnrollment != null)
@@ -830,10 +847,101 @@ namespace Services.Implement
                 };
             }
 
-            existingClass.Status = request.Status;
-
             try
             {
+                switch (request.Status)
+                {
+                    case (int)ClassStatusEnum.Ongoing:
+                        {
+                            var pendingEnrollments = (await _unitOfWork.Enrollments.GetEnrollmentsByClassId(existingClass.Id))
+                                                                .Where(e => e.Status == (int)EnrollmentStatusEnum.Pending)
+                                                                .ToList();
+
+                            if (pendingEnrollments.Any())
+                            {
+                                foreach (var enrollment in pendingEnrollments)
+                                {
+                                    enrollment.Status = (int)EnrollmentStatusEnum.Inactive;
+
+                                    await _unitOfWork.Enrollments.Update(enrollment);
+
+                                    if (enrollment.RequiredNightStay)
+                                    {
+                                        var cage = await _unitOfWork.Cages.GetById(enrollment.CageId);
+
+                                        if (cage == null)
+                                        {
+                                            return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find cage" };
+                                        }
+
+                                        cage.Status = (int)CageStatusEnum.Available;
+
+                                        await _unitOfWork.Cages.Update(cage);
+                                    }
+                                }
+
+                                await _unitOfWork.SaveChanges();
+                            }
+                            break;
+                        }
+
+                    case (int)ClassStatusEnum.Closed:
+                        {
+                            var classEnrollments = await _unitOfWork.Enrollments.GetEnrollmentsByClassId(existingClass.Id);
+
+                            if (classEnrollments.Any())
+                            {
+                                foreach (var enrollment in classEnrollments)
+                                {
+                                    enrollment.Status = (int)EnrollmentStatusEnum.Inactive;
+
+                                    await _unitOfWork.Enrollments.Update(enrollment);
+
+                                    if (enrollment.RequiredNightStay)
+                                    {
+                                        var cage = enrollment.Cage;
+                                        cage.Status = (int)CageStatusEnum.Available;
+
+                                        await _unitOfWork.Cages.Update(cage);
+                                    }
+                                }
+
+                                await _unitOfWork.SaveChanges();
+                            }
+
+                            break;
+                        }
+
+                    case (int)ClassStatusEnum.Completed:
+                        {
+                            var classEnrollments = await _unitOfWork.Enrollments.GetEnrollmentsByClassId(existingClass.Id);
+
+                            if (classEnrollments.Any())
+                            {
+                                foreach (var enrollment in classEnrollments)
+                                {
+                                    enrollment.Status = (int)EnrollmentStatusEnum.Concluded;
+
+                                    await _unitOfWork.Enrollments.Update(enrollment);
+
+                                    if (enrollment.RequiredNightStay)
+                                    {
+                                        var cage = enrollment.Cage;
+                                        cage.Status = (int)CageStatusEnum.Available;
+
+                                        await _unitOfWork.Cages.Update(cage);
+                                    }
+                                }
+
+                                await _unitOfWork.SaveChanges();
+                            }
+
+                            break;
+                        }
+                }
+
+                existingClass.Status = request.Status;
+
                 await _unitOfWork.Classes.Update(existingClass);
                 await _unitOfWork.SaveChanges();
 
@@ -848,7 +956,7 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class>
                 {
                     Success = false,
-                    Message = "There has been an error updating class status."
+                    Message = $"There has been an error updating class status. Ex: {ex.Message}."
                 };
             }
         }

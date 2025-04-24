@@ -15,5 +15,6 @@ namespace Repositories.Interface
         Task<DogCertificate> GetByIdWithDetailAsync(string id);
         Task<bool> AnyAsync(Expression<Func<DogCertificate, bool>> predicate);
         Task<DogCertificate> AddAsync(DogCertificate dogCertificate);
+        Task<DogCertificate> GetDogCertificateByDogAndCert(string dogId, string certId);
     }
 }

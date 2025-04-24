@@ -45,8 +45,6 @@ namespace DTMS_API.Controllers
 
             if (response.Success)
             {
-                //return Ok(response);
-
                 var html = $@"
             <html>
                 <body>
@@ -60,8 +58,6 @@ namespace DTMS_API.Controllers
             }
             else
             {
-                //return BadRequest(response);
-
                 var html = $@"
             <html>
                 <body>

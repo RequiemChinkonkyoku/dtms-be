@@ -41,5 +41,13 @@ namespace Repositories.Implement
             return await _context.DogCertificates.AnyAsync(predicate);
         }
 
+        public async Task<DogCertificate> GetDogCertificateByDogAndCert(string dogId, string certId)
+        {
+            return await _context.DogCertificates
+                            .AsSplitQuery()
+                            .Include(dc => dc.Dog)
+                            .Include(dc => dc.Certificate)
+                            .FirstOrDefaultAsync();
+        }
     }
 }
