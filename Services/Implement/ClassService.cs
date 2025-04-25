@@ -790,10 +790,18 @@ namespace Services.Implement
             await _unitOfWork.Cages.Update(assignedCage);
             await _unitOfWork.SaveChanges();
 
+            var lessonNames = (await _unitOfWork.CourseLessons.GetAllCourseLessons())
+                                            .Where(cl => cl.CourseId == course.Id)
+                                            .Select(cl => cl.Lesson.LessonTitle)
+                                            .ToList();
+
+            string lessonList = string.Join(", ", lessonNames);
+
             var pretest = new PreTest
             {
                 TestDate = existingClass.StartingDate.AddDays(-7),
                 Status = (int)PretestStatusEnum.Pending,
+                Note = $"Test based on lessons: {lessonList}.",
                 DogId = request.DogId,
                 ClassId = request.ClassId
             };
