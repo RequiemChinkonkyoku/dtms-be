@@ -131,7 +131,7 @@ namespace Services.Implement
                     await _unitOfWork.Enrollments.Update(enrollment);
                 }
 
-                pretest.Note = request.Note;
+                pretest.Note = !(request.Note).IsNullOrEmpty() ? request.Note : "None";
 
                 await _unitOfWork.Pretests.Update(pretest);
                 await _unitOfWork.SaveChanges();
