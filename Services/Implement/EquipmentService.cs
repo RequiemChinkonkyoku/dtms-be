@@ -89,6 +89,26 @@ namespace Services.Implement
             equipment.Status = request.Status;
             equipment.EquipmentCategoryId = request.EquipmentCategoryId;
             equipment.LastUpdatedTime = DateTime.Now;
+            
+            await _unitOfWork.Equipments.Update(equipment);
+            await _unitOfWork.SaveChanges();
+
+            return new BaseResponseDTO<Equipment> { Success = true, Object = equipment };
+        }
+        
+        public async Task<BaseResponseDTO<Equipment>> GetEquipmentById(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return new BaseResponseDTO<Equipment> { Success = false, Message = "Id must be provided." };
+            }
+
+            var equipment = await _unitOfWork.Equipments.GetById(id);
+
+            if (equipment == null)
+            {
+                return new BaseResponseDTO<Equipment> { Success = false, Message = "No equipment found with id " + id };
+            }
 
             return new BaseResponseDTO<Equipment> { Success = true, Object = equipment };
         }
