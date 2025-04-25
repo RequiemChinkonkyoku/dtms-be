@@ -215,6 +215,14 @@ namespace Services.Implement
                               $"the course duration can be shorten to {minWeekRequired} weeks.";
                 }
 
+                var courseCert = new Certificate
+                {
+                    Name = course.Name + " Certificate",
+                    Description = $"Certificate for {course.Name}.",
+                    Status = 1,
+                    CourseId = course.Id,
+                };
+
                 return new BaseResponseDTO<Course>
                 {
                     Success = true,
