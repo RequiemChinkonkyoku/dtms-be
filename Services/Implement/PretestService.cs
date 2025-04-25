@@ -128,6 +128,20 @@ namespace Services.Implement
                         await _unitOfWork.Cages.Update(cage);
                     }
 
+                    var existingClass = await _unitOfWork.Classes.GetById(enrollment.ClassId);
+
+                    if (existingClass == null)
+                    {
+                        return new BaseResponseDTO<GetPretestResponse>
+                        {
+                            Success = false,
+                            Message = $"Unable to find class with id ${enrollment.ClassId}."
+                        };
+                    }
+
+                    existingClass.EnrolledDogCount -= 1;
+                    await _unitOfWork.Classes.Update(existingClass);
+
                     await _unitOfWork.Enrollments.Update(enrollment);
                 }
 
