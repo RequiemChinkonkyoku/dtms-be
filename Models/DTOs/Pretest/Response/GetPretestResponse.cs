@@ -13,6 +13,7 @@ namespace Models.DTOs.Pretest.Response
 
         public DateOnly TestDate { get; set; }
         public int Status { get; set; }
+        public string Note { get; set; }
 
         public string DogId { get; set; }
         public string DogName { get; set; }

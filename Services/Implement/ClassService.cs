@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Azure.Core;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.DependencyInjection;
@@ -506,27 +507,27 @@ namespace Services.Implement
             return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
         }
 
-        public async Task<BaseResponseDTO<Class>> EnrollClass(EnrollClassRequest request)
+        public async Task<BaseResponseDTO<EnrollClassResponse>> EnrollClass(EnrollClassRequest request)
         {
             if (request.ClassId == null ||
                 request.CustomerProfileId == null ||
                 request.DogId == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "Ids must be given." };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "Ids must be given." };
             }
 
             var existingClass = await _unitOfWork.Classes.GetClassByIdAsync(request.ClassId);
 
             if (existingClass == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + request.ClassId };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "Unable to find class with id " + request.ClassId };
             }
 
             var customerProfile = await _unitOfWork.Accounts.GetById(request.CustomerProfileId);
 
             if (customerProfile == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find accounts with id " + request.CustomerProfileId };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "Unable to find accounts with id " + request.CustomerProfileId };
             }
 
             var customerRole = await _unitOfWork.Roles.GetById(customerProfile.RoleId);
@@ -543,7 +544,7 @@ namespace Services.Implement
 
             if (dog == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find dog with id " + request.DogId };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "Unable to find dog with id " + request.DogId };
             }
 
             var dogOwnership = (await _unitOfWork.DogOwnerships.GetAll())
@@ -554,14 +555,14 @@ namespace Services.Implement
 
             if (dogOwnership == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "The dog doesn't belong to this customer." };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "The dog doesn't belong to this customer." };
             }
 
             var courseCert = await _unitOfWork.Certificates.GetCertificateByCourseId(existingClass.CourseId);
 
             if (courseCert == null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = $"Unable to find certificate for the course." };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = $"Unable to find certificate for the course." };
             }
 
             var existingDogCert = (await _unitOfWork.DogCertificates.GetAll())
@@ -570,7 +571,7 @@ namespace Services.Implement
                                             .FirstOrDefault();
             if (existingDogCert != null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "The dog has already completed the course." };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "The dog has already completed the course." };
             }
 
             var existingEnrollment = (await _unitOfWork.Enrollments.GetAll())
@@ -582,7 +583,7 @@ namespace Services.Implement
 
             if (existingEnrollment != null)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "The dog is already enrolled into this class." };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "The dog is already enrolled into this class." };
             }
 
             var courseDog = (await _unitOfWork.CourseDogs.GetAll())
@@ -592,14 +593,14 @@ namespace Services.Implement
 
             if (!courseDog.Contains(dog.DogBreedId))
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "The course doesn't support this dog breed." };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "The course doesn't support this dog breed." };
             }
 
             var course = await _unitOfWork.Courses.GetById(existingClass.CourseId);
 
             if (existingClass.EnrolledDogCount == course.MaxDogs)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "This class dog enrollment limit is reached." };
+                return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "This class dog enrollment limit is reached." };
             }
 
             var preCourseIds = (await _unitOfWork.Prerequisites.GetAll())
@@ -631,12 +632,70 @@ namespace Services.Implement
                     {
                         var missingCourse = await _unitOfWork.Courses.GetById(certificate.CourseId);
 
-                        return new BaseResponseDTO<Class>
+                        return new BaseResponseDTO<EnrollClassResponse>
                         {
                             Success = false,
                             Message = $"The dog doesn't a certificate for the course {missingCourse.Name}."
                         };
                     }
+                }
+            }
+
+            var dogClassIds = (await _unitOfWork.Enrollments.GetAll())
+                                        .Where(e => e.DogId == dog.Id)
+                                        .Select(e => e.ClassId)
+                                        .ToList();
+
+            if (dogClassIds.Any())
+            {
+                var enrollingClassSlots = await _unitOfWork.Slots.GetClassSlots(existingClass.Id);
+
+                if (!enrollingClassSlots.Any())
+                {
+                    return new BaseResponseDTO<EnrollClassResponse>
+                    {
+                        Success = false,
+                        Message = $"There has been an error getting slot for enrollingClass {existingClass.Id}."
+                    };
+                }
+
+                var currentClassSlots = new List<Slot>();
+
+                foreach (var classId in dogClassIds)
+                {
+                    var classSlots = await _unitOfWork.Slots.GetClassSlots(classId);
+
+                    if (!classSlots.Any())
+                    {
+                        return new BaseResponseDTO<EnrollClassResponse>
+                        {
+                            Success = false,
+                            Message = $"There has been an error getting slot for classId {classId}."
+                        };
+                    }
+
+                    currentClassSlots.AddRange(classSlots);
+                }
+
+                var overlappingSlot = enrollingClassSlots
+                    .SelectMany(newSlot => currentClassSlots, (newSlot, existingSlot) => new { newSlot, existingSlot })
+                    .FirstOrDefault(pair =>
+                        pair.newSlot.Date == pair.existingSlot.Date &&
+                        pair.newSlot.Schedule.StartTime == pair.existingSlot.Schedule.StartTime &&
+                        pair.newSlot.Schedule.EndTime == pair.existingSlot.Schedule.EndTime
+                    );
+
+                if (overlappingSlot != null)
+                {
+                    var overlappingDate = overlappingSlot.existingSlot.Date;
+                    var overlappingStartTime = overlappingSlot.existingSlot.Schedule.StartTime;
+                    var overlappingEndTime = overlappingSlot.existingSlot.Schedule.EndTime;
+
+                    return new BaseResponseDTO<EnrollClassResponse>
+                    {
+                        Success = false,
+                        Message = $"The dog has overlapping slot on {overlappingDate} from {overlappingStartTime} to {overlappingEndTime}."
+                    };
                 }
             }
 
@@ -665,7 +724,7 @@ namespace Services.Implement
 
                     if (availableCageList.IsNullOrEmpty())
                     {
-                        return new BaseResponseDTO<Class> { Success = false, Message = "All cages are unavailable." };
+                        return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "All cages are unavailable." };
                     }
 
                     var suitableCage = availableCageList.FirstOrDefault(c => c.CageCategory.DogTypeId == dog.DogBreed.DogTypeId &&
@@ -673,7 +732,7 @@ namespace Services.Implement
 
                     if (suitableCage == null)
                     {
-                        return new BaseResponseDTO<Class> { Success = false, Message = "There are no suitable cage for the dogType." };
+                        return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "There are no suitable cage for the dogType." };
                     }
 
                     cageId = suitableCage.Id;
@@ -681,7 +740,7 @@ namespace Services.Implement
 
                 if (cageId == null)
                 {
-                    return new BaseResponseDTO<Class> { Success = false, Message = "Unable to assign cage." };
+                    return new BaseResponseDTO<EnrollClassResponse> { Success = false, Message = "Unable to assign cage." };
                 }
 
                 var staffList = await _unitOfWork.Accounts.GetStaffAccountsAsync();
@@ -699,7 +758,7 @@ namespace Services.Implement
 
                 if (assignedStaffId.IsNullOrEmpty())
                 {
-                    return new BaseResponseDTO<Class>
+                    return new BaseResponseDTO<EnrollClassResponse>
                     {
                         Success = false,
                         Message = $"There are no available staff to attend the cage (Max 5 per staff)."
@@ -747,7 +806,9 @@ namespace Services.Implement
             existingClass.Enrollments.Add(enrollment);
             existingClass.PreTests.Add(pretest);
 
-            return new BaseResponseDTO<Class> { Success = true, Object = existingClass };
+            var mappedResponse = _mapper.Map<EnrollClassResponse>(existingClass);
+
+            return new BaseResponseDTO<EnrollClassResponse> { Success = true, Object = mappedResponse };
         }
 
         public async Task<BaseResponseDTO<Class>> GetClassByCourseId(string id)

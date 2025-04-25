@@ -10,6 +10,7 @@ namespace Models.Entities
     {
         public DateOnly TestDate { get; set; }
         public int Status { get; set; }
+        public string Note { get; set; }
 
         public string DogId { get; set; }
         public Dog Dog { get; set; }

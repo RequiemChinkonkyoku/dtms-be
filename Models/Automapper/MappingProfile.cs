@@ -156,6 +156,9 @@ namespace Models.Automapper
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName))
                 .ReverseMap();
             CreateMap<PreTest, GetPretestResponse>()
+                .ForMember(dest => dest.TestDate, opt => opt.MapFrom(src => src.TestDate))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.Note, opt => opt.MapFrom(src => src.Note))
                 .ForMember(dest => dest.DogId, opt => opt.MapFrom(src => src.Dog.Id))
                 .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
                 .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.Class.Id))
@@ -269,6 +272,19 @@ namespace Models.Automapper
                 .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.Enrollment.Class.Course.Id))
                 .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Enrollment.Class.Name))
                 .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.Enrollment.Class.Id));
+            CreateMap<Class, EnrollClassResponse>()
+                .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.StartingDate, opt => opt.MapFrom(src => src.StartingDate))
+                .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.CourseId))
+                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Name))
+                .ForMember(dest => dest.TrainerAssignments, opt => opt.MapFrom(src => src.TrainerAssignments
+                    .Select(ta => new AssignedTrainerDTO
+                    {
+                        Id = ta.TrainerId,
+                        Name = ta.Trainer.FullName
+                    })))
+                .ForMember(dest => dest.TestDate, opt => opt.MapFrom(src => src.PreTests.FirstOrDefault().TestDate));
         }
     }
 }
