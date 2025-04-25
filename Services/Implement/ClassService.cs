@@ -947,9 +947,12 @@ namespace Services.Implement
 
                                         await _unitOfWork.Cages.Update(cage);
                                     }
-                                }
 
-                                await _unitOfWork.SaveChanges();
+                                    existingClass.EnrolledDogCount -= pendingEnrollments.Count;
+                                    await _unitOfWork.Classes.Update(existingClass);
+
+                                    await _unitOfWork.SaveChanges();
+                                }
                             }
                             break;
                         }
