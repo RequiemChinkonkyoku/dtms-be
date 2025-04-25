@@ -135,10 +135,19 @@ namespace Services.Implement
 
             if (existingBlog == null)
             {
-                throw new KeyNotFoundException($"Blog not found.");
+                throw new KeyNotFoundException("Blog not found.");
             }
 
-            _unitOfWork.Blogs.Delete(existingBlog);
+            if (existingBlog.Status == 2)
+            {
+                // Already deleted
+                return true;
+            }
+
+            existingBlog.Status = 2;
+            existingBlog.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.Blogs.Update(existingBlog);
             await _unitOfWork.SaveChanges();
 
             return true;
@@ -180,6 +189,5 @@ namespace Services.Implement
                 Object = response
             };
         }
-
     }
 }
