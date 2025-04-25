@@ -16,5 +16,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<BlogResponse>> CreateBlogsAsync(CreateBlogRequest createBlogRequest);
         Task<BaseResponseDTO<BlogResponse>> UpdateBlogsAsync(string id, CreateBlogRequest request);
         Task<bool> DeleteBlogsAsync(string id);
+        Task<BaseResponseDTO<BlogResponse>> PublishBlogAsync(string id);
     }
 }
