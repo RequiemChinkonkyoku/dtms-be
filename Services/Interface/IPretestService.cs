@@ -15,6 +15,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<GetPretestResponse>> GetAllPretest();
         Task<BaseResponseDTO<GetPretestResponse>> GetClassPretests(GetPretestRequest request);
         Task<BaseResponseDTO<GetPretestResponse>> GetPretestById(string id);
-        Task<BaseResponseDTO<GetPretestResponse>> UpdatePretestStatus(string id, int pretestStatus);
+        Task<BaseResponseDTO<GetPretestResponse>> UpdatePretest(string id, UpdatePretestRequest request);
     }
 }

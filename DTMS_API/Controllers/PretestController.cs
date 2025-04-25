@@ -56,9 +56,9 @@ namespace DTMS_API.Controllers
         }
 
         [HttpPut("update-pretest-status/{id}")]
-        public async Task<IActionResult> UpdatePretestStatus(string id, int pretestStatus)
+        public async Task<IActionResult> UpdatePretestStatus(string id, UpdatePretestRequest request)
         {
-            var response = await _pretestService.UpdatePretestStatus(id, pretestStatus);
+            var response = await _pretestService.UpdatePretest(id, request);
 
             if (response.Success)
             {

@@ -85,11 +85,11 @@ namespace Services.Implement
             return new BaseResponseDTO<GetPretestResponse> { Success = true, ObjectList = mappedResponse };
         }
 
-        public async Task<BaseResponseDTO<GetPretestResponse>> UpdatePretestStatus(string id, int pretestStatus)
+        public async Task<BaseResponseDTO<GetPretestResponse>> UpdatePretest(string id, UpdatePretestRequest request)
         {
-            if (!Enum.IsDefined(typeof(PretestStatusEnum), pretestStatus))
+            if (!Enum.IsDefined(typeof(PretestStatusEnum), request.Status))
             {
-                return new BaseResponseDTO<GetPretestResponse> { Success = false, Message = "Invalid pretestStatus value " + pretestStatus };
+                return new BaseResponseDTO<GetPretestResponse> { Success = false, Message = "Invalid pretestStatus value " + request.Status };
             }
 
             var pretest = await _unitOfWork.Pretests.GetPretestByIdAsync(id);
@@ -99,7 +99,7 @@ namespace Services.Implement
                 return new BaseResponseDTO<GetPretestResponse> { Success = false, Message = "Unable to find pretest with id " + id };
             }
 
-            pretest.Status = pretestStatus;
+            pretest.Status = request.Status;
 
             try
             {
@@ -130,6 +130,8 @@ namespace Services.Implement
 
                     await _unitOfWork.Enrollments.Update(enrollment);
                 }
+
+                pretest.Note = request.Note;
 
                 await _unitOfWork.Pretests.Update(pretest);
                 await _unitOfWork.SaveChanges();
