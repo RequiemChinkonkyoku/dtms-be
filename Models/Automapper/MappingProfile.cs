@@ -55,6 +55,7 @@ namespace Models.Automapper
             CreateMap<Blog, CreateBlogRequest>()
                 .ReverseMap();
             CreateMap<Dog, DogResponse>()
+                .ForMember(dest => dest.DogCode, opt => opt.MapFrom(src => src.DogCode))
                 .ForMember(dest => dest.DogBreedName, opt => opt.MapFrom(src => src.DogBreed.Name))
                 .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src =>
                     src.DogOwnerships != null && src.DogOwnerships.Any() ?

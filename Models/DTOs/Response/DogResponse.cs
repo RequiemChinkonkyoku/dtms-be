@@ -9,6 +9,7 @@ namespace Models.DTOs.Response
     public class DogResponse
     {
         public string Id { get; set; }
+        public string DogCode { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string DateOfBirth { get; set; }
