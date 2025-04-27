@@ -8,6 +8,7 @@ using Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,6 +57,11 @@ namespace Services.Implement
                 throw new ArgumentException($"Dog with ID {request.DogId} not found.");
             }
 
+            if (slot.Date != DateOnly.FromDateTime(DateTime.UtcNow))
+            {
+                throw new ArgumentException("Today is not the correct day to take attendance.");
+            }
+
             var newAttendance = new Attendance
             {
                 Id = Guid.NewGuid().ToString(),
@@ -86,6 +92,11 @@ namespace Services.Implement
             if (attendance == null)
             {
                 throw new ArgumentException($"Attendance with ID {id} not found.");
+            }
+
+            if (attendance.CreatedTime.Date != DateTime.UtcNow.Date)
+            {
+                throw new ArgumentException("Update can only be done within the same day.");
             }
 
             attendance.Date = request.Date;
