@@ -15,7 +15,7 @@ namespace Repositories.Implement
         {
             return await _context.DogBreeds
                 .AsSplitQuery()
-                .Include(b => b.Dogs) 
+                .Include(b => b.Dogs)
                 .ToListAsync();
         }
 
@@ -23,9 +23,8 @@ namespace Repositories.Implement
         {
             return await _context.DogBreeds
                 .AsSplitQuery()
-                .Include(b => b.Dogs) 
+                .Include(b => b.Dogs)
                 .FirstOrDefaultAsync(b => b.Id == dogBreedId);
         }
-
     }
 }

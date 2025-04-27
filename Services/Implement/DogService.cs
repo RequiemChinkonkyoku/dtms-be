@@ -48,9 +48,13 @@ namespace Services.Implement
             {
                 throw new ArgumentException($"DogBreed with ID {request.DogBreedId} not found.");
             }
+
+            var dogCode = await GenerateDogCode(dogBreed);
+
             var newDog = new Dog
             {
                 Id = Guid.NewGuid().ToString(),
+                DogCode = dogCode,
                 Name = request.Name,
                 ImageUrl = request.ImageUrl,
                 DateOfBirth = request.DateOfBirth,
@@ -77,6 +81,18 @@ namespace Services.Implement
             await _unitOfWork.SaveChanges();
 
             return newDog;
+        }
+
+        private async Task<string> GenerateDogCode(DogBreed dogBreed)
+        {
+            var dogCount = (await _unitOfWork.Dogs.GetAll())
+                                    .Where(d => d.DogBreedId == dogBreed.Id)
+                                    .Count();
+
+            var breedPrefix = dogBreed.Name.Substring(0, 3).ToUpper();
+            var numberSuffix = (dogCount + 1).ToString("D3");
+
+            return breedPrefix + numberSuffix;
         }
 
         public async Task<DogResponse> UpdateDogAsync(string id, UpdateDogRequest request)
