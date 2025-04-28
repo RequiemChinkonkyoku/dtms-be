@@ -223,6 +223,9 @@ namespace Services.Implement
                     CourseId = course.Id,
                 };
 
+                await _unitOfWork.Certificates.Add(courseCert);
+                await _unitOfWork.SaveChanges();
+
                 return new BaseResponseDTO<Course>
                 {
                     Success = true,
