@@ -71,7 +71,7 @@ namespace Services.Implement
                 };
             }
 
-            if (request.StartingDate < DateOnly.FromDateTime(DateTime.Today))
+            if (request.StartingDate < DateOnly.FromDateTime(DateTime.Today.AddMonths(1)))
             {
                 return new BaseResponseDTO<Class>
                 {
