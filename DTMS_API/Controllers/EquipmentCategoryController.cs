@@ -47,5 +47,21 @@ namespace DTMS_API.Controllers
                 return BadRequest(response.Message);
             }
         }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEquipmentCategoryById(string id)
+        {
+            var response = await _equipmentCategoryService.GetEquipmentCategoryById(id);
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return NotFound(response.Message);
+            }
+        }
+
     }
 }

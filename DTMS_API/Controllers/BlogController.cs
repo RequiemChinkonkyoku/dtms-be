@@ -6,7 +6,7 @@ using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
-    [Route("api/blog")]
+    [Route("api/blogs")]
     [ApiController]
     public class BlogController : ControllerBase
     {
@@ -17,14 +17,14 @@ namespace DTMS_API.Controllers
             _blogService = blogService;
         }
 
-        [HttpGet("get-all-blogs")]
+        [HttpGet]
         public async Task<IActionResult> GetAllBlogs()
         {
             var response = await _blogService.GetAllBlogs();
             return Ok(response);
         }
 
-        [HttpGet("get-blog-by-id/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetBlogById(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -51,34 +51,34 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpGet("get-blog-by-title/{title}")]
-        public async Task<IActionResult> GetBlogByTitle(string title)
-        {
-            if (string.IsNullOrWhiteSpace(title))
-                return BadRequest("Title is required.");
-            try
-            {
-                var blog = await _blogService.GetBlogByTitle(title);
-                if (blog.Success)
-                {
-                    return Ok(blog);
-                }
-                else
-                {
-                    return NotFound(blog);
-                }
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
+        // [HttpGet("{title}")]
+        // public async Task<IActionResult> GetBlogByTitle(string title)
+        // {
+        //     if (string.IsNullOrWhiteSpace(title))
+        //         return BadRequest("Title is required.");
+        //     try
+        //     {
+        //         var blog = await _blogService.GetBlogByTitle(title);
+        //         if (blog.Success)
+        //         {
+        //             return Ok(blog);
+        //         }
+        //         else
+        //         {
+        //             return NotFound(blog);
+        //         }
+        //     }
+        //     catch (KeyNotFoundException ex)
+        //     {
+        //         return NotFound(ex.Message);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, $"Internal server error: {ex.Message}");
+        //     }
+        // }
 
-        [HttpPost("create-blogs")]
+        [HttpPost]
         public async Task<IActionResult> CreateBlogs([FromBody] CreateBlogRequest request)
         {
             if (request == null)
@@ -102,7 +102,7 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpPut("update-blogs/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBlogs(string id, [FromBody] CreateBlogRequest request)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -128,7 +128,7 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpDelete("delete-blogs/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBlogs(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -139,6 +139,28 @@ namespace DTMS_API.Controllers
                 if (!result)
                     return NotFound("Blog not found.");
                 return Ok("Blog deleted successfully.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        
+        [HttpPut("publish/{id}")]
+        public async Task<IActionResult> PublishBlog(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return BadRequest("Id is required.");
+            try
+            {
+                var result = await _blogService.PublishBlogAsync(id);
+                if (!result.Success)
+                    return NotFound(result.Message);
+                return Ok(result);
             }
             catch (KeyNotFoundException ex)
             {
