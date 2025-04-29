@@ -38,9 +38,6 @@ public class DtmsDbContext : DbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
     public virtual DbSet<Membership> Memberships { get; set; }
-    public virtual DbSet<CustomerProfile> CustomerProfiles { get; set; }
-    public virtual DbSet<TrainerProfile> TrainerProfiles { get; set; }
-    public virtual DbSet<StaffProfile> StaffProfiles { get; set; }
     public virtual DbSet<Transaction> Transactions { get; set; }
     public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
     public virtual DbSet<Blog> Blogs { get; set; }
@@ -49,8 +46,6 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<DogDocument> DogDocuments { get; set; }
     public virtual DbSet<DogDocumentType> DogDocumentTypes { get; set; }
     public virtual DbSet<LegalDocument> LegalDocuments { get; set; }
-    public virtual DbSet<StaffRole> StaffRoles { get; set; }
-    public virtual DbSet<TrainerRole> TrainerRoles { get; set; }
     public virtual DbSet<Skill> Skills { get; set; }
     public virtual DbSet<TrainerSkill> TrainerSkills { get; set; }
     public virtual DbSet<Lesson> Lessons { get; set; }
@@ -73,13 +68,11 @@ public class DtmsDbContext : DbContext
     public virtual DbSet<TrainingReport> TrainingReports { get; set; }
     public virtual DbSet<TrainerReport> TrainerReports { get; set; }
     public virtual DbSet<WishList> WishLists { get; set; }
-    public virtual DbSet<Chat> Chats { get; set; }
     public virtual DbSet<Notification> Notifications { get; set; }
     public virtual DbSet<CageCategory> CageCategories { get; set; }
     public virtual DbSet<LessonEquipment> LessonEquipments { get; set; }
     public virtual DbSet<EquipmentCategory> EquipmentCategories { get; set; }
     public virtual DbSet<DogBreed> DogBreeds { get; set; }
-    public virtual DbSet<CustomerRole> CustomerRoles { get; set; }
     public virtual DbSet<AccountOtp> AccountOtps { get; set; }
     public virtual DbSet<CourseLesson> CourseLessons { get; set; }
     public virtual DbSet<CourseDog> CourseDogs { get; set; }
@@ -344,21 +337,6 @@ public class DtmsDbContext : DbContext
             .HasOne(w => w.Course)
             .WithMany(c => c.WishLists)
             .HasForeignKey(tr => tr.CourseId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Chat>()
-            .Ignore(c => c.ReceiverAccount);
-
-        modelBuilder.Entity<Chat>()
-            .HasOne(c => c.SenderAccount)
-            .WithMany(a => a.Chats)
-            .HasForeignKey(c => c.SenderId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Chat>()
-            .HasOne(n => n.ReceiverAccount)
-            .WithMany()
-            .HasForeignKey(n => n.ReceiverId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Notification>()

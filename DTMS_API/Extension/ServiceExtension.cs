@@ -25,12 +25,9 @@ public static class ServiceExtension
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICertificateRepository, CertificateRepository>();
         services.AddScoped<ICertificationRepository, CertificationRepository>();
-        services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IClassRepository, ClassRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped<ILessonEquipmentRepository, LessonEquipmentRepository>();
-        services.AddScoped<ICustomerProfileRepository, CustomerProfileRepository>();
-        services.AddScoped<ICustomerRoleRepository, CustomerRoleRepository>();
         services.AddScoped<IDogRepository, DogRepository>();
         services.AddScoped<IDogBreedRepository, DogBreedRepository>();
         services.AddScoped<IDogCertificateRepository, DogCertificateRepository>();
@@ -51,12 +48,8 @@ public static class ServiceExtension
         services.AddScoped<ISkillRepository, SkillRepository>();
         services.AddScoped<ISlotRepository, SlotRepository>();
         services.AddScoped<ISpecializationRepository, SpecializationRepository>();
-        services.AddScoped<IStaffProfileRepository, StaffProfileRepository>();
-        services.AddScoped<IStaffRoleRepository, StaffRoleRepository>();
         services.AddScoped<ITrainerAssignmentRepository, TrainerAssignmentRepository>();
-        services.AddScoped<ITrainerProfileRepository, TrainerProfileRepository>();
         services.AddScoped<ITrainerReportRepository, TrainerReportRepository>();
-        services.AddScoped<ITrainerRoleRepository, TrainerRoleRepository>();
         services.AddScoped<ITrainerSkillRepository, TrainerSkillRepository>();
         services.AddScoped<ITrainerSpecializationRepository, TrainerSpecializationRepository>();
         services.AddScoped<ITrainingReportRepository, TrainingReportRepository>();
@@ -79,11 +72,9 @@ public static class ServiceExtension
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<ICertificateService, CertificateService>();
         services.AddScoped<ICertificationService, CertificationService>();
-        services.AddScoped<IChatService, ChatService>();
         services.AddScoped<IClassService, ClassService>();
         services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<ILessonEquipmentService, LessonEquipmentService>();
-        services.AddScoped<ICustomerProfileService, CustomerProfileService>();
         services.AddScoped<ICustomerRoleService, CustomerRoleService>();
         services.AddScoped<IDogService, DogService>();
         services.AddScoped<IDogBreedService, DogBreedService>();
@@ -105,10 +96,8 @@ public static class ServiceExtension
         services.AddScoped<ISkillService, SkillService>();
         services.AddScoped<ISlotService, SlotService>();
         services.AddScoped<ISpecializationService, SpecializationService>();
-        services.AddScoped<IStaffProfileService, StaffProfileService>();
         services.AddScoped<IStaffRoleService, StaffRoleService>();
         services.AddScoped<ITrainerAssignmentService, TrainerAssignmentService>();
-        services.AddScoped<ITrainerProfileService, TrainerProfileService>();
         services.AddScoped<ITrainerReportService, TrainerReportService>();
         services.AddScoped<ITrainerRoleService, TrainerRoleService>();
         services.AddScoped<ITrainerSkillService, TrainerSkillService>();
