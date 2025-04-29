@@ -68,5 +68,22 @@ namespace Services.Implement
 
             return new BaseResponseDTO<EquipmentCategory> { Success = true, Object = equipmentCategory };
         }
+        
+        public async Task<BaseResponseDTO<EquipmentCategory>> GetEquipmentCategoryById(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return new BaseResponseDTO<EquipmentCategory> { Success = false, Message = "Id must be provided." };
+            }
+
+            var equipmentCategory = await _unitOfWork.EquipmentCategories.GetById(id);
+
+            if (equipmentCategory == null)
+            {
+                return new BaseResponseDTO<EquipmentCategory> { Success = false, Message = "No equipment category found with id " + id };
+            }
+
+            return new BaseResponseDTO<EquipmentCategory> { Success = true, Object = equipmentCategory };
+        }
     }
 }

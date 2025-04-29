@@ -14,5 +14,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<Equipment>> CreateEquipment(CreateEquipmentRequest request);
         Task<BaseResponseDTO<Equipment>> GetAllEquipments();
         Task<BaseResponseDTO<Equipment>> UpdateEquipment(UpdateEquipmentRequest request);
+        Task<BaseResponseDTO<Equipment>> GetEquipmentById(string id);
     }
 }

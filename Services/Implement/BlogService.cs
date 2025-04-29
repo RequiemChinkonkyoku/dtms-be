@@ -76,7 +76,7 @@ namespace Services.Implement
 
             var blog = _mapper.Map<Blog>(createBlogRequest);
 
-            blog.Status = 1;
+            blog.Status = 0;
             blog.TimePublished = DateTime.UtcNow;
             blog.StaffId = createBlogRequest.StaffProfileId;
 
@@ -135,13 +135,59 @@ namespace Services.Implement
 
             if (existingBlog == null)
             {
-                throw new KeyNotFoundException($"Blog not found.");
+                throw new KeyNotFoundException("Blog not found.");
             }
 
-            _unitOfWork.Blogs.Delete(existingBlog);
+            if (existingBlog.Status == 2)
+            {
+                // Already deleted
+                return true;
+            }
+
+            existingBlog.Status = 2;
+            existingBlog.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.Blogs.Update(existingBlog);
             await _unitOfWork.SaveChanges();
 
             return true;
+        }
+        
+        public async Task<BaseResponseDTO<BlogResponse>> PublishBlogAsync(string id)
+        {
+            var blog = await _unitOfWork.Blogs.GetById(id);
+            if (blog == null)
+            {
+                return new BaseResponseDTO<BlogResponse>
+                {
+                    Success = false,
+                    Message = "Blog not found."
+                };
+            }
+
+            if (blog.Status == 1)
+            {
+                return new BaseResponseDTO<BlogResponse>
+                {
+                    Success = false,
+                    Message = "Blog is already published."
+                };
+            }
+
+            blog.Status = 1;
+            blog.TimePublished = DateTime.UtcNow;
+            blog.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.Blogs.Update(blog);
+            await _unitOfWork.SaveChanges();
+
+            var response = _mapper.Map<BlogResponse>(blog);
+            return new BaseResponseDTO<BlogResponse>
+            {
+                Success = true,
+                Message = "Blog published successfully.",
+                Object = response
+            };
         }
     }
 }

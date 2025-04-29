@@ -119,7 +119,7 @@ namespace Services.Implement
 
             if (currentDate != createdDate)
             {
-                return "Updates can only be made within the same day.";
+                throw new ArgumentException("Updates can only be made within the same day.");
             }
 
             existingReport.Feedback = request.Feedback ?? existingReport.Feedback;

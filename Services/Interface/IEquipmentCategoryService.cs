@@ -13,5 +13,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<EquipmentCategory>> CreateEquipmentCategory(CreateEquipmentCategoryRequest request);
         Task<BaseResponseDTO<EquipmentCategory>> GetAllEquipmentCategories();
         Task<BaseResponseDTO<EquipmentCategory>> UpdateEquipmentCategory(UpdateEquipmentCategoryRequest request);
+        Task<BaseResponseDTO<EquipmentCategory>> GetEquipmentCategoryById(string id);
     }
 }
