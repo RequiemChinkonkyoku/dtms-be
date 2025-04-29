@@ -94,7 +94,6 @@ public class AccountController : ControllerBase
 
             var response = await _accountService.Register(request);
             return Ok(response);
-            //return CreatedAtAction(nameof(UserController.GetUserById), new { id = response.Id }, response);
         }
         catch (ArgumentException ex)
         {
@@ -116,7 +115,6 @@ public class AccountController : ControllerBase
 
         try
         {
-            // Use the service to verify the OTP code
             var isVerified = await _accountService.VerifyOtpAsync(email, otp);
 
             if (isVerified)
@@ -130,12 +128,10 @@ public class AccountController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            // Return a bad request response with the error message
             return BadRequest(new { message = ex.Message });
         }
         catch (Exception ex)
         {
-            // Return a generic 500 error response for unexpected issues
             return StatusCode(500,
                 new { message = "An unexpected error occurred. Please try again later.", error = ex.Message });
         }

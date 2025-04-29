@@ -102,10 +102,5 @@ namespace DTMS_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //public async Task<IActionResult> CreateCertificate(CreateCertificateRequest request)
-        //{
-        //    return null;
-        //}
     }
 }
