@@ -1,10 +1,12 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/categories")]
     public class CategoryController : ControllerBase

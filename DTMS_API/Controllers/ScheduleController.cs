@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Models.DTOs.Response;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [Route("api/schedules")]
     [ApiController]
 
@@ -78,22 +80,5 @@ namespace DTMS_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteSchedule(string id)
-        //{
-        //    if (string.IsNullOrEmpty(id))
-        //        return BadRequest("Scheudle ID is required.");
-
-        //    try
-        //    {
-        //        var deletedDog = await _scheduleService.DeleteScheduleAsync(id);
-        //        return Ok(deletedDog);
-        //    }
-        //    catch (KeyNotFoundException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //}
     }
 }

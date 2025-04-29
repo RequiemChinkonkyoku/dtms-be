@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.DogCertificate.Request;
 using Models.DTOs.DogCertificate.Response;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/dogCertificates")]
     public class DogCertificateController : Controller

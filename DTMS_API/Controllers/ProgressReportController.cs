@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Models.DTOs.TrainingReport;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/progressReports")]
     public class ProgressReportController : Controller

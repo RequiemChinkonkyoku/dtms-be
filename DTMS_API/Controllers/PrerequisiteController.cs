@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Services.Interface;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/prerequisites")]
     public class PrerequisiteController : ControllerBase

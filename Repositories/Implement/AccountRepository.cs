@@ -12,8 +12,7 @@ public class AccountRepository : RepositoryBase<Account>, IAccountRepository
             TrainerAvailabilityRequest request)
     {
         var endDate = request.StartingDate.AddDays(request.DurationInWeeks * 7);
-
-        // Step 1: Get all trainer assignments with overlapping classes
+        
         var assignments = await _context.TrainerAssignments
             .Include(ta => ta.Class)
                 .ThenInclude(c => c.Slots)
@@ -23,18 +22,16 @@ public class AccountRepository : RepositoryBase<Account>, IAccountRepository
                     s.Date >= request.StartingDate &&
                     s.Date <= endDate))
             .ToListAsync();
-
-        // Step 2: Find busy trainers (client-side evaluation)
+        
         var busyTrainerIds = assignments
             .SelectMany(ta => ta.Class.Slots
                 .Where(s => request.SlotData.Any(sr =>
                     sr.DayOfWeek == s.Date.DayOfWeek &&
                     sr.ScheduleId == s.ScheduleId))
-            .Select(_ => ta.TrainerId)  // Changed from previous version
+            .Select(_ => ta.TrainerId)  
             .Distinct()
             .ToList());
-
-        // Step 3: Get available trainers
+        
         return await _context.Accounts
             .Include(a => a.Role)
             .Where(a =>
