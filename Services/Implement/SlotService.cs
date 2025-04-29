@@ -121,6 +121,15 @@ namespace Services.Implement
                 };
             }
 
+            if (slot.Date != DateOnly.FromDateTime(DateTime.UtcNow))
+            {
+                return new BaseResponseDTO<Slot>
+                {
+                    Success = false,
+                    Message = "Today is not the correct day for checkin."
+                };
+            }
+
             if (slot.Status != (int)SlotStatusEnum.NotYet)
             {
                 return new BaseResponseDTO<Slot>
@@ -159,6 +168,15 @@ namespace Services.Implement
                 {
                     Success = false,
                     Message = "Unable to find slot."
+                };
+            }
+
+            if (slot.Date != DateOnly.FromDateTime(DateTime.UtcNow))
+            {
+                return new BaseResponseDTO<Slot>
+                {
+                    Success = false,
+                    Message = "Today is not the correct day to conclude."
                 };
             }
 

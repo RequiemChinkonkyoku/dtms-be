@@ -2,6 +2,7 @@ namespace Models.Entities;
 
 public class Dog : BaseEntity
 {
+    public string DogCode { get; set; }
     public string Name { get; set; }
     public string ImageUrl { get; set; }
     public DateOnly DateOfBirth { get; set; }

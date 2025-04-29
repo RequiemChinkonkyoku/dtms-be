@@ -97,6 +97,11 @@ namespace Services.Implement
                 throw new ArgumentException($"Progress report with ID {progressReportId} not found.");
             }
 
+            if (existingReport.CreatedTime.Date != DateTime.UtcNow.Date)
+            {
+                throw new AggregateException("Update can only be done within the same day.");
+            }
+
             var attendance = await _unitOfWork.Attendances.GetById(request.AttendanceId);
             if (attendance == null)
             {
@@ -114,7 +119,7 @@ namespace Services.Implement
 
             if (currentDate != createdDate)
             {
-                return "Updates can only be made within the same day.";
+                throw new ArgumentException("Updates can only be made within the same day.");
             }
 
             existingReport.Feedback = request.Feedback ?? existingReport.Feedback;

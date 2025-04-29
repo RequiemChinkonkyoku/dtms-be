@@ -2,6 +2,7 @@
 using AutoMapper;
 using Azure.Core;
 using CloudinaryDotNet.Actions;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
@@ -310,7 +311,12 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + id };
             }
 
-            existingClass.Status = 0;
+            if (existingClass.Status == (int)ClassStatusEnum.Ongoing)
+            {
+                return new BaseResponseDTO<Class> { Success = false, Message = "Ongoing class cannot be deleted." };
+            }
+
+            existingClass.Status = (int)ClassStatusEnum.Inactive;
 
             await _unitOfWork.Classes.Update(existingClass);
             await _unitOfWork.SaveChanges();
@@ -790,10 +796,18 @@ namespace Services.Implement
             await _unitOfWork.Cages.Update(assignedCage);
             await _unitOfWork.SaveChanges();
 
+            var lessonNames = (await _unitOfWork.CourseLessons.GetAllCourseLessons())
+                                            .Where(cl => cl.CourseId == course.Id)
+                                            .Select(cl => cl.Lesson.LessonTitle)
+                                            .ToList();
+
+            string lessonList = string.Join(", ", lessonNames);
+
             var pretest = new PreTest
             {
                 TestDate = existingClass.StartingDate.AddDays(-7),
                 Status = (int)PretestStatusEnum.Pending,
+                Note = $"Test based on lessons: {lessonList}.",
                 DogId = request.DogId,
                 ClassId = request.ClassId
             };
@@ -914,6 +928,15 @@ namespace Services.Implement
                 {
                     case (int)ClassStatusEnum.Ongoing:
                         {
+                            if (existingClass.StartingDate != DateOnly.FromDateTime(DateTime.UtcNow))
+                            {
+                                return new BaseResponseDTO<Class>
+                                {
+                                    Success = false,
+                                    Message = "Today is not the correct day to open the class."
+                                };
+                            }
+
                             var pendingEnrollments = (await _unitOfWork.Enrollments.GetEnrollmentsByClassId(existingClass.Id))
                                                                 .Where(e => e.Status == (int)EnrollmentStatusEnum.Pending)
                                                                 .ToList();
@@ -939,9 +962,12 @@ namespace Services.Implement
 
                                         await _unitOfWork.Cages.Update(cage);
                                     }
-                                }
 
-                                await _unitOfWork.SaveChanges();
+                                    existingClass.EnrolledDogCount -= pendingEnrollments.Count;
+                                    await _unitOfWork.Classes.Update(existingClass);
+
+                                    await _unitOfWork.SaveChanges();
+                                }
                             }
                             break;
                         }

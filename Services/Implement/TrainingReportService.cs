@@ -220,6 +220,11 @@ namespace Services.Implement
                 throw new KeyNotFoundException($"Training Report not found.");
             }
 
+            if (existingReport.CreatedTime.Date != DateTime.UtcNow.Date)
+            {
+                throw new ArgumentException($"Update can only be done within the same day.");
+            }
+
             if (string.IsNullOrWhiteSpace(request.EnrollmentId) ||
             string.IsNullOrWhiteSpace(request.TrainerProfileId))
             {
@@ -356,6 +361,11 @@ namespace Services.Implement
             if (existingReport == null)
             {
                 throw new KeyNotFoundException($"Training Report not found.");
+            }
+
+            if (existingReport.CreatedTime.Date != DateTime.UtcNow.Date)
+            {
+                throw new ArgumentException($"Delete can only be done within the same day.");
             }
 
             _unitOfWork.TrainingReports.Delete(existingReport);
