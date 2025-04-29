@@ -68,18 +68,15 @@ public class AccountService : IAccountService
     {
         try
         {
-            // Validate Role Name
             var roles = await _unitOfWork.Roles.GetAll();
             var role = roles.FirstOrDefault(r => r.Name == request.RoleName);
             if (role == null)
             {
                 throw new InvalidOperationException("Invalid RoleName. No matching role found.");
             }
-
-            // Hash password before saving
+            
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-
-            // Create the account entity
+            
             var account = new Models.Entities.Account()
             {
                 Email = request.Email,
@@ -121,7 +118,6 @@ public class AccountService : IAccountService
             var roles = await _unitOfWork.Roles.GetAll();
             var role = roles.FirstOrDefault(r => r.Id == account.RoleId);
             
-            // Generate JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
             // IConfiguration config = new ConfigurationBuilder()
             //     .SetBasePath(Directory.GetCurrentDirectory())
@@ -209,8 +205,7 @@ public class AccountService : IAccountService
 
             await _unitOfWork.Accounts.Add(account);
             await _unitOfWork.SaveChanges();
-
-            // Send OTP for email verification
+            
             await SendOtpAsync(account.Email);
 
             return account;
@@ -276,7 +271,6 @@ public class AccountService : IAccountService
 
     private async Task<bool> SendOtpAsync(string email)
     {
-        // Step 1: Retrieve the user based on the provided email.
         var accounts = await _unitOfWork.Accounts.GetAll();
         var account = accounts.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
@@ -285,20 +279,17 @@ public class AccountService : IAccountService
             throw new ArgumentException("No user found with this email.");
         }
 
-        // Step 2: Check if the user is already verified.
         if (account.Status == 1)
         {
             throw new ArgumentException("User is already verified.");
         }
 
-        // Step 3: Check if an existing OTP for the user is still valid.
         var otpList = await _unitOfWork.AccountOtps.GetAll();
         var existingOtp = otpList.FirstOrDefault(o => o.AccountId == account.Id);
         var currentTime = DateTime.UtcNow;
 
         if (existingOtp != null && existingOtp.ExpirationTime > currentTime)
         {
-            // If the existing OTP is still valid, enforce a cooldown period before resending.
             var cooldownPeriod = TimeSpan.FromMinutes(2);
             if (existingOtp.ExpirationTime - currentTime < cooldownPeriod)
             {
@@ -306,9 +297,8 @@ public class AccountService : IAccountService
             }
         }
 
-        // Step 4: Generate a new OTP with 3 letters and 4 numbers.
         string newOtpCode = await GenerateCustomOtp();
-        var newExpirationTime = currentTime.AddMinutes(15); // Set expiration time for 15 minutes.
+        var newExpirationTime = currentTime.AddMinutes(15);
 
         var newAccountOtp = new AccountOtp
         {
@@ -320,7 +310,6 @@ public class AccountService : IAccountService
         await _unitOfWork.AccountOtps.Add(newAccountOtp);
         await _unitOfWork.SaveChanges();
 
-        // Step 5: Send the OTP via email.
         SendEmailAsync(account.Email, "noreply", account.Username, newOtpCode);
 
         return true;
@@ -354,7 +343,6 @@ public class AccountService : IAccountService
 
     public async Task<bool> VerifyOtpAsync(string email, string otpCode)
     {
-        // Step 1: Retrieve the user by their email.
         var accounts = await _unitOfWork.Accounts.GetAll();
         var account = accounts.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
@@ -363,7 +351,6 @@ public class AccountService : IAccountService
             throw new ArgumentException("No user found with this email.");
         }
 
-        // Step 2: Retrieve the OTP record for the user.
         var otpList = await _unitOfWork.AccountOtps.GetAll();
         var existingOtp = otpList.FirstOrDefault(o => o.AccountId == account.Id);
 
@@ -372,36 +359,30 @@ public class AccountService : IAccountService
             throw new ArgumentException("No OTP record found for this user.");
         }
 
-        // Step 3: Check if the provided OTP matches the stored OTP.
         if (!existingOtp.OtpCode.Equals(otpCode, StringComparison.OrdinalIgnoreCase))
         {
             throw new ArgumentException("Invalid OTP code.");
         }
 
-        // Step 4: Check if the OTP has expired.
         if (existingOtp.ExpirationTime < DateTime.UtcNow)
         {
             throw new ArgumentException("The OTP has expired. Please request a new OTP.");
         }
 
-        // Step 5: Check if the OTP has already been used.
         if (existingOtp.IsExpiredOrUsed)
         {
             throw new ArgumentException("This OTP code has already been used.");
         }
 
-        // Step 6: Update user status to verified (Status = 1).
         account.Status = 1;
         await _unitOfWork.Accounts.Update(account);
         await _unitOfWork.SaveChanges();
 
-        // Step 7: Mark the OTP as used to prevent reuse.
         existingOtp.IsExpiredOrUsed = true;
 
         await _unitOfWork.AccountOtps.Update(existingOtp);
         await _unitOfWork.SaveChanges();
 
-        // Step 8: Return true to indicate successful verification.
         return true;
     }
 
