@@ -11,12 +11,9 @@ public interface IUnitOfWork : IDisposable
     ICategoryRepository Categories { get; }
     ICertificateRepository Certificates { get; }
     ICertificationRepository Certifications { get; }
-    IChatRepository Chats { get; }
     IClassRepository Classes { get; }
     ILessonEquipmentRepository LessonEquipments { get; }
     ICourseRepository Courses { get; }
-    ICustomerProfileRepository CustomerProfiles { get; }
-    ICustomerRoleRepository CustomerRoles { get; }
     IDogCertificateRepository DogCertificates { get; }
     IDogDocumentRepository DogDocuments { get; }
     IDogDocumentTypeRepository DogDocumentTypes { get; }
@@ -37,12 +34,8 @@ public interface IUnitOfWork : IDisposable
     ISkillRepository Skills { get; }
     ISlotRepository Slots { get; }
     ISpecializationRepository Specializations { get; }
-    IStaffProfileRepository StaffProfiles { get; }
-    IStaffRoleRepository StaffRoles { get; }
     ITrainerAssignmentRepository TrainerAssignments { get; }
-    ITrainerProfileRepository TrainerProfiles { get; }
     ITrainerReportRepository TrainerReports { get; }
-    ITrainerRoleRepository TrainerRoles { get; }
     ITrainerSkillRepository TrainerSkills { get; }
     ITrainerSpecializationRepository TrainerSpecializations { get; }
     IWishListRepository WishLists { get; }

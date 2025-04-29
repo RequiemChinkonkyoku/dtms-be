@@ -16,12 +16,9 @@ public class UnitOfWork : IUnitOfWork
     public ICategoryRepository Categories { get; }
     public ICertificateRepository Certificates { get; }
     public ICertificationRepository Certifications { get; }
-    public IChatRepository Chats { get; }
     public IClassRepository Classes { get; }
     public ILessonEquipmentRepository LessonEquipments { get; }
     public ICourseRepository Courses { get; }
-    public ICustomerProfileRepository CustomerProfiles { get; }
-    public ICustomerRoleRepository CustomerRoles { get; }
     public IDogCertificateRepository DogCertificates { get; }
     public IDogDocumentRepository DogDocuments { get; }
     public IDogDocumentTypeRepository DogDocumentTypes { get; }
@@ -42,12 +39,8 @@ public class UnitOfWork : IUnitOfWork
     public ISkillRepository Skills { get; }
     public ISlotRepository Slots { get; }
     public ISpecializationRepository Specializations { get; }
-    public IStaffProfileRepository StaffProfiles { get; }
-    public IStaffRoleRepository StaffRoles { get; }
     public ITrainerAssignmentRepository TrainerAssignments { get; }
-    public ITrainerProfileRepository TrainerProfiles { get; }
     public ITrainerReportRepository TrainerReports { get; }
-    public ITrainerRoleRepository TrainerRoles { get; }
     public ITrainerSkillRepository TrainerSkills { get; }
     public ITrainerSpecializationRepository TrainerSpecializations { get; }
     public ITrainingReportRepository TrainingReports { get; }
@@ -73,12 +66,9 @@ public class UnitOfWork : IUnitOfWork
                       ICategoryRepository categoryRepository,
                       ICertificateRepository certificateRepository,
                       ICertificationRepository certificationRepository,
-                      IChatRepository chatRepository,
                       IClassRepository classRepository,
                       ICourseRepository courseRepository,
                       ILessonEquipmentRepository lessonEquipmentRepository,
-                      ICustomerProfileRepository customerProfileRepository,
-                      ICustomerRoleRepository customerRoleRepository,
                       IDogCertificateRepository dogCertificateRepository,
                       IDogDocumentRepository dogDocumentRepository,
                       IDogDocumentTypeRepository dogDocumentTypeRepository,
@@ -100,12 +90,8 @@ public class UnitOfWork : IUnitOfWork
                       ILessonEquipmentRepository lessonEquipmentRepository1,
                       ISlotRepository slotRepository,
                       ISpecializationRepository specializationRepository,
-                      IStaffProfileRepository staffProfileRepostitory,
-                      IStaffRoleRepository staffRoleRepository,
                       ITrainerAssignmentRepository trainerAssignmentRepository,
-                      ITrainerProfileRepository trainerProfileRepository,
                       ITrainerReportRepository trainerReportRepository,
-                      ITrainerRoleRepository trainerRoleRepository,
                       ITrainerSkillRepository trainerSkillRepository,
                       ITrainerSpecializationRepository trainerSpecializationRepository,
                       IWishListRepository wishListRepository,
@@ -131,12 +117,9 @@ public class UnitOfWork : IUnitOfWork
         Categories = categoryRepository;
         Certificates = certificateRepository;
         Certifications = certificationRepository;
-        Chats = chatRepository;
         Classes = classRepository;
         Courses = courseRepository;
         LessonEquipments = lessonEquipmentRepository;
-        CustomerProfiles = customerProfileRepository;
-        CustomerRoles = customerRoleRepository;
         DogCertificates = dogCertificateRepository;
         DogDocuments = dogDocumentRepository;
         DogDocumentTypes = dogDocumentTypeRepository;
@@ -158,12 +141,8 @@ public class UnitOfWork : IUnitOfWork
         LessonEquipments = lessonEquipmentRepository;
         Slots = slotRepository;
         Specializations = specializationRepository;
-        StaffProfiles = staffProfileRepostitory;
-        StaffRoles = staffRoleRepository;
         TrainerAssignments = trainerAssignmentRepository;
-        TrainerProfiles = trainerProfileRepository;
         TrainerReports = trainerReportRepository;
-        TrainerRoles = trainerRoleRepository;
         TrainerSkills = trainerSkillRepository;
         TrainerSpecializations = trainerSpecializationRepository;
         WishLists = wishListRepository;

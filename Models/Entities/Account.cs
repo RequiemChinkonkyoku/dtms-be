@@ -23,8 +23,6 @@ public class Account : BaseEntity
     public string MembershipId { get; set; }
     public Membership Membership { get; set; }
 
-    public ICollection<Chat> Chats { get; set; }
-
     public ICollection<Notification> Notifications { get; set; }
     
     public ICollection<AccountOtp> AccountOtps { get; set; }
