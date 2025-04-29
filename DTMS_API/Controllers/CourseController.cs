@@ -1,10 +1,11 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Course.Request;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
-{
+{[Authorize]
     [ApiController]
     [Route("api/courses")]
     public class CourseController : ControllerBase

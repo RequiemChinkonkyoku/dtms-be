@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Models.DTOs.Pretest.Request;
 using Services.Interface;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/pretest")]
     public class PretestController : ControllerBase

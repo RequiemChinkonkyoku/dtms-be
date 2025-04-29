@@ -1,4 +1,5 @@
 ﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Blog;
@@ -6,6 +7,7 @@ using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [Route("api/blogs")]
     [ApiController]
     public class BlogController : ControllerBase
@@ -51,34 +53,8 @@ namespace DTMS_API.Controllers
             }
         }
 
-        // [HttpGet("{title}")]
-        // public async Task<IActionResult> GetBlogByTitle(string title)
-        // {
-        //     if (string.IsNullOrWhiteSpace(title))
-        //         return BadRequest("Title is required.");
-        //     try
-        //     {
-        //         var blog = await _blogService.GetBlogByTitle(title);
-        //         if (blog.Success)
-        //         {
-        //             return Ok(blog);
-        //         }
-        //         else
-        //         {
-        //             return NotFound(blog);
-        //         }
-        //     }
-        //     catch (KeyNotFoundException ex)
-        //     {
-        //         return NotFound(ex.Message);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, $"Internal server error: {ex.Message}");
-        //     }
-        // }
-
         [HttpPost]
+        [Authorize(Roles = "Admin, Staff")]
         public async Task<IActionResult> CreateBlogs([FromBody] CreateBlogRequest request)
         {
             if (request == null)

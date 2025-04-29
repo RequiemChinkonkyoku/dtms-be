@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Certification;
 using Models.Entities;
@@ -7,6 +8,7 @@ using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [Route("api/certification")]
     [ApiController]
     public class CertificationController : ControllerBase

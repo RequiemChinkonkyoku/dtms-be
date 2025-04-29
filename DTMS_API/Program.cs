@@ -100,14 +100,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("CustomerAuth",
-        policy => policy.RequireClaim(ClaimTypes.Role, "1"));
-    options.AddPolicy("TrainerAuth",
-        policy => policy.RequireClaim(ClaimTypes.Role, "2"));
-    options.AddPolicy("StaffAuth",
-        policy => policy.RequireClaim(ClaimTypes.Role, "3"));
-    options.AddPolicy("AdminAuth",
-        policy => policy.RequireClaim(ClaimTypes.Role, "4"));
+    options.AddPolicy("Customer",
+        policy => policy.RequireClaim(ClaimTypes.Role, "Customer_Individual", "Customer_Organizational"));
+    options.AddPolicy("Trainer",
+        policy => policy.RequireClaim(ClaimTypes.Role, "Trainer_Member", "Trainer_Lead"));
+    options.AddPolicy("Staff",
+        policy => policy.RequireClaim(ClaimTypes.Role, "Staff_Employee", "Staff_Manager"));
+    options.AddPolicy("Admin",
+        policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
 });
 
 builder.Services.AddDistributedMemoryCache();
