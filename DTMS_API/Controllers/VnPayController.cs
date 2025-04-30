@@ -6,7 +6,6 @@ using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/vnpay")]
     public class VnPayController : ControllerBase
@@ -17,6 +16,8 @@ namespace DTMS_API.Controllers
         {
             _vpnPayService = vnPayService;
         }
+
+        [Authorize]
 
         [HttpPost]
         public async Task<IActionResult> CreatePaymentUrl([FromBody] VnpayInfoModel request)
