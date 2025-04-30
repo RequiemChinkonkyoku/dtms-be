@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.TrainingReport;
 using Models.Entities;
 using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [Route("api/trainingReport")]
     [ApiController]
     public class TrainingReportController : ControllerBase

@@ -461,7 +461,7 @@ namespace Services.Implement
 
             foreach (var trainerId in request.TrainerIds)
             {
-                var trainer = await _unitOfWork.TrainerProfiles.GetById(trainerId);
+                var trainer = await _unitOfWork.Accounts.GetById(trainerId);
 
                 if (trainer == null)
                 {
@@ -479,7 +479,7 @@ namespace Services.Implement
 
             if (trainerIdsToAdd.Any())
             {
-                var trainers = (await _unitOfWork.TrainerProfiles.GetAll())
+                var trainers = (await _unitOfWork.Accounts.GetAll())
                                             .Where(tp => trainerIdsToAdd.Contains(tp.Id))
                                             .ToList();
 

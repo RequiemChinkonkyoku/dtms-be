@@ -59,8 +59,7 @@ namespace Services.Implement
                 if (courseHasCertificate)
                     throw new InvalidOperationException($"Course '{linkedCourse.Name}' already has a certificate");
             }
-
-            // Create new certificate
+            
             var newCertificate = new Certificate
             {
                 Id = Guid.NewGuid().ToString(),
@@ -120,7 +119,6 @@ namespace Services.Implement
                     if (newCourse == null)
                         throw new KeyNotFoundException($"Course with ID {request.CourseId} not found");
 
-                    // Changed to use new repository method
                     var existingCertForCourse = await _unitOfWork.Certificates
                         .GetCertificateByCourseId(request.CourseId);
 

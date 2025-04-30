@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
 using Models.DTOs.Certificate.Request;
 using Models.DTOs.Certificate.Response;
@@ -6,6 +7,7 @@ using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/certificates")]
     public class CertificateController : ControllerBase
@@ -100,10 +102,5 @@ namespace DTMS_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //public async Task<IActionResult> CreateCertificate(CreateCertificateRequest request)
-        //{
-        //    return null;
-        //}
     }
 }

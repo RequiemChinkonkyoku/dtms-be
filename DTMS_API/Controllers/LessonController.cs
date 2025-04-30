@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Lesson.Request;
 using Services.Interface;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DTMS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/lessons")]
     public class LessonController : ControllerBase
