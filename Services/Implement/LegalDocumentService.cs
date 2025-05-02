@@ -73,7 +73,7 @@ namespace Services.Implement
             var legalDocument = _mapper.Map<LegalDocument>(createLegalDocumentRequest);
 
             legalDocument.UploadTime = DateTime.UtcNow;
-            legalDocument.Status = 1;
+            legalDocument.Status = 0;
             legalDocument.CustomerId = createLegalDocumentRequest.CustomerProfileId;
 
             await _unitOfWork.LegalDocuments.Add(legalDocument);
@@ -124,6 +124,34 @@ namespace Services.Implement
 
             var response = _mapper.Map<LegalDocumentResponse>(existingLegalDocument);
             return new BaseResponseDTO<LegalDocumentResponse> { Success = true, Object = response };
+        }
+
+        public async Task<BaseResponseDTO<LegalDocumentResponse>> LegalDocumentAprovalAsync(string id, UpdateLegalDocumentRequest request)
+        {
+            var existingLegalDocument = await _unitOfWork.LegalDocuments.GetById(id);
+
+            if (existingLegalDocument == null)
+            {
+                return new BaseResponseDTO<LegalDocumentResponse>
+                {
+                    Success = false,
+                    Message = $"Legal document with id {id} not found."
+                };
+            }
+
+            existingLegalDocument.Description = request.Description;
+            existingLegalDocument.Status = request.Status;
+            existingLegalDocument.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.LegalDocuments.Update(existingLegalDocument);
+            await _unitOfWork.SaveChanges();
+
+            var response = _mapper.Map<LegalDocumentResponse>(existingLegalDocument);
+            return new BaseResponseDTO<LegalDocumentResponse>
+            {
+                Success = true,
+                Object = response
+            };
         }
 
         public async Task<bool> DeleteLegalDocumentAsync(string id)
