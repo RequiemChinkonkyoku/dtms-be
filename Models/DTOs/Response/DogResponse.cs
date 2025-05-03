@@ -15,7 +15,7 @@ namespace Models.DTOs.Response
         public string DateOfBirth { get; set; }
         public int Gender { get; set; }
         public int Status { get; set; }
-        public string RegistrationTime { get; set; }
+        public DateTimeOffset RegistrationTime { get; set; }
         public string DogBreedName { get; set; }
         public string CustomerProfileId { get; set; }
         public string OwnerName { get; set; } 

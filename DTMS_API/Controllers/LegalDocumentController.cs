@@ -20,14 +20,14 @@ namespace DTMS_API.Controllers
             _legalDocumentService = legalDocumentService;
         }
 
-        [HttpGet("get-all-legal-documents")]
+        [HttpGet]
         public async Task<IActionResult> GetAllLegalDocuments()
         {
             var response = await _legalDocumentService.GetAllLegalDocuments();
             return Ok(response);
         }
 
-        [HttpGet("get-legal-document-by-id/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetLegalDocumentById(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -54,7 +54,33 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpPost("create-legal-document")]
+        [HttpGet("customer/{Id}")]
+        public async Task<IActionResult> GetLegalDocumentsByCustomerId(string Id)
+        {
+            if (string.IsNullOrWhiteSpace(Id))
+            {
+                return BadRequest("Customer ID is required.");
+            }
+
+            try
+            {
+                var response = await _legalDocumentService.GetLegalDocumentsByCustomerId(Id);
+
+                if (!response.Success)
+                {
+                    return NotFound(response.Message);
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+        [HttpPost]
         public async Task<IActionResult> CreateMembership(CreateLegalDocumentRequest request)
         {
             try
@@ -76,7 +102,7 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpPut("update-legal-document/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateLegalDocument(string id, CreateLegalDocumentRequest request)
         {
             try
@@ -97,8 +123,28 @@ namespace DTMS_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpPut("approval/{id}")]
+        public async Task<IActionResult> UpdateDocumentStatusAndDescription(string id, [FromBody] UpdateLegalDocumentRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return BadRequest("Document ID is required.");
 
-        [HttpDelete("delete-legal-document/{id}")]
+            try
+            {
+                var response = await _legalDocumentService.LegalDocumentAprovalAsync(id, request);
+                return Ok(response);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLegalDocument(string id)
         {
             if (string.IsNullOrWhiteSpace(id))

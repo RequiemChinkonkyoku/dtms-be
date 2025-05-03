@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.Extensions.Configuration;
@@ -74,9 +75,9 @@ public class AccountService : IAccountService
             {
                 throw new InvalidOperationException("Invalid RoleName. No matching role found.");
             }
-            
+
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-            
+
             var account = new Models.Entities.Account()
             {
                 Email = request.Email,
@@ -92,7 +93,7 @@ public class AccountService : IAccountService
                 Address = request.Address,
                 DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
-                RoleId = role.Id, 
+                RoleId = role.Id,
                 MembershipId = "a1b2c3d4e5f67890a1b2c3d4e5f67890"
             };
 
@@ -117,7 +118,7 @@ public class AccountService : IAccountService
         {
             var roles = await _unitOfWork.Roles.GetAll();
             var role = roles.FirstOrDefault(r => r.Id == account.RoleId);
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             // IConfiguration config = new ConfigurationBuilder()
             //     .SetBasePath(Directory.GetCurrentDirectory())
@@ -166,7 +167,7 @@ public class AccountService : IAccountService
         return null;
     }
 
-    public async Task<Account> Register(AccountRegisterRequest request) 
+    public async Task<Account> Register(AccountRegisterRequest request)
     {
         try
         {
@@ -179,10 +180,8 @@ public class AccountService : IAccountService
                 throw new InvalidOperationException("An account with this email or username already exists.");
             }
 
-            
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
-            
             var account = new Account()
             {
                 Email = request.Email,
@@ -205,7 +204,7 @@ public class AccountService : IAccountService
 
             await _unitOfWork.Accounts.Add(account);
             await _unitOfWork.SaveChanges();
-            
+
             await SendOtpAsync(account.Email);
 
             return account;
@@ -217,8 +216,7 @@ public class AccountService : IAccountService
         }
     }
 
-
-    private string SendEmailAsync(string _to, string _subject, string name, string otpCode)
+    private string SendEmailAsync(string _to, string _subject, string name, string otpCode, string template)
     {
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -228,7 +226,7 @@ public class AccountService : IAccountService
         var _password = config["GmailSender:Password"];
 
         string baseDir = AppContext.BaseDirectory;
-        string templatePath = Path.Combine(baseDir, "EmailTemplates", "register_verify.html");
+        string templatePath = Path.Combine(baseDir, "EmailTemplates", template);
 
         if (!File.Exists(templatePath))
         {
@@ -236,7 +234,7 @@ public class AccountService : IAccountService
         }
 
         string emailBody = File.ReadAllText(templatePath);
-        
+
         emailBody = emailBody.Replace("{{Username}}", name)
             .Replace("{{OTPCode}}", otpCode);
 
@@ -310,7 +308,7 @@ public class AccountService : IAccountService
         await _unitOfWork.AccountOtps.Add(newAccountOtp);
         await _unitOfWork.SaveChanges();
 
-        SendEmailAsync(account.Email, "noreply", account.Username, newOtpCode);
+        SendEmailAsync(account.Email, "noreply", account.Username, newOtpCode, "register_verify.html");
 
         return true;
     }
@@ -383,8 +381,105 @@ public class AccountService : IAccountService
         await _unitOfWork.AccountOtps.Update(existingOtp);
         await _unitOfWork.SaveChanges();
 
+        SendEmailAsync(account.Email, "Successful Registration", account.FullName, "", "register_success.html");
+        
         return true;
     }
+
+    public async Task<string> ForgotPasswordAsync(string email)
+    {
+        var accounts = await _unitOfWork.Accounts.GetAll();
+        var account = accounts.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+        if (account == null)
+        {
+            throw new ArgumentException("No user found with this email.");
+        }
+
+        string otpCode = await GenerateCustomOtp();
+        var expirationTime = DateTime.UtcNow.AddMinutes(15); 
+        
+        var otpList = await _unitOfWork.AccountOtps.GetAll();
+        var existingOtp = otpList.FirstOrDefault(o => o.AccountId == account.Id);
+
+        if (existingOtp != null)
+        {
+            existingOtp.OtpCode = otpCode;
+            existingOtp.ExpirationTime = expirationTime;
+            existingOtp.IsExpiredOrUsed = false;
+            await _unitOfWork.AccountOtps.Update(existingOtp);
+            await _unitOfWork.SaveChanges();
+        }
+        else
+        {
+            var newAccountOtp = new AccountOtp()
+            {
+                OtpCode = otpCode,
+                ExpirationTime = expirationTime,
+                AccountId = account.Id
+            };
+            await _unitOfWork.AccountOtps.Add(newAccountOtp);
+            await _unitOfWork.SaveChanges();
+        }
+
+        SendEmailAsync(account.Email, "Password Reset", account.FullName, otpCode, "forgot_password.html");
+
+        return "A password reset OTP has been sent to your email.";
+    }
+
+    public async Task<bool> ResetPasswordAsync(string email, string otpCode, string newPassword)
+    {
+        var accounts = await _unitOfWork.Accounts.GetAll();
+        var account = accounts.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+        if (account == null)
+        {
+            throw new ArgumentException("No user found with this email.");
+        }
+
+        var otpList = await _unitOfWork.AccountOtps.GetAll();
+        var existingOtp = otpList.FirstOrDefault(o => o.AccountId == account.Id);
+
+        if (existingOtp == null)
+        {
+            throw new ArgumentException("No OTP record found for this user.");
+        }
+
+        if (existingOtp.IsExpiredOrUsed || existingOtp.ExpirationTime < DateTime.UtcNow)
+        {
+            throw new ArgumentException("The OTP is invalid or has expired.");
+        }
+
+        if (!existingOtp.OtpCode.Equals(otpCode, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new ArgumentException("Invalid OTP code.");
+        }
+
+        if (string.IsNullOrWhiteSpace(newPassword))
+        {
+            throw new ArgumentException("Password cannot be empty.");
+        }
+
+        var passwordPattern = @"^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$";
+        if (!Regex.IsMatch(newPassword, passwordPattern))
+        {
+            throw new ArgumentException(
+                "Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.");
+        }
+
+        account.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+        await _unitOfWork.Accounts.Update(account);
+        await _unitOfWork.SaveChanges();
+
+        existingOtp.IsExpiredOrUsed = true;
+        await _unitOfWork.AccountOtps.Update(existingOtp);
+        await _unitOfWork.SaveChanges();
+        
+        SendEmailAsync(account.Email, "Password Reset Successfully", account.FullName, "", "reset_password_success.html");
+
+        return true;
+    }
+
 
     public async Task<List<TrainerBasicInfoResponse>> GetAvailableTrainersAsync(TrainerAvailabilityRequest request)
     {

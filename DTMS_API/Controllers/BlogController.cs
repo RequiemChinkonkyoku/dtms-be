@@ -54,7 +54,6 @@ namespace DTMS_API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Staff")]
         public async Task<IActionResult> CreateBlogs([FromBody] CreateBlogRequest request)
         {
             if (request == null)

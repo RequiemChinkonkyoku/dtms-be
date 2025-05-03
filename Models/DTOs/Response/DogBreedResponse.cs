@@ -14,8 +14,8 @@ namespace Models.DTOs.Response
             public int Status { get; set; }
             public List<string> DogNames { get; set; } 
             public string Id { get; set; }
-            public string CreatedTime { get; set; }
-            public string LastUpdatedTime { get; set; }
+            public DateTimeOffset CreatedTime { get; set; }
+            public DateTimeOffset LastUpdatedTime { get; set; }
 
     }
 }
