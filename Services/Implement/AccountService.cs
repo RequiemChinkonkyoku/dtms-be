@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
+using Models.DTOs.Account;
 using Models.DTOs.Response;
 using Models.Entities;
 using Repositories.Interface;
@@ -479,8 +480,7 @@ public class AccountService : IAccountService
 
         return true;
     }
-
-
+    
     public async Task<List<TrainerBasicInfoResponse>> GetAvailableTrainersAsync(TrainerAvailabilityRequest request)
     {
         if (request.StartingDate < DateOnly.FromDateTime(DateTime.UtcNow))
@@ -495,5 +495,76 @@ public class AccountService : IAccountService
         var availableTrainers = await _unitOfWork.Accounts.GetAvailableTrainersAsync(request);
 
         return _mapper.Map<List<TrainerBasicInfoResponse>>(availableTrainers);
+    }
+    
+    public async Task<Account> ConvertToOrganizationAsync(string accountId)
+    {
+        var account = await _unitOfWork.Accounts.GetById(accountId);
+
+        if (account == null)
+            throw new ArgumentException($"Account with ID '{accountId}' not found.");
+        
+        if (account.RoleId == "b5c67890d1e2f3a4b5c67890d1e2f3a4")
+            return account; 
+        
+        account.RoleId = "b5c67890d1e2f3a4b5c67890d1e2f3a4";
+
+        await _unitOfWork.Accounts.Update(account);
+        await _unitOfWork.SaveChanges();
+
+        return account;
+    }
+    
+    public async Task<Account> DeactivateAccountAsync(string accountId)
+    {
+        var account = await _unitOfWork.Accounts.GetById(accountId);
+
+        if (account == null)
+            throw new ArgumentException($"Account with ID '{accountId}' not found.");
+
+        if (account.Status == 2)
+            return account; // Already deactivated
+
+        account.Status = 2; // Set to inactive
+        await _unitOfWork.Accounts.Update(account);
+        await _unitOfWork.SaveChanges();
+
+        return account;
+    }
+    public async Task<Account> ActivateAccountAsync(string accountId)
+    {
+        var account = await _unitOfWork.Accounts.GetById(accountId);
+
+        if (account == null)
+            throw new ArgumentException($"Account with ID '{accountId}' not found.");
+
+        if (account.Status == 1)
+            return account; // Already active
+
+        account.Status = 1; // Set to active
+        await _unitOfWork.Accounts.Update(account);
+        await _unitOfWork.SaveChanges();
+
+        return account;
+    }
+    
+    public async Task<Account> UpdateAccountAsync(string accountId, AccountUpdateRequest request)
+    {
+        var account = await _unitOfWork.Accounts.GetById(accountId);
+
+        if (account == null)
+            throw new ArgumentException($"Account with ID '{accountId}' not found.");
+
+        account.FullName = request.FullName;
+        account.PhoneNumber = request.PhoneNumber;
+        account.Address = request.Address;
+        account.DateOfBirth = request.DateOfBirth;
+        account.Gender = request.Gender;
+        account.ImageUrl = request.ImageUrl;
+
+        await _unitOfWork.Accounts.Update(account);
+        await _unitOfWork.SaveChanges();
+
+        return account;
     }
 }
