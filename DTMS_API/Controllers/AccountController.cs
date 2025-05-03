@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
+using Models.DTOs.Account;
 using Models.Entities;
 using Services.Implement;
 using Services.Interface;
@@ -136,6 +137,25 @@ public class AccountController : ControllerBase
                 new { message = "An unexpected error occurred. Please try again later.", error = ex.Message });
         }
     }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateAccount(string id, [FromBody] AccountUpdateRequest request)
+    {
+        try
+        {
+            var updated = await _accountService.UpdateAccountAsync(id, request);
+            return Ok(updated); 
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "An error occurred. Please try again later.");
+        }
+    }
+
 
     [HttpPost("forgotPassword")]
     public async Task<IActionResult> ForgetPassword(string email)

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.Data;
 using Models.DTOs;
+using Models.DTOs.Account;
 using Models.DTOs.Response;
 using Models.Entities;
 
@@ -19,4 +20,5 @@ public interface IAccountService
     Task<Account> ConvertToOrganizationAsync(string accountId);
     Task<Account> DeactivateAccountAsync(string accountId);
     Task<Account> ActivateAccountAsync(string accountId);
+    Task<Account> UpdateAccountAsync(string accountId, AccountUpdateRequest request);
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
+using Models.DTOs.Account;
 using Models.DTOs.Response;
 using Models.Entities;
 using Repositories.Interface;
@@ -541,6 +542,26 @@ public class AccountService : IAccountService
             return account; // Already active
 
         account.Status = 1; // Set to active
+        await _unitOfWork.Accounts.Update(account);
+        await _unitOfWork.SaveChanges();
+
+        return account;
+    }
+    
+    public async Task<Account> UpdateAccountAsync(string accountId, AccountUpdateRequest request)
+    {
+        var account = await _unitOfWork.Accounts.GetById(accountId);
+
+        if (account == null)
+            throw new ArgumentException($"Account with ID '{accountId}' not found.");
+
+        account.FullName = request.FullName;
+        account.PhoneNumber = request.PhoneNumber;
+        account.Address = request.Address;
+        account.DateOfBirth = request.DateOfBirth;
+        account.Gender = request.Gender;
+        account.ImageUrl = request.ImageUrl;
+
         await _unitOfWork.Accounts.Update(account);
         await _unitOfWork.SaveChanges();
 
