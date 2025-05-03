@@ -147,7 +147,6 @@ public class AccountController : ControllerBase
 
         try
         {
-            // Use the service to verify the OTP code
             var response = await _accountService.ForgotPasswordAsync(email);
 
             if (response != null)
@@ -161,22 +160,19 @@ public class AccountController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            // Return a bad request response with the error message
             return BadRequest(new { message = ex.Message });
         }
         catch (Exception ex)
         {
-            // Return a generic 500 error response for unexpected issues
             return StatusCode(500, new { message = "An unexpected error occurred. Please try again later.", error = ex.Message });
         }
     }
 
-    [HttpPut("forgotPassword")]
+    [HttpPut("resetPassword")]
     public async Task<IActionResult> ResetPassword(string email, string otpCode, string newPassword)
     {
         try
         {
-            // Call the ResetPasswordAsync method in the service
             var result = await _accountService.ResetPasswordAsync(email, otpCode, newPassword);
 
             if (result)
@@ -188,13 +184,83 @@ public class AccountController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            // Return a 400 response for validation errors
             return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
-            // Return a 500 response for unexpected errors
             return StatusCode(500, "An error occurred while resetting the password. Please try again later.");
+        }
+    }
+    
+    [HttpPut("{id}/activate")]
+    public async Task<IActionResult> ActivateAccount(string id)
+    {
+        try
+        {
+            var result = await _accountService.ActivateAccountAsync(id);
+
+            if (result != null)
+            {
+                return Ok("Account successfully reactivated.");
+            }
+
+            return BadRequest("Reactivation failed.");
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "An error occurred. Please try again later.");
+        }
+    }
+    
+    [HttpPut("{id}/convert-to-organization")]
+    public async Task<IActionResult> ConvertToOrganization(string id)
+    {
+        try
+        {
+            var result = await _accountService.ConvertToOrganizationAsync(id);
+
+            if (result != null)
+            {
+                return Ok("Account successfully converted to organization.");
+            }
+
+            return BadRequest("Conversion failed.");
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred. Please try again later.");
+        }
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeactivateAccount(string id)
+    {
+        try
+        {
+            var result = await _accountService.DeactivateAccountAsync(id);
+
+            if (result != null)
+            {
+                return Ok("Account successfully deactivated.");
+            }
+
+            return BadRequest("Deactivation failed.");
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "An error occurred. Please try again later.");
         }
     }
     

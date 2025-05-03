@@ -16,4 +16,7 @@ public interface IAccountService
     Task<string> ForgotPasswordAsync(string email);
     Task<bool> ResetPasswordAsync(string email, string otpCode, string newPassword);
     Task<List<TrainerBasicInfoResponse>> GetAvailableTrainersAsync(TrainerAvailabilityRequest request);
+    Task<Account> ConvertToOrganizationAsync(string accountId);
+    Task<Account> DeactivateAccountAsync(string accountId);
+    Task<Account> ActivateAccountAsync(string accountId);
 }
