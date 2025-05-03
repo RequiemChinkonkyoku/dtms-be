@@ -27,10 +27,10 @@ namespace DTMS_API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCoursePrerequisites(string id)
+        [HttpGet("course/{id}")]
+        public async Task<IActionResult> GetPrerequisitesByCourseId(string id)
         {
-            var response = await _prerequisiteService.GetCoursePrerequisites(id);
+            var response = await _prerequisiteService.GetPrerequisitesByCourseId(id);
 
             return Ok(response);
         }
@@ -46,14 +46,14 @@ namespace DTMS_API.Controllers
             }
             else
             {
-                return BadRequest(response.Message);
+                return BadRequest(response);
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdatePrerequisite(UpdatePrerequisiteRequest request)
+        [HttpPut("course/{id}")]
+        public async Task<IActionResult> UpdatePrerequisite(string id, UpdatePrerequisiteRequest request)
         {
-            var response = await _prerequisiteService.UpdatePrerequisite(request);
+            var response = await _prerequisiteService.UpdatePrerequisite(id, request);
 
             if (response.Success)
             {
@@ -61,7 +61,7 @@ namespace DTMS_API.Controllers
             }
             else
             {
-                return BadRequest(response.Message);
+                return BadRequest(response);
             }
         }
 
@@ -76,7 +76,7 @@ namespace DTMS_API.Controllers
             }
             else
             {
-                return BadRequest(response.Message);
+                return BadRequest(response);
             }
         }
     }

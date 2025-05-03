@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Server.HttpSys;
 using Models.Constants;
 using Models.DTOs;
@@ -208,58 +210,68 @@ namespace Services.Implement
             }
 
             var staffCageResponse = new List<GetStaffCageResponse>();
+            var schedules = await _unitOfWork.Schedules.GetAll();
+            var distinctCageIds = staffEnrollments.Where(e => e.CageId != null)
+                                                   .Select(e => e.CageId)
+                                                   .Distinct()
+                                                   .ToList();
 
-            foreach (var enrollment in staffEnrollments)
+            foreach (var cageId in distinctCageIds)
             {
-                var classSlots = await _unitOfWork.Slots.GetClassSlots(enrollment.ClassId);
+                var cageEnrollments = staffEnrollments.Where(e => e.CageId == cageId).ToList();
+                var classIds = cageEnrollments.Select(e => e.ClassId).ToList();
+                var classSlots = new List<Slot>();
+
+                foreach (var classId in classIds)
+                {
+                    var slots = await _unitOfWork.Slots.GetClassSlots(classId);
+                    classSlots.AddRange(slots);
+                }
+
+                var slotsByDate = classSlots
+                                    .GroupBy(s => s.Date)
+                                    .ToDictionary(i => i.Key, i => i.Select(s => s.ScheduleId).ToList());
+
+                var cage = await _unitOfWork.Cages.GetCageById(cageId);
+                var enrollment = cageEnrollments.First();
+                var dog = await _unitOfWork.Dogs.GetDogById(enrollment.DogId);
 
                 var cageSlots = new List<CageSlotDTO>();
 
-                foreach (var slot in classSlots.OrderBy(s => s.Date).ThenBy(s => s.Schedule.StartTime))
+                var slotDates = classSlots.Select(s => s.Date).Distinct().ToList();
+
+                foreach (var date in slotDates)
                 {
-                    var slotDate = slot.Date;
-                    var schedule = slot.Schedule;
-                    var currentEndTime = schedule.EndTime;
+                    var occupiedSchedules = slotsByDate.ContainsKey(date) ? slotsByDate[date] : new List<string>();
 
-                    var otherSlotsSameDay = (await _unitOfWork.Slots.GetSlotsByDogAndDate(enrollment.DogId, slotDate))
-                                                        .Where(s => s.Id != slot.Id)
-                                                        .OrderBy(s => s.Schedule.StartTime)
-                                                        .ToList();
+                    var freeSchedules = schedules
+                                            .Where(s => !occupiedSchedules.Contains(s.Id))
+                                            .ToList();
 
-                    var hasLaterSlot = otherSlotsSameDay.Any(s => s.Schedule.StartTime > currentEndTime);
-
-                    if (!hasLaterSlot)
+                    foreach (var freeSchedule in freeSchedules)
                     {
                         cageSlots.Add(new CageSlotDTO
                         {
-                            SlotDate = slotDate,
-                            StartTime = schedule.StartTime,
-                            EndTime = schedule.EndTime,
+                            SlotDate = date,
+                            StartTime = freeSchedule.StartTime,
+                            EndTime = freeSchedule.EndTime
                         });
                     }
                 }
 
-                if (cageSlots.Any())
+                staffCageResponse.Add(new GetStaffCageResponse
                 {
-                    var dog = await _unitOfWork.Dogs.GetById(enrollment.DogId);
-                    var dogBreed = await _unitOfWork.DogBreeds.GetById(dog.DogBreedId);
-                    var cage = await _unitOfWork.Cages.GetById(enrollment.CageId);
-                    var category = await _unitOfWork.CageCategories.GetById(cage.CageCategoryId);
-
-                    staffCageResponse.Add(new GetStaffCageResponse
-                    {
-                        CageId = cage.Id,
-                        Number = cage.Number,
-                        Location = cage.Location,
-                        CategoryId = category.Id,
-                        CategoryName = category.Name,
-                        DogId = dog.Id,
-                        DogName = dog.Name,
-                        DogBreedId = dogBreed.Id,
-                        DogBreedName = dogBreed.Name,
-                        CageSlots = cageSlots
-                    });
-                }
+                    CageId = cage.Id,
+                    Number = cage.Number,
+                    Location = cage.Location,
+                    CategoryId = cage.CageCategoryId,
+                    CategoryName = cage.CageCategory.Name,
+                    DogId = dog.Id,
+                    DogName = dog.Name,
+                    DogBreedId = dog.DogBreedId,
+                    DogBreedName = dog.DogBreed.Name,
+                    CageSlots = cageSlots
+                });
             }
 
             return new BaseResponseDTO<GetStaffCageResponse> { Success = true, ObjectList = staffCageResponse };

@@ -32,7 +32,6 @@ namespace Services.Implement
 
         public async Task<string> CreatePaymentUrl(VnpayInfoModel model, HttpContext context)
         {
-            var user = await _unitOfWork.Accounts.GetById(model.CustomerID);
             var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById(_configuration["Vnpay:TimeZoneId"]);
             var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
             var tick = DateTime.Now.Ticks.ToString();
@@ -40,9 +39,10 @@ namespace Services.Implement
             var urlCallBack = _configuration["Vnpay:ReturnUrl"];
 
             var existingEnrollment = await _unitOfWork.Enrollments.GetEnrolmentById(model.EnrollmentId);
-
             var courseId = existingEnrollment.Class.CourseId;
             var dogId = existingEnrollment.DogId;
+
+            model.Amount = (double)existingEnrollment.Class.Course.Price;
 
             var previousEnrollments = await _unitOfWork.Enrollments.GetEnrollmentsByDogAndCourse(dogId, courseId);
             var hasFailedBefore = previousEnrollments.Any(e => e.Id != existingEnrollment.Id &&
@@ -53,10 +53,29 @@ namespace Services.Implement
                 model.Amount *= 0.5;
             }
 
+            if (existingEnrollment.RequiredNightStay)
+            {
+                var classSlots = (await _unitOfWork.Slots.GetAll())
+                                            .Where(s => s.ClassId == existingEnrollment.ClassId)
+                                            .ToList();
+
+                var numberOfDays = (classSlots.Last().Date.DayNumber - classSlots.First().Date.DayNumber) + 1;
+
+                model.Amount += 100000 * numberOfDays;
+            }
+
+            var user = await _unitOfWork.Accounts.GetById(model.CustomerID);
+            var membership = await _unitOfWork.Memberships.GetById(user.MembershipId);
+
+            if (membership.DiscountAmount > 0)
+            {
+                model.Amount *= (1 - (double)membership.DiscountAmount / 100);
+            }
+
             pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);
             pay.AddRequestData("vnp_TmnCode", _configuration["Vnpay:TmnCode"]);
-            pay.AddRequestData("vnp_Amount", ((int)model.Amount * 100).ToString());
+            pay.AddRequestData("vnp_Amount", ((int)model.Amount).ToString());
             pay.AddRequestData("vnp_CreateDate", timeNow.ToString("yyyyMMddHHmmss"));
             pay.AddRequestData("vnp_CurrCode", _configuration["Vnpay:CurrCode"]);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));

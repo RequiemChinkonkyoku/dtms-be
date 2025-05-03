@@ -13,6 +13,20 @@ namespace Repositories.Implement
 {
     public class EnrollmentRepository : RepositoryBase<Enrollment>, IEnrollmentRepository
     {
+        public async Task<List<Enrollment>> GetAllEnrollments()
+        {
+            return await _context.Enrollments
+                            .AsSplitQuery()
+                            .Include(e => e.Class)
+                                .ThenInclude(c => c.Course)
+                            .Include(e => e.Dog)
+                                .ThenInclude(d => d.DogBreed)
+                            .Include(e => e.Cage)
+                                .ThenInclude(c => c.CageCategory)
+                            .Include(e => e.Staff)
+                            .ToListAsync();
+        }
+
         public async Task<Enrollment> GetEnrolmentById(string id)
         {
             return await _context.Enrollments

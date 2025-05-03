@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Models.DTOs.Transaction.Response;
 using Models.Entities;
 using Repositories.Interface;
@@ -29,13 +30,25 @@ namespace Repositories.Implement
         {
             return await _context.Transactions
                 .AsSplitQuery()
-                .Include(t => t.Enrollment)    
-                    .ThenInclude(e => e.Dog)  
+                .Include(t => t.Enrollment)
+                    .ThenInclude(e => e.Dog)
                 .Include(t => t.Enrollment)
                     .ThenInclude(e => e.Class)
-                    .ThenInclude(c => c.Course)  
-                .Where(t => t.CustomerId == accountId)  
+                    .ThenInclude(c => c.Course)
+                .Where(t => t.CustomerId == accountId)
                 .ToListAsync();
+        }
+
+        public async Task<List<Transaction>> GetAllTransaction()
+        {
+            return await _context.Transactions
+                            .AsSplitQuery()
+                            .Include(t => t.Enrollment)
+                                .ThenInclude(e => e.Dog)
+                            .Include(t => t.Enrollment)
+                                .ThenInclude(e => e.Class)
+                                    .ThenInclude(c => c.Course)
+                            .ToListAsync();
         }
     }
 }

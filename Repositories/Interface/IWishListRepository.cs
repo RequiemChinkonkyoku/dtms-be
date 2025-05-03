@@ -9,5 +9,7 @@ namespace Repositories.Interface
 {
     public interface IWishListRepository : IRepositoryBase<WishList>
     {
+        Task<List<WishList>> GetAllWishLists();
+        Task<WishList> GetWishListById(string id);
     }
 }

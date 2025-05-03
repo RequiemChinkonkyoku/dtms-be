@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.DTOs
+namespace Models.DTOs.Wishlist.Request
 {
-    public class CreatePrerequisiteRequest
+    public class CreateWishListRequest
     {
+        public string CustomerAccountId { get; set; }
         public string CourseId { get; set; }
-        public List<string> PrerequisiteCourseIds { get; set; }
     }
 }

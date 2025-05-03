@@ -384,7 +384,7 @@ namespace Services.Implement
                                                     .Select(cd => cd.DogBreedId)
                                                     .ToList();
 
-                var dogBreedIdsToAdd = request.LessonIds.Except(currentDogBreedIds).ToList();
+                var dogBreedIdsToAdd = request.DogBreedIds.Except(currentDogBreedIds).ToList();
                 var dogBreedIdsToRemove = currentDogBreedIds.Except(request.DogBreedIds).ToList();
 
                 if (dogBreedIdsToAdd.Any())
