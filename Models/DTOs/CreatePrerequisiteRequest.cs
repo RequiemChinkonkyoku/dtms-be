@@ -9,6 +9,6 @@ namespace Models.DTOs
     public class CreatePrerequisiteRequest
     {
         public string CourseId { get; set; }
-        public string PrerequisiteCourseId { get; set; }
+        public List<string> PrerequisiteCourseIds { get; set; }
     }
 }

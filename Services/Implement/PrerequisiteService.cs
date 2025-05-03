@@ -29,7 +29,7 @@ namespace Services.Implement
             return new BaseResponseDTO<Prerequisite> { Success = true, ObjectList = response };
         }
 
-        public async Task<BaseResponseDTO<Prerequisite>> GetCoursePrerequisites(string id)
+        public async Task<BaseResponseDTO<Prerequisite>> GetPrerequisitesByCourseId(string id)
         {
             var course = await _unitOfWork.Courses.GetById(id);
 
@@ -48,9 +48,9 @@ namespace Services.Implement
         public async Task<BaseResponseDTO<Prerequisite>> CreatePrerequisite(CreatePrerequisiteRequest request)
         {
             if (request.CourseId.IsNullOrEmpty() ||
-                request.PrerequisiteCourseId.IsNullOrEmpty())
+                request.PrerequisiteCourseIds.IsNullOrEmpty())
             {
-                return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Id must be given." };
+                return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Ids must be given." };
             }
 
             var course = await _unitOfWork.Courses.GetById(request.CourseId);
@@ -64,81 +64,112 @@ namespace Services.Implement
                 };
             }
 
-            var prerequisiteCourse = await _unitOfWork.Courses.GetById(request.PrerequisiteCourseId);
+            var existingCourseIds = (await _unitOfWork.Courses.GetAll())
+                                                .Select(c => c.Id)
+                                                .ToList();
+            var invalidIds = request.PrerequisiteCourseIds.Where(id => !existingCourseIds.Contains(id)).ToList();
 
-            if (prerequisiteCourse == null)
+            if (invalidIds.Any())
             {
                 return new BaseResponseDTO<Prerequisite>
                 {
                     Success = false,
-                    Message = "Unable to find prerequisiteCourse with id " + request.PrerequisiteCourseId
+                    Message = $"There are invalid ids: {string.Join(", ", invalidIds)}."
                 };
             }
 
-            var prerequisite = new Prerequisite()
-            {
-                CourseId = request.CourseId,
-                PrerequisiteCourseId = request.PrerequisiteCourseId,
-                CreatedTime = DateTime.UtcNow,
-                LastUpdatedTime = DateTime.UtcNow,
-            };
+            var prerequisites = new List<Prerequisite>();
 
-            await _unitOfWork.Prerequisites.Add(prerequisite);
+            foreach (var prereqId in request.PrerequisiteCourseIds)
+            {
+                var prerequisite = new Prerequisite()
+                {
+                    CourseId = request.CourseId,
+                    PrerequisiteCourseId = prereqId,
+                    CreatedTime = DateTime.UtcNow,
+                    LastUpdatedTime = DateTime.UtcNow,
+                };
+
+                await _unitOfWork.Prerequisites.Add(prerequisite);
+            }
+
             await _unitOfWork.SaveChanges();
 
-            return new BaseResponseDTO<Prerequisite> { Success = true, Object = prerequisite };
+            return new BaseResponseDTO<Prerequisite> { Success = true, ObjectList = prerequisites };
         }
 
-        public async Task<BaseResponseDTO<Prerequisite>> UpdatePrerequisite(UpdatePrerequisiteRequest request)
+        public async Task<BaseResponseDTO<Prerequisite>> UpdatePrerequisite(string id, UpdatePrerequisiteRequest request)
         {
-            if (request.Id.IsNullOrEmpty() ||
-                request.CourseId.IsNullOrEmpty() ||
-                request.PrerequisiteCourseId.IsNullOrEmpty())
+            if (id.IsNullOrEmpty() ||
+                request.PrerequisiteCourseIds.IsNullOrEmpty())
             {
-                return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Id must be given." };
+                return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Ids must be given." };
             }
+            ;
 
-            var course = await _unitOfWork.Courses.GetById(request.CourseId);
+            var course = await _unitOfWork.Courses.GetById(id);
 
             if (course == null)
             {
                 return new BaseResponseDTO<Prerequisite>
                 {
                     Success = false,
-                    Message = "Unable to find course with id " + request.CourseId
+                    Message = $"Unable to find course with id {id}."
                 };
             }
 
-            var prerequisiteCourse = await _unitOfWork.Courses.GetById(request.PrerequisiteCourseId);
+            var existingCourseIds = (await _unitOfWork.Courses.GetAll())
+                                                .Select(c => c.Id)
+                                                .ToList();
 
-            if (prerequisiteCourse == null)
+            var invalidIds = request.PrerequisiteCourseIds.Where(pId => !existingCourseIds.Contains(pId)).ToList();
+
+            if (invalidIds.Any())
             {
                 return new BaseResponseDTO<Prerequisite>
                 {
                     Success = false,
-                    Message = "Unable to find prerequisiteCourse with id " + request.PrerequisiteCourseId
+                    Message = $"There are invalid ids {string.Join(", ", invalidIds)}."
                 };
             }
 
-            var prerequisite = await _unitOfWork.Prerequisites.GetById(request.Id);
+            var currentPrerequisites = (await _unitOfWork.Prerequisites.GetAll())
+                                                    .Where(p => p.CourseId == id)
+                                                    .ToList();
 
-            if (prerequisite == null)
+            if (currentPrerequisites.Any())
             {
-                return new BaseResponseDTO<Prerequisite>
+                foreach (var prerequisite in currentPrerequisites)
                 {
-                    Success = false,
-                    Message = "Unable to find prerequisite with id " + request.Id
-                };
+                    await _unitOfWork.Prerequisites.Delete(prerequisite);
+                }
+
+                await _unitOfWork.SaveChanges();
             }
 
-            prerequisite.CourseId = request.CourseId;
-            prerequisite.PrerequisiteCourseId = request.PrerequisiteCourseId;
-            prerequisite.LastUpdatedTime = DateTime.Now;
+            foreach (var prerequisiteId in request.PrerequisiteCourseIds)
+            {
+                var newPrerequisite = new Prerequisite
+                {
+                    CourseId = id,
+                    PrerequisiteCourseId = prerequisiteId
+                };
+                try
+                {
+                    await _unitOfWork.Prerequisites.Add(newPrerequisite);
+                    await _unitOfWork.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return new BaseResponseDTO<Prerequisite>
+                    {
+                        Success = false,
+                        Message = $"There has been and error updating prerequisite. Ex: {ex.Message}."
+                    };
+                }
+            }
 
-            await _unitOfWork.Prerequisites.Update(prerequisite);
-            await _unitOfWork.SaveChanges();
-
-            return new BaseResponseDTO<Prerequisite> { Success = true, Object = prerequisite };
+            return new BaseResponseDTO<Prerequisite> { Success = true };
         }
 
         public async Task<BaseResponseDTO<Prerequisite>> DeletePrerequisite(List<string> ids)
