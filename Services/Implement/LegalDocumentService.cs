@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.Certification;
 using Models.DTOs.LegalDocument;
@@ -104,7 +105,7 @@ namespace Services.Implement
             var legalDocument = _mapper.Map<LegalDocument>(createLegalDocumentRequest);
 
             legalDocument.UploadTime = DateTime.UtcNow;
-            legalDocument.Status = 0;
+            legalDocument.Status = (int)LegalDocumentStatusEnum.Pending;
             legalDocument.CustomerId = createLegalDocumentRequest.CustomerProfileId;
 
             await _unitOfWork.LegalDocuments.Add(legalDocument);
