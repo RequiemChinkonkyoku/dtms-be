@@ -14,5 +14,6 @@ namespace Repositories.Interface
         Task<List<Enrollment>> GetEnrollmentsByClassId(string classId);
         Task<Enrollment> GetEnrollmentByDogAndClass(string dogId, string classId);
         Task<List<Enrollment>> GetEnrollmentsByDogAndCourse(string dogId, string courseId);
+        Task<List<Enrollment>> GetAllEnrollments();
     }
 }

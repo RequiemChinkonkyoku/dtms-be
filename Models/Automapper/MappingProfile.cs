@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using Models.DTOs.Blog;
 using Models.DTOs.Certificate.Response;
 using Models.DTOs.Certification;
@@ -7,6 +8,7 @@ using Models.DTOs.Class.Response;
 using Models.DTOs.Course;
 using Models.DTOs.Course.Response;
 using Models.DTOs.DogCertificate.Response;
+using Models.DTOs.Enrollment.Response;
 using Models.DTOs.LegalDocument;
 using Models.DTOs.Lesson.Response;
 using Models.DTOs.LessonEquipment;
@@ -294,6 +296,19 @@ namespace Models.Automapper
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Customer.Role.Name))
                 .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.CourseId))
                 .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Name));
+            CreateMap<Enrollment, GetEnrollmentResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.RequiredNightStay, opt => opt.MapFrom(src => src.RequiredNightStay))
+                .ForMember(dest => dest.ClassId, opt => opt.MapFrom(src => src.ClassId))
+                .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.Class.Name))
+                .ForMember(dest => dest.DogId, opt => opt.MapFrom(src => src.DogId))
+                .ForMember(dest => dest.DogName, opt => opt.MapFrom(src => src.Dog.Name))
+                .ForMember(dest => dest.CageId, opt => opt.MapFrom(src => src.CageId))
+                .ForMember(dest => dest.CageNumber, opt => opt.MapFrom(src => src.Cage.Number))
+                .ForMember(dest => dest.StaffId, opt => opt.MapFrom(src => src.StaffId ?? "None"))
+                .ForMember(dest => dest.StaffName, opt => opt.MapFrom(src =>
+                    (!src.StaffId.IsNullOrEmpty()) ? src.Staff.FullName : "None"));
         }
     }
 }
