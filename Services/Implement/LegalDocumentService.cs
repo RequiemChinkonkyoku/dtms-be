@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Models.Constants;
 using Models.DTOs;
 using Models.DTOs.Certification;
 using Models.DTOs.LegalDocument;
@@ -45,6 +46,37 @@ namespace Services.Implement
             return new BaseResponseDTO<LegalDocumentResponse> { Success = true, Object = response };
 
         }
+        public async Task<BaseResponseDTO<LegalDocumentResponse>> GetLegalDocumentsByCustomerId(string customerId)
+        {
+            if (string.IsNullOrWhiteSpace(customerId))
+            {
+                return new BaseResponseDTO<LegalDocumentResponse>
+                {
+                    Success = false,
+                    Message = "Customer ID is required."
+                };
+            }
+
+            var customer = await _unitOfWork.Accounts.GetById(customerId);
+            if (customer == null)
+            {
+                return new BaseResponseDTO<LegalDocumentResponse>
+                {
+                    Success = false,
+                    Message = "Customer not found."
+                };
+            }
+
+            var documents = await _unitOfWork.LegalDocuments.GetDocumentsByCustomerId(customerId);
+
+            var response = _mapper.Map<List<LegalDocumentResponse>>(documents);
+
+            return new BaseResponseDTO<LegalDocumentResponse>
+            {
+                Success = true,
+                ObjectList = response
+            };
+        }
 
         public async Task<BaseResponseDTO<LegalDocumentResponse>> CreateLegalDocumentAsync(CreateLegalDocumentRequest createLegalDocumentRequest)
         {
@@ -73,7 +105,7 @@ namespace Services.Implement
             var legalDocument = _mapper.Map<LegalDocument>(createLegalDocumentRequest);
 
             legalDocument.UploadTime = DateTime.UtcNow;
-            legalDocument.Status = 1;
+            legalDocument.Status = (int)LegalDocumentStatusEnum.Pending;
             legalDocument.CustomerId = createLegalDocumentRequest.CustomerProfileId;
 
             await _unitOfWork.LegalDocuments.Add(legalDocument);
@@ -124,6 +156,34 @@ namespace Services.Implement
 
             var response = _mapper.Map<LegalDocumentResponse>(existingLegalDocument);
             return new BaseResponseDTO<LegalDocumentResponse> { Success = true, Object = response };
+        }
+
+        public async Task<BaseResponseDTO<LegalDocumentResponse>> LegalDocumentAprovalAsync(string id, UpdateLegalDocumentRequest request)
+        {
+            var existingLegalDocument = await _unitOfWork.LegalDocuments.GetById(id);
+
+            if (existingLegalDocument == null)
+            {
+                return new BaseResponseDTO<LegalDocumentResponse>
+                {
+                    Success = false,
+                    Message = $"Legal document with id {id} not found."
+                };
+            }
+
+            existingLegalDocument.Description = request.Description;
+            existingLegalDocument.Status = request.Status;
+            existingLegalDocument.LastUpdatedTime = DateTime.UtcNow;
+
+            _unitOfWork.LegalDocuments.Update(existingLegalDocument);
+            await _unitOfWork.SaveChanges();
+
+            var response = _mapper.Map<LegalDocumentResponse>(existingLegalDocument);
+            return new BaseResponseDTO<LegalDocumentResponse>
+            {
+                Success = true,
+                Object = response
+            };
         }
 
         public async Task<bool> DeleteLegalDocumentAsync(string id)

@@ -9,5 +9,6 @@ namespace Repositories.Interface
 {
     public interface ILegalDocumentRepository : IRepositoryBase<LegalDocument>
     {
+        Task<List<LegalDocument>> GetDocumentsByCustomerId(string customerId);
     }
 }
