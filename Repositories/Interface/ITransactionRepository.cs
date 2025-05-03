@@ -11,5 +11,6 @@ namespace Repositories.Interface
     {
         Task<List<Transaction>> GetTransactionByEnrollmentId(string enrollmentId);
         Task<List<Transaction>> GetTransactionByAccountId(string accountId);
+        Task<List<Transaction>> GetAllTransaction();
     }
 }

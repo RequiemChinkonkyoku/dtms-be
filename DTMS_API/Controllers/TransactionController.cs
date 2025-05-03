@@ -52,5 +52,19 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllTransactions()
+        {
+            var response = await _transactionService.GetAllTransactions();
+
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

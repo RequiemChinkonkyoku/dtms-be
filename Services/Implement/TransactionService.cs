@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Models.DTOs;
 using Models.DTOs.Transaction.Response;
 using Repositories.Interface;
 using Services.Interface;
@@ -34,5 +35,13 @@ namespace Services.Implement
             return _mapper.Map<List<TransactionResponse>>(transactions);
         }
 
+        public async Task<BaseResponseDTO<TransactionResponse>> GetAllTransactions()
+        {
+            var transactions = await _unitOfWork.Transaction.GetAllTransaction();
+
+            var mappedResponse = _mapper.Map<List<TransactionResponse>>(transactions);
+
+            return new BaseResponseDTO<TransactionResponse> { Success = true, ObjectList = mappedResponse };
+        }
     }
 }

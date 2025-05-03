@@ -1,4 +1,5 @@
-﻿using Models.DTOs.Transaction.Response;
+﻿using Models.DTOs;
+using Models.DTOs.Transaction.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Services.Interface
     {
         Task<List<TransactionResponse>> GetTransactionByEnrollmentId(string enrollmentId);
         Task<List<TransactionResponse>> GetTransactionByAccountId(string accountId);
+        Task<BaseResponseDTO<TransactionResponse>> GetAllTransactions();
     }
 }
