@@ -45,6 +45,37 @@ namespace Services.Implement
             return new BaseResponseDTO<LegalDocumentResponse> { Success = true, Object = response };
 
         }
+        public async Task<BaseResponseDTO<LegalDocumentResponse>> GetLegalDocumentsByCustomerId(string customerId)
+        {
+            if (string.IsNullOrWhiteSpace(customerId))
+            {
+                return new BaseResponseDTO<LegalDocumentResponse>
+                {
+                    Success = false,
+                    Message = "Customer ID is required."
+                };
+            }
+
+            var customer = await _unitOfWork.Accounts.GetById(customerId);
+            if (customer == null)
+            {
+                return new BaseResponseDTO<LegalDocumentResponse>
+                {
+                    Success = false,
+                    Message = "Customer not found."
+                };
+            }
+
+            var documents = await _unitOfWork.LegalDocuments.GetDocumentsByCustomerId(customerId);
+
+            var response = _mapper.Map<List<LegalDocumentResponse>>(documents);
+
+            return new BaseResponseDTO<LegalDocumentResponse>
+            {
+                Success = true,
+                ObjectList = response
+            };
+        }
 
         public async Task<BaseResponseDTO<LegalDocumentResponse>> CreateLegalDocumentAsync(CreateLegalDocumentRequest createLegalDocumentRequest)
         {

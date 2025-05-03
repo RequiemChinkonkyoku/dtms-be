@@ -54,6 +54,32 @@ namespace DTMS_API.Controllers
             }
         }
 
+        [HttpGet("customer/{Id}")]
+        public async Task<IActionResult> GetLegalDocumentsByCustomerId(string Id)
+        {
+            if (string.IsNullOrWhiteSpace(Id))
+            {
+                return BadRequest("Customer ID is required.");
+            }
+
+            try
+            {
+                var response = await _legalDocumentService.GetLegalDocumentsByCustomerId(Id);
+
+                if (!response.Success)
+                {
+                    return NotFound(response.Message);
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> CreateMembership(CreateLegalDocumentRequest request)
         {
