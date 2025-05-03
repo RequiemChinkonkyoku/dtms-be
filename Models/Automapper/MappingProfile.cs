@@ -18,6 +18,7 @@ using Models.DTOs.Slot.Response;
 using Models.DTOs.TrainerReport;
 using Models.DTOs.TrainingReport;
 using Models.DTOs.Transaction.Response;
+using Models.DTOs.Wishlist.Response;
 using Models.Entities;
 
 namespace Models.Automapper
@@ -286,6 +287,13 @@ namespace Models.Automapper
                         Name = ta.Trainer.FullName
                     })))
                 .ForMember(dest => dest.TestDate, opt => opt.MapFrom(src => src.PreTests.FirstOrDefault().TestDate));
+            CreateMap<WishList, GetWishlistResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.CustomerAccountId, opt => opt.MapFrom(src => src.CustomerId))
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.FullName))
+                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Customer.Role.Name))
+                .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.CourseId))
+                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Name));
         }
     }
 }

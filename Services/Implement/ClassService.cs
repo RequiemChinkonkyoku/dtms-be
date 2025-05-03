@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Azure.Core;
 using CloudinaryDotNet.Actions;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -544,7 +543,7 @@ namespace Services.Implement
             if (customerRole.Name != "Customer_Individual" && customerRole.Name != "Customer_Organizational")
             {
                 throw new ArgumentException("User is not a customer.");
-            }
+            }                                                
 
             var dog = await _unitOfWork.Dogs.GetDogById(request.DogId);
 
