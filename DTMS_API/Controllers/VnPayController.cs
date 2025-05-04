@@ -18,7 +18,6 @@ namespace DTMS_API.Controllers
         }
 
         [Authorize]
-
         [HttpPost]
         public async Task<IActionResult> CreatePaymentUrl([FromBody] VnpayInfoModel request)
         {

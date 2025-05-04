@@ -68,12 +68,18 @@ namespace Repositories.Implement
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<List<Enrollment>> GetEnrollmentsByDogAndCourse(string dogId, string courseId)
+        public async Task<List<Enrollment>> GetEnrollmentsByDog(string dogId)
         {
             return await _context.Enrollments
-                            .Where(e => e.DogId == dogId &&
-                                        e.Class.CourseId == courseId &&
-                                        e.Status == (int)EnrollmentStatusEnum.Concluded)
+                            .AsSplitQuery()
+                            .Include(e => e.Class)
+                                .ThenInclude(c => c.Course)
+                            .Include(e => e.Dog)
+                                .ThenInclude(d => d.DogBreed)
+                            .Include(e => e.Cage)
+                                .ThenInclude(c => c.CageCategory)
+                            .Include(e => e.Staff)
+                            .Where(e => e.DogId == dogId)
                             .ToListAsync();
         }
     }

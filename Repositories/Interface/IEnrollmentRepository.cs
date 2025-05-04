@@ -13,7 +13,7 @@ namespace Repositories.Interface
         Task<int> GetActiveCageCountByStaffId(string staffId);
         Task<List<Enrollment>> GetEnrollmentsByClassId(string classId);
         Task<Enrollment> GetEnrollmentByDogAndClass(string dogId, string classId);
-        Task<List<Enrollment>> GetEnrollmentsByDogAndCourse(string dogId, string courseId);
+        Task<List<Enrollment>> GetEnrollmentsByDog(string dogId);
         Task<List<Enrollment>> GetAllEnrollments();
     }
 }
