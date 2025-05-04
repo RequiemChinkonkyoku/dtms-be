@@ -16,8 +16,6 @@ namespace Models.DTOs.Class.Request
         public int Status { get; set; }
         public DateOnly StartingDate { get; set; }
 
-        public string CourseId { get; set; }
-
         public List<string> TrainerIds { get; set; }
     }
 }

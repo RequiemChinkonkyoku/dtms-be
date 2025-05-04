@@ -408,9 +408,9 @@ namespace Services.Implement
                 return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find class with id " + request.Id };
             }
 
-            if (existingClass.Status == (int)ClassStatusEnum.Ongoing)
+            if (existingClass.Status != (int)ClassStatusEnum.Inactive)
             {
-                return new BaseResponseDTO<Class> { Success = false, Message = "Ongoing classes cannot be updated." };
+                return new BaseResponseDTO<Class> { Success = false, Message = "Only inactive classes can be updated." };
             }
 
             if (existingClass.Name.CompareTo(request.Name) != 0)
@@ -443,19 +443,16 @@ namespace Services.Implement
                     return new BaseResponseDTO<Class> { Success = false, Message = "StartingDate cannot be in the past." };
                 }
 
-                existingClass.StartingDate = request.StartingDate;
-            }
-
-            if (existingClass.CourseId != request.CourseId)
-            {
-                var course = await _unitOfWork.Courses.GetById(request.CourseId);
-
-                if (course == null)
+                if (request.StartingDate < DateOnly.FromDateTime(DateTime.Today.AddMonths(1)))
                 {
-                    return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find course with id " + request.CourseId };
+                    return new BaseResponseDTO<Class>
+                    {
+                        Success = false,
+                        Message = $"The starting date must be a month from now."
+                    };
                 }
 
-                existingClass.CourseId = request.CourseId;
+                existingClass.StartingDate = request.StartingDate;
             }
 
             foreach (var trainerId in request.TrainerIds)
@@ -465,6 +462,42 @@ namespace Services.Implement
                 if (trainer == null)
                 {
                     return new BaseResponseDTO<Class> { Success = false, Message = "Unable to find trainer with id " + trainerId };
+                }
+
+                var trainerAssignedClassIds = (await _unitOfWork.TrainerAssignments.GetAll())
+                                                        .Where(ta => ta.TrainerId == trainerId &&
+                                                                     ta.ClassId != existingClass.Id)
+                                                        .Select(ta => ta.ClassId)
+                                                        .ToList();
+
+                if (trainerAssignedClassIds.Any())
+                {
+                    var currentClassSlots = await _unitOfWork.Slots.GetClassSlots(existingClass.Id);
+                    var trainerWorkSlots = new List<Slot>();
+
+                    foreach (var classId in trainerAssignedClassIds)
+                    {
+                        var classSlots = await _unitOfWork.Slots.GetClassSlots(classId);
+
+                        trainerWorkSlots.AddRange(classSlots);
+                    }
+
+                    var overlappingSlot = currentClassSlots.FirstOrDefault(currentSlot =>
+                                            trainerWorkSlots.Any(trainerSlot =>
+                                                currentSlot.Date == trainerSlot.Date &&
+                                                currentSlot.ScheduleId == trainerSlot.ScheduleId
+                                            )
+                                          );
+
+                    if (overlappingSlot != null)
+                    {
+                        return new BaseResponseDTO<Class>
+                        {
+                            Success = false,
+                            Message = $"The trainer {trainer.FullName} has an overlap slot on {overlappingSlot.Date} " +
+                                      $"from {overlappingSlot.Schedule.StartTime} to {overlappingSlot.Schedule.EndTime}."
+                        };
+                    }
                 }
             }
 
