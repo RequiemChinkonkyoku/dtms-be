@@ -44,13 +44,17 @@ namespace Services.Implement
 
             model.Amount = (double)existingEnrollment.Class.Course.Price;
 
-            var previousEnrollments = await _unitOfWork.Enrollments.GetEnrollmentsByDogAndCourse(dogId, courseId);
-            var hasFailedBefore = previousEnrollments.Any(e => e.Id != existingEnrollment.Id &&
-                                                               e.Status == (int)EnrollmentStatusEnum.Concluded);
+            var previousEnrollments = (await _unitOfWork.Enrollments.GetEnrollmentsByDog(dogId))
+                                                .Where(e => e.Status == (int)EnrollmentStatusEnum.Concluded)
+                                                .ToList();
 
-            if (hasFailedBefore)
+            foreach (var enrollment in previousEnrollments)
             {
-                model.Amount *= 0.5;
+                if (enrollment.Class.CourseId == courseId)
+                {
+                    model.Amount *= 0.5;
+                    break;
+                }
             }
 
             if (existingEnrollment.RequiredNightStay)
@@ -75,7 +79,7 @@ namespace Services.Implement
             pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);
             pay.AddRequestData("vnp_TmnCode", _configuration["Vnpay:TmnCode"]);
-            pay.AddRequestData("vnp_Amount", ((int)model.Amount).ToString());
+            pay.AddRequestData("vnp_Amount", (model.Amount * 100).ToString());
             pay.AddRequestData("vnp_CreateDate", timeNow.ToString("yyyyMMddHHmmss"));
             pay.AddRequestData("vnp_CurrCode", _configuration["Vnpay:CurrCode"]);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));

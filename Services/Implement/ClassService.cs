@@ -543,7 +543,7 @@ namespace Services.Implement
             if (customerRole.Name != "Customer_Individual" && customerRole.Name != "Customer_Organizational")
             {
                 throw new ArgumentException("User is not a customer.");
-            }                                                
+            }
 
             var dog = await _unitOfWork.Dogs.GetDogById(request.DogId);
 
@@ -647,7 +647,9 @@ namespace Services.Implement
             }
 
             var dogClassIds = (await _unitOfWork.Enrollments.GetAll())
-                                        .Where(e => e.DogId == dog.Id)
+                                        .Where(e => e.DogId == dog.Id &&
+                                                   (e.Status == (int)EnrollmentStatusEnum.Active ||
+                                                    e.Status == (int)EnrollmentStatusEnum.Pending))
                                         .Select(e => e.ClassId)
                                         .ToList();
 
