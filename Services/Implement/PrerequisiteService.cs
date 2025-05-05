@@ -100,8 +100,7 @@ namespace Services.Implement
 
         public async Task<BaseResponseDTO<Prerequisite>> UpdatePrerequisite(string id, UpdatePrerequisiteRequest request)
         {
-            if (id.IsNullOrEmpty() ||
-                request.PrerequisiteCourseIds.IsNullOrEmpty())
+            if (id.IsNullOrEmpty())
             {
                 return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Ids must be given." };
             }
@@ -118,19 +117,31 @@ namespace Services.Implement
                 };
             }
 
-            var existingCourseIds = (await _unitOfWork.Courses.GetAll())
-                                                .Select(c => c.Id)
-                                                .ToList();
-
-            var invalidIds = request.PrerequisiteCourseIds.Where(pId => !existingCourseIds.Contains(pId)).ToList();
-
-            if (invalidIds.Any())
+            if (request.PrerequisiteCourseIds.Any())
             {
-                return new BaseResponseDTO<Prerequisite>
+                if (request.PrerequisiteCourseIds.Contains(id))
                 {
-                    Success = false,
-                    Message = $"There are invalid ids {string.Join(", ", invalidIds)}."
-                };
+                    return new BaseResponseDTO<Prerequisite>
+                    {
+                        Success = false,
+                        Message = "Cannot add current course as its own prerequisite."
+                    };
+                }
+
+                var existingCourseIds = (await _unitOfWork.Courses.GetAll())
+                                                    .Select(c => c.Id)
+                                                    .ToList();
+
+                var invalidIds = request.PrerequisiteCourseIds.Where(pId => !existingCourseIds.Contains(pId)).ToList();
+
+                if (invalidIds.Any())
+                {
+                    return new BaseResponseDTO<Prerequisite>
+                    {
+                        Success = false,
+                        Message = $"There are invalid ids {string.Join(", ", invalidIds)}."
+                    };
+                }
             }
 
             var currentPrerequisites = (await _unitOfWork.Prerequisites.GetAll())
@@ -147,25 +158,29 @@ namespace Services.Implement
                 await _unitOfWork.SaveChanges();
             }
 
-            foreach (var prerequisiteId in request.PrerequisiteCourseIds)
+            if (request.PrerequisiteCourseIds.Any())
             {
-                var newPrerequisite = new Prerequisite
+                foreach (var prerequisiteId in request.PrerequisiteCourseIds)
                 {
-                    CourseId = id,
-                    PrerequisiteCourseId = prerequisiteId
-                };
-                try
-                {
-                    await _unitOfWork.Prerequisites.Add(newPrerequisite);
-                    await _unitOfWork.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    return new BaseResponseDTO<Prerequisite>
+                    var newPrerequisite = new Prerequisite
                     {
-                        Success = false,
-                        Message = $"There has been and error updating prerequisite. Ex: {ex.Message}."
+                        CourseId = id,
+                        PrerequisiteCourseId = prerequisiteId
                     };
+
+                    try
+                    {
+                        await _unitOfWork.Prerequisites.Add(newPrerequisite);
+                        await _unitOfWork.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        return new BaseResponseDTO<Prerequisite>
+                        {
+                            Success = false,
+                            Message = $"There has been and error updating prerequisite. Ex: {ex.Message}."
+                        };
+                    }
                 }
             }
 

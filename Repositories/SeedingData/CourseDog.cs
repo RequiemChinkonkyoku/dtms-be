@@ -29,12 +29,16 @@ namespace Repositories.SeedingData
         public static readonly string CDId18 = "890d12e1f2a3b4c5d678f890a12b3c45d6";
         public static readonly string CDId19 = "901e23e1f2a3b4c5d678f890a12b3c45d6";
         public static readonly string CDId20 = "a12f34e1f2a3b4c5d678f890a12b3c45d6";
+        public static readonly string CDId21 = "b12f34e1f2a3b4c5d678f890a12b3c45d6";
+        public static readonly string CDId22 = "c12f34e1f2a3b4c5d678f890a12b3c45d6";
+        public static readonly string CDId23 = "d12f34e1f2a3b4c5d678f890a12b3c45d6";
 
         public static readonly string BasicCourseId = "f1a2b3c4d5e67890a1b2c3d4e5f67890";
         public static readonly string AgilityCourseId = "a2b3c4d5e67890a1b2c3d4e5f67890f1";
         public static readonly string BehavioralCorrectionCourseId = "b3c4d5e67890a1b2c3d4e5f67890f1a2";
         public static readonly string SocializationCourseId = "c4d5e67890a1b2c3d4e5f67890f1a2b3";
         public static readonly string ProtectionTrainingCourseId = "d5e67890a1b2c3d4e5f67890f1a2b3c4";
+        public static readonly string QuickLearnerCourseId = "e75s896fa1b2c3d4e5f67890f1a2b3c4";
 
         public static readonly string ChihuahuaBreedId = "4bee6ab4f7f841d69bacedcfd25c8d07";
         public static readonly string PomeranianBreedId = "a8f5f1675aaf4d1b8f7c8d924d3c3c4b";
@@ -228,6 +232,33 @@ namespace Repositories.SeedingData
                     Status = 1,
                     CourseId = ProtectionTrainingCourseId,
                     DogBreedId = RottweilerBreedId,
+                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
+                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
+                },
+                new Models.Entities.CourseDog
+                {
+                    Id = CDId21,
+                    Status = 1,
+                    CourseId = QuickLearnerCourseId,
+                    DogBreedId = FrenchBulldogBreedId,
+                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
+                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
+                },
+                new Models.Entities.CourseDog
+                {
+                    Id = CDId22,
+                    Status = 1,
+                    CourseId = QuickLearnerCourseId,
+                    DogBreedId = GoldenRetrieverBreedId,
+                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
+                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
+                },
+                new Models.Entities.CourseDog
+                {
+                    Id = CDId23,
+                    Status = 1,
+                    CourseId = QuickLearnerCourseId,
+                    DogBreedId = BeagleBreedId,
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 }

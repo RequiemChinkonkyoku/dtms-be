@@ -289,6 +289,7 @@ namespace Services.Implement
                 classSlots[slotIndex].LessonId = (revisionLesson != null) ? revisionLesson.Id : null;
                 slotIndex++;
             }
+
             try
             {
                 await _unitOfWork.SaveChanges();
