@@ -14,12 +14,14 @@ namespace Repositories.SeedingData
         public static readonly string CLId3 = "a3b4c5d67890a1b2c3d4e5f67890e1f2";
         public static readonly string CLId4 = "b4c5d67890a1b2c3d4e5f67890e1f2a3";
         public static readonly string CLId5 = "c5d67890a1b2c3d4e5f67890e1f2a3b4";
+        public static readonly string CLId6 = "g6d67890a1b2c3d4e5f67890e1f2a3b4";
 
         public static readonly string BasicCourseId = "f1a2b3c4d5e67890a1b2c3d4e5f67890";
         public static readonly string AgilityCourseId = "a2b3c4d5e67890a1b2c3d4e5f67890f1";
         public static readonly string BehavioralCorrectionCourseId = "b3c4d5e67890a1b2c3d4e5f67890f1a2";
         public static readonly string SocializationCourseId = "c4d5e67890a1b2c3d4e5f67890f1a2b3";
         public static readonly string ProtectionTrainingCourseId = "d5e67890a1b2c3d4e5f67890f1a2b3c4";
+        public static readonly string QuickLearnerCourseId = "e75s896fa1b2c3d4e5f67890f1a2b3c4";
 
         public static readonly string BasicLessonId = "a1b2c3d4e5f67890a1b2c3d4e5f67890";
         public static readonly string AgilityLessonId = "b2c3d4e5f67890a1b2c3d4e5f67890a1";
@@ -72,6 +74,15 @@ namespace Repositories.SeedingData
                     Status = 1,
                     CourseId = ProtectionTrainingCourseId,
                     LessonId = ProtectionTrainingLessonId,
+                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
+                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
+                },
+                new Models.Entities.CourseLesson
+                {
+                    Id = CLId6,
+                    Status = 1,
+                    CourseId = QuickLearnerCourseId,
+                    LessonId = BasicLessonId,
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 }

@@ -14,6 +14,7 @@ namespace Repositories.SeedingData
         public static readonly string BehavioralCorrectionCourseId = "b3c4d5e67890a1b2c3d4e5f67890f1a2";
         public static readonly string SocializationCourseId = "c4d5e67890a1b2c3d4e5f67890f1a2b3";
         public static readonly string ProtectionTrainingCourseId = "d5e67890a1b2c3d4e5f67890f1a2b3c4";
+        public static readonly string QuickLearnerCourseId = "e75s896fa1b2c3d4e5f67890f1a2b3c4";
 
         public static void Seed(ModelBuilder modelBuilder)
         {
@@ -106,7 +107,7 @@ namespace Repositories.SeedingData
                 {
                     Id = ProtectionTrainingCourseId,
                     Name = "Protection Trainging Course",
-                    Description = "Traing for protection",
+                    Description = "Traning for protection",
                     Status = 1,
                     ImageUrl = "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296126/k8lymjfwzbenlvfyt0ev.jpg",
                     DurationInWeeks = 8,
@@ -120,6 +121,27 @@ namespace Repositories.SeedingData
                     Complexity = 1,
                     CreatedTrainerId = "54d3a3e95adc4b38885e43af50e12e42",
                     CategoryId = "f8cb65025770497e9a61c75501ed6cd3",
+                    CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
+                    LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
+                },
+                new Models.Entities.Course
+                {
+                    Id = QuickLearnerCourseId,
+                    Name = "Quick Learner Course",
+                    Description = "For quick learner",
+                    Status = 1,
+                    ImageUrl = "https://res.cloudinary.com/djy6ydaxz/image/upload/v1740296265/inloikxoyxcakdmakrrk.jpg",
+                    DurationInWeeks = 1,
+                    DaysPerWeek = 1,
+                    SlotsPerDay = 1,
+                    Price = 100000,
+                    MinDogs = 1,
+                    MaxDogs = 4,
+                    MinTrainers = 1,
+                    MaxTrainers = 2,
+                    Complexity = 1,
+                    CreatedTrainerId = "54d3a3e95adc4b38885e43af50e12e42",
+                    CategoryId = "156552f4dc9942b5bc72a6bae94be821",
                     CreatedTime = new DateTimeOffset(new DateTime(2023, 1, 1)),
                     LastUpdatedTime = new DateTimeOffset(new DateTime(2023, 1, 1))
                 }
