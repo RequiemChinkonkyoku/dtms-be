@@ -31,11 +31,28 @@ namespace Services.Implement
         public async Task<BaseResponseDTO<GetWishlistResponse>> GetAll()
         {
             var response = await _unitOfWork.WishLists.GetAllWishLists();
-
             var mappedRResponse = _mapper.Map<List<GetWishlistResponse>>(response);
 
-            return new BaseResponseDTO<GetWishlistResponse> { Success = true, ObjectList = mappedRResponse };
+            var allActiveClasses = (await _unitOfWork.Classes.GetAll())
+                                              .Where(c => c.Status == (int)ClassStatusEnum.Active)
+                                              .ToList();
+
+            var courseWithActiveClasses = allActiveClasses
+                                             .GroupBy(c => c.CourseId)
+                                             .ToDictionary(g => g.Key, g => g.Any());
+
+            foreach (var wishlist in mappedRResponse)
+            {
+                wishlist.OpenClass = courseWithActiveClasses.GetValueOrDefault(wishlist.CourseId, false);
+            }
+
+            return new BaseResponseDTO<GetWishlistResponse>
+            {
+                Success = true,
+                ObjectList = mappedRResponse
+            };
         }
+
 
         public async Task<BaseResponseDTO<GetWishlistResponse>> GetWishListById(string id)
         {
