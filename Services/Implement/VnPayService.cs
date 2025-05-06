@@ -44,16 +44,19 @@ namespace Services.Implement
 
             model.Amount = (double)existingEnrollment.Class.Course.Price;
 
-            var previousEnrollments = (await _unitOfWork.Enrollments.GetEnrollmentsByDog(dogId))
-                                                .Where(e => e.Status == (int)EnrollmentStatusEnum.Concluded)
-                                                .ToList();
+            var coursePreviousEnrollments = (await _unitOfWork.Enrollments.GetEnrollmentsByDog(dogId))
+                                                        .Where(e => e.Status == (int)EnrollmentStatusEnum.Concluded &&
+                                                                    e.Class.CourseId == courseId);
 
-            foreach (var enrollment in previousEnrollments)
+            if (coursePreviousEnrollments.Any())
             {
-                if (enrollment.Class.CourseId == courseId)
+                var courseCert = (await _unitOfWork.Certificates.GetCertificateByCourseId(courseId));
+
+                var dogCert = (await _unitOfWork.DogCertificates.GetDogCertificateByDogAndCert(dogId, courseCert.Id));
+
+                if (dogCert == null)
                 {
                     model.Amount *= 0.5;
-                    break;
                 }
             }
 

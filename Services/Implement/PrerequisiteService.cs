@@ -103,8 +103,7 @@ namespace Services.Implement
             if (id.IsNullOrEmpty())
             {
                 return new BaseResponseDTO<Prerequisite> { Success = false, Message = "Ids must be given." };
-            }
-            ;
+            };
 
             var course = await _unitOfWork.Courses.GetById(id);
 

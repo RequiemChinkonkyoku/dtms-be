@@ -5,7 +5,7 @@ using Services.Interface;
 
 namespace DTMS_API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/enrollments")]
     public class EnrollmentController : ControllerBase
@@ -38,6 +38,14 @@ namespace DTMS_API.Controllers
             {
                 return BadRequest(response);
             }
+        }
+
+        [HttpGet("{dogId}/completed-course/{courseId}")]
+        public async Task<IActionResult> HasCompletedCourse(string dogId, string courseId)
+        {
+            var response = await _enrollmentService.HasCompletedCourse(dogId, courseId);
+
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
