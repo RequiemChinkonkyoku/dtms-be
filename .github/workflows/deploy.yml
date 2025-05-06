@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: "dtms-test"
+  AZURE_WEBAPP_NAME: "dtms-webapp"
 
 jobs:
   build:
