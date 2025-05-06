@@ -50,14 +50,7 @@ namespace Services.Implement
 
             if (coursePreviousEnrollments.Any())
             {
-                var courseCert = (await _unitOfWork.Certificates.GetCertificateByCourseId(courseId));
-
-                var dogCert = (await _unitOfWork.DogCertificates.GetDogCertificateByDogAndCert(dogId, courseCert.Id));
-
-                if (dogCert == null)
-                {
-                    model.Amount *= 0.5;
-                }
+                model.Amount *= 0.5;
             }
 
             if (existingEnrollment.RequiredNightStay)

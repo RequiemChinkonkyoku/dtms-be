@@ -109,22 +109,13 @@ namespace Services.Implement
             return new BaseResponseDTO<GetEnrollmentResponse> { Success = true, Object = mappedResponse };
         }
 
-        public async Task<bool> HasCompletedCourse(string dogId, string courseId)
+        public async Task<bool> CheckFirstEnrollment(string dogId, string courseId)
         {
             var coursePreviousEnrollments = (await _unitOfWork.Enrollments.GetEnrollmentsByDog(dogId))
                                                         .Where(e => e.Status == (int)EnrollmentStatusEnum.Concluded &&
                                                                     e.Class.CourseId == courseId);
 
             if (!coursePreviousEnrollments.Any())
-            {
-                return false;
-            }
-
-            var courseCert = (await _unitOfWork.Certificates.GetCertificateByCourseId(courseId));
-
-            var dogCert = (await _unitOfWork.DogCertificates.GetDogCertificateByDogAndCert(dogId, courseCert.Id));
-
-            if (dogCert != null)
             {
                 return true;
             }

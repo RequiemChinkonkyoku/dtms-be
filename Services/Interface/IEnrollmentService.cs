@@ -14,6 +14,6 @@ namespace Services.Interface
         Task<BaseResponseDTO<GetEnrollmentResponse>> GetAllEnrollments();
         Task<BaseResponseDTO<GetEnrollmentResponse>> GetAllEnrollmentById(string id);
         Task<BaseResponseDTO<GetEnrollmentResponse>> CancelEnrollment(string id);
-        Task<bool> HasCompletedCourse(string dogId, string courseId);
+        Task<bool> CheckFirstEnrollment(string dogId, string courseId);
     }
 }
