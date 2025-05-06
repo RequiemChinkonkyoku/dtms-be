@@ -40,10 +40,10 @@ namespace DTMS_API.Controllers
             }
         }
 
-        [HttpGet("{dogId}/completed-course/{courseId}")]
-        public async Task<IActionResult> HasCompletedCourse(string dogId, string courseId)
+        [HttpGet("{dogId}/first-enroll/{courseId}")]
+        public async Task<IActionResult> CheckFirstEnrollment(string dogId, string courseId)
         {
-            var response = await _enrollmentService.HasCompletedCourse(dogId, courseId);
+            var response = await _enrollmentService.CheckFirstEnrollment(dogId, courseId);
 
             return Ok(response);
         }
