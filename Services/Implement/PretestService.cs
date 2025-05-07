@@ -99,6 +99,11 @@ namespace Services.Implement
                 return new BaseResponseDTO<GetPretestResponse> { Success = false, Message = "Unable to find pretest with id " + id };
             }
 
+            if (pretest.TestDate != DateOnly.FromDateTime(DateTime.UtcNow))
+            {
+                return new BaseResponseDTO<GetPretestResponse> { Success = false, Message = $"Today is not the test date." };
+            }
+
             pretest.Status = request.Status;
 
             try
