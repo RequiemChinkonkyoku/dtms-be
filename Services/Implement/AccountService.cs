@@ -70,6 +70,15 @@ public class AccountService : IAccountService
     {
         try
         {
+            var accounts = await _unitOfWork.Accounts.GetAll();
+            var existingAccount = accounts.FirstOrDefault
+                (a => a.Email == request.Email || a.Username == request.Username);
+
+            if (existingAccount != null)
+            {
+                throw new InvalidOperationException("An account with this email or username already exists.");
+            }
+            
             var roles = await _unitOfWork.Roles.GetAll();
             var role = roles.FirstOrDefault(r => r.Name == request.RoleName);
             if (role == null)
@@ -85,7 +94,7 @@ public class AccountService : IAccountService
                 Password = passwordHash,
                 Username = request.Username,
                 ImageUrl = request.ImageUrl,
-                Status = 0,
+                Status = 1,
                 RegistrationTime = DateTime.UtcNow,
                 CreatedTime = DateTime.UtcNow,
                 LastUpdatedTime = DateTime.UtcNow,
