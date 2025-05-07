@@ -287,6 +287,8 @@ namespace Services.Implement
                                                 .FirstOrDefault();
 
                 classSlots[slotIndex].LessonId = (revisionLesson != null) ? revisionLesson.Id : null;
+                await _unitOfWork.Slots.Update(classSlots[slotIndex]);
+
                 slotIndex++;
             }
 
